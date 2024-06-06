@@ -201,7 +201,7 @@
                     <div style="width: 50%; float: right ; text-align: center" class="bold">
                         <div class="big-title" style="text-align: center;"><span>CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS </span>
                         </div>
-                        <p>Số: <span id="g"></span></p>
+                        <p>Số: <span id="shd"></span></p>
                     </div>
 
                 </div>
@@ -475,7 +475,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['hvt', 'ns', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
+        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
