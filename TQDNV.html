@@ -1,0 +1,381 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>HỢP ĐỒNG THỬ VIỆC FULL</title>
+<meta name="csrf-token" content="MHMXdIG4tBlzbq7sMs8y0wjq43Dtbf8PaMgnKDS3">
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+
+<style>
+    body {
+        background: rgb(204, 204, 204);
+        font-family: "Times New Roman", Times, serif;
+    }
+
+    page {
+        background: white;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 0.5cm;
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+
+    page[size="A4"][layout="portrait"] {
+        width: 21cm;
+
+    }
+
+
+    @media print {
+
+        body,
+        #content {
+            margin: 0;
+            box-shadow: 0;
+            font-size: 18px !important;
+        }
+
+        .big-title {
+            font-size: 18px !important;
+        }
+
+        .total-pay {
+            font-size: 15px !important;
+        }
+
+        @page {
+            size: auto;
+        }
+    }
+
+    #content {
+        font-size: 13.5px;
+
+    }
+
+
+    .center {
+        text-align: center;
+    }
+
+    .right {
+        text-align: right;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .big-title {
+        font-size: 15px;
+    }
+
+    #fixed-panel,
+    #fixed-show-user,
+    #fixed-show-reason {
+        font-size: 13px;
+    }
+
+
+    #content {
+        padding: 40px 40px;
+    }
+
+    #select-setup-print {
+        position: relative;
+        top: -2px;
+        background-color: #17a2b8;
+        color: white;
+    }
+
+    #setup-print {
+        position: fixed;
+        top: 480px;
+        left: 30px;
+        width: 150px;
+        height: 54px;
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 5px;
+        /*font-size: 13px;*/
+        box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+    }
+
+
+    .heigth-90px {
+        height: 90px !important;
+    }
+
+    #page {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+
+    .big-title {
+        text-transform: uppercase;
+        font-weight: bold;
+        /*font-size: 15px;*/
+        padding-bottom: 5px;
+    }
+
+    hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .bold {
+        font-weight: bold;
+    }
+
+    .info_student {
+        margin-top: 10px;
+        text-align: justify;
+    }
+
+    .info_contract {
+        margin-bottom: 5px !important
+    }
+
+    @media print {
+
+        #content-split {
+            margin-top: 40px;
+            position: absolute;
+            top: 50%;
+            width: 920px;
+        }
+
+        .height_hr {
+            border-top: 3px dashed black;
+            width: 100%;
+            position: absolute;
+            top: 49%;
+        }
+
+        #content-split .div-logo {
+            position: relative;
+            top: -10px;
+            left: 10px;
+        }
+
+    }
+
+    @media only screen and (max-width: 1024px) {
+        #fixed-panel {
+            display: none !important;
+        }
+
+        #list_option_print {
+            display: none !important;
+        }
+    }
+</style>
+
+<body>
+    <button onclick="print()" class="btn btn-info" style="width: 100%"><i class="fa fa-print"></i> <span
+            class="language_print"></span></button>
+    <page size="A4" id="page" layout="portrait">
+        <div id="content">
+            <div class="content_page1">
+                <div>
+                    <div style="width: 50%; float: right; text-align: center" class="bold">
+                        <div class="big-title" style="text-align: center;"><span> CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT
+                                NAM</span></div>
+                        <p>Độc lập – Tự do – Hạnh phúc</p>
+                    </div>
+                    <div style="width: 50%; float: right ; text-align: center" class="bold">
+                        <div class="big-title" style="text-align: center;"><span>CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS </span>
+                        </div>
+                        <p>Số: <span id="shd"></span></p>
+                    </div>
+
+                </div>
+                <div style="clear: both"></div>
+
+                <h4 style="text-align: center;" class="bold"><span>THỎA THUẬN CHẤM DỨT HỢP ĐỒNG LAO ĐỘNG </span></h4>
+                <i>Căn cứ :</i>
+                <i>- Bộ Luật lao động và các văn bản hướng dẫn thi hành của các cơ quan thẩm quyền;</i>
+                <i>- Nôi quy lao động Công ty Cổ Phần Tập Đoàn Wows;</i>
+                <i>- Thỏa ước lao động tập thể Công ty Cổ Phần Tập Đoàn Wows;</i>
+                <i>Hôm nay, Ngày <span></span> Tháng <span></span> Năm <span></span> Tại Công ty Cổ Phần Tập Đoàn Wows,
+                    chúng tôi gồm:</i>
+                
+                <div class="info_student"><span class="bold">Bên A: </span> <span
+                        class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span>
+                    <div><span class="bold">Mã số thuế:</span>&emsp; &emsp; 3702278001</div>
+                    <div><span class="bold">Đại diện:</span>&emsp; &emsp; &emsp; Bà Đỗ Thị Kim Thủy &emsp; &emsp;
+                        &emsp;&emsp; &emsp; <span class="bold">Chức vụ:</span> &emsp; Tổng Giám Đốc</div>
+                    <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; 393 Nguyễn Đức Thuận, Hiệp Thành, Thủ Dầu Một, Bình Dương</div>
+                    <div><span class="bold">Điện thoại:</span>&emsp; &emsp;&ensp; (0274) 9999 899</div>
+                </div>
+                <div class="info_student"><span class="bold">Bên B: </span> <span class="bold"
+                        id="hvt"></span>
+                    <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns">20/03/2001 </span></div>
+                    <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd">68201006681 </span>
+                        &emsp; &emsp;
+                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="ns">20/03/2001 </span>&emsp; &emsp;
+                        &emsp; &emsp; <span class="bold">Nơi cấp: </span> <span id="nc">Lâm đồng</span>
+                        <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
+                    </div>
+                </div>
+                <p style=" text-align: justify;"><i>Hai bên A và B cùng nhau trao đổi và thống nhất thỏa thuận chấm dứt Hợp đồng Lao động gồm những điều khoản sau :</i></p>
+                <h6 class="bold">ĐIỀU 1: CHẤM DỨT HỢP ĐỒNG LAO ĐỘNG
+                </h6>
+                <div class="info_student" style="margin-left: 13px;">
+                    <div><span class="bold">Bên B (Hoặc cả hai bên) đơn phương hoặc thỏa thuận chấm dứt Hợp đồng lao động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <<[Từ ngày]>> và Bên (A; hoặc cả hai bên) đồng ý chấm dứt Hợp đồng lao động số <<LOOKUP( MAXROW("Lịch sử thu nhập","_ROWNUMBER",([KEY]=[_THISROW].[KEY])),Lịch sử thu nhập,_ComputedKey,SỐ HĐLĐ)>></span>
+                    </div>
+                </div>
+                <br>
+                <h6 class="bold">ĐIỀU 2: TRÁCH NHIỆM BÊN A
+                </h6>
+                <div class="info_student" style="margin-left: 13px;">
+
+
+                    <div>2.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên theo qui định của pháp luật hiện hành;</div>
+                    <div>2.2. Xác minh, đối chiếu và xác nhận các khoản Bảo hiểm Xã hội, Bảo hiểm Y tế, Bảo hiểm thất nghiệp, thuế thu nhập cá nhân, các khoản khác cho Bên B.</div>
+                    <div>2.3. Tiếp nhận công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ thiết bị văn phòng,…. của Bên B bàn giao;</div>
+                    <div>2.4. Thanh quyết toán các khoản công nợ cho Bên B theo quy định chế độ quản lý kế toán – tài chính hiện hành;</div>
+                    <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <<[Từ ngày]>></div>
+                </div>
+                <br>
+                <h6 class="bold">ĐIỀU 3: TRÁCH NHIỆM BÊN B
+                </h6>
+                <div class="info_student" style="margin-left: 13px;">
+
+                    <div>3.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên theo quy định của pháp luật hiện hành;
+                    </div>
+                    <div>3.2. Bàn giao công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ thiết bị văn phòng,…. cho Bên A;
+                    </div>
+                    <div>3.3. Thanh quyết toán các khoản công nợ cho Bên A theo quy định chế quản lý kế toán – tài chính hiện hành;</div>
+                    <div>3.4. Thanh toán các khoản nghĩa vụ liên quan nếu có (VD như: Đền bù thiệt hại cho bên A khi bên B đơn phương chấm dứt hợp đồng lao động trái pháp luật theo khoản 1 và 2 Điều 40 Bộ luật lao động; thanh quyết toán chi phí đồng phục và chi phí liên quan khác với bên A;…)
+                    </div>
+                    <div>3.5.Cam kết sau khi chấm dứt Hợp đồng lao động:</div>
+                    <div>- Bên B phải hợp tác đầy đủ với Bên A để giải quyết các vấn đề liên quan đến các công việc trong thời gian Bên B làm việc cho Bên A (Bên B tham gia giải quyết công việc liên quan, Bên A trả thù lao theo thỏa thuận);
+                    </div>
+                    <div>- Bên B phải bảo mật thông tin cho Bên A theo Thỏa thuận bảo mật thông tin đã ký kết, ngoại trừ các trường hợp cơ quan pháp luật (Cơ quan : Điều tra, Tố tụng, Tòa án,… ) có yêu cầu theo qui định của pháp luật hiện hành.</div>
+                </div>
+                <br>
+                <h6 class="bold">ĐIỀU 4: ĐIỀU KHOẢN THI HÀNH
+                </h6>
+                <div class="info_student" style="margin-left: 13px;">
+                    <div>- Hai bên cam kết thực hiện đầy đủ nội dung nêu trên theo Thỏa thuận chấm dứt Hợp đồng lao động này;</div>
+                    <div>- Những vấn đề không ghi trên Thỏa thuận chấm dứt hợp đồng lao động này thì áp dụng theo quy định của Nội qui lao động, Thỏa ước lao động tập thể và Luật lao động hiện hành;
+
+                    </div>
+                    <div>- Thỏa thuận chấm dứt hợp đồng lao động này được lập thành 02 bản, có giá trị pháp lý như nhau, mỗi bên giữ 01 bản và có hiệu lực thi hành kể từ ngày <<[Từ ngày]>>
+                    </div>
+                </div>
+                <br>
+                <div>
+                    <div style="width: 50%; float: right; text-align: center" class="bold">
+                        <div class="big-title" style="text-align: center;"><span> NGƯỜI SỬ DỤNG LAO ĐỘNG </span></div>
+                        <p>(Ký, ghi rõ họ tên)</p>
+                    </div>
+                    <div style="width: 50%; float: right ; text-align: center" class="bold">
+                        <div class="big-title" style="text-align: center;"><span>NGƯỜI LAO ĐỘNG </span>
+                        </div>
+                        <p>(Ký, ghi rõ họ tên)</p>
+                    </div>
+
+                </div>
+                <br><br>
+                <br>
+
+
+            </div>
+        </div>
+    </page>
+
+
+
+
+
+
+
+
+
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"
+        integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
+
+    <script>
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+
+        // Function to set text content if element exists
+        function setTextContentById(id, value) {
+            var element = document.getElementById(id);
+            if (element) {
+                element.textContent = value;
+            }
+        }
+
+        // Get parameters from URL and set content
+        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
+        parameters.forEach(function (param) {
+            var value = getUrlParameter(param);
+            setTextContentById(param, value);
+        });
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function print() {
+
+            $('#content').printThis({
+                debug: false, // show the iframe for debugging
+                importCSS: true, // import parent page css
+                importStyle: true, // import style tags
+                printContainer: true, // print outer container/$.selector
+                // loadCSS: ["assets/vendors/base/vendors.bundle.css", ""], // path to additional css file - use an array [] for multiple
+                pageTitle: "", // add title to print page
+                removeInline: false, // remove inline styles from print elements
+                removeInlineSelector: "*", // custom selectors to filter inline styles. removeInline must be true
+                printDelay: 333, // variable print delay
+                header: null, // prefix to html
+                footer: null, // postfix to html
+                base: false, // preserve the BASE tag or accept a string for the URL
+                formValues: true, // preserve input/form values
+                canvas: false, // copy canvas content
+                removeScripts: false, // remove script tags from print content
+                copyTagClasses: false, // copy classes from the html & body tag
+                beforePrintEvent: null, // function for printEvent in iframe
+                beforePrint: null, // function called before iframe is filled
+                afterPrint: null // function called before iframe is removed
+            });
+        }
+
+
+
+
+
+    </script>
+</body>
