@@ -1,4 +1,3 @@
-
 <!doctype html>
 <meta charset="utf-8">
 <title>HỢP ĐỒNG CỘNG TÁC VIÊN</title>
@@ -222,11 +221,11 @@
                 </div>
                 <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên lao động)</i> : <span class="bold"
                         id="hvt"></span>
-                    <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns">20/03/2001 </span></div>
-                    <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd">68201006681 </span>
+                    <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns"> </span></div>
+                    <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd"> </span>
                         &emsp; &emsp;
-                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="ns">20/03/2001 </span>&emsp; &emsp;
-                        &emsp; &emsp; <span class="bold">Nơi cấp: </span> <span id="nc">Lâm đồng</span>
+                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="ns"> </span>&emsp; &emsp;
+                        &emsp; &emsp; <span class="bold">Nơi cấp: </span> <span id="nc"></span>
                         <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
                     </div>
                 </div>
@@ -271,7 +270,7 @@
 
                     <div><span class="bold">Quyền lợi:</span> </div>
 
-                    <div><span>- Mức lương theo giờ : <span id="ltg"></span></div>
+                    <div><span>- Mức lương theo giờ : <span id="lcb"></span></div>
                     <div>- Mức lương này đã bao gồm bảo hiểm xã hội và thuế TNCN.
 
                     </div>
@@ -505,7 +504,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'ltg'];
+        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
