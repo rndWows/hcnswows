@@ -283,6 +283,11 @@
                             </tr>
                             <tr>
 
+                                <td>Hỗ trợ điện thoại</td>
+                                <td><span id="dt"></span></td>
+                            </tr>
+                            <tr>
+
                                 <td>Hỗ trợ đi lại/ Công tác</td>
                                 <td><span id="htdl"></span></td>
                             </tr>
@@ -290,6 +295,11 @@
 
                                 <td>Hõ trợ nhà ở</td>
                                 <td><span id="htno"></span></td>
+                            </tr>
+                            <tr>
+
+                                <td>Khác</td>
+                                <td><span id="khac"></span></td>
                             </tr>
                             <tr class="bold">
 
@@ -365,7 +375,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tn', 'dn', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong'];
+        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'ns', 'cccd', 'nc', 'dc', 'tn', 'dn', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong','khac','dt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
