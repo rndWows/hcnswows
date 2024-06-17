@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>How to take screenshot of a div and download it using JavaScript?</title>
+
+  <!-- Include html2canvas from the CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js"></script>
+
+  <style>
+    #photo {
+      border: 4px solid green;
+      padding: 4px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="photo">
+    <h1>GeeksforGeeks</h1>
+    Hello everyone! This is a trial page for taking a screenshot.
+    <br><br>
+    This is a dummy button!
+    <button> Dummy</button>
+    <br><br>
+    Click the button below to take a screenshot of the div.
+    <br><br>
+
+    <!-- Button to take screenshot -->
+    <button onclick="takeshot()">Take Screenshot</button>
+  </div>
+  <h1>Screenshot:</h1>
+  <div id="output"></div>
+
+  <!-- Button to download the screenshot -->
+  <button onclick="downloadScreenshot()">Download Screenshot</button>
+
+  <script type="text/javascript">
+    // Define the function to screenshot the div
+    function takeshot() {
+      let div = document.getElementById('photo');
+
+      // Use the html2canvas function to take a screenshot and append it to the output div
+      html2canvas(div).then(function (canvas) {
+        // Clear previous screenshot if any
+        document.getElementById('output').innerHTML = '';
+        document.getElementById('output').appendChild(canvas);
+        // Store the canvas for download
+        window.screenshotCanvas = canvas;
+      });
+    }
+
+    // Define the function to download the screenshot
+    function downloadScreenshot() {
+      if (!window.screenshotCanvas) {
+        alert("Please take a screenshot first!");
+        return;
+      }
+
+      // Convert canvas to data URL
+      const imgData = window.screenshotCanvas.toDataURL("image/png");
+
+      // Create a temporary link element
+      const link = document.createElement('a');
+      link.href = imgData;
+      link.download = 'screenshot.png';
+
+      // Trigger the download
+      link.click();
+    }
+
+    function test() {
+      takeshot();
+
+      // Wait for the screenshot to be taken before downloading it
+      setTimeout(downloadScreenshot, 1000); // Adjust timeout as needed
+    }
+  </script>
+</body>
+
+</html>
