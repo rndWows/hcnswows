@@ -40,15 +40,12 @@
 
 
     @media print {
-
+        
         body,
         #content {
             margin: 0;
             box-shadow: 0;
             font-size: 18px !important;
-            page-break-before: always;
-            margin: 20px;
-            padding: 10px;
         }
 
         .big-title {
@@ -62,8 +59,27 @@
         @page {
             size: auto;
         }
-    }
+        
+        #content-split {
+            margin-top: 40px;
+            position: absolute;
+            top: 50%;
+            width: 920px;
+        }
 
+        .height_hr {
+            border-top: 3px dashed black;
+            width: 100%;
+            position: absolute;
+            top: 49%;
+        }
+
+        #content-split .div-logo {
+            position: relative;
+            top: -10px;
+            left: 10px;
+        }
+    }
     #content {
         font-size: 13.5px;
 
@@ -161,29 +177,7 @@
         border: 1px solid black;
     }
 
-    @media print {
-
-        #content-split {
-            margin-top: 40px;
-            position: absolute;
-            top: 50%;
-            width: 920px;
-        }
-
-        .height_hr {
-            border-top: 3px dashed black;
-            width: 100%;
-            position: absolute;
-            top: 49%;
-        }
-
-        #content-split .div-logo {
-            position: relative;
-            top: -10px;
-            left: 10px;
-        }
-
-    }
+   
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {

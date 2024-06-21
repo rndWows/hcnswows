@@ -40,7 +40,7 @@
 
 
     @media print {
-
+        
         body,
         #content {
             margin: 0;
@@ -58,6 +58,26 @@
 
         @page {
             size: auto;
+        }
+        
+        #content-split {
+            margin-top: 40px;
+            position: absolute;
+            top: 50%;
+            width: 920px;
+        }
+
+        .height_hr {
+            border-top: 3px dashed black;
+            width: 100%;
+            position: absolute;
+            top: 49%;
+        }
+
+        #content-split .div-logo {
+            position: relative;
+            top: -10px;
+            left: 10px;
         }
     }
 
@@ -151,29 +171,7 @@
         margin-bottom: 5px !important
     }
 
-    @media print {
-
-        #content-split {
-            margin-top: 40px;
-            position: absolute;
-            top: 50%;
-            width: 920px;
-        }
-
-        .height_hr {
-            border-top: 3px dashed black;
-            width: 100%;
-            position: absolute;
-            top: 49%;
-        }
-
-        #content-split .div-logo {
-            position: relative;
-            top: -10px;
-            left: 10px;
-        }
-
-    }
+  
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -214,17 +212,18 @@
                 <i>- Thỏa ước lao động tập thể Công ty Cổ Phần Tập Đoàn Wows;</i>
                 <i>Hôm nay, Ngày <span></span> Tháng <span></span> Năm <span></span> Tại Công ty Cổ Phần Tập Đoàn Wows,
                     chúng tôi gồm:</i>
-                
-                    <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên sử dụng lao động)</i> : <span
+
+                <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên sử dụng lao động)</i> : <span
                         class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span>
                     <div><span class="bold">Mã số thuế:</span>&emsp; &emsp; 3702278001</div>
                     <div><span class="bold">Đại diện:</span>&emsp; &emsp; &emsp; Bà Đỗ Thị Kim Thủy &emsp; &emsp;
                         &emsp;&emsp; &emsp; <span class="bold">Chức vụ:</span> &emsp; Tổng Giám Đốc</div>
-                    <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; 393 Nguyễn Đức Thuận, Hiệp Thành, Thủ Dầu Một, Bình Dương</div>
+                    <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; 393 Nguyễn Đức Thuận, Hiệp Thành,
+                        Thủ Dầu Một, Bình Dương</div>
                     <div><span class="bold">Điện thoại:</span>&emsp; &emsp;&ensp; (0274) 9999 899</div>
                 </div>
                 <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên lao động)</i> : <span class="bold"
-                    id="hvt"></span>
+                        id="hvt"></span>
                     <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns">20/03/2001 </span></div>
                     <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd">68201006681 </span>
                         &emsp; &emsp;
@@ -233,11 +232,16 @@
                         <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
                     </div>
                 </div>
-                <p style=" text-align: justify;"><i>Hai bên A và B cùng nhau trao đổi và thống nhất thỏa thuận chấm dứt Hợp đồng Lao động gồm những điều khoản sau :</i></p>
+                <p style=" text-align: justify;"><i>Hai bên A và B cùng nhau trao đổi và thống nhất thỏa thuận chấm dứt
+                        Hợp đồng Lao động gồm những điều khoản sau :</i></p>
                 <h6 class="bold">ĐIỀU 1: CHẤM DỨT HỢP ĐỒNG LAO ĐỘNG
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
-                    <div><span class="bold">Bên B (Hoặc cả hai bên) đơn phương hoặc thỏa thuận chấm dứt Hợp đồng lao động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <<[Từ ngày]>> và Bên (A; hoặc cả hai bên) đồng ý chấm dứt Hợp đồng lao động số <<LOOKUP( MAXROW("Lịch sử thu nhập","_ROWNUMBER",([KEY]=[_THISROW].[KEY])),Lịch sử thu nhập,_ComputedKey,SỐ HĐLĐ)>></span>
+                    <div><span class="bold">Bên B (Hoặc cả hai bên) đơn phương hoặc thỏa thuận chấm dứt Hợp đồng lao
+                            động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <<[Từ ngày]>> và Bên (A; hoặc cả
+                                hai bên) đồng ý chấm dứt Hợp đồng lao động số <<LOOKUP( MAXROW("Lịch sử thu
+                                    nhập","_ROWNUMBER",([KEY]=[_THISROW].[KEY])),Lịch sử thu nhập,_ComputedKey,SỐ HĐLĐ)>
+                                    ></span>
                     </div>
                 </div>
                 <br>
@@ -246,10 +250,14 @@
                 <div class="info_student" style="margin-left: 13px;">
 
 
-                    <div>2.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên theo qui định của pháp luật hiện hành;</div>
-                    <div>2.2. Xác minh, đối chiếu và xác nhận các khoản Bảo hiểm Xã hội, Bảo hiểm Y tế, Bảo hiểm thất nghiệp, thuế thu nhập cá nhân, các khoản khác cho Bên B.</div>
-                    <div>2.3. Tiếp nhận công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ thiết bị văn phòng,…. của Bên B bàn giao;</div>
-                    <div>2.4. Thanh quyết toán các khoản công nợ cho Bên B theo quy định chế độ quản lý kế toán – tài chính hiện hành;</div>
+                    <div>2.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên
+                        theo qui định của pháp luật hiện hành;</div>
+                    <div>2.2. Xác minh, đối chiếu và xác nhận các khoản Bảo hiểm Xã hội, Bảo hiểm Y tế, Bảo hiểm thất
+                        nghiệp, thuế thu nhập cá nhân, các khoản khác cho Bên B.</div>
+                    <div>2.3. Tiếp nhận công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ
+                        thiết bị văn phòng,…. của Bên B bàn giao;</div>
+                    <div>2.4. Thanh quyết toán các khoản công nợ cho Bên B theo quy định chế độ quản lý kế toán – tài
+                        chính hiện hành;</div>
                     <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <<[Từ ngày]>></div>
                 </div>
                 <br>
@@ -257,27 +265,39 @@
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
 
-                    <div>3.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên theo quy định của pháp luật hiện hành;
+                    <div>3.1. Có trách nhiệm hoàn thiện các thủ tục chấm dứt hợp đồng lao động đã ký kết giữa hai bên
+                        theo quy định của pháp luật hiện hành;
                     </div>
-                    <div>3.2. Bàn giao công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ thiết bị văn phòng,…. cho Bên A;
+                    <div>3.2. Bàn giao công việc, giấy tờ tài liệu, các file trong máy tính, các công cụ - dụng cụ thiết
+                        bị văn phòng,…. cho Bên A;
                     </div>
-                    <div>3.3. Thanh quyết toán các khoản công nợ cho Bên A theo quy định chế quản lý kế toán – tài chính hiện hành;</div>
-                    <div>3.4. Thanh toán các khoản nghĩa vụ liên quan nếu có (VD như: Đền bù thiệt hại cho bên A khi bên B đơn phương chấm dứt hợp đồng lao động trái pháp luật theo khoản 1 và 2 Điều 40 Bộ luật lao động; thanh quyết toán chi phí đồng phục và chi phí liên quan khác với bên A;…)
+                    <div>3.3. Thanh quyết toán các khoản công nợ cho Bên A theo quy định chế quản lý kế toán – tài chính
+                        hiện hành;</div>
+                    <div>3.4. Thanh toán các khoản nghĩa vụ liên quan nếu có (VD như: Đền bù thiệt hại cho bên A khi bên
+                        B đơn phương chấm dứt hợp đồng lao động trái pháp luật theo khoản 1 và 2 Điều 40 Bộ luật lao
+                        động; thanh quyết toán chi phí đồng phục và chi phí liên quan khác với bên A;…)
                     </div>
                     <div>3.5.Cam kết sau khi chấm dứt Hợp đồng lao động:</div>
-                    <div>- Bên B phải hợp tác đầy đủ với Bên A để giải quyết các vấn đề liên quan đến các công việc trong thời gian Bên B làm việc cho Bên A (Bên B tham gia giải quyết công việc liên quan, Bên A trả thù lao theo thỏa thuận);
+                    <div>- Bên B phải hợp tác đầy đủ với Bên A để giải quyết các vấn đề liên quan đến các công việc
+                        trong thời gian Bên B làm việc cho Bên A (Bên B tham gia giải quyết công việc liên quan, Bên A
+                        trả thù lao theo thỏa thuận);
                     </div>
-                    <div>- Bên B phải bảo mật thông tin cho Bên A theo Thỏa thuận bảo mật thông tin đã ký kết, ngoại trừ các trường hợp cơ quan pháp luật (Cơ quan : Điều tra, Tố tụng, Tòa án,… ) có yêu cầu theo qui định của pháp luật hiện hành.</div>
+                    <div>- Bên B phải bảo mật thông tin cho Bên A theo Thỏa thuận bảo mật thông tin đã ký kết, ngoại trừ
+                        các trường hợp cơ quan pháp luật (Cơ quan : Điều tra, Tố tụng, Tòa án,… ) có yêu cầu theo qui
+                        định của pháp luật hiện hành.</div>
                 </div>
                 <br>
                 <h6 class="bold">ĐIỀU 4: ĐIỀU KHOẢN THI HÀNH
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
-                    <div>- Hai bên cam kết thực hiện đầy đủ nội dung nêu trên theo Thỏa thuận chấm dứt Hợp đồng lao động này;</div>
-                    <div>- Những vấn đề không ghi trên Thỏa thuận chấm dứt hợp đồng lao động này thì áp dụng theo quy định của Nội qui lao động, Thỏa ước lao động tập thể và Luật lao động hiện hành;
+                    <div>- Hai bên cam kết thực hiện đầy đủ nội dung nêu trên theo Thỏa thuận chấm dứt Hợp đồng lao động
+                        này;</div>
+                    <div>- Những vấn đề không ghi trên Thỏa thuận chấm dứt hợp đồng lao động này thì áp dụng theo quy
+                        định của Nội qui lao động, Thỏa ước lao động tập thể và Luật lao động hiện hành;
 
                     </div>
-                    <div>- Thỏa thuận chấm dứt hợp đồng lao động này được lập thành 02 bản, có giá trị pháp lý như nhau, mỗi bên giữ 01 bản và có hiệu lực thi hành kể từ ngày <<[Từ ngày]>>
+                    <div>- Thỏa thuận chấm dứt hợp đồng lao động này được lập thành 02 bản, có giá trị pháp lý như nhau,
+                        mỗi bên giữ 01 bản và có hiệu lực thi hành kể từ ngày <<[Từ ngày]>>
                     </div>
                 </div>
                 <br>

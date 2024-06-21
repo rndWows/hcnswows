@@ -40,7 +40,7 @@
 
 
     @media print {
-
+        
         body,
         #content {
             margin: 0;
@@ -58,6 +58,26 @@
 
         @page {
             size: auto;
+        }
+        
+        #content-split {
+            margin-top: 40px;
+            position: absolute;
+            top: 50%;
+            width: 920px;
+        }
+
+        .height_hr {
+            border-top: 3px dashed black;
+            width: 100%;
+            position: absolute;
+            top: 49%;
+        }
+
+        #content-split .div-logo {
+            position: relative;
+            top: -10px;
+            left: 10px;
         }
     }
 
@@ -151,29 +171,7 @@
         margin-bottom: 5px !important
     }
 
-    @media print {
-
-        #content-split {
-            margin-top: 40px;
-            position: absolute;
-            top: 50%;
-            width: 920px;
-        }
-
-        .height_hr {
-            border-top: 3px dashed black;
-            width: 100%;
-            position: absolute;
-            top: 49%;
-        }
-
-        #content-split .div-logo {
-            position: relative;
-            top: -10px;
-            left: 10px;
-        }
-
-    }
+   
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {

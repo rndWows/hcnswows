@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .zoomtofit {
+          -webkit-transform: scale(0.85);  /* Saf3.1+, Chrome */
+          -moz-transform: scale(0.85);  /* FF3.5+ */
+          -ms-transform: scale(0.85);  /* IE9 */
+          -o-transform: scale(0.85);  /* Opera 10.5+ */
+          transform: scale(0.85);
+          margin: -50px -73px 0;
+      }
+    </style>
+</head>
+<body>
+    <input type="button" value="Zoom Me" onclick="ZoomIt();"/>
+    <telerik:RadDatePicker ID="dpTTDay" runat="server" AutoPostBack="True" OnSelectedDateChanged="dpTTDay_SelectedDateChanged"></telerik:RadDatePicker>
+    <br/>
+    <telerik:ReportViewer ID="rvTT" runat="server" BackColor="White" Height="900px"
+        ParametersAreaVisible="False" ShowDocumentMapButton="False"
+        ShowHistoryButtons="False"
+        ShowParametersButton="False" ShowPrintPreviewButton="True"
+        ShowRefreshButton="False"  Width="984px"
+        Skin="WebBlue" ViewMode="PrintPreview"  ZoomMode="PageWidth" >
+    </telerik:ReportViewer>
+     
+    <script>
+        function ZoomIt() {
+            var $frameContents = $("[id$='rvTTReportFrame']").contents();
+             
+            var $head = $frameContents.find("head");
+            var $headlinklast = $head.find("link[rel='stylesheet']:last");
+            var linkElement = "<link rel='stylesheet' href='/Styles/RptZoom.css' type='text/css' media='screen'>";
+            if ($headlinklast.length) {
+                $headlinklast.after(linkElement);
+            }
+            else {
+                $head.append(linkElement);
+            }
+ 
+            var $body = $frameContents.find('body');
+ 
+            $body.addClass("zoomtofit");
+        }
+    </script>
+    <script>
+         
+        ReportViewer.OnReportLoadedOld = ReportViewer.OnReportLoaded;
+        ReportViewer.prototype.OnReportLoaded = function () {
+            this.OnReportLoadedOld();
+            ZoomIt();
+        };
+         
+        $(window).bind("load", function () {
+            ZoomIt();
+        });
+ 
+        function ZoomIt() {
+            
+            var $frameContents = $("[id$='rvTTReportFrame']").contents();
+ 
+            var $head = $frameContents.find("head");
+            var $headlinklast = $head.find("link[rel='stylesheet']:last");
+            var linkElement = "<link rel='stylesheet' href='/Styles/RptZoom.css' type='text/css' media='screen'>";
+            if ($headlinklast.length) {
+                $headlinklast.after(linkElement);
+            }
+            else {
+                $head.append(linkElement);
+            }
+ 
+            var $body = $frameContents.find('body');
+ 
+            $body.addClass("zoomtofit");
+        }
+    </script>
+</body>
+</html>
