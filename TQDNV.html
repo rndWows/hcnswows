@@ -171,7 +171,13 @@
         margin-bottom: 5px !important
     }
 
-  
+    .fixed-button {
+            position: fixed;
+            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+            width: 100%;
+            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
+        }
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -185,8 +191,8 @@
 </style>
 
 <body>
-    <button onclick="print()" class="btn btn-info" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
+        class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
