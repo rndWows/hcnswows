@@ -294,8 +294,6 @@
                         <tr>
                             <td colspan="2">Số tiền: <span id="ttlan2"></span> VNĐ <i>(Bằng chữ: <span
                                         id="ttlan2bc"></span>)</i></td>
-
-
                         </tr>
                         <tr>
                             <td colspan="2">Thanh toán trong vòng 3 ngày sau khi hoàn tất hạng mục tư vấn (trước khi triển khai đánh giá)</td>
@@ -303,18 +301,22 @@
                         <tr>
                             <td colspan="2"><span class="bold">Thanh toán lần 3: </td>
                         </tr>
-
                         <tr>
                             <td colspan="2">Số tiền: <span id="ttlan3"></span> VNĐ <i>(Bằng chữ: <span
                                         id="ttlan3bc"></span>)</i></td>
-
-
                         </tr>
                         <tr>
-                            <td colspan="2">Thanh toán trong vòng 30 ngày sau khi hoàn tất hạng mục tư vấn (nếu có)</td>
+                            <td colspan="2">Phí duy trì: <span id="pdt"></span> VNĐ <i>(Bằng chữ: <span
+                                        id="pdtbc"></span>)</i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Thanh toán trong vòng 3 ngày sau khi hoàn tất và nghiệm thu hợp đồng</td>
                         </tr>
                         <tr>
                             <td colspan="2">Phương thức thanh toán: Chuyển khoản</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Số tài khoản: 1025576073</td>
                         </tr>
                         <tr>
                             <td colspan="2">Tên chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</td>
@@ -327,7 +329,6 @@
                             <td colspan="2">Chi nhánh NH thụ hưởng: Chi nhánh Bình Dương
                             </td>
                         </tr>
-
                     </table>
                 </div>
                 <br>
@@ -403,7 +404,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1'];
+        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
@@ -411,15 +412,19 @@
         var ttlan1 = getUrlParameter('ttlan1');
         var ttlan2 = getUrlParameter('ttlan2');
         var ttlan3 = getUrlParameter('ttlan3');
+        var ttbc = getUrlParameter('tt');
+        var pdtbc = getUrlParameter('pdt');
+
         var vvNumber1 = Number(ttlan1.replace(/\./g, ''));
         var vvNumber2 = Number(ttlan2.replace(/\./g, ''));
         var vvNumber3 = Number(ttlan3.replace(/\./g, ''));
-        var ttbc = getUrlParameter('tt');
         var vvNumber4 = Number(ttbc.replace(/\./g, ''));
+        var vvNumber5 = Number(pdtbc.replace(/\./g, ''));
         document.getElementById('ttlan1bc').textContent = convertNumberToVietnamese(vvNumber1);
         document.getElementById('ttlan2bc').textContent = convertNumberToVietnamese(vvNumber2);
         document.getElementById('ttlan3bc').textContent = convertNumberToVietnamese(vvNumber3);
         document.getElementById('ttbc').textContent = convertNumberToVietnamese(vvNumber4);
+        document.getElementById('pdtbc').textContent = convertNumberToVietnamese(vvNumber5);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
