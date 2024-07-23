@@ -423,18 +423,20 @@
         var ttlan3 = getUrlParameter('ttlan3');
         var ttbc = getUrlParameter('tt');
         var pdtbc = getUrlParameter('pdt');
+        var ttlan4 = getUrlParameter('ttlan4');
 
         var vvNumber1 = Number(ttlan1.replace(/\./g, ''));
         var vvNumber2 = Number(ttlan2.replace(/\./g, ''));
         var vvNumber3 = Number(ttlan3.replace(/\./g, ''));
-        
         var vvNumber4 = Number(ttbc.replace(/\./g, ''));
         var vvNumber5 = Number(pdtbc.replace(/\./g, ''));
+        var vvNumber6 = Number(ttlan4.replace(/\./g, ''));
         document.getElementById('ttlan1bc').textContent = convertNumberToVietnamese(vvNumber1);
         document.getElementById('ttlan2bc').textContent = convertNumberToVietnamese(vvNumber2);
         document.getElementById('ttlan3bc').textContent = convertNumberToVietnamese(vvNumber3);
         document.getElementById('ttbc').textContent = convertNumberToVietnamese(vvNumber4);
         document.getElementById('pdtbc').textContent = convertNumberToVietnamese(vvNumber5);
+        document.getElementById('ttlan4bc').textContent = convertNumberToVietnamese(vvNumber6);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
