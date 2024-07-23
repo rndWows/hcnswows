@@ -276,7 +276,7 @@
 
                         </tr>
                         <tr>
-                            <td colspan="2"><span class="bold">Thanh toán lần 1:</td>
+                            <td colspan="2"><span class="bold">Thanh toán lần 1: <span id="%ttl1"></span></td>
                         </tr>
 
                         <tr>
@@ -407,7 +407,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt'];
+        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt','%ttl1'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
