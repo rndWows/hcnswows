@@ -301,12 +301,23 @@
                                         id="ttlan3bc"></span>)</i></td>
                         </tr>
                         <tr>
+                            <td colspan="2"><span id="ndyc3"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span class="bold">Thanh toán lần 4: <span id="tt4"></span> %</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">Số tiền: <span id="ttlan4"></span> VNĐ <i>(Bằng chữ: <span
+                                        id="ttlan4bc"></span>)</i></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><span id="ndyc4"></span></td>
+                        </tr>
+                        <tr>
                             <td colspan="2">Phí duy trì: <span id="pdt"></span> VNĐ <i>(Bằng chữ: <span
                                         id="pdtbc"></span>)</i></td>
                         </tr>
-                        <tr>
-                            <td colspan="2"><span id="ndyc3"></span></td>
-                        </tr>
+                        
 
                         
                         <tr>
@@ -401,7 +412,8 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt','tt1','tt2','tt3','ndyc1','ndyc2','ndyc3'];
+        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'ttlan4',
+        'daidien1','benb1','pdt','tt1','tt2','tt3','tt4','ndyc1','ndyc2','ndyc3','ndyc4'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
@@ -409,19 +421,22 @@
         var ttlan1 = getUrlParameter('ttlan1');
         var ttlan2 = getUrlParameter('ttlan2');
         var ttlan3 = getUrlParameter('ttlan3');
+        var ttlan3 = getUrlParameter('ttlan4');
         var ttbc = getUrlParameter('tt');
         var pdtbc = getUrlParameter('pdt');
 
         var vvNumber1 = Number(ttlan1.replace(/\./g, ''));
         var vvNumber2 = Number(ttlan2.replace(/\./g, ''));
         var vvNumber3 = Number(ttlan3.replace(/\./g, ''));
-        var vvNumber4 = Number(ttbc.replace(/\./g, ''));
-        var vvNumber5 = Number(pdtbc.replace(/\./g, ''));
+        var vvNumber4 = Number(ttlan4.replace(/\./g, ''));
+        var vvNumber5 = Number(ttbc.replace(/\./g, ''));
+        var vvNumber6 = Number(pdtbc.replace(/\./g, ''));
         document.getElementById('ttlan1bc').textContent = convertNumberToVietnamese(vvNumber1);
         document.getElementById('ttlan2bc').textContent = convertNumberToVietnamese(vvNumber2);
         document.getElementById('ttlan3bc').textContent = convertNumberToVietnamese(vvNumber3);
-        document.getElementById('ttbc').textContent = convertNumberToVietnamese(vvNumber4);
-        document.getElementById('pdtbc').textContent = convertNumberToVietnamese(vvNumber5);
+        document.getElementById('ttlan4bc').textContent = convertNumberToVietnamese(vvNumber4);
+        document.getElementById('ttbc').textContent = convertNumberToVietnamese(vvNumber5);
+        document.getElementById('pdtbc').textContent = convertNumberToVietnamese(vvNumber6);
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
