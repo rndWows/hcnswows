@@ -276,7 +276,7 @@
 
                         </tr>
                         <tr>
-                            <td colspan="2"><span class="bold">Thanh toán lần 1: <span id="tt1"></span></td>
+                            <td colspan="2"><span class="bold">Thanh toán lần 1: <span id="tt1"></span> %</td>
                         </tr>
 
                         <tr>
@@ -289,7 +289,7 @@
                             <td colspan="2">Thanh toán trong vòng 03 ngày sau khi ký hợp đồng.</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><span class="bold">Thanh toán lần 2:</td>
+                            <td colspan="2"><span class="bold">Thanh toán lần 2: <span id="tt2"></span> %</td>
                         </tr>
 
                         <tr>
@@ -300,7 +300,7 @@
                             <td colspan="2">Thanh toán trong vòng 3 ngày sau khi hoàn tất hạng mục tư vấn (trước khi triển khai đánh giá)</td>
                         </tr>
                         <tr>
-                            <td colspan="2"><span class="bold">Thanh toán lần 3:</td>
+                            <td colspan="2"><span class="bold">Thanh toán lần 3: <span id="tt3"></span> %</td>
                         </tr>
                         <tr>
                             <td colspan="2">Số tiền: <span id="ttlan3"></span> VNĐ <i>(Bằng chữ: <span
@@ -407,7 +407,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt','tt1'];
+        var parameters = ['id', 'date', 'tgth', 'tungay', 'denngay', 'tt', 'benb', 'id1' ,'ttlan1','ttlan2','ttlan3' ,'daidien1','benb1','pdt','tt1','tt2','tt3'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
