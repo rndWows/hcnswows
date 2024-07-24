@@ -220,7 +220,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;"><span id="id"></span></td>
+                        <td style="font-size: 12px;"><span id="idhd"></span></td>
                     </tr>
                 </table>
 
@@ -338,7 +338,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['id', 'name', 'cty', 'dclh', 'mst', 'nd', 'ltt', 'ttt'];
+        var parameters = ['idhd', 'name', 'cty', 'dclh', 'mst', 'nd', 'ltt', 'ttt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
@@ -348,7 +348,7 @@
         var vvNumber1 = Number(ttt.replace(/\./g, ''));
 
         document.getElementById('tttbc').textContent = convertNumberToVietnamese(vvNumber1);
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
