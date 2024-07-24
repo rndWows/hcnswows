@@ -417,7 +417,8 @@
                 console.error('Không tìm thấy phần tử có id "orderDetailsBody"');
             }
             document.getElementById('tongGiaTri').textContent = formatCurrency(PO['Tong_tien_truoc_UD'] || 0);
-            document.getElementById('phanTramUuDai').textContent = PO['Uu_dai'] ? PO['Uu_dai'] * 100 + ' %' : '0%';
+            document.getElementById('phanTramUuDai').textContent = PO['Uu_dai'] ?( PO['Uu_dai'] * 100).toFixed(2) + ' %' : '0%';
+
             document.getElementById('tongTienUuDai').textContent = formatCurrency(PO['Tong_tien_UD'] || 0);
             document.getElementById('thanhTien').textContent = formatCurrency(PO['Tong_tien_sau_UD'] || 0);
             document.getElementById('vat').textContent = PO['%VAT'] ? PO['%VAT'] * 100 + ' %' : '0%';
