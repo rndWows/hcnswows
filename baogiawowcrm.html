@@ -458,13 +458,32 @@
             for (let i = 1; i <= 4; i++) {
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
                 if (dkttItem) {
-                    const phanTramThanhToan = parseFloat(dkttItem['%thanh toán'] * 100) || 0;
-                    const soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan / 100;
+                    const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
+                    let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
+                    let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
+
+                    thanhToanHTML += `<p>THANH TOÁN LẦN ${i.toString().padStart(2, '0')}:</p>`;
+                    thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)} đồng</p>`;
+
+                    if (i === 1) {
+                        let phiPublicApp = 13500000 || 0;
+                        if (tienApp > 0) {
+                            thanhToanHTML += `<p>Thanh toán phí Public App: ${formatCurrency(phiPublicApp)} đồng</p>`;
+                            soTienThanhToan += phiPublicApp;
+                        }
+                    }
+
+                    if (phiDuyTri > 0) {
+                        thanhToanHTML += `<p>Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)} đồng</p>`;
+                        soTienThanhToan += phiDuyTri;
+                    }
+
+                    thanhToanHTML += `<p>Tổng thanh toán: ${formatCurrency(soTienThanhToan)} đồng</p>`;
+                    thanhToanHTML += `<p><em>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</em></p>`;
                     thanhToanHTML += `
-                <p>Thanh toán lần ${i}: (${phanTramThanhToan}%) ${formatCurrency(soTienThanhToan)}</p>
-                 <p><em>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</em></p>   
                 <p>Nội dung yêu cầu: ${dkttItem['Nội dung yêu cầu'] || ''}</p>
                 <p>Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày ${dkttItem['Sau khi'] || ''}</p>
+                <hr>
             `;
                 }
             }
@@ -529,6 +548,7 @@
 
             footerInfo.innerHTML = footerHTML;
         }
+
         function numberToWords(number) {
             const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
             const teens = ['mười', 'mười một', 'mười hai', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
