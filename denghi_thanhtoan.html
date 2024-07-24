@@ -390,18 +390,29 @@
             });
         }
         document.addEventListener('DOMContentLoaded', function() {
-        var inputs = document.querySelectorAll('.date-input');
-        inputs.forEach(function(input) {
-            input.addEventListener('input', function() {
-                var span = this.nextElementSibling;
-                if (!span || span.tagName !== 'SPAN') {
-                    span = document.createElement('span');
-                    this.parentNode.insertBefore(span, this.nextSibling);
-                }
-                span.textContent = this.value;
-            });
+    // Lấy ngày hôm nay
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
+    var year = today.getFullYear();
+
+    // Điền ngày hôm nay vào các ô input
+    document.getElementById('day').value = day;
+    document.getElementById('month').value = month;
+    document.getElementById('year').value = year;
+
+    // Tạo và cập nhật các span
+    var inputs = document.querySelectorAll('.date-input');
+    inputs.forEach(function(input) {
+        var span = document.createElement('span');
+        span.textContent = input.value;
+        input.parentNode.insertBefore(span, input.nextSibling);
+
+        input.addEventListener('input', function() {
+            span.textContent = this.value;
         });
     });
+});
 
 
 
