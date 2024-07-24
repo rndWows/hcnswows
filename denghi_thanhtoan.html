@@ -58,6 +58,9 @@
         h5 {
             font-size: 24px
         }
+        .date-input {
+            display: none;
+        }
 
         .big-title {
             font-size: 18px !important;
@@ -228,7 +231,13 @@
                 <br>
                 <h4 style="text-align: center;" class="bold"><span>ĐỀ NGHỊ THANH TOÁN</span></h4>
 
-                <i>Bình Dương, &emsp; Ngày <span> &emsp;</span> Tháng <span> &emsp;</span> Năm <span> &emsp;</span> </i>
+                <i>Bình Dương, &emsp; Ngày 
+                    <input type="text" id="day" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Tháng 
+                    <input type="text" id="month" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Năm 
+                    <input type="text" id="year" class="date-input" style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    </i>
 
                 <div class="info_student">
                     <table style="width: 100%; ">
@@ -380,6 +389,19 @@
                 afterPrint: null // function called before iframe is removed
             });
         }
+        document.addEventListener('DOMContentLoaded', function() {
+        var inputs = document.querySelectorAll('.date-input');
+        inputs.forEach(function(input) {
+            input.addEventListener('input', function() {
+                var span = this.nextElementSibling;
+                if (!span || span.tagName !== 'SPAN') {
+                    span = document.createElement('span');
+                    this.parentNode.insertBefore(span, this.nextSibling);
+                }
+                span.textContent = this.value;
+            });
+        });
+    });
 
 
 
