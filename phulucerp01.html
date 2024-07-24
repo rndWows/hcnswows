@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Phụ lục 02 ERP</title>
+    <meta name="csrf-token" content="MHMXdIG4tBlzbq7sMs8y0wjq43Dtbf8PaMgnKDS3">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://rndwows.github.io/hcnswows/logowows.jpg" type="image/x-icon">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: rgb(204, 204, 204);
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+            right: 20px;
+            /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+            width: 100%;
+            max-width: 200px;
+            /* Điều chỉnh chiều rộng tối đa của button */
+        }
+
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+        page[size="A4"][layout="landscape"] {
+            width: 29.7cm;
+            height: 100%;
+
+        }
+
+
+
+
+        @media print {
+
+            body,
+            #content {
+                margin: 0;
+                box-shadow: 0;
+                font-size: 18px !important;
+            }
+
+            h5 {
+                font-size: 24px
+            }
+
+            .big-title {
+                font-size: 18px !important;
+            }
+
+            .total-pay {
+                font-size: 15px !important;
+            }
+
+            @page {
+                size: auto;
+            }
+
+            #content-split {
+                margin-top: 40px;
+                position: absolute;
+                top: 50%;
+                width: 920px;
+            }
+
+            .height_hr {
+                border-top: 3px dashed black;
+                width: 100%;
+                position: absolute;
+                top: 49%;
+            }
+
+            #content-split .div-logo {
+                position: relative;
+                top: -10px;
+                left: 10px;
+            }
+        }
+
+        #content {
+            font-size: 13.5px;
+
+        }
+
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .big-title {
+            font-size: 15px;
+        }
+
+        #fixed-panel,
+        #fixed-show-user,
+        #fixed-show-reason {
+            font-size: 13px;
+        }
+
+
+        #content {
+            padding: 40px 40px;
+        }
+
+        #select-setup-print {
+            position: relative;
+            top: -2px;
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        #setup-print {
+            position: fixed;
+            top: 480px;
+            left: 30px;
+            width: 150px;
+            height: 54px;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            /*font-size: 13px;*/
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+
+        .heigth-90px {
+            height: 90px !important;
+        }
+
+        #page {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .center-content {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .big-title {
+            text-transform: uppercase;
+            font-weight: bold;
+            /*font-size: 15px;*/
+            padding-bottom: 5px;
+        }
+
+        hr {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .table-center th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .info_student {
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        .info_contract {
+            margin-bottom: 5px !important
+        }
+
+        .preserve-format {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+
+        @media only screen and (max-width: 1024px) {
+            #fixed-panel {
+                display: none !important;
+            }
+
+            #list_option_print {
+                display: none !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
+            class="language_print"></span></button>
+    <page size="A4" id="page" layout="landscape">
+        <div id="content">
+            <div class="content_page1">
+                <table style="width: 100%;">
+                    <tr>
+                        <th rowspan="4"> <img src="https://rndwows.github.io/hcnswows/logowows.jpg"
+                                style="width: 100px; margin: -30px"></th>
+                        <th style="width: 60%;" rowspan="4" class="center">
+                            <h5 class=" bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h5>
+
+                        </th>
+                        <td style="font-size: 12px;">Mã hiệu: </th>
+                        <td style="font-size: 12px;"><span>WS-KD-QT01/BM04</span></th>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;"> Lần ban hành: 01</td>
+                        <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;">Số:</td>
+                        <td style="font-size: 12px;"><span id="id"></span>/PL02</td>
+                    </tr>
+                </table>
+
+
+                <div style="clear: both"></div>
+                <br>
+                <h4 style="text-align: center;" class="bold"><span>PHỤ LỤC 01</span></h4>
+                <h4 style="text-align: center;" class="bold"><span>CHI TIẾT GIÁ VÀ NỘI DUNG CÔNG VIỆC</span></h4>
+                <div style="text-align: center;"> <i>Đính kèm HĐ số <span id="id1"></span></i><br></div>
+
+                <p><strong>Kính gửi: <span id="companyName"></span></strong></p>
+                <p>Địa chỉ: <span id="companyAddress"></span></p>
+
+                <i>Bằng việc ký tên dưới đây, Quý Khách Hàng được coi là lựa chọn và đồng ý sử dụng dịch vụ tại Phụ lục
+                    01 này.</i>
+
+                <table class="table table-bordered">
+                    <thead class="center-content">
+                        <tr>
+                            <th rowspan="2" class="center">STT</th>
+                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
+
+                            <th rowspan="2" class="center">GHI CHÚ</th>
+                        </tr>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Quy cách</th>
+                            <th>Đơn vị tính</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng giá trị <BR>
+                                (Giá gốc)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="orderDetailsBody">
+                        <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
+                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
+                            <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
+                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
+                            <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
+                            <td colspan="3" class="text-center"><span id="vat"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
+                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div class="mt-3">
+                    <span style="font-style: italic;">TỔNG THANH TOÁN BẰNG CHỮ (bao gồm VAT) : </span>
+                    <span id="tongThanhToanBangChu" style="font-style: italic;"></span><br>
+                    <i style="font-style: italic;">Hợp Đồng này được thực hiện và có hiệu lực kể từ ngày ký.</i>
+                </div>
+                <ul id="ghiChu">
+                    <!-- Nội dung ghi chú sẽ được thêm vào đây bằng JavaScript -->
+                </ul>
+                <div id="thanhToanInfo" class="mt-4">
+                    <!-- Thông tin thanh toán sẽ được thêm vào đây -->
+                </div>
+                <div id="footerInfo" class="mt-4">
+                    <!-- Thông tin cuối sẽ được thêm vào đây -->
+                </div>
+            </div>
+        </div>
+    </page>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"
+        integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
+
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbxBC2rStHp37z7dUcwm-_4HOnsU1y7zTxqPuuPSKgBL0Q13llL1dqn3juQ2l_2jsGHm/exec';
+
+        // Biến toàn cục để lưu trữ dữ liệu
+        var HOP_DONG = {};
+        var PO_DETAIL = [];
+        var KHTN = {};
+        var DKTT = [];
+
+        function searchContract(soHD) {
+            fetch(`${API_URL}?SOHD=${encodeURIComponent(soHD)}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        HOP_DONG = data.hop_dong || {};
+                        PO_DETAIL = data.po_detail || [];
+                        KHTN = data.khtn || {};
+                        DKTT = data.dktt || [];
+
+                        updateUI();
+                    } else {
+                        console.error('Lỗi:', data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Đã xảy ra lỗi:', error.message);
+                });
+        }
+
+        function updateUI() {
+            document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
+            document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
+            document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
+            document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
+
+            updateProductTable();
+            updateTotals();
+            updateNotes();
+
+            updateFooter();
+        }
+
+        function updateProductTable() {
+            const tableBody = document.getElementById('orderDetailsBody');
+            tableBody.innerHTML = PO_DETAIL.map((item, index) => `
+                <tr>
+                    <td class="center">${index + 1}</td>
+                    <td>${item['Ma_HHDV'] || ''}</td>
+                    <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                    <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
+                    <td>${item['DVT'] || ''}</td>
+                    <td>${item['So_luong'] || ''}</td>
+                    <td>${formatCurrency(item['Gia_ban'])}</td>
+                    <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
+                    <td>${item['Ghi_chu'] || ''}</td>
+                </tr>
+            `).join('');
+        }
+
+        function updateTotals() {
+            document.getElementById('tongGiaTri').textContent = formatCurrency(HOP_DONG['Tong_tien_truoc_UD'] || 0);
+            document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
+            document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
+            document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
+            document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
+            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
+            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
+        }
+
+        function updateNotes() {
+            const ghiChuList = document.getElementById('ghiChu');
+            const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
+            const chiPhiDuyTri = tienApp * 0.15; // 15% của giá trị xây dựng ban đầu
+
+            const ghiChuHTML = `
+    <h5>Ghi chú:</h5>
+    <ul>
+        <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng app với vai trò người dùng (không chuyển giao source nguồn code app).</li>
+        <li>Miễn phí hướng dẫn sử dụng: ${HOP_DONG['Số buổi'] || '10'} buổi Online/Offline</li>
+        <li>Buổi thứ ${(parseInt(HOP_DONG['Số buổi'] || 10) + 1)} trở đi: chi phí được tính là: 1.000.000/ 1 buổi Online/Offline</li>
+        <li>Wows có trách nhiệm bảo hành và xử lý các vấn đề có liên quan đến app trong phạm vi đã thỏa thuận trong vòng ${HOP_DONG['Thời hạn'] || '6'} tháng kể từ ngày bàn giao.</li>
+        <li>Giá trị phần mềm: ${formatCurrency(tienApp)}</li>
+        <li>Hết thời hạn trên, chi phí duy trì hàng năm là [15% x (giá trị xây dựng ban đầu không ưu đãi)] cho các hạng mục trong phạm vi thực hiện (đóng 01 lần vào tháng đầu tiên sau khi hết bảo hành và đóng gia hạn hàng năm) Tương ứng ${formatCurrency(chiPhiDuyTri)}</li>
+        <li>Chi phí duy trì sau thời gian bảo hành gồm:
+            <ul>
+                <li>Duy trì thời gian sử dụng app 1 năm.</li>
+                <li>Xử lý sự cố về app khi có phát sinh vấn đề trong phạm vi các hạng mục đã được thống nhất (nếu có)</li>
+                <li>Hỗ trợ backup dữ liệu định kỳ cho doanh nghiệp khách hàng khi dữ liệu lớn.</li>
+            </ul>
+        </li>
+        <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
+        <li>Đối với doanh nghiệp có số lượng người dùng lớn, chi phí public app sẽ được tính theo chính sách google và được thanh toán ngay sau khi Public App. Phí Public App mỗi tháng tạm tính bằng 50 USD/1 App (Thu theo năm và thu ngay khi đưa app vào sử dụng và ngay khi gia hạn hàng năm)</li>
+    </ul>
+    `;
+
+            ghiChuList.innerHTML = ghiChuHTML;
+        }
+
+
+
+        function updateFooter() {
+            const footerInfo = document.getElementById('footerInfo');
+            let footerHTML = '';
+
+            footerHTML += `
+       <table style="width: 100%; text-align: center;">
+            <tbody>
+                <tr>
+                    <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                    <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
+                </tr>
+                <tr>
+                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
+                    </td>
+                    <td>
+                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['Người đại diện'] || 'Ông Lê Văn Liêm'}</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="">Ngày ký: .............................</i>
+                    </td>
+                    <td>
+                        <i class="">Ngày ký: .............................</i>
+                    </td>
+                </tr>
+            </tbody>
+       </table>
+    `;
+
+            footerInfo.innerHTML = footerHTML;
+        }
+
+        // (Giữ nguyên các hàm hỗ trợ như formatCurrency, formatDate, numberToWords)
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const soHD = urlParams.get('SOHD');
+            if (soHD) {
+                searchContract(soHD);
+            } else {
+                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
+            }
+        });
+        function numberToWords(number) {
+            const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+            const teens = ['mười', 'mười một', 'mười hai', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
+            const tens = ['', '', 'hai mươi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
+            const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
+
+            if (number === 0) return 'không';
+
+            function convertGroup(n) {
+                let result = '';
+                if (n >= 100) {
+                    result += units[Math.floor(n / 100)] + ' trăm ';
+                    n %= 100;
+                }
+                if (n >= 20) {
+                    result += tens[Math.floor(n / 10)] + ' ';
+                    n %= 10;
+                }
+                if (n >= 10) {
+                    result += teens[n - 10] + ' ';
+                } else if (n > 0) {
+                    result += units[n] + ' ';
+                }
+                return result.trim();
+            }
+
+            let result = '';
+            let scaleIndex = 0;
+            while (number > 0) {
+                const group = number % 1000;
+                if (group !== 0) {
+                    result = convertGroup(group) + ' ' + scales[scaleIndex] + ' ' + result;
+                }
+                number = Math.floor(number / 1000);
+                scaleIndex++;
+            }
+            // Viết hoa chữ cái đầu tiên
+            result = result.trim();
+            return result.charAt(0).toUpperCase() + result.slice(1);
+        }
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear());
+            return `${day}/${month}/${year}`;
+        }
+        function formatCurrency(value) {
+            if (!value) return '';
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+        }
+
+        function print() {
+            $('#content').printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                pageTitle: "",
+                removeInline: false,
+                removeInlineSelector: "*",
+                printDelay: 333,
+                header: null,
+                footer: null,
+                base: false,
+                formValues: true,
+                canvas: false,
+                removeScripts: false,
+                copyTagClasses: false,
+                beforePrintEvent: null,
+                beforePrint: null,
+                afterPrint: null
+            });
+        }
+    </script>
+</body>
+
+</html>
