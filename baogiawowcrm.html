@@ -462,7 +462,7 @@
                     let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
                     let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
 
-                    thanhToanHTML += `<p><strong>Thanh toán lần ${i.toString().padStart(2, '0')}:</strong></p>`;
+                    thanhToanHTML += `<p><strong>Thanh toán lần ${i.toString().padStart(2, '0')}: ${formatCurrency(soTienThanhToan)}  </strong></p>`;
                     thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)}</p>`;
 
                     if (i === 1) {
