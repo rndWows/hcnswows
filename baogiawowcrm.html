@@ -462,23 +462,23 @@
                     let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
                     let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
 
-                    thanhToanHTML += `<p>Thanh toán lần ${i.toString().padStart(2, '0')}:</p>`;
-                    thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)} đồng</p>`;
+                    thanhToanHTML += `<strong>Thanh toán lần ${i.toString().padStart(2, '0')}:</strong>`;
+                    thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)}</p>`;
 
                     if (i === 1) {
                         let phiPublicApp = 13500000 || 0;
                         if (tienApp > 0) {
-                            thanhToanHTML += `<p>Thanh toán phí Public App: ${formatCurrency(phiPublicApp)} đồng</p>`;
+                            thanhToanHTML += `<p>Thanh toán phí Public App: ${formatCurrency(phiPublicApp)}</p>`;
                             soTienThanhToan += phiPublicApp;
                         }
                     }
 
                     if (phiDuyTri > 0) {
-                        thanhToanHTML += `<p>Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)} đồng</p>`;
+                        thanhToanHTML += `<p>Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)}</p>`;
                         soTienThanhToan += phiDuyTri;
                     }
 
-                    thanhToanHTML += `<p>Tổng thanh toán: ${formatCurrency(soTienThanhToan)} đồng</p>`;
+                    thanhToanHTML += `<p>Tổng thanh toán: ${formatCurrency(soTienThanhToan)}</p>`;
                     thanhToanHTML += `<p><em>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</em></p>`;
                     thanhToanHTML += `
                 <p>${dkttItem['Nội dung yêu cầu'] || ''}</p>
