@@ -462,7 +462,7 @@
                     let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
                     let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
 
-                    thanhToanHTML += `<p>THANH TOÁN LẦN ${i.toString().padStart(2, '0')}:</p>`;
+                    thanhToanHTML += `<p>Thanh toán lần ${i.toString().padStart(2, '0')}:</p>`;
                     thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)} đồng</p>`;
 
                     if (i === 1) {
@@ -481,8 +481,7 @@
                     thanhToanHTML += `<p>Tổng thanh toán: ${formatCurrency(soTienThanhToan)} đồng</p>`;
                     thanhToanHTML += `<p><em>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</em></p>`;
                     thanhToanHTML += `
-                <p>Nội dung yêu cầu: ${dkttItem['Nội dung yêu cầu'] || ''}</p>
-                <p>Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày ${dkttItem['Sau khi'] || ''}</p>
+                <p>${dkttItem['Nội dung yêu cầu'] || ''}</p>
                 <hr>
             `;
                 }
