@@ -447,7 +447,7 @@
             </ul>
         </li>
         <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
-        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>13.500.000 vnd</strong> (Mười ba triệu năm trăm ngàn đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
+        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>15.000.000 vnd</strong> (Mười lăm triệu đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
     `;
 
             ghiChuList.innerHTML = ghiChuHTML;
@@ -466,7 +466,7 @@
                     thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)}</p>`;
 
                     if (i === 1) {
-                        let phiPublicApp = 13500000 || 0;
+                        let phiPublicApp = 15000000 || 0;
                         if (tienApp > 0) {
                             thanhToanHTML += `<p>Thanh toán phí Public App: ${formatCurrency(phiPublicApp)}</p>`;
                             soTienThanhToan += phiPublicApp;
