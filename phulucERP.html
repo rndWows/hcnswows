@@ -374,6 +374,7 @@
                     const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
                     let soTienThanhToan = HOP_DONG['Tong_tien_sau_VAT'] * phanTramThanhToan;
                     let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
+                    let phiPublicApp = parseFloat(dkttItem['Phí Public App ']) || 0;
 
                     thanhToanHTML += `
             <tr>
@@ -384,23 +385,19 @@
             </tr>
             `;
 
-                    if (i === 1) {
-                        let phiPublicApp = 13500000;
-                        const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
-                        if (tienApp > 0) {
+                   if (phiPublicApp > 0) {
                             thanhToanHTML += `
                     <tr>
-                        <td colspan="2">Thanh toán phí Public App: ${formatCurrency(phiPublicApp)} đồng</td>
+                        <td colspan="2">Thanh toán phí Public App: ${formatCurrency(phiPublicApp)} </td>
                     </tr>
                     `;
                             soTienThanhToan += phiPublicApp;
                         }
-                    }
 
                     if (phiDuyTri > 0) {
                         thanhToanHTML += `
                 <tr>
-                    <td colspan="2">Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)} đồng</td>
+                    <td colspan="2">Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)}</td>
                 </tr>
                 `;
                         soTienThanhToan += phiDuyTri;
@@ -408,7 +405,7 @@
 
                     thanhToanHTML += `
             <tr>
-                <td colspan="2">Tổng thanh toán: ${formatCurrency(soTienThanhToan)} đồng</td>
+                <td colspan="2">Tổng thanh toán: ${formatCurrency(soTienThanhToan)}</td>
             </tr>
             <tr>
                 <td colspan="2"><i>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</i></td>
