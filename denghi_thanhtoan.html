@@ -223,7 +223,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;"><span id="idhd"></span></td>
+                        <td style="font-size: 12px;">DNTT-<span id="tvt"></span>-<span id="day"></span>-<span id="month"></span>-</td>
                     </tr>
                 </table>
 
@@ -348,7 +348,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['idhd', 'idhd1', 'name', 'cty', 'dclh', 'mst', 'nd', 'ltt', 'ttt'];
+        var parameters = ['idhd','tvt', 'idhd1', 'name', 'cty', 'dclh', 'mst', 'nd', 'ltt', 'ttt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
