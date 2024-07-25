@@ -246,7 +246,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;"><span id="id"></span>/PL02</td>
+                        <td style="font-size: 12px;"><span id="id"></span></td>
                     </tr>
                 </table>
 
@@ -382,6 +382,10 @@
             const orderNumberElement = document.getElementById('orderNumber');
             if (orderNumberElement) {
                 orderNumberElement.textContent = PO.ID_BBGTH || '';
+            }
+            const companyIdElement = document.getElementById('id');
+            if (companyIdElement) {
+                companyIdElement.textContent = ['Số HĐ'] || '';
             }
 
             const companyNameElement = document.getElementById('companyName');
