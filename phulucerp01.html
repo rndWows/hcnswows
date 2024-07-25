@@ -419,10 +419,10 @@
     <h5>Ghi chú:</h5>
     <ul>
         <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng app với vai trò người dùng (không chuyển giao source nguồn code app).</li>
-        <li>Miễn phí hướng dẫn sử dụng: ${HOP_DONG['Số buổi'] || '10'} buổi Online/Offline</li>
-        <li>Buổi thứ ${(parseInt(HOP_DONG['Số buổi'] || 10) + 1)} trở đi: chi phí được tính là: 1.000.000/ 1 buổi Online/Offline</li>
+        <li>Miễn phí hướng dẫn sử dụng: <strong>${HOP_DONG['Số buổi'] || '10'}</strong> buổi Online/Offline</li>
+        <li>Buổi thứ <strong>${(parseInt(HOP_DONG['Số buổi'] || 10) + 1)}</strong> trở đi: chi phí được tính là: 1.000.000/ 1 buổi Online/Offline</li>
         <li>Wows có trách nhiệm bảo hành và xử lý các vấn đề có liên quan đến app trong phạm vi đã thỏa thuận trong vòng ${HOP_DONG['Thời hạn'] || '6'} tháng kể từ ngày bàn giao.</li>
-        <li>Giá trị phần mềm: ${formatCurrency(tienApp)}</li>
+        <li>Giá trị phần mềm: <strong>${formatCurrency(tienApp)}</strong></li>
         <li>Hết thời hạn trên, chi phí duy trì hàng năm là [15% x (giá trị xây dựng ban đầu không ưu đãi)] cho các hạng mục trong phạm vi thực hiện (đóng 01 lần vào tháng đầu tiên sau khi hết bảo hành và đóng gia hạn hàng năm) Tương ứng ${formatCurrency(chiPhiDuyTri)}</li>
         <li>Chi phí duy trì sau thời gian bảo hành gồm:
             <ul>
