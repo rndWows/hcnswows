@@ -58,6 +58,9 @@
         h5 {
             font-size: 24px
         }
+        .date-input {
+            display: none;
+        }
 
         .big-title {
             font-size: 18px !important;
@@ -232,7 +235,13 @@
                 <br>
                 <h5 style="text-align: center;" class="bold"><span>HỢP ĐỒNG DỊCH VỤ TƯ VẤN, ĐÀO TẠO, SỐ HÓA DOANH
                         NGHIỆP</span></h5>
-                <i>Hôm nay, &emsp; Ngày <span> &emsp;</span> Tháng <span> &emsp;</span> Năm <span> &emsp;</span> </i>
+                        <i>Bình Dương, &emsp; Ngày 
+                            <input type="text" id="day" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
+                            Tháng 
+                            <input type="text" id="month" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
+                            Năm 
+                            <input type="text" id="year" class="date-input" style="width: 50px; border: none; border-bottom: 1px solid black;">
+                            </i>
                 <div class="info_student">
                     <table style="width: 100%; ">
                         <tr>
@@ -696,6 +705,33 @@
                 afterPrint: null // function called before iframe is removed
             });
         }
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+    // Lấy ngày hôm nay
+    var today = new Date();
+    var day = today.getDate();
+    var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
+    var year = today.getFullYear();
+
+    // Điền ngày hôm nay vào các ô input
+    document.getElementById('day').value = day;
+    document.getElementById('month').value = month;
+    document.getElementById('year').value = year;
+
+    // Tạo và cập nhật các span
+    var inputs = document.querySelectorAll('.date-input');
+    inputs.forEach(function(input) {
+        var span = document.createElement('span');
+        span.textContent = input.value;
+        input.parentNode.insertBefore(span, input.nextSibling);
+
+        input.addEventListener('input', function() {
+            span.textContent = this.value;
+        });
+    });
+});
+
 
 
 
