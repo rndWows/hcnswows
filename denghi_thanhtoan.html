@@ -61,9 +61,9 @@
         .date-input {
             display: none;
         }
-        .sequenceNumber {
-            display: none;
-        }
+        .no-print {
+        display: none;
+    }
 
         .big-title {
             font-size: 18px !important;
@@ -226,8 +226,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">DNTT-<span id="tvt"></span>-<span id="currentDate"></span>-<input type="text" id="sequenceNumber" style="width: 40px; border: none; border-bottom: 1px solid black;"></td>
-                    </tr>
+                        <td style="font-size: 12px;">DNTT-<span id="tvt"></span>-<span id="currentDate"></span>-<input type="text" id="sequenceNumber" class="no-print" style="width: 40px; border: none; border-bottom: 1px solid black;"><span id="sequenceNumberDisplay"></span></td>
                 </table>
 
                 <div style="clear: both"></div>
@@ -416,7 +415,6 @@
         });
     });
 });
-
 document.addEventListener('DOMContentLoaded', function() {
     // Lấy ngày hiện tại
     var today = new Date();
@@ -427,14 +425,13 @@ document.addEventListener('DOMContentLoaded', function() {
     var currentDateSpan = document.getElementById('currentDate');
     currentDateSpan.textContent = day + '.' + month;
 
-    // Tạo và cập nhật span cho số thứ tự
+    // Xử lý số thứ tự
     var sequenceInput = document.getElementById('sequenceNumber');
-    var sequenceSpan = document.createElement('span');
-    sequenceInput.parentNode.insertBefore(sequenceSpan, sequenceInput.nextSibling);
+    var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
 
     sequenceInput.addEventListener('input', function() {
         var value = this.value.padStart(3, '0');
-        sequenceSpan.textContent = value;
+        sequenceDisplay.textContent = value;
     });
 });
 
