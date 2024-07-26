@@ -344,13 +344,8 @@
             document.getElementById('tongThoiGian').textContent = HOP_DONG['Thời gian thực hiện dự kiến'] || '06';
             document.getElementById('ngayBatDau').textContent = formatDate(HOP_DONG['Từ ngày'] || '2024-07-25');
             document.getElementById('ngayKetThuc').textContent = formatDate(HOP_DONG['Đến ngày'] || '2025-01-25');
-            
-            const tongChiPhi = HOP_DONG['Tong_tien_sau_UD'] !== undefined && HOP_DONG['Tong_tien_sau_UD'] !== null 
-                        ? HOP_DONG['Tong_tien_sau_UD'] 
-                        : 712800000;
-            document.getElementById('tongChiPhi').textContent = formatCurrency(tongChiPhi);
-
-            document.getElementById('tongChiPhiBangChu').textContent = numberToWords(HOP_DONG['Tong_tien_sau_UD'] || 712800000) + ' đồng';
+            document.getElementById('tongChiPhi').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
+            document.getElementById('tongChiPhiBangChu').textContent = numberToWords(HOP_DONG['Tong_tien_sau_UD'] || 0) + ' đồng';
 
 
             updatePaymentInfo();
