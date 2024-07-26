@@ -341,9 +341,9 @@
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
             // Thêm phần cập nhật thông tin thời gian thực hiện
-            document.getElementById('tongThoiGian').textContent = HOP_DONG['Tong_thoi_gian'] || '06';
-            document.getElementById('ngayBatDau').textContent = formatDate(HOP_DONG['Ngay_bat_dau'] || '2024-07-25');
-            document.getElementById('ngayKetThuc').textContent = formatDate(HOP_DONG['Ngay_ket_thuc'] || '2025-01-25');
+            document.getElementById('tongThoiGian').textContent = HOP_DONG['Thời gian thực hiện dự kiến'] || '06';
+            document.getElementById('ngayBatDau').textContent = formatDate(HOP_DONG[' Từ ngày'] || '2024-07-25');
+            document.getElementById('ngayKetThuc').textContent = formatDate(HOP_DONG[' Đến ngày'] || '2025-01-25');
             document.getElementById('tongChiPhi').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 712800000);
             document.getElementById('tongChiPhiBangChu').textContent = numberToWords(HOP_DONG['Tong_tien_sau_UD'] || 712800000) + ' đồng';
 
