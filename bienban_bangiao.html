@@ -67,6 +67,12 @@
             h5 {
                 font-size: 24px
             }
+            .date-input {
+            display: none;
+        }
+        .no-print {
+        display: none;
+    }
 
             .big-title {
                 font-size: 18px !important;
@@ -306,7 +312,16 @@
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
                 <br>
 
-                <i colspan="4">Hôm nay ngày 09 tháng 07 năm 2024, chúng tôi gồm:</i>
+                <i>Bình Dương, &emsp; Ngày
+                    <input type="text" id="day" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Tháng
+                    <input type="text" id="month" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Năm
+                    <input type="text" id="year" class="date-input"
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">, chúng tôi gồm:
+                </i>
 
 
 
@@ -381,10 +396,11 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-                    
+
                 </table>
-                
-                <i>Hai bên đồng ý, thống nhất, và ký tên xác nhận. Biên bản này được lập thành 02 bản, mỗi bên giữ một bản và có giá trị pháp lý như nhau.</i>
+
+                <i>Hai bên đồng ý, thống nhất, và ký tên xác nhận. Biên bản này được lập thành 02 bản, mỗi bên giữ một
+                    bản và có giá trị pháp lý như nhau.</i>
                 <div id="thanhToanInfo" class="mt-4">
                     <!-- Thông tin thanh toán sẽ được thêm vào đây -->
                 </div>
@@ -467,7 +483,7 @@
     `).join('');
         }
 
-        
+
 
 
 
@@ -526,7 +542,7 @@
                 console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
             }
         });
-        
+
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
@@ -563,6 +579,28 @@
                 afterPrint: null
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hiện tại
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+
+            // Điền ngày và tháng vào span
+            var currentDateSpan = document.getElementById('currentDate');
+            currentDateSpan.textContent = day + '.' + month;
+
+            // Xử lý số thứ tự
+            var sequenceInput = document.getElementById('sequenceNumber');
+            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+
+            sequenceInput.addEventListener('input', function () {
+                var value = this.value.padStart(3, '0');
+                sequenceDisplay.textContent = value;
+            });
+        });
+
+
     </script>
 </body>
 
