@@ -460,7 +460,15 @@
             `).join('');
         }
 
-        
+        function updateTotals() {
+            document.getElementById('tongGiaTri').textContent = formatCurrency(HOP_DONG['Tong_tien_truoc_UD'] || 0);
+            document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
+            document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
+            document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
+            document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
+            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
+            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
+        }
 
         function updateNotes() {
             const ghiChuList = document.getElementById('ghiChu');
