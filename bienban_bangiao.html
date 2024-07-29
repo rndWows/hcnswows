@@ -474,28 +474,12 @@
 
         function updateNotes() {
             const ghiChuList = document.getElementById('ghiChu');
-            const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
-            const chiPhiDuyTri = tienApp * 0.15; // 15% của giá trị xây dựng ban đầu
 
             const ghiChuHTML = `
     <li> <strong> Ghi chú: </strong></li>
     <ul>
-        <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng File Google sheet và chuyển giao, Đối với App  ( chỉ chuyển giao với vai trò người dùng (không chuyển giao source nguồn code app).</li>
-        <li>Miễn phí hướng dẫn sử dụng app: <strong>${HOP_DONG['Số buổi'] || '10'}</strong> buổi Online/Offline</li>
-        <li>Buổi thứ <strong>${(parseInt(HOP_DONG['Số buổi'] || 10) + 1)}</strong> trở đi: chi phí được tính là: 1.000.000/ 1 buổi Online/Offline</li>
-        <li>Wows có trách nhiệm bảo hành và xử lý các vấn đề có liên quan đến app trong phạm vi đã thỏa thuận của hợp đồng đã ký.</li>
-        <li>Giá trị phần mềm: <strong>${formatCurrency(tienApp)}</strong></li>
-        <li>Hết thời hạn trên, chi phí duy trì hàng năm là [15% x (giá trị xây dựng ban đầu không ưu đãi)] cho các hạng mục trong phạm vi thực hiện (đóng 01 lần vào tháng đầu tiên sau khi hết bảo hành và đóng gia hạn hàng năm) Tương ứng ${formatCurrency(chiPhiDuyTri)}</li>
-        <li>Chi phí duy trì sau thời gian bảo hành gồm:
-            <ul>
-                <li>Duy trì thời gian sử dụng app 1 năm.</li>
-                <li>Xử lý sự cố về app khi có phát sinh vấn đề trong phạm vi các hạng mục đã được thống nhất (nếu có)</li>
-                <li>Hỗ trợ backup dữ liệu định kỳ cho doanh nghiệp khách hàng khi dữ liệu lớn.</li>
-            </ul>
-        </li>
-        <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
-        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: 15.000.000 vnd (Mười lăm triệu đồng) và đóng định kỳ hàng năm cùng thời điểm</li>
-    </ul>
+        <i>Hai bên đồng ý, thống nhất, và ký tên xác nhận. Biên bản này được lập thành 02 bản, mỗi bên giữ một bản và có giá trị pháp lý như nhau.</i>
+        </ul>
     `;
 
             ghiChuList.innerHTML = ghiChuHTML;
@@ -510,6 +494,11 @@
             footerHTML += `
        <table style="width: 100%; text-align: center;">
             <tbody>
+
+                <tr>
+                    <td style="width: 50%;"><span class="bold">BÊN BÀN GIAO</span></td>
+                    <td style="width: 50%;"><span class="bold">BÊN NHẬN BÀN GIAO</span></td>
+                    </tr>
                 <tr>
                     <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
                     <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
