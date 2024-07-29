@@ -209,9 +209,9 @@
             vertical-align: middle;
             background-color: #f8f9fa;
             border-bottom: 2px solid #dee2e6;
-        }d
+        }
 
-        .table th,
+        d .table th,
         .table td {
             padding: 0.75rem;
             vertical-align: top;
@@ -224,6 +224,29 @@
 
         .table-bordered {
             border: 1px solid #dee2e6;
+        }
+
+        .form-control.link-bangiao,
+        .form-control.nguoi-tiepnhan {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #495057;
+            background-color: #fff;
+            background-clip: padding-box;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .form-control.link-bangiao:focus,
+        .form-control.nguoi-tiepnhan:focus {
+            color: #495057;
+            background-color: #fff;
+            border-color: #80bdff;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
 
 
@@ -346,11 +369,11 @@
                             <th class="center">STT</th>
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
-                            <th>Mô tả chi tiết</th>
+                            <th>Quy cách</th>
                             <th>Đơn vị tính</th>
                             <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tổng giá trị <br>(Giá gốc)</th>
+                            <th>LINK BÀN GIAO (Nếu có)</th>
+                            <th>NGƯỜI TIẾP NHẬN</th>
                             <th class="center">GHI CHÚ</th>
                         </tr>
                     </thead>
@@ -462,18 +485,18 @@
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
             tableBody.innerHTML = PO_DETAIL.map((item, index) => `
-                <tr>
-                    <td class="center">${index + 1}</td>
-                    <td>${item['Ma_HHDV'] || ''}</td>
-                    <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
-                    <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
-                    <td>${item['DVT'] || ''}</td>
-                    <td>${item['So_luong'] || ''}</td>
-                    <td>${formatCurrency(item['Gia_ban'])}</td>
-                    <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
-                    <td>${item['Ghi_chu'] || ''}</td>
-                </tr>
-            `).join('');
+        <tr>
+            <td class="center">${index + 1}</td>
+            <td>${item['Ma_HHDV'] || ''}</td>
+            <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+            <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
+            <td>${item['DVT'] || ''}</td>
+            <td>${item['So_luong'] || ''}</td>
+            <td><input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao"></td>
+            <td><input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận"></td>
+            <td>${item['Ghi_chu'] || ''}</td>
+        </tr>
+    `).join('');
         }
 
         function updateTotals() {
