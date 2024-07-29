@@ -246,7 +246,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BGO-<span id="id"></span></td>
+                        <td style="font-size: 12px;">BGO-</td>
                     </tr>
                 </table>
 
@@ -255,12 +255,68 @@
                 <br>
                 <h4 style="text-align: center;" class="bold"><span>BIÊN BẢN BÀN GIAO SẢN PHẨM/DỊCH VỤ				
 				</span></h4>
-                <div> <i>Đính kèm HĐ số <span id="id1"></span></i><br></div>
-                <p><strong>Kính gửi: <span id="companyName"></span></strong></p>
-                <p>Địa chỉ: <span id="companyAddress"></span></p>
 
-                <i>Bằng việc ký tên dưới đây, Quý Khách Hàng được coi là lựa chọn và đồng ý sử dụng dịch vụ tại Phụ lục
-                    01 này.</i>
+
+
+                    <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id"></span></i>
+                    <br>
+               
+                    <i colspan="4">Hôm nay ngày 09 tháng 07 năm 2024, chúng tôi gồm:</i>
+         
+
+
+                    <table style="width: 100%; border-collapse: collapse;">
+                        
+                        <tr class="bold" >
+                            <td style="width: 25%;">Bên Cung cấp Dịch vụ (Bên A):</td>
+                            <td colspan="3">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</td>
+                        </tr>
+                        <tr>
+                            <td>Mã số doanh nghiệp:</td>
+                            <td colspan="3">3702278001</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td colspan="3">Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội Nghĩa, Thành Phố Tân Uyên, Tỉnh Bình Dương</td>
+                        </tr>
+                        <tr>
+                            <td>Đại diện theo pháp luật:</td>
+                            <td class="bold">Bà Đỗ Thị Kim Thủy</td>
+                            <td style="width: 15%;" class="bold">Chức vụ:</td>
+                            <td>Tổng giám đốc</td>
+                        </tr>
+                        <tr class="bold">
+                            <td>Bên Yêu cầu Dịch vụ (Bên B):</td>
+                            <td colspan="3" style="color: blue;"><span id="companyName"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Mã số doanh nghiệp:</td>
+                            <td colspan="3">303173322</td>
+                        </tr>
+                        <tr>
+                            <td>Địa chỉ:</td>
+                            <td colspan="3"><span id="companyAddress"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Đại diện:</td>
+                            <td class="bold">Ông Lê Vũ Lộc</td>
+                            <td class="bold">Chức vụ:</td>
+                            <td>Trưởng Phòng Kinh Doanh VCB CN Long Thành</td>
+                        </tr>
+                        <tr>
+                            <td>Số điện thoại:</td>
+                            <td>0357552700</td>
+                            <td class="bold">Email:</td>
+                            <td>Langcotrang@gmail.com</td>
+                        </tr>
+                        
+                            
+                        
+                    </table>
+                    <i colspan="4">Hai bên cùng thống nhất bàn giao và nhận các sản phẩm/dịch vụ như sau:</i>
+
+
+
 
                 <table class="table table-bordered">
                     <thead class="center-content">
@@ -371,7 +427,6 @@
 
         function updateUI() {
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
-            document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
 
