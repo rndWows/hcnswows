@@ -205,6 +205,27 @@
             word-wrap: break-word;
         }
 
+        .table thead th {
+            vertical-align: middle;
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
+        }d
+
+        .table th,
+        .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .table-bordered {
+            border: 1px solid #dee2e6;
+        }
+
 
         @media only screen and (max-width: 1024px) {
             #fixed-panel {
@@ -253,67 +274,68 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h4 style="text-align: center;" class="bold"><span>BIÊN BẢN BÀN GIAO SẢN PHẨM/DỊCH VỤ				
-				</span></h4>
+                <h4 style="text-align: center;" class="bold"><span>BIÊN BẢN BÀN GIAO SẢN PHẨM/DỊCH VỤ
+                    </span></h4>
 
 
 
-                    <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
-                    <br>
-               
-                    <i colspan="4">Hôm nay ngày 09 tháng 07 năm 2024, chúng tôi gồm:</i>
-         
+                <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
+                <br>
+
+                <i colspan="4">Hôm nay ngày 09 tháng 07 năm 2024, chúng tôi gồm:</i>
 
 
-                    <table style="width: 100%; border-collapse: collapse;">
-                        
-                        <tr class="bold" >
-                            <td style="width: 25%;">Bên Cung cấp Dịch vụ (Bên A):</td>
-                            <td colspan="3">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</td>
-                        </tr>
-                        <tr>
-                            <td>Mã số doanh nghiệp:</td>
-                            <td colspan="3">3702278001</td>
-                        </tr>
-                        <tr>
-                            <td>Địa chỉ:</td>
-                            <td colspan="3">Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội Nghĩa, Thành Phố Tân Uyên, Tỉnh Bình Dương</td>
-                        </tr>
-                        <tr>
-                            <td>Đại diện theo pháp luật:</td>
-                            <td class="bold">Bà Đỗ Thị Kim Thủy</td>
-                            <td style="width: 15%;" class="bold">Chức vụ:</td>
-                            <td>Tổng giám đốc</td>
-                        </tr>
-                        <tr class="bold">
-                            <td>Bên Yêu cầu Dịch vụ (Bên B):</td>
-                            <td colspan="3" style="color: blue;"><span id="companyName"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Mã số doanh nghiệp:</td>
-                            <td colspan="3"><span id="Mst"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Địa chỉ:</td>
-                            <td colspan="3"><span id="companyAddress"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Đại diện:</td>
-                            <td class="bold"><span id="Nglh"></span></td>
-                            <td class="bold">Chức vụ:</td>
-                            <td><span id="Chucvu"></span></td>
-                        </tr>
-                        <tr>
-                            <td>Số điện thoại:</td>
-                            <td><span id="Sdt"></span></td>
-                            <td class="bold">Email:</td>
-                            <td><span id="Email"></span></td>
-                        </tr>
-                        
-                            
-                        
-                    </table>
-                    <i colspan="4">Hai bên cùng thống nhất bàn giao và nhận các sản phẩm/dịch vụ như sau:</i>
+
+                <table style="width: 100%; border-collapse: collapse;">
+
+                    <tr class="bold">
+                        <td style="width: 25%;">Bên Cung cấp Dịch vụ (Bên A):</td>
+                        <td colspan="3">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</td>
+                    </tr>
+                    <tr>
+                        <td>Mã số doanh nghiệp:</td>
+                        <td colspan="3">3702278001</td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ:</td>
+                        <td colspan="3">Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội Nghĩa, Thành Phố
+                            Tân Uyên, Tỉnh Bình Dương</td>
+                    </tr>
+                    <tr>
+                        <td>Đại diện theo pháp luật:</td>
+                        <td class="bold">Bà Đỗ Thị Kim Thủy</td>
+                        <td style="width: 15%;" class="bold">Chức vụ:</td>
+                        <td>Tổng giám đốc</td>
+                    </tr>
+                    <tr class="bold">
+                        <td>Bên Yêu cầu Dịch vụ (Bên B):</td>
+                        <td colspan="3" style="color: blue;"><span id="companyName"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Mã số doanh nghiệp:</td>
+                        <td colspan="3"><span id="Mst"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ:</td>
+                        <td colspan="3"><span id="companyAddress"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Đại diện:</td>
+                        <td class="bold"><span id="Nglh"></span></td>
+                        <td class="bold">Chức vụ:</td>
+                        <td><span id="Chucvu"></span></td>
+                    </tr>
+                    <tr>
+                        <td>Số điện thoại:</td>
+                        <td><span id="Sdt"></span></td>
+                        <td class="bold">Email:</td>
+                        <td><span id="Email"></span></td>
+                    </tr>
+
+
+
+                </table>
+                <i colspan="4">Hai bên cùng thống nhất bàn giao và nhận các sản phẩm/dịch vụ như sau:</i>
 
 
 
@@ -321,21 +343,15 @@
                 <table class="table table-bordered">
                     <thead class="center-content">
                         <tr>
-                            <th rowspan="2" class="center">STT</th>
-                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
-
-                            <th rowspan="2" class="center">GHI CHÚ</th>
-                        </tr>
-                        <tr>
+                            <th class="center">STT</th>
                             <th>Mã sản phẩm</th>
                             <th>Tên sản phẩm</th>
                             <th>Quy cách</th>
                             <th>Đơn vị tính</th>
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
-                            <th>Tổng giá trị <BR>
-                                (Giá gốc)</th>
-
+                            <th>Tổng giá trị <br>(Giá gốc)</th>
+                            <th class="center">GHI CHÚ</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
