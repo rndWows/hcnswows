@@ -384,9 +384,7 @@
                     
                 </table>
                 
-                <ul id="ghiChu">
-                    <!-- Nội dung ghi chú sẽ được thêm vào đây bằng JavaScript -->
-                </ul>
+                <i>Hai bên đồng ý, thống nhất, và ký tên xác nhận. Biên bản này được lập thành 02 bản, mỗi bên giữ một bản và có giá trị pháp lý như nhau.</i>
                 <div id="thanhToanInfo" class="mt-4">
                     <!-- Thông tin thanh toán sẽ được thêm vào đây -->
                 </div>
@@ -448,7 +446,6 @@
 
 
             updateProductTable();
-            updateNotes();
 
             updateFooter();
         }
@@ -472,18 +469,6 @@
 
         
 
-        function updateNotes() {
-            const ghiChuList = document.getElementById('ghiChu');
-
-            const ghiChuHTML = `
-    <li> <strong> Ghi chú: </strong></li>
-    <ul>
-        <i>Hai bên đồng ý, thống nhất, và ký tên xác nhận. Biên bản này được lập thành 02 bản, mỗi bên giữ một bản và có giá trị pháp lý như nhau.</i>
-        </ul>
-    `;
-
-            ghiChuList.innerHTML = ghiChuHTML;
-        }
 
 
 
