@@ -291,7 +291,7 @@
                         </tr>
                         <tr>
                             <td>Mã số doanh nghiệp:</td>
-                            <td colspan="3">303173322</td>
+                            <td colspan="3"><span id="Mst"></span></td>
                         </tr>
                         <tr>
                             <td>Địa chỉ:</td>
@@ -299,15 +299,15 @@
                         </tr>
                         <tr>
                             <td>Đại diện:</td>
-                            <td class="bold">Ông Lê Vũ Lộc</td>
+                            <td class="bold"><span id="Nglh"></span></td>
                             <td class="bold">Chức vụ:</td>
-                            <td>Trưởng Phòng Kinh Doanh VCB CN Long Thành</td>
+                            <td><span id="Chucvu"></span></td>
                         </tr>
                         <tr>
                             <td>Số điện thoại:</td>
-                            <td>0357552700</td>
+                            <td><span id="Sdt"></span></td>
                             <td class="bold">Email:</td>
-                            <td>Langcotrang@gmail.com</td>
+                            <td><span id="Email"></span></td>
                         </tr>
                         
                             
@@ -429,6 +429,12 @@
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
+            document.getElementById('Mst').textContent = KHTN['MST'] || '';
+            document.getElementById('Nglh').textContent = KHTN['NGƯỜI LIÊN HỆ'] || '';
+            document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
+            document.getElementById('Sdt').textContent = KHTN['SỐ ĐT NGƯỜI LIÊN HỆ'] || '';
+            document.getElementById('Email').textContent = KHTN['EMAIL NGƯỜI LIÊN HỆ'] || '';
+
 
             updateProductTable();
             updateTotals();
