@@ -381,32 +381,7 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
-                            <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
-                        </tr>
-                    </tfoot>
+                    
                 </table>
                 <div class="mt-3">
                     <span style="font-style: italic; font-weight: bold;">TỔNG THANH TOÁN (bao gồm VAT) : </span>
@@ -477,7 +452,6 @@
 
 
             updateProductTable();
-            updateTotals();
             updateNotes();
 
             updateFooter();
@@ -500,15 +474,7 @@
     `).join('');
         }
 
-        function updateTotals() {
-            document.getElementById('tongGiaTri').textContent = formatCurrency(HOP_DONG['Tong_tien_truoc_UD'] || 0);
-            document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
-            document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
-            document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
-            document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
-            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
-            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
-        }
+        
 
         function updateNotes() {
             const ghiChuList = document.getElementById('ghiChu');
@@ -590,46 +556,7 @@
                 console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
             }
         });
-        function numberToWords(number) {
-            const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
-            const teens = ['mười', 'mười một', 'mười hai', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
-            const tens = ['', '', 'hai mươi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
-            const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
-
-            if (number === 0) return 'không';
-
-            function convertGroup(n) {
-                let result = '';
-                if (n >= 100) {
-                    result += units[Math.floor(n / 100)] + ' trăm ';
-                    n %= 100;
-                }
-                if (n >= 20) {
-                    result += tens[Math.floor(n / 10)] + ' ';
-                    n %= 10;
-                }
-                if (n >= 10) {
-                    result += teens[n - 10] + ' ';
-                } else if (n > 0) {
-                    result += units[n] + ' ';
-                }
-                return result.trim();
-            }
-
-            let result = '';
-            let scaleIndex = 0;
-            while (number > 0) {
-                const group = number % 1000;
-                if (group !== 0) {
-                    result = convertGroup(group) + ' ' + scales[scaleIndex] + ' ' + result;
-                }
-                number = Math.floor(number / 1000);
-                scaleIndex++;
-            }
-            // Viết hoa chữ cái đầu tiên
-            result = result.trim();
-            return result.charAt(0).toUpperCase() + result.slice(1);
-        }
+        
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
