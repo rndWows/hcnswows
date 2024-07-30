@@ -53,9 +53,65 @@
         }
 
 
+        .table {
+            table-layout: fixed;
+            width: 100%;
+        }
+
+        .col-stt {
+            width: 5%;
+        }
+
+        .col-ma-sp {
+            width: 10%;
+        }
+
+        .col-ten-sp {
+            width: 15%;
+        }
+
+        .col-quy-cach {
+            width: 15%;
+        }
+
+        .col-dvt {
+            width: 10%;
+        }
+
+        .col-so-luong {
+            width: 10%;
+        }
+
+        .col-link {
+            width: 15%;
+        }
+
+        .col-nguoi-nhan {
+            width: 15%;
+        }
+
+        .col-ghi-chu {
+            width: 5%;
+        }
+
+        .table th,
+        .table td {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+
 
 
         @media print {
+
+            .table th,
+            .table td {
+                overflow: visible;
+                white-space: normal;
+                word-wrap: break-word;
+            }
 
             body,
             #content {
@@ -392,15 +448,15 @@
                 <table class="table table-bordered">
                     <thead class="center-content">
                         <tr>
-                            <th class="center">STT</th>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Quy cách</th>
-                            <th>Đơn vị tính</th>
-                            <th>Số lượng</th>
-                            <th>Link bàn giao (Nếu có)</th>
-                            <th>Người tiếp nhận</th>
-                            <th class="center">Ghi chú</th>
+                            <th class="center col-stt">STT</th>
+                            <th class="col-ma-sp">Mã sản phẩm</th>
+                            <th class="col-ten-sp">Tên sản phẩm</th>
+                            <th class="col-quy-cach">Quy cách</th>
+                            <th class="col-dvt">Đơn vị tính</th>
+                            <th class="col-so-luong">Số lượng</th>
+                            <th class="col-link">Link bàn giao (Nếu có)</th>
+                            <th class="col-nguoi-nhan">Người tiếp nhận</th>
+                            <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
