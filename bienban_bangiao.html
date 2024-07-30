@@ -57,6 +57,18 @@
 
         @media print {
 
+            .table {
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .table th,
+            .table td {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
             body,
             #content {
                 margin: 0;
@@ -67,12 +79,14 @@
             h5 {
                 font-size: 24px
             }
+
             .date-input {
-            display: none;
-        }
-        .no-print {
-        display: none;
-    }
+                display: none;
+            }
+
+            .no-print {
+                display: none;
+            }
 
             .big-title {
                 font-size: 18px !important;
@@ -232,10 +246,36 @@
             border: 1px solid #dee2e6;
         }
 
-        .link-display, .nguoi-tiepnhan-display {
-        display: none;
-        cursor: pointer;
-    }
+        .link-display,
+        .nguoi-tiepnhan-display {
+            display: none;
+            cursor: pointer;
+        }
+
+        /* Thêm vào phần <style> hiện có */
+        .table .link-column,
+        .table .nguoi-nhan-column {
+            width: 150px;
+            /* Điều chỉnh chiều rộng theo nhu cầu */
+            max-width: 150px;
+            min-width: 150px;
+        }
+
+        .table .link-column input,
+        .table .nguoi-nhan-column input,
+        .table .link-column span,
+        .table .nguoi-nhan-column span {
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .link-display,
+        .nguoi-tiepnhan-display {
+            display: none;
+            cursor: pointer;
+        }
 
         .form-control.link-bangiao,
         .form-control.nguoi-tiepnhan {
@@ -481,11 +521,11 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td>
+            <td class="link-column">
                 <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
                 <span class="link-display"></span>
             </td>
-            <td>
+            <td class="nguoi-nhan-column">
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận">
                 <span class="nguoi-tiepnhan-display"></span>
             </td>
@@ -497,28 +537,28 @@
 
 
         function addInputListeners() {
-    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-    inputs.forEach(input => {
-        input.addEventListener('blur', function() {
-            const display = this.nextElementSibling;
-            display.textContent = this.value;
-            if (this.value) {
-                this.style.display = 'none';
-                display.style.display = 'inline';
-            }
-        });
-    });
+            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+            inputs.forEach(input => {
+                input.addEventListener('blur', function () {
+                    const display = this.nextElementSibling;
+                    display.textContent = this.value;
+                    if (this.value) {
+                        this.style.display = 'none';
+                        display.style.display = 'inline';
+                    }
+                });
+            });
 
-    const spans = document.querySelectorAll('.link-display, .nguoi-tiepnhan-display');
-    spans.forEach(span => {
-        span.addEventListener('click', function() {
-            const input = this.previousElementSibling;
-            this.style.display = 'none';
-            input.style.display = 'inline-block';
-            input.focus();
-        });
-    });
-}
+            const spans = document.querySelectorAll('.link-display, .nguoi-tiepnhan-display');
+            spans.forEach(span => {
+                span.addEventListener('click', function () {
+                    const input = this.previousElementSibling;
+                    this.style.display = 'none';
+                    input.style.display = 'inline-block';
+                    input.focus();
+                });
+            });
+        }
 
 
         function updateFooter() {
@@ -613,30 +653,30 @@
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-    // Lấy ngày hôm nay
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
-    var year = today.getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hôm nay
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
+            var year = today.getFullYear();
 
-    // Điền ngày hôm nay vào các ô input
-    document.getElementById('day').value = day;
-    document.getElementById('month').value = month;
-    document.getElementById('year').value = year;
+            // Điền ngày hôm nay vào các ô input
+            document.getElementById('day').value = day;
+            document.getElementById('month').value = month;
+            document.getElementById('year').value = year;
 
-    // Tạo và cập nhật các span
-    var inputs = document.querySelectorAll('.date-input');
-    inputs.forEach(function(input) {
-        var span = document.createElement('span');
-        span.textContent = input.value;
-        input.parentNode.insertBefore(span, input.nextSibling);
+            // Tạo và cập nhật các span
+            var inputs = document.querySelectorAll('.date-input');
+            inputs.forEach(function (input) {
+                var span = document.createElement('span');
+                span.textContent = input.value;
+                input.parentNode.insertBefore(span, input.nextSibling);
 
-        input.addEventListener('input', function() {
-            span.textContent = this.value;
+                input.addEventListener('input', function () {
+                    span.textContent = this.value;
+                });
+            });
         });
-    });
-});
 
 
 
