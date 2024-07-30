@@ -548,8 +548,8 @@
         }
 
         function updateProductTable() {
-            const tableBody = document.getElementById('orderDetailsBody');
-            tableBody.innerHTML = PO_DETAIL.map((item, index) => `
+    const tableBody = document.getElementById('orderDetailsBody');
+    tableBody.innerHTML = PO_DETAIL.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
             <td>${item['Ma_HHDV'] || ''}</td>
@@ -557,21 +557,20 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-             <td>
-                <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
+            <td>
+                <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao" value="${item['Link_ban_giao'] || ''}">
                 <span class="print-only"></span>
             </td>
             <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận">
+                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
             <td>${item['Ghi_chu'] || ''}</td>
         </tr>
     `).join('');
 
-            // Thêm sự kiện lắng nghe cho các input
-            addInputListeners();
-        }
+    addInputListeners();
+}
 
 
         document.getElementById('orderDetailsBody').addEventListener('input', function(event) {
@@ -596,12 +595,14 @@ observer.observe(document.getElementById('orderDetailsBody'), { childList: true,
 
         function addInputListeners() {
             const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                input.addEventListener('input', function () {
-                    const printSpan = this.nextElementSibling;
-                    printSpan.textContent = this.value;
-                });
-            });
+    inputs.forEach(input => {
+        const printSpan = input.nextElementSibling;
+        printSpan.textContent = input.value; // Cập nhật ngay lập tức
+        
+        input.addEventListener('input', function() {
+            printSpan.textContent = this.value;
+        });
+    });
 
 
         }
@@ -609,8 +610,22 @@ observer.observe(document.getElementById('orderDetailsBody'), { childList: true,
 document.addEventListener('DOMContentLoaded', addInputListeners);
 
 
+
+function updatePODetail() {
+    const rows = document.querySelectorAll('#orderDetailsBody tr');
+    rows.forEach((row, index) => {
+        PO_DETAIL[index]['Link_ban_giao'] = row.querySelector('.link-bangiao').value;
+        PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
+    });
+}
+
+
         function prepareForPrinting() {
-            
+            updatePODetail();
+    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+    inputs.forEach(input => {
+        input.style.display = 'none';
+    });
         }
 
 
@@ -668,6 +683,10 @@ document.addEventListener('DOMContentLoaded', addInputListeners);
             } else {
                 console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
             }
+
+
+            updateProductTable();
+    addInputListeners();
         });
 
         function formatDate(dateString) {
