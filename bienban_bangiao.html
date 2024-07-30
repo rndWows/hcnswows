@@ -574,6 +574,14 @@
         }
 
 
+        document.getElementById('orderDetailsBody').addEventListener('input', function(event) {
+    if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
+        const printSpan = event.target.nextElementSibling;
+        printSpan.textContent = event.target.value;
+    }
+});
+
+
 
         function addInputListeners() {
             const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
