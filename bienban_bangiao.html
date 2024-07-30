@@ -57,18 +57,6 @@
 
         @media print {
 
-            .table {
-                width: 100%;
-                table-layout: fixed;
-            }
-
-            .table th,
-            .table td {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-
             body,
             #content {
                 margin: 0;
@@ -246,30 +234,7 @@
             border: 1px solid #dee2e6;
         }
 
-        .link-display,
-        .nguoi-tiepnhan-display {
-            display: none;
-            cursor: pointer;
-        }
 
-        /* Thêm vào phần <style> hiện có */
-        .table .link-column,
-        .table .nguoi-nhan-column {
-            width: 150px;
-            /* Điều chỉnh chiều rộng theo nhu cầu */
-            max-width: 150px;
-            min-width: 150px;
-        }
-
-        .table .link-column input,
-        .table .nguoi-nhan-column input,
-        .table .link-column span,
-        .table .nguoi-nhan-column span {
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
 
         .link-display,
         .nguoi-tiepnhan-display {
@@ -508,6 +473,7 @@
 
             updateProductTable();
             addInputListeners();
+
             updateFooter();
         }
 
@@ -521,18 +487,20 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td class="link-column">
+            <td>
                 <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
                 <span class="link-display"></span>
             </td>
-            <td class="nguoi-nhan-column">
+            <td>
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận">
                 <span class="nguoi-tiepnhan-display"></span>
             </td>
             <td>${item['Ghi_chu'] || ''}</td>
         </tr>
     `).join('');
-    addInputListeners();
+
+            // Thêm sự kiện lắng nghe cho các input
+            addInputListeners();
         }
 
 
@@ -560,6 +528,10 @@
                 });
             });
         }
+
+
+
+
 
 
         function updateFooter() {
