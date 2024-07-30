@@ -113,15 +113,12 @@
                 word-wrap: break-word;
             }
 
-
-            .link-bangiao,
-            .nguoi-tiepnhan {
-                display: none;
-            }
-
-            .print-only {
-                display: inline;
-            }
+            .link-bangiao, .nguoi-tiepnhan {
+        display: none;
+    }
+    .print-only {
+        display: inline;
+    }
 
             body,
             #content {
@@ -589,15 +586,12 @@
 
 
         }
+        // Gọi hàm này sau khi tạo bảng hoặc khi trang đã load xong
+document.addEventListener('DOMContentLoaded', addInputListeners);
 
 
         function prepareForPrinting() {
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                if (!input.value.trim()) {
-                    input.style.display = 'none';
-                }
-            });
+            
         }
 
 
