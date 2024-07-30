@@ -114,24 +114,24 @@
             }
 
 
-            .link-bangiao,
-            .nguoi-tiepnhan {
-                border: none;
-                background: none;
-                padding: 0;
-                font-family: inherit;
-                font-size: inherit;
-                color: inherit;
-            }
+            .link-bangiao, .nguoi-tiepnhan {
+            display: none;
+        }
 
-            .link-bangiao::placeholder,
-            .nguoi-tiepnhan::placeholder {
-                color: transparent;
-            }
-
-            .print-only {
-                display: inline;
-            }
+        .link-bangiao, .nguoi-tiepnhan {
+            border: none;
+            background: none;
+            padding: 0;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+        }
+        .link-bangiao::placeholder, .nguoi-tiepnhan::placeholder {
+            color: transparent;
+        }
+        .print-only {
+            display: inline;
+        }
 
             body,
             #content {
@@ -336,10 +336,10 @@
         }
 
         @media screen {
-            .print-only {
-                display: none;
-            }
+        .print-only {
+            display: none;
         }
+    }
 
 
         @media only screen and (max-width: 1024px) {
