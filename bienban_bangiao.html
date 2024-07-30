@@ -722,25 +722,6 @@
 
 
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lấy ngày hiện tại
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
-
-            // Điền ngày và tháng vào span
-            var currentDateSpan = document.getElementById('currentDate');
-            currentDateSpan.textContent = day + '.' + month;
-
-            // Xử lý số thứ tự
-            var sequenceInput = document.getElementById('sequenceNumber');
-            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
-
-            sequenceInput.addEventListener('input', function () {
-                var value = this.value.padStart(3, '0');
-                sequenceDisplay.textContent = value;
-            });
-        });
 
 
     </script>
