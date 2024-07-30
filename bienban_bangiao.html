@@ -59,7 +59,7 @@
         }
 
         .col-stt {
-            width: 4%;
+            width: 5%;
         }
 
         .col-ma-sp {
@@ -71,7 +71,7 @@
         }
 
         .col-quy-cach {
-            width: 41%;
+            width: 40%;
         }
 
         .col-dvt {
@@ -114,12 +114,24 @@
             }
 
 
-            .link-bangiao, .nguoi-tiepnhan {
-            display: none;
-        }
-        .print-only {
-            display: inline;
-        }
+            .link-bangiao,
+            .nguoi-tiepnhan {
+                border: none;
+                background: none;
+                padding: 0;
+                font-family: inherit;
+                font-size: inherit;
+                color: inherit;
+            }
+
+            .link-bangiao::placeholder,
+            .nguoi-tiepnhan::placeholder {
+                color: transparent;
+            }
+
+            .print-only {
+                display: inline;
+            }
 
             body,
             #content {
@@ -324,10 +336,10 @@
         }
 
         @media screen {
-        .print-only {
-            display: none;
+            .print-only {
+                display: none;
+            }
         }
-    }
 
 
         @media only screen and (max-width: 1024px) {
@@ -550,13 +562,11 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td>
+             <td>
                 <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
-                <span class="print-only"></span>
             </td>
             <td>
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận">
-                <span class="print-only"></span>
             </td>
             <td>${item['Ghi_chu'] || ''}</td>
         </tr>
