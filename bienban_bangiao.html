@@ -372,7 +372,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BGO-</td>
+                        <td style="font-size: 12px;">BGO-<span id="Tvt"></span>--<input type="text" id="sequenceNumber" class="no-print" style="width: 40px; border: none; border-bottom: 1px solid black;"><span id="sequenceNumberDisplay"></span></td>
                     </tr>
                 </table>
 
@@ -534,6 +534,7 @@
             document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
             document.getElementById('Sdt').textContent = KHTN['SỐ ĐT NGƯỜI LIÊN HỆ'] || '';
             document.getElementById('Email').textContent = KHTN['EMAIL NGƯỜI LIÊN HỆ'] || '';
+            document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
 
 
             updateProductTable();
