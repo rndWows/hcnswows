@@ -232,6 +232,11 @@
             border: 1px solid #dee2e6;
         }
 
+        .link-display, .nguoi-tiepnhan-display {
+        display: none;
+        cursor: pointer;
+    }
+
         .form-control.link-bangiao,
         .form-control.nguoi-tiepnhan {
             width: 100%;
@@ -462,7 +467,7 @@
 
 
             updateProductTable();
-
+            addInputListeners();
             updateFooter();
         }
 
@@ -476,8 +481,14 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td><input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao"></td>
-            <td><input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận"></td>
+            <td>
+                <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
+                <span class="link-display"></span>
+            </td>
+            <td>
+                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận">
+                <span class="nguoi-tiepnhan-display"></span>
+            </td>
             <td>${item['Ghi_chu'] || ''}</td>
         </tr>
     `).join('');
@@ -485,7 +496,29 @@
 
 
 
+        function addInputListeners() {
+    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            const display = this.nextElementSibling;
+            display.textContent = this.value;
+            if (this.value) {
+                this.style.display = 'none';
+                display.style.display = 'inline';
+            }
+        });
+    });
 
+    const spans = document.querySelectorAll('.link-display, .nguoi-tiepnhan-display');
+    spans.forEach(span => {
+        span.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            this.style.display = 'none';
+            input.style.display = 'inline-block';
+            input.focus();
+        });
+    });
+}
 
 
         function updateFooter() {
