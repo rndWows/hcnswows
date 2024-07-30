@@ -582,6 +582,17 @@
 });
 
 
+const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        if (mutation.type === 'childList') {
+            addInputListeners();
+        }
+    });
+});
+
+observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
+
+
 
         function addInputListeners() {
             const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
