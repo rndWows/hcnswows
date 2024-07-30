@@ -114,12 +114,14 @@
             }
 
 
-            .link-bangiao, .nguoi-tiepnhan {
-            display: none;
-        }
-        .print-only {
-            display: inline;
-        }
+            .link-bangiao,
+            .nguoi-tiepnhan {
+                display: none;
+            }
+
+            .print-only {
+                display: inline;
+            }
 
             body,
             #content {
@@ -324,10 +326,10 @@
         }
 
         @media screen {
-        .print-only {
-            display: none;
+            .print-only {
+                display: none;
+            }
         }
-    }
 
 
         @media only screen and (max-width: 1024px) {
@@ -377,8 +379,8 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h3 style="text-align: center;" class="bold"><span>BIÊN BẢN BÀN GIAO SẢN PHẨM/DỊCH VỤ
-                    </span></h3>
+                <h4 style="text-align: center;" class="bold"><span>BIÊN BẢN BÀN GIAO SẢN PHẨM/DỊCH VỤ
+                    </span></h4>
 
 
 
@@ -535,7 +537,8 @@
 
 
             updateProductTable();
-            prepareForPrinting();
+            addInputListeners();
+
             updateFooter();
         }
 
@@ -549,7 +552,7 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td>
+             <td>
                 <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao">
                 <span class="print-only"></span>
             </td>
