@@ -173,6 +173,12 @@
                 top: -10px;
                 left: 10px;
             }
+
+            #sequenceNumber {
+        display: none;
+    }
+
+
         }
 
         #content {
@@ -372,7 +378,10 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BGO-<span id="Tvt"></span></td>
+                        <td style="font-size: 12px;">BGO-<span id="Tvt"></span>-<span id="currentDate"></span>-<span
+                                id="sequenceNumberDisplay">001</span>
+                            <input type="hidden" id="sequenceNumber" value="001">
+                        </td>
                     </tr>
                 </table>
 
@@ -719,7 +728,25 @@
             });
         });
 
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hiện tại
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
 
+            // Điền ngày và tháng vào span
+            var currentDateSpan = document.getElementById('currentDate');
+            currentDateSpan.textContent = day + '.' + month;
+
+            // Xử lý số thứ tự
+            var sequenceInput = document.getElementById('sequenceNumber');
+            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+
+            sequenceInput.addEventListener('input', function () {
+                var value = this.value.padStart(3, '0');
+                sequenceDisplay.textContent = value;
+            });
+        });
 
 
 
