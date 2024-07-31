@@ -383,10 +383,7 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN NGHIỆM THU
-                    </span></h2>
-
-
+                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN NGHIỆM THU</span></h2>
                 <i>Hôm nay, &emsp; Ngày
                     <input type="text" id="day" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
@@ -395,17 +392,14 @@
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
                     Năm
                     <input type="text" id="year" class="date-input"
-                        style="width: 50px; border: none; border-bottom: 1px solid black;">, chúng tôi gồm:
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
                 </i>
                 <br>
-
                 <i>Tại văn phòng công ty: </i><span id="companyName"></span>
                 <br>
                 <i>Địa chỉ: </i><span id="companyAddress"></span>
                 <br>
-
                 <div class="bold">1. Thời gian nghiệm thu:	</div>
-
                 <i>Bắt đầu: &emsp; 
                     Giờ
                     <input type="text" id="hour" class="date-input"
@@ -441,7 +435,6 @@
                         style="width: 50px; border: none; border-bottom: 1px solid black;">
                 </i>
                 <br>
-
                 <div class="bold">2. Hội đồng nghiệm thu bao gồm:</div>
                 <div class="bold">Đại diện chủ đầu tư:</div>
                 <table style="width: 100%; border-collapse: collapse;">
@@ -452,7 +445,6 @@
                         <td><span id="Chucvu"></span></td>
                     </tr>
                 </table>
-
                 <div class="bold">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</div>
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
@@ -467,16 +459,11 @@
                         <td style="width: 7%;">Chức vụ:</td>
                         <td>Tổng giám đốc</td>
                     </tr>
-
                 </table>
-
-
                 <div class="bold">3. Hội đồng nghiệm thu đã tiến hành:</div>
                 <div>Xem xét hồ sơ tài liệu sau:</div>
                 <div>Báo giá/hợp đồng số: <span id="id" class="bold"></span></div>
                 <p class="bold">Kiểm tra thực tế thông tin tính năng của sản phẩm dịch vụ theo danh mục:</p>
-
-
 
                 <table class="table table-bordered">
                     <thead class="center-content">
@@ -572,6 +559,8 @@
             document.getElementById('Nglh').textContent = KHTN['NGƯỜI LIÊN HỆ'] || '';
             document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
+           // document.getElementById('Tungay').textContent = HOP_DONG['Từ ngày'] || '';
+           // document.getElementById('Denngay').textContent = HOP_DONG['Đến ngày'] || '';
 
 
             updateProductTable();
