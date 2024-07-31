@@ -109,12 +109,14 @@
                 word-wrap: break-word;
             }
 
-            .link-bangiao, .nguoi-tiepnhan {
-        display: none;
-    }
-    .print-only {
-        display: inline;
-    }
+            .link-bangiao,
+            .nguoi-tiepnhan {
+                display: none;
+            }
+
+            .print-only {
+                display: inline;
+            }
 
             body,
             #content {
@@ -168,8 +170,8 @@
             }
 
             #sequenceNumber {
-        display: none;
-    }
+                display: none;
+            }
 
 
         }
@@ -340,6 +342,64 @@
                 display: none !important;
             }
         }
+
+
+
+
+        .checkbox-container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 16px;
+        user-select: none;
+    }
+
+    .checkbox-container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+    }
+
+    .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+    }
+
+    .checkbox-container:hover input ~ .checkmark {
+        background-color: #ccc;
+    }
+
+    .checkbox-container input:checked ~ .checkmark {
+        background-color: #2196F3;
+    }
+
+    .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+    }
+
+    .checkbox-container input:checked ~ .checkmark:after {
+        display: block;
+    }
+
+    .checkbox-container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        transform: rotate(45deg);
+    }
     </style>
 
 </head>
@@ -371,7 +431,10 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BNT-<span id="Tvt"></span>-<span id="currentDate"></span>-<input type="text" id="sequenceNumber" class="no-print" style="width: 40px; border: none; border-bottom: 1px solid black;"><span id="sequenceNumberDisplay"></span>
+                        <td style="font-size: 12px;">BNT-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
+                                type="text" id="sequenceNumber" class="no-print"
+                                style="width: 40px; border: none; border-bottom: 1px solid black;"><span
+                                id="sequenceNumberDisplay"></span>
                         </td>
                     </tr>
                 </table>
@@ -395,8 +458,8 @@
                 <br>
                 <i>Địa chỉ: </i><span id="companyAddress"></span>
                 <br>
-                <div class="bold">1. Thời gian nghiệm thu:	</div>
-                <i>Bắt đầu: &emsp; 
+                <div class="bold">1. Thời gian nghiệm thu: </div>
+                <i>Bắt đầu: &emsp;
                     Giờ
                     <input type="text" id="hour" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
@@ -413,7 +476,7 @@
                     <input type="text" id="year" class="date-input"
                         style="width: 50px; border: none; border-bottom: 1px solid black;">
                 </i> <br>
-                <i>kết thúc: &emsp; 
+                <i>kết thúc: &emsp;
                     Giờ
                     <input type="text" id="hour" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
@@ -567,8 +630,8 @@
         }
 
         function updateProductTable() {
-    const tableBody = document.getElementById('orderDetailsBody');
-    tableBody.innerHTML = PO_DETAIL.map((item, index) => `
+            const tableBody = document.getElementById('orderDetailsBody');
+            tableBody.innerHTML = PO_DETAIL.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
             <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
@@ -587,68 +650,84 @@
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
-            <td><input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập kết quả" value="${item['Nguoi_tiep_nhan'] || ''}">
-                <span class="print-only"></span></td>
+            <td>
+                <label class="checkbox-container">
+                    <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
+                    <span class="checkmark"></span>
+                    Đạt
+                </label>
+                <span class="print-only">${item['Ket_qua_nghiem_thu'] || ''}</span>
+            </td>
         </tr>
     `).join('');
 
-    addInputListeners();
-}
-
-
-        document.getElementById('orderDetailsBody').addEventListener('input', function(event) {
-    if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
-        const printSpan = event.target.nextElementSibling;
-        printSpan.textContent = event.target.value;
-    }
-});
-
-
-const observer = new MutationObserver(function(mutations) {
-    mutations.forEach(function(mutation) {
-        if (mutation.type === 'childList') {
             addInputListeners();
         }
-    });
-});
 
-observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
+
+        document.getElementById('orderDetailsBody').addEventListener('input', function (event) {
+            if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
+                const printSpan = event.target.nextElementSibling;
+                printSpan.textContent = event.target.value;
+            }
+        });
+
+
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.type === 'childList') {
+                    addInputListeners();
+                }
+            });
+        });
+
+        observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
 
 
 
         function addInputListeners() {
             const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-    inputs.forEach(input => {
-        const printSpan = input.nextElementSibling;
-        printSpan.textContent = input.value; // Cập nhật ngay lập tức
-        
-        input.addEventListener('input', function() {
-            printSpan.textContent = this.value;
-        });
-    });
+            inputs.forEach(input => {
+                const printSpan = input.nextElementSibling;
+                printSpan.textContent = input.value; // Cập nhật ngay lập tức
 
+                input.addEventListener('input', function () {
+                    printSpan.textContent = this.value;
+                });
+            });
+
+            const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+            checkboxes.forEach(checkbox => {
+                const printSpan = checkbox.closest('td').querySelector('.print-only');
+                printSpan.textContent = checkbox.checked ? 'Đạt' : 'Không đạt';
+
+                checkbox.addEventListener('change', function () {
+                    printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
+                });
+            });
 
         }
         // Gọi hàm này sau khi tạo bảng hoặc khi trang đã load xong
-document.addEventListener('DOMContentLoaded', addInputListeners);
+        document.addEventListener('DOMContentLoaded', addInputListeners);
 
 
 
-function updatePODetail() {
-    const rows = document.querySelectorAll('#orderDetailsBody tr');
-    rows.forEach((row, index) => {
-        PO_DETAIL[index]['Link_ban_giao'] = row.querySelector('.link-bangiao').value;
-        PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
-    });
-}
+        function updatePODetail() {
+            const rows = document.querySelectorAll('#orderDetailsBody tr');
+            rows.forEach((row, index) => {
+                PO_DETAIL[index]['Link_ban_giao'] = row.querySelector('.link-bangiao').value;
+                PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
+                PO_DETAIL[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Đạt' : 'Không đạt';
+            });
+        }
 
 
         function prepareForPrinting() {
             updatePODetail();
-    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-    inputs.forEach(input => {
-        input.style.display = 'none';
-    });
+            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+            inputs.forEach(input => {
+                input.style.display = 'none';
+            });
         }
 
 
@@ -709,7 +788,7 @@ function updatePODetail() {
 
 
             updateProductTable();
-    addInputListeners();
+            addInputListeners();
         });
 
         function formatDate(dateString) {
