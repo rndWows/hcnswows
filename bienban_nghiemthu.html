@@ -346,7 +346,7 @@
 
 
         .checkbox-container {
-            display: block;
+            display: none;
             position: relative;
             padding-left: 35px;
             margin-bottom: 12px;
@@ -383,6 +383,8 @@
 
         .checkmark:after {
             content: "";
+            position: absolute;
+            display: none;
         }
 
         .checkbox-container input:checked~.checkmark:after {
@@ -394,7 +396,7 @@
             top: 5px;
             width: 5px;
             height: 10px;
-            border: solid rgb(37, 31, 31);
+            border: solid white;
             border-width: 0 3px 3px 0;
             transform: rotate(45deg);
         }
@@ -648,9 +650,8 @@
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
-
             <td>
-                <label class="checkbox-container no-print">
+                <label class="checkbox-container">
                     <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
                     <span class="checkmark"></span>
                 </label>
