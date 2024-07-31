@@ -134,7 +134,7 @@
             }
 
             .no-print {
-                display: none;
+                display: none !important;
             }
 
             .big-title {
@@ -342,8 +342,6 @@
                 display: none !important;
             }
         }
-
-
     </style>
 
 </head>
@@ -594,13 +592,13 @@
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
-            <td>
-                <label class="checkbox-container">
-                    <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
-                    <span class="checkmark"></span>
-                </label>
-                <span class="print-only">${item['Ket_qua_nghiem_thu'] || ''}</span>
-            </td>
+             <td>
+            <label class="checkbox-container no-print">
+                <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
+                <span class="checkmark"></span>
+            </label>
+            <span class="print-only ket-qua-text">${item['Ket_qua_nghiem_thu'] || ''}</span>
+        </td>
         </tr>
     `).join('');
 
@@ -641,7 +639,7 @@
 
             const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
             checkboxes.forEach(checkbox => {
-                const printSpan = checkbox.closest('td').querySelector('.print-only');
+                const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
                 printSpan.textContent = checkbox.checked ? 'Đạt' : 'Không đạt';
 
                 checkbox.addEventListener('change', function () {
