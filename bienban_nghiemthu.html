@@ -62,10 +62,6 @@
             width: 5%;
         }
 
-        .col-ma-sp {
-            width: 10%;
-        }
-
         .col-ten-sp {
             width: 10%;
         }
@@ -469,14 +465,13 @@
                     <thead class="center-content">
                         <tr>
                             <th class="center col-stt" rowspan="2">STT</th>
-                            <th class="col-ma-sp" rowspan="2">Mã sản phẩm</th>
                             <th class="col-ten-sp" rowspan="2">Tên sản phẩm</th>
                             <th class="col-quy-cach" rowspan="2">Mô tả sản phẩm</th>
                             <th class="col-dvt" rowspan="2">Đơn vị tính</th>
                             <th class="col-so-luong" rowspan="2">Số lượng</th>
                             <th class="col-link" rowspan="2">Link bàn giao (Nếu có)</th>
-                            <th class="col-nguoi-nhan" colspan="2">Người tiếp nhận</th>
-                            <th class="center col-ghi-chu" rowspan="2">Ghi chú</th>
+                            <th class="col-nguoi-nhan" colspan="2">Thời gian thử</th>
+                            <th class="center col-ghi-chu" rowspan="2">Kết quả nghiệm thu</th>
                         </tr>
                         <tr>
                             <th>Bắt đầu</th>
@@ -576,7 +571,6 @@
     tableBody.innerHTML = PO_DETAIL.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
-            <td>${item['Ma_HHDV'] || ''}</td>
             <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
@@ -593,7 +587,8 @@
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
-            <td>${item['Ghi_chu'] || ''}</td>
+            <td><input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập kết quả" value="${item['Nguoi_tiep_nhan'] || ''}">
+                <span class="print-only"></span></td>
         </tr>
     `).join('');
 
