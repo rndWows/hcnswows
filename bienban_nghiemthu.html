@@ -441,9 +441,27 @@
                 <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td style="width: 7%;">1. Ông/Bà: </td>
-                        <td><span id="Nglh"></span></td>
+                        <td><input type="text" id="ongba" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
                         <td style="width: 7%;">Chức vụ:</td>
-                        <td><span id="Chucvu"></span></td>
+                        <td><input type="text" id="chucvu" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 7%;">1. Ông/Bà: </td>
+                        <td><input type="text" id="ongba" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
+                        <td style="width: 7%;">Chức vụ:</td>
+                        <td><input type="text" id="chucvu" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
+                    </tr>
+                    <tr>
+                        <td style="width: 7%;">1. Ông/Bà: </td>
+                        <td><input type="text" id="ongba" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
+                        <td style="width: 7%;">Chức vụ:</td>
+                        <td><input type="text" id="chucvu" class="date-input"
+                            style="width: 30px; border: none; border-bottom: 1px solid black;"></td>
                     </tr>
                 </table>
                 <div class="bold">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</div>
@@ -560,8 +578,6 @@
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
-            document.getElementById('Nglh').textContent = KHTN['NGƯỜI LIÊN HỆ'] || '';
-            document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
 
 
@@ -585,11 +601,11 @@
                 <span class="print-only"></span>
             </td>
             <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
+                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
             <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
+                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
             </td>
              <td class="center">
