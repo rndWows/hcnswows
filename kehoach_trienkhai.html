@@ -506,7 +506,7 @@
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
-        var KHTK_DUAN = [];
+        var KHTK_DUAN = {};
         var KHTN = {};
         var DKTT = [];
        
@@ -518,7 +518,7 @@
                     if (data.success) {
                         HOP_DONG = data.hop_dong || {};
                         PO_DETAIL = data.po_detail || [];
-                        KHTK_DUAN = data.khtk_duan || [];
+                        KHTK_DUAN = data.khtk_duan || {};
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
