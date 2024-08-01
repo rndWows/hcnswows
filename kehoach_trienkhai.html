@@ -128,9 +128,7 @@
                 font-size: 24px
             }
 
-            .date-input {
-                display: none;
-            }
+            
 
             .no-print {
                 display: none;
@@ -372,16 +370,17 @@
 
                 <i>Bình Dương, &emsp; Ngày
                     <input type="text" id="day" class="date-input"
-                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                        style="width: 30px; border: none;">
                     Tháng
                     <input type="text" id="month" class="date-input"
-                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                        style="width: 30px; border: none;">
                     Năm
                     <input type="text" id="year" class="date-input"
-                        style="width: 50px; border: none; border-bottom: 1px solid black;">
+                        style="width: 50px; border: none;">
                 </i>
+                <br>
 
-                <i colspan="4">Kế hoạch triển khai các sản phẩm/dịch vụ như sau:</i>
+                <i colspan="4">Hai bên cùng thống nhất kế hoạch triển khai các hạng mục như sau:</i>
 
                 <table class="table table-bordered">
                     <thead class="center-content">
@@ -597,17 +596,7 @@
             document.getElementById('month').value = month;
             document.getElementById('year').value = year;
 
-            // Tạo và cập nhật các span
-            var inputs = document.querySelectorAll('.date-input');
-            inputs.forEach(function (input) {
-                var span = document.createElement('span');
-                span.textContent = input.value;
-                input.parentNode.insertBefore(span, input.nextSibling);
-
-                input.addEventListener('input', function () {
-                    span.textContent = this.value;
-                });
-            });
+           
         });
 
         document.addEventListener('DOMContentLoaded', function () {
