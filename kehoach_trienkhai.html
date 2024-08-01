@@ -469,11 +469,7 @@
             updateFooter();
         }
 
-        function formatDate(dateString) {
-  const [datePart] = dateString.split('T');
-  const [year, month, day] = datePart.split('-');
-  return `${day}/${month}/${year}`;
-}
+
 
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
@@ -485,8 +481,8 @@
                 <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
                 <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
                 <td>${item['ĐẠI DIỆN KH'] || ''}</td>
-                <td>${item['NGÀY DỰ KIẾN BĐ'] || ''}</td>
-                <td>${item['NGÀY DỰ KIẾN KT'] || ''}</td>
+                <td>${formatDate(item['NGÀY DỰ KIẾN BĐ']) || ''}</td>
+                <td>${formatDate(item['NGÀY DỰ KIẾN KT']) || ''}</td>
                 <td>${item['GHI CHÚ'] || ''}</td>
             </tr>
         `).join('');
@@ -498,7 +494,15 @@
         }
 
 
-
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString; // Trả về chuỗi gốc nếu không phải ngày hợp lệ
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
 
 
 
