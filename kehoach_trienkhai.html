@@ -506,7 +506,7 @@
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
-        var KHTK_DUAN = {};
+        var KHTK_DUAN = [];
         var KHTN = {};
         var DKTT = [];
        
@@ -518,7 +518,7 @@
                     if (data.success) {
                         HOP_DONG = data.hop_dong || {};
                         PO_DETAIL = data.po_detail || [];
-                        KHTK_DUAN = data.khtk_duan || {};
+                        KHTK_DUAN = data.khtk_duan || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
@@ -552,19 +552,24 @@
 
         function updateProductTable() {
     const tableBody = document.getElementById('orderDetailsBody');
-    tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
-        <tr>
-            <td class="center">${index + 1}</td>
-            <td>${item['MÃ SP/DV'] || ''}</td>
-            <td>${item['TÊN HẠNG MỤC'] || ''}</td>
-            <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
-            <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
-            <td>${item['ĐẠI DIỆN KH'] || ''}</td>
-            <td>${item['NGÀY DỰ KIẾN BĐ'] || ''}</td>
-            <td>${item['NGÀY DỰ KIẾN KT'] || ''}</td>
-            <td>${item['GHI CHÚ'] || ''}</td>
-        </tr>
-    `).join('');
+    if (Array.isArray(KHTK_DUAN)) {
+        tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
+            <tr>
+                <td class="center">${index + 1}</td>
+                <td>${item['MÃ SP/DV'] || ''}</td>
+                <td>${item['TÊN HẠNG MỤC'] || ''}</td>
+                <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
+                <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
+                <td>${item['ĐẠI DIỆN KH'] || ''}</td>
+                <td>${item['NGÀY DỰ KIẾN BĐ'] || ''}</td>
+                <td>${item['NGÀY DỰ KIẾN KT'] || ''}</td>
+                <td>${item['GHI CHÚ'] || ''}</td>
+            </tr>
+        `).join('');
+    } else {
+        console.error('KHTK_DUAN is not an array');
+        tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
+    }
 
     addInputListeners();
 }
