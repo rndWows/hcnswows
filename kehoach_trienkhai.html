@@ -555,20 +555,14 @@
     tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
-            <td>${item['Ma_HHDV'] || ''}</td>
-            <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
-            <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
-            <td>${item['DVT'] || ''}</td>
-            <td>${item['So_luong'] || ''}</td>
-            <td>
-                <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao" value="${item['Link_ban_giao'] || ''}">
-                <span class="print-only"></span>
-            </td>
-            <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Nhập tên người tiếp nhận" value="${item['Nguoi_tiep_nhan'] || ''}">
-                <span class="print-only"></span>
-            </td>
-            <td>${item['Ghi_chu'] || ''}</td>
+            <td>${item['MÃ SP/DV'] || ''}</td>
+            <td>${item['TÊN HẠNG MỤC'] || ''}</td>
+            <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
+            <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
+            <td>${item['ĐẠI DIỆN KH'] || ''}</td>
+            <td>${item['NGÀY DỰ KIẾN BĐ'] || ''}</td>
+            <td>${item['NGÀY DỰ KIẾN KT'] || ''}</td>
+            <td>${item['GHI CHÚ'] || ''}</td>
         </tr>
     `).join('');
 
