@@ -110,12 +110,14 @@
                 word-wrap: break-word;
             }
 
-            .link-bangiao, .nguoi-tiepnhan {
-        display: none;
-    }
-    .print-only {
-        display: inline;
-    }
+            .link-bangiao,
+            .nguoi-tiepnhan {
+                display: none;
+            }
+
+            .print-only {
+                display: inline;
+            }
 
             body,
             #content {
@@ -127,11 +129,12 @@
             h5 {
                 font-size: 24px
             }
-            input {
-text-align: center;
-}
 
-            
+            input {
+                text-align: center;
+            }
+
+
 
             .no-print {
                 display: none;
@@ -170,8 +173,8 @@ text-align: center;
             }
 
             #sequenceNumber {
-        display: none;
-    }
+                display: none;
+            }
 
 
         }
@@ -347,7 +350,7 @@ text-align: center;
                         <td style="font-size: 12px;"><span>KD-QT01</span></th>
                     </tr>
                     <tr>
-                        <td style="font-size: 12px;"> Lần ban hành: 01</td>
+                        <td style="font-size: 12px;">Lần ban hành: 01</td>
                         <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
                     </tr>
                     <tr>
@@ -356,7 +359,10 @@ text-align: center;
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">LDA-<span id="Tvt"></span>-<span id="currentDate"></span>-<input type="text" id="sequenceNumber" class="no-print" style="width: 40px; border: none; border-bottom: 1px solid black;"><span id="sequenceNumberDisplay"></span>
+                        <td style="font-size: 12px;">LDA-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
+                                type="text" id="sequenceNumber" class="no-print"
+                                style="width: 40px; border: none; border-bottom: 1px solid black;"><span
+                                id="sequenceNumberDisplay"></span>
                         </td>
                     </tr>
                 </table>
@@ -364,22 +370,19 @@ text-align: center;
 
                 <div style="clear: both"></div>
                 <br>
-                <h2 style="text-align: center;" class="bold"><span>KẾ HOẠCH TRIỂN KHAI DỰ ÁN TƯ VẤN, SỐ HOÁ				
-				</span></h2>
+                <h2 style="text-align: center;" class="bold"><span>KẾ HOẠCH TRIỂN KHAI DỰ ÁN TƯ VẤN, SỐ HOÁ
+                    </span></h2>
 
 
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
                 <br>
 
                 <i>Bình Dương, Ngày
-                    <input type="text" id="day" class="date-input"
-                        style="width: 15px; border: none;">
+                    <input type="text" id="day" class="date-input" style="width: 15px; border: none;">
                     Tháng
-                    <input type="text" id="month" class="date-input"
-                        style="width: 15px; border: none;">
+                    <input type="text" id="month" class="date-input" style="width: 15px; border: none;">
                     Năm
-                    <input type="text" id="year" class="date-input"
-                        style="width: 50px; border: none;">
+                    <input type="text" id="year" class="date-input" style="width: 50px; border: none;">
                 </i>
                 <br>
 
@@ -435,7 +438,7 @@ text-align: center;
         var KHTK_DUAN = [];
         var KHTN = {};
         var DKTT = [];
-       
+
 
         function searchContract(soHD) {
             fetch(`${API_URL}?SOHD=${encodeURIComponent(soHD)}`)
@@ -466,10 +469,15 @@ text-align: center;
             updateFooter();
         }
 
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('vi-VN');
+        }
+
         function updateProductTable() {
-    const tableBody = document.getElementById('orderDetailsBody');
-    if (Array.isArray(KHTK_DUAN)) {
-        tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
+            const tableBody = document.getElementById('orderDetailsBody');
+            if (Array.isArray(KHTK_DUAN)) {
+                tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
                 <td>${item['TÊN HẠNG MỤC'] || ''}</td>
@@ -481,12 +489,12 @@ text-align: center;
                 <td>${item['GHI CHÚ'] || ''}</td>
             </tr>
         `).join('');
-    } else {
-        console.error('KHTK_DUAN is not an array');
-        tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
-    }
+            } else {
+                console.error('KHTK_DUAN is not an array');
+                tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
+            }
 
-}
+        }
 
 
 
@@ -599,7 +607,7 @@ text-align: center;
             document.getElementById('month').value = month;
             document.getElementById('year').value = year;
 
-           
+
         });
 
         document.addEventListener('DOMContentLoaded', function () {
