@@ -62,9 +62,6 @@
             width: 5%;
         }
 
-        .col-ma-sp {
-            width: 10%;
-        }
 
         .col-ten-sp {
             width: 10%;
@@ -75,11 +72,11 @@
         }
 
         .col-dvt {
-            width: 6%;
+            width: 10%;
         }
 
         .col-so-luong {
-            width: 5%;
+            width: 10%;
         }
 
         .col-link {
@@ -304,23 +301,6 @@
         }
 
 
-        .form-control.link-bangiao,
-        .form-control.nguoi-tiepnhan {
-            width: 100%;
-            padding: 0.25rem 0.5rem;
-            /* Giảm padding */
-            font-size: 0.875rem;
-            /* Giảm kích thước font */
-            line-height: 1.3;
-            /* Giảm line-height */
-            color: #495057;
-            background-color: #fff;
-            background-clip: padding-box;
-            border: 1px solid #ced4da;
-            border-radius: 0.2rem;
-            /* Giảm border-radius nếu cần */
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-        }
 
         /* Nếu bạn muốn giảm kích thước tổng thể của input */
         .table td {
@@ -387,7 +367,6 @@
 				</span></h2>
 
 
-
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
                 <br>
 
@@ -399,70 +378,15 @@
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
                     Năm
                     <input type="text" id="year" class="date-input"
-                        style="width: 50px; border: none; border-bottom: 1px solid black;">, chúng tôi gồm:
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
                 </i>
 
-
-
-                <table style="width: 100%; border-collapse: collapse;">
-
-                    <tr class="bold">
-                        <td style="width: 25%;">Bên Cung cấp Dịch vụ (Bên A):</td>
-                        <td colspan="3">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</td>
-                    </tr>
-                    <tr>
-                        <td>Mã số doanh nghiệp:</td>
-                        <td colspan="3">3702278001</td>
-                    </tr>
-                    <tr>
-                        <td>Địa chỉ:</td>
-                        <td colspan="3">Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội Nghĩa, Thành Phố
-                            Tân Uyên, Tỉnh Bình Dương</td>
-                    </tr>
-                    <tr>
-                        <td>Đại diện theo pháp luật:</td>
-                        <td class="bold">Bà Đỗ Thị Kim Thủy</td>
-                        <td style="width: 15%;" class="bold">Chức vụ:</td>
-                        <td>Tổng giám đốc</td>
-                    </tr>
-                    <tr class="bold">
-                        <td>Bên Yêu cầu Dịch vụ (Bên B):</td>
-                        <td colspan="3" style="color: blue;"><span id="companyName"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Mã số doanh nghiệp:</td>
-                        <td colspan="3"><span id="Mst"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Địa chỉ:</td>
-                        <td colspan="3"><span id="companyAddress"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Đại diện:</td>
-                        <td class="bold"><span id="Nglh"></span></td>
-                        <td class="bold">Chức vụ:</td>
-                        <td><span id="Chucvu"></span></td>
-                    </tr>
-                    <tr>
-                        <td>Số điện thoại:</td>
-                        <td><span id="Sdt"></span></td>
-                        <td class="bold">Email:</td>
-                        <td><span id="Email"></span></td>
-                    </tr>
-
-
-
-                </table>
                 <i colspan="4">Kế hoạch triển khai các sản phẩm/dịch vụ như sau:</i>
-
-
-
 
                 <table class="table table-bordered">
                     <thead class="center-content">
                         <tr>
                             <th class="center col-stt">STT</th>
-                            <th class="col-ma-sp">Mã sản phẩm</th>
                             <th class="col-ten-sp">Tên sản phẩm</th>
                             <th class="col-quy-cach">Mô tả sản phẩm</th>
                             <th class="col-dvt">Đại diện WOWS</th>
@@ -534,16 +458,6 @@
 
         function updateUI() {
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
-            document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
-            document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
-            document.getElementById('Mst').textContent = KHTN['MST'] || '';
-            document.getElementById('Nglh').textContent = KHTN['NGƯỜI LIÊN HỆ'] || '';
-            document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
-            document.getElementById('Sdt').textContent = KHTN['SỐ ĐT NGƯỜI LIÊN HỆ'] || '';
-            document.getElementById('Email').textContent = KHTN['EMAIL NGƯỜI LIÊN HỆ'] || '';
-            document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
-
-
             updateProductTable();
 
             updateFooter();
@@ -555,7 +469,6 @@
         tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
-                <td>${item['MÃ SP/DV'] || ''}</td>
                 <td>${item['TÊN HẠNG MỤC'] || ''}</td>
                 <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
                 <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
@@ -586,8 +499,8 @@
             <tbody>
 
                 <tr>
-                    <td style="width: 50%;"><span class="bold">BÊN BÀN GIAO</span></td>
-                    <td style="width: 50%;"><span class="bold">BÊN NHẬN BÀN GIAO</span></td>
+                    <td style="width: 50%;"><span class="bold">Đại diện bên A</span></td>
+                    <td style="width: 50%;"><span class="bold">Đại diện bên B</span></td>
                     </tr>
                 <tr>
                     <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
