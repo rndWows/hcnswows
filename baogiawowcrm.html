@@ -433,7 +433,7 @@
 
             const ghiChuList = document.getElementById('ghiChu');
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
-            const chiPhiDuyTri = ((tienApp + (tienApp * (parseFloat(PO['%VAT'] * 100 || 0) / 100))) * (parseFloat(PO['Chi phí'] * 100 || 0) / 100)).toFixed(0);
+            document.getElementById('chiPhiDuyTri').textContent = formatCurrency(PO['Phí duy trì'] || 0);
 
             const ghiChuHTML = `
         <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng File Google sheet và chuyển giao, Đối với App  ( chỉ chuyển giao với vai trò người dùng (không chuyển giao source nguồn code app).</li>
@@ -441,7 +441,7 @@
         <li>Buổi thứ <strong>${(parseInt(PO['Số buổi'] || 0) + 1)}</strong> trở đi: chi phí được tính là:<strong> 1.000.000/ 1 buổi Online/Offline </strong></li>
         <li>Wows có trách nhiệm bảo hành và xử lý các vấn đề có liên quan đến app trong phạm vi đã thỏa thuận của hợp đồng đã ký.</li>
         <li>Giá trị phần mềm:<strong> ${formatCurrency(tienApp)}</strong></li>
-        <li>Chi phí duy trì hàng năm là [<strong>${PO['Chi phí'] || ''}</strong> x Giá trị xây dựng Module App ban đầu (không tính ưu đãi)] tương ứng trong Hợp đồng này là: <strong>${PO['Phí duy trì'] || ''}</strong></li>
+        <li>Chi phí duy trì hàng năm là [<strong>${PO['Chi phí'] || ''}</strong> x Giá trị xây dựng Module App ban đầu (không tính ưu đãi)] tương ứng trong Hợp đồng này là: <strong>${formatCurrency(chiPhiDuyTri)}</strong></li>
         <li>Thanh toán cùng đợt thanh toán sau cùng sau khi nghiệm thu hạng mục và đóng định kỳ hàng năm cùng thời điểm.</li>
         <li><em>Chi phí duy trì sau thời gian bảo hành gồm:</em>
             <ul>
