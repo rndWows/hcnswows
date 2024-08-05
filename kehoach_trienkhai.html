@@ -430,7 +430,7 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzVmHlqdPHeGpRVDNJc3HOZcU5_He1-iZEglVsCMG88ITEoi425JU0oBHHB_BCMfKLi/exec';
+        const API_URL = 'https://script.google.com/a/macros/wows.vn/s/AKfycby2TKED6q4vwSdh5uiZzADObBWeiuiIqi8KSjRHlFIvoBSiZdIU-gbq4JJAgYkwMon9/exec';
 
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
@@ -440,8 +440,8 @@
         var DKTT = [];
 
 
-        function searchContract(soHD) {
-            fetch(`${API_URL}?SOHD=${encodeURIComponent(soHD)}`)
+        function searchContract(soKH) {
+            fetch(`${API_URL}?soKH=${encodeURIComponent(soKH)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
@@ -553,11 +553,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const soHD = urlParams.get('SOHD');
-            if (soHD) {
-                searchContract(soHD);
+            const soKH = urlParams.get('SOKH');
+            if (soKH) {
+                searchContract(soKH);
             } else {
-                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
+                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?soKH=HD001)');
             }
 
 
