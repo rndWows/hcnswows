@@ -433,7 +433,7 @@
         const API_URL = 'https://script.google.com/a/macros/wows.vn/s/AKfycby2TKED6q4vwSdh5uiZzADObBWeiuiIqi8KSjRHlFIvoBSiZdIU-gbq4JJAgYkwMon9/exec';
 
         // Biến toàn cục để lưu trữ dữ liệu
-        var HOP_DONG = {};
+        var KE_HOACH = {};
         var PO_DETAIL = [];
         var KHTK_DUAN = [];
         var KHTN = {};
@@ -445,7 +445,7 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        HOP_DONG = data.hop_dong || {};
+                        KE_HOACH = data.ke_hoach || {};
                         PO_DETAIL = data.po_detail || [];
                         KHTK_DUAN = data.khtk_duan || [];
                         KHTN = data.khtn || {};
@@ -462,7 +462,7 @@
         }
 
         function updateUI() {
-            document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
+            document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
 
