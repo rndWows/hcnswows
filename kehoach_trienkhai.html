@@ -441,7 +441,7 @@
 
 
         function searchContract(soKH) {
-            fetch(`${API_URL}?soKH=${encodeURIComponent(soKH)}`)
+            fetch(`${API_URL}?SOKH=${encodeURIComponent(soKH)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
