@@ -86,6 +86,7 @@
         .col-dd-kh {
             width: 10%;
         }
+
         .col-time {
             width: 12%;
         }
@@ -488,7 +489,7 @@
                 <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
                 <td>${item['Đại diện WOWS'] || ''}</td>
                 <td>${item['Đại diện KH'] || ''}</td>
-                <td>${item['Thời gian từ'] || ''} - ${item['Thời gian đến'] || ''}</td>
+                <td>${formatTimeRange(item['Thời gian từ'], item['Thời gian đến'])}</td>
                 <td>${item['Ghi chú'] || ''}</td>
             </tr>
         `).join('');
@@ -508,6 +509,25 @@
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
+        }
+
+        function formatTimeRange(from, to) {
+            if (!from && !to) return '';
+
+            function formatTime(isoString) {
+                if (!isoString) return '';
+                const date = new Date(isoString);
+                return date.toLocaleTimeString('vi-VN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+            }
+
+            const fromTime = formatTime(from);
+            const toTime = formatTime(to);
+
+            return `${fromTime}-${toTime}`;
         }
 
 
