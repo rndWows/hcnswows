@@ -394,12 +394,13 @@
                     <thead class="center-content">
                         <tr>
                             <th class="center col-stt">STT</th>
-                            <th class="col-ten-sp">Tên sản phẩm</th>
-                            <th class="col-quy-cach">Mô tả sản phẩm</th>
-                            <th class="col-dvt">Đại diện WOWS</th>
-                            <th class="col-so-luong">Đại diện khách hàng</th>
-                            <th class="col-link">Ngày dự kiến bắt đầu</th>
-                            <th class="col-nguoi-nhan">Ngày dự kiến kết thúc</th>
+                            <th class="col-ngay-lv">Ngày LV</th>
+                            <th class="col-ten-hm">Tên hạng mục</th>
+                            <th class="col-cv">Công việc</th>
+                            <th class="col-cach-thuc">Cách thức triển khai</th>
+                            <th class="col-dd-wow">Đại diện WOWS</th>
+                            <th class="col-dd-kh">Đại diện khách hàng</th>
+                            <th class="col-time">Timeline</th>
                             <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
@@ -481,7 +482,7 @@
                 tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
-                <td>${item['Ngay_LV'] || ''}</td>
+                <td>${formatDate(item['Ngay_LV']) || ''}</td>
                 <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
                 <td>${item['Công việc thực hiện'] || ''}</td>
                 <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
@@ -499,6 +500,15 @@
         }
 
 
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString; // Trả về chuỗi gốc nếu không phải ngày hợp lệ
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
 
 
 
