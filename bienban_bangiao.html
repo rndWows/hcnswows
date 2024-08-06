@@ -563,74 +563,16 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
-            <td>${item['Link_bangiao'] || ''}</td>
+            <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
             <td>${item['Nguoi_tiepnhan'] || ''}</td>
             <td>${item['Ghi chú'] || ''}</td>
         </tr>
     `).join('');
-
-            addInputListeners();
         }else {
                 console.error('KHTK_DUAN is not an array');
                 tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
             }
 
-        }
-
-
-        document.getElementById('orderDetailsBody').addEventListener('input', function (event) {
-            if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
-                const printSpan = event.target.nextElementSibling;
-                printSpan.textContent = event.target.value;
-            }
-        });
-
-
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.type === 'childList') {
-                    addInputListeners();
-                }
-            });
-        });
-
-        observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
-
-
-
-        function addInputListeners() {
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                const printSpan = input.nextElementSibling;
-                printSpan.textContent = input.value; // Cập nhật ngay lập tức
-
-                input.addEventListener('input', function () {
-                    printSpan.textContent = this.value;
-                });
-            });
-
-
-        }
-        // Gọi hàm này sau khi tạo bảng hoặc khi trang đã load xong
-        document.addEventListener('DOMContentLoaded', addInputListeners);
-
-
-
-        function updatePODetail() {
-            const rows = document.querySelectorAll('#orderDetailsBody tr');
-            rows.forEach((row, index) => {
-                PO_DETAIL[index]['Link_ban_giao'] = row.querySelector('.link-bangiao').value;
-                PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
-            });
-        }
-
-
-        function prepareForPrinting() {
-            updatePODetail();
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                input.style.display = 'none';
-            });
         }
 
 
@@ -728,13 +670,6 @@
                 copyTagClasses: false,
                 beforePrintEvent: null,
                 beforePrint: null,
-                afterPrint: function () {
-                    // Hiển thị lại tất cả các input sau khi in
-                    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-                    inputs.forEach(input => {
-                        input.style.display = 'inline-block';
-                    });
-                }
             });
         }
 
