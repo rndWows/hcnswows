@@ -63,28 +63,31 @@
         }
 
 
-        .col-ten-sp {
+        .col-ngay-lv {
+            width: 8%;
+        }
+
+        .col-ten-hm {
+            width: 17%;
+        }
+
+        .col-cv {
+            width: 13%;
+        }
+
+        .col-cach-thuc {
+            width: 20%;
+        }
+
+        .col-dd-wow {
             width: 10%;
         }
 
-        .col-quy-cach {
-            width: 40%;
-        }
-
-        .col-dvt {
+        .col-dd-kh {
             width: 10%;
         }
-
-        .col-so-luong {
-            width: 10%;
-        }
-
-        .col-link {
-            width: 10%;
-        }
-
-        .col-nguoi-nhan {
-            width: 10%;
+        .col-time {
+            width: 12%;
         }
 
         .col-ghi-chu {
@@ -359,7 +362,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">LLV-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
+                        <td style="font-size: 12px;">LDA-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
                                 type="text" id="sequenceNumber" class="no-print"
                                 style="width: 40px; border: none; border-bottom: 1px solid black;"><span
                                 id="sequenceNumberDisplay"></span>
@@ -370,8 +373,7 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h2 style="text-align: center;" class="bold"><span>KẾ HOẠCH TRIỂN KHAI DỰ ÁN TƯ VẤN, SỐ HOÁ
-                    </span></h2>
+                <h2 style="text-align: center;" class="bold"><span>KẾ HOẠCH LÀM VIỆC CHI TIẾT</span></h2>
 
 
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
@@ -430,24 +432,26 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzVmHlqdPHeGpRVDNJc3HOZcU5_He1-iZEglVsCMG88ITEoi425JU0oBHHB_BCMfKLi/exec';
+        const API_URL = 'https://script.google.com/a/macros/wows.vn/s/AKfycby2TKED6q4vwSdh5uiZzADObBWeiuiIqi8KSjRHlFIvoBSiZdIU-gbq4JJAgYkwMon9/exec';
 
         // Biến toàn cục để lưu trữ dữ liệu
-        var HOP_DONG = {};
+        var KE_HOACH = {};
         var PO_DETAIL = [];
         var KHTK_DUAN = [];
+        var Kehoach_lamviec = [];
         var KHTN = {};
         var DKTT = [];
 
 
-        function searchContract(soHD) {
-            fetch(`${API_URL}?SOHD=${encodeURIComponent(soHD)}`)
+        function searchContract(soKH) {
+            fetch(`${API_URL}?SOKH=${encodeURIComponent(soKH)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        HOP_DONG = data.hop_dong || {};
+                        KE_HOACH = data.ke_hoach || {};
                         PO_DETAIL = data.po_detail || [];
                         KHTK_DUAN = data.khtk_duan || [];
+                        Kehoach_lamviec = data.kehoach_lamviec || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
@@ -462,7 +466,7 @@
         }
 
         function updateUI() {
-            document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
+            document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
 
@@ -473,17 +477,18 @@
 
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
-            if (Array.isArray(KHTK_DUAN)) {
-                tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
+            if (Array.isArray(Kehoach_lamviec)) {
+                tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
-                <td>${item['TÊN HẠNG MỤC'] || ''}</td>
-                <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
+                <td>${item['Ngay_LV'] || ''}</td>
+                <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                <td>${item['Công việc thực hiện'] || ''}</td>
+                <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
                 <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
                 <td>${item['ĐẠI DIỆN KH'] || ''}</td>
-                <td>${formatDate(item['NGÀY DỰ KIẾN BĐ']) || ''}</td>
-                <td>${formatDate(item['NGÀY DỰ KIẾN KT']) || ''}</td>
-                <td>${item['GHI CHÚ'] || ''}</td>
+                <td>${item['Thời gian từ'] || ''} - ${item['Thời gian đến'] || ''}</td>
+                <td>${item['Ghi chú'] || ''}</td>
             </tr>
         `).join('');
             } else {
@@ -494,15 +499,6 @@
         }
 
 
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString; // Trả về chuỗi gốc nếu không phải ngày hợp lệ
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
-        }
 
 
 
@@ -520,7 +516,7 @@
                     </tr>
                 <tr>
                     <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                    <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
+                    <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || ' '}</span></td>
                 </tr>
                 <tr>
                     <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
@@ -531,7 +527,7 @@
                         <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
                     </td>
                     <td>
-                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Lê Văn Liêm'}</span></p>
+                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || ' '}</span></p>
                     </td>
                 </tr>
                 <tr>
@@ -553,11 +549,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const soHD = urlParams.get('SOHD');
-            if (soHD) {
-                searchContract(soHD);
+            const soKH = urlParams.get('SOKH');
+            if (soKH) {
+                searchContract(soKH);
             } else {
-                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
+                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?soKH=HD001)');
             }
 
 
