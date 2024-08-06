@@ -679,17 +679,6 @@
             document.getElementById('month').value = month;
             document.getElementById('year').value = year;
 
-            // Tạo và cập nhật các span
-            var inputs = document.querySelectorAll('.date-input');
-            inputs.forEach(function (input) {
-                var span = document.createElement('span');
-                span.textContent = input.value;
-                input.parentNode.insertBefore(span, input.nextSibling);
-
-                input.addEventListener('input', function () {
-                    span.textContent = this.value;
-                });
-            });
         });
 
         document.addEventListener('DOMContentLoaded', function () {
