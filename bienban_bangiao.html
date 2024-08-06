@@ -632,7 +632,6 @@
 
 
             updateProductTable();
-            addInputListeners();
         });
 
         function formatDate(dateString) {
@@ -650,7 +649,6 @@
         }
 
         function print() {
-            prepareForPrinting();
             $('#content').printThis({
                 debug: false,
                 importCSS: true,
