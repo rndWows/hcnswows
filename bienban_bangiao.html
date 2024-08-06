@@ -554,6 +554,7 @@
 
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
+            if (Array.isArray(CT_BANGIAO)) {
             tableBody.innerHTML = CT_BANGIAO.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
@@ -569,6 +570,11 @@
     `).join('');
 
             addInputListeners();
+        }else {
+                console.error('KHTK_DUAN is not an array');
+                tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
+            }
+
         }
 
 
