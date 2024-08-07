@@ -63,28 +63,32 @@
         }
 
 
-        .col-ten-sp {
+        .col-ngay-lv {
+            width: 8%;
+        }
+
+        .col-ten-hm {
+            width: 15%;
+        }
+
+        .col-cv {
+            width: 13%;
+        }
+
+        .col-cach-thuc {
+            width: 22%;
+        }
+
+        .col-dd-wow {
             width: 10%;
         }
 
-        .col-quy-cach {
-            width: 40%;
-        }
-
-        .col-dvt {
+        .col-dd-kh {
             width: 10%;
         }
 
-        .col-so-luong {
-            width: 10%;
-        }
-
-        .col-link {
-            width: 10%;
-        }
-
-        .col-nguoi-nhan {
-            width: 10%;
+        .col-time {
+            width: 12%;
         }
 
         .col-ghi-chu {
@@ -359,7 +363,7 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BLN-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
+                        <td style="font-size: 12px;">BLV-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
                                 type="text" id="sequenceNumber" class="no-print"
                                 style="width: 40px; border: none; border-bottom: 1px solid black;"><span
                                 id="sequenceNumberDisplay"></span>
@@ -370,7 +374,8 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN LÀM VIỆC</span></h2>
+                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN LÀM VIỆC				
+				</span></h2>
 
 
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
@@ -384,23 +389,26 @@
                     <input type="text" id="year" class="date-input" style="width: 50px; border: none;">
                 </i>
                 <br>
-                <i>Tại Văn phòng Công Ty 
-                    <input type="text" id="day" class="date-input" style="width: 100%; border: none;">
-                </i>
+                <i>Tại văn phòng công ty: </i><span id="companyName"></span>
+            
                 <br>
+                <div class="bold">THÀNH PHẦN THAM DỰ</div>
 
-                <i colspan="4">Kế hoạch triển khai các hạng mục như sau:</i>
+                
+
+                <i colspan="4">Kế hoạch làm việc chi tiết các hạng mục như sau:</i>
 
                 <table class="table table-bordered">
                     <thead class="center-content">
                         <tr>
                             <th class="center col-stt">STT</th>
-                            <th class="col-ten-sp">Tên sản phẩm</th>
-                            <th class="col-quy-cach">Mô tả sản phẩm</th>
-                            <th class="col-dvt">Đại diện WOWS</th>
-                            <th class="col-so-luong">Đại diện khách hàng</th>
-                            <th class="col-link">Ngày dự kiến bắt đầu</th>
-                            <th class="col-nguoi-nhan">Ngày dự kiến kết thúc</th>
+                            <th class="col-ngay-lv">Ngày LV</th>
+                            <th class="col-ten-hm">Tên hạng mục</th>
+                            <th class="col-cv">Công việc</th>
+                            <th class="col-cach-thuc">Cách thức triển khai</th>
+                            <th class="col-dd-wow">Đại diện WOWS</th>
+                            <th class="col-dd-kh">Đại diện khách hàng</th>
+                            <th class="col-time">Timeline</th>
                             <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
@@ -439,6 +447,7 @@
         var KE_HOACH = {};
         var PO_DETAIL = [];
         var KHTK_DUAN = [];
+        var Kehoach_lamviec = [];
         var KHTN = {};
         var DKTT = [];
 
@@ -451,6 +460,7 @@
                         KE_HOACH = data.ke_hoach || {};
                         PO_DETAIL = data.po_detail || [];
                         KHTK_DUAN = data.khtk_duan || [];
+                        Kehoach_lamviec = data.kehoach_lamviec || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
@@ -466,6 +476,7 @@
 
         function updateUI() {
             document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
+            document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
 
@@ -476,17 +487,18 @@
 
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
-            if (Array.isArray(KHTK_DUAN)) {
-                tableBody.innerHTML = KHTK_DUAN.map((item, index) => `
+            if (Array.isArray(Kehoach_lamviec)) {
+                tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
-                <td>${item['TÊN HẠNG MỤC'] || ''}</td>
-                <td class="preserve-format">${item['MÔ TẢ CHI TIẾT'] || ''}</td>
-                <td>${item['ĐẠI DIỆN WOWS'] || ''}</td>
-                <td>${item['ĐẠI DIỆN KH'] || ''}</td>
-                <td>${formatDate(item['NGÀY DỰ KIẾN BĐ']) || ''}</td>
-                <td>${formatDate(item['NGÀY DỰ KIẾN KT']) || ''}</td>
-                <td>${item['GHI CHÚ'] || ''}</td>
+                <td>${formatDate(item['Ngay_LV']) || ''}</td>
+                <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                <td>${item['Công việc thực hiện'] || ''}</td>
+                <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
+                <td>${item['Đại diện WOWS'] || ''}</td>
+                <td>${item['Đại diện KH'] || ''}</td>
+                <td>${formatTimeRange(item['Thời gian từ'], item['Thời gian đến'])}</td>
+                <td>${item['Ghi chú'] || ''}</td>
             </tr>
         `).join('');
             } else {
@@ -505,6 +517,25 @@
             const month = String(date.getMonth() + 1).padStart(2, '0');
             const year = date.getFullYear();
             return `${day}/${month}/${year}`;
+        }
+
+        function formatTimeRange(from, to) {
+            if (!from && !to) return '';
+
+            function formatTime(isoString) {
+                if (!isoString) return '';
+                const date = new Date(isoString);
+                return date.toLocaleTimeString('vi-VN', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                });
+            }
+
+            const fromTime = formatTime(from);
+            const toTime = formatTime(to);
+
+            return `${fromTime}-${toTime}`;
         }
 
 
