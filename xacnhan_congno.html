@@ -215,6 +215,41 @@
                 display: none !important;
             }
         }
+
+
+        .bold-line {
+            border: none;
+            border-top: 2px dashed black;
+            color: #fff;
+            background-color: #fff;
+            height: 1px;
+            width: 10%;
+            margin: 10px auto;
+            /* Thay đổi này */
+            display: block;
+            /* Thêm dòng này */
+
+        }
+
+        .header h6 {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            text-align: center;
+            font-weight: bold;
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        .date-header {
+            text-align: right;
+            font-style: italic;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
     </style>
 
 </head>
@@ -226,21 +261,22 @@
         <div id="content">
             <div class="content_page1">
                 <div class="header">
-                    <h1 style="text-align: center; text-transform: uppercase; font-weight: bold;">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h1>
-                    <p style="text-align: center; font-weight: bold;">Độc lập - Tự do - Hạnh Phúc</p>
-                    <hr style="border-top: 1px solid black; width: 100%;">
+                    <h6>CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</h6>
+                    <p>Độc lập - Tự do - Hạnh Phúc</p>
+                    <hr class="bold-line">
                 </div>
                 <div class="date-header">
-                    <p style="text-align: right; font-style: italic;">......., ngày... tháng... năm....</p>
+                    <p>Hôm nay, ngày... tháng... năm....</p>
                 </div>
-                <h4 style="text-align: center;" class="bold"><span>BIÊN BẢN XÁC NHẬN CÔNG NỢ</span></h4>
+                <h3 style="text-align: center;" class="bold"><span>BIÊN BẢN XÁC NHẬN CÔNG NỢ</span></h3>
 
                 <div class="content">
                     <p>Địa chỉ: <span id="companyAddress"></span></p>
                     <p>- Căn cứ vào biên bản giao nhận hàng hóa</p>
                     <p>- Căn cứ vào thỏa thuận giữa hai bên;</p>
                     <p>- Căn cứ HĐ số <span id="id1"></span></p>
-                    <p>Hôm nay, ngày…. tháng……năm…. tại trụ sở Công ty <span id="companyName"></span>, chúng tôi gồm có:</p>
+                    <p>Hôm nay, ngày…. tháng……năm…. tại trụ sở Công ty <span id="companyName"></span>, chúng tôi gồm có:
+                    </p>
                 </div>
 
 
@@ -283,7 +319,7 @@
                     </table>
                 </div>
 
-                
+
 
 
                 <div class="content">
@@ -309,7 +345,7 @@
                     <tfoot>
                         <tr>
                             <td colspan="9"><strong>TỔNG THANH TOÁN: <span id="tongThanhToan"></span></strong></td>
-                            
+
                         </tr>
                     </tfoot>
                 </table>
@@ -319,8 +355,10 @@
                 </div>
                 <div class="content">
                     <p>Số tiền bên A đã thanh toán: ………….. đồng</p>
-                    <p>Kết luận: Tính đến ngày ………tháng……..năm….. bên A còn nợ bên B số tiền là: …………….đồng (bằng chữ: …………….)</p>
-                    <p>Biên bản này được lập thành 02 bản có giá trị như nhau. Mỗi bên giữ 01 bản làm cơ sở cho việc thanh toán sau này giữa hai bên.
+                    <p>Kết luận: Tính đến ngày ………tháng……..năm….. bên A còn nợ bên B số tiền là: …………….đồng (bằng chữ:
+                        …………….)</p>
+                    <p>Biên bản này được lập thành 02 bản có giá trị như nhau. Mỗi bên giữ 01 bản làm cơ sở cho việc
+                        thanh toán sau này giữa hai bên.
                     </p>
                 </div>
                 <div id="footerInfo" class="mt-4">
