@@ -374,8 +374,8 @@
 
                 <div style="clear: both"></div>
                 <br>
-                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN LÀM VIỆC				
-				</span></h2>
+                <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN LÀM VIỆC
+                    </span></h2>
 
 
                 <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
@@ -390,11 +390,11 @@
                 </i>
                 <br>
                 <i>Tại văn phòng công ty: </i><span id="companyName"></span>
-            
+
                 <br>
                 <div class="bold">THÀNH PHẦN THAM DỰ</div>
 
-                
+
 
                 <i colspan="4">Kế hoạch làm việc chi tiết các hạng mục như sau:</i>
 
@@ -404,6 +404,7 @@
                             <th class="center col-stt">STT</th>
                             <th class="col-ten-hm">Tên hạng mục</th>
                             <th class="col-cv">Công việc</th>
+                            <th class="col-nghiem-thu">Kết quả nghiệm thu</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
@@ -473,6 +474,7 @@
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
+            addInputListeners();
 
             updateFooter();
         }
@@ -487,14 +489,64 @@
                 <td class="center">${index + 1}</td>
                 <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
                 <td>${item['Công việc thực hiện'] || ''}</td>
+                <td class="center">
+                    <label class="checkbox-container no-print">
+                        <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Hoàn thành' ? 'checked' : ''}>
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="print-only ket-qua-text">${item['Ket_qua_nghiem_thu'] || ''}</span>
+                </td>
             </tr>
         `).join('');
+        addInputListeners();
             } else {
                 console.error('KHTK_DUAN is not an array');
                 tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
             }
 
         }
+
+
+
+        const observer = new MutationObserver(function (mutations) {
+            mutations.forEach(function (mutation) {
+                if (mutation.type === 'childList') {
+                    addInputListeners();
+                }
+            });
+        });
+
+        observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
+
+        function addInputListeners() {
+
+            const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+            checkboxes.forEach(checkbox => {
+                const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
+                printSpan.textContent = checkbox.checked ? 'Hoàn thành' : 'Chưa hoàn thành';
+
+                checkbox.addEventListener('change', function () {
+                    printSpan.textContent = this.checked ? 'Hoàn thành' : 'Chưa hoàn thành';
+                });
+            });
+
+        }
+        // Gọi hàm này sau khi tạo bảng hoặc khi trang đã load xong
+        document.addEventListener('DOMContentLoaded', addInputListeners);
+
+
+        function updatePODetail() {
+            const rows = document.querySelectorAll('#orderDetailsBody tr');
+            rows.forEach((row, index) => {
+                PO_DETAIL[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Hoàn thành' : 'Chưa hoàn thành';
+            });
+        }
+
+
+        function prepareForPrinting() {
+            updatePODetail();
+        }
+
 
 
         function formatDate(dateString) {
@@ -601,6 +653,7 @@
         }
 
         function print() {
+            prepareForPrinting();
             $('#content').printThis({
                 debug: false,
                 importCSS: true,
