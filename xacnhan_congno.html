@@ -264,33 +264,12 @@
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
                             <th>Thành tiền</th>
-
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
                     <tfoot>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
-                            <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span></td>
-                        </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
                             <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
@@ -381,11 +360,6 @@
         }
 
         function updateTotals() {
-            document.getElementById('tongGiaTri').textContent = formatCurrency(HOP_DONG['Tong_tien_truoc_UD'] || 0);
-            document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
-            document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
-            document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
-            document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
             document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
         }
