@@ -313,11 +313,48 @@
         }
 
 
-
-
-
         .column {
             width: 50%;
+        }
+
+        .participants-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .column {
+            width: 48%;
+        }
+
+        .participant-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .participant-table th,
+        .participant-table td {
+            padding: 5px;
+            border: none;
+            /* Loại bỏ viền của các ô */
+        }
+
+        .company-header {
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .participant-table input[type="text"] {
+            border: none;
+            border-bottom: 1px solid #ccc;
+            /* Thêm đường gạch chân nhẹ */
+            outline: none;
+            padding: 2px;
+            width: 70%;
+        }
+
+        .participant-table input[type="text"]:focus {
+            border-bottom: 2px solid #555;
+            /* Đường gạch chân đậm hơn khi focus */
         }
     </style>
 
@@ -381,60 +418,60 @@
                 <br>
                 <div class="bold">THÀNH PHẦN THAM DỰ</div>
 
-                <div class="">
+                <div class="participants-container">
                     <div class="column">
-                        <table>
+                        <table class="participant-table">
                             <tr>
-                                <td class="company" colspan="2">Đại Diện bên A: Công Ty Cổ Phần Tập Đoàn Wows</td>
+                                <th colspan="2" class="company-header">Đại Diện bên A: Công Ty Cổ Phần Tập Đoàn Wows</th>
                             </tr>
                             <tr>
-                                <td>1. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>1. Ông/Bà: <input type="text" id="companyA-person1"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position1"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyA-department1"></td>
                             </tr>
                             <tr>
-                                <td>2. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>2. Ông/Bà: <input type="text" id="companyA-person2"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position2"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyA-department2"></td>
                             </tr>
                             <tr>
-                                <td>3. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>3. Ông/Bà: <input type="text" id="companyA-person3"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position3"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyA-department3"></td>
                             </tr>
                         </table>
                     </div>
                     <div class="column">
-                        <table>
+                        <table class="participant-table">
                             <tr>
-                                <td class="company" colspan="2">Đại Diện bên B: Công Ty <input type="text"></td>
+                                <th colspan="2" class="company-header">Đại Diện bên B: <input type="text" id="companyB-name"></th>
                             </tr>
                             <tr>
-                                <td>1. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>1. Ông/Bà: <input type="text" id="companyB-person1"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position1"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyB-department1"></td>
                             </tr>
                             <tr>
-                                <td>2. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>2. Ông/Bà: <input type="text" id="companyB-person2"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position2"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyB-department2"></td>
                             </tr>
                             <tr>
-                                <td>3. Ông bà: <input type="text"></td>
-                                <td>Chức vụ: <input type="text"></td>
+                                <td>3. Ông/Bà: <input type="text" id="companyB-person3"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position3"></td>
                             </tr>
                             <tr>
-                                <td colspan="2">Bộ phận: <input type="text"></td>
+                                <td colspan="2">Bộ phận: <input type="text" id="companyB-department3"></td>
                             </tr>
                         </table>
                     </div>
