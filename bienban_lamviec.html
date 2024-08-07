@@ -402,14 +402,8 @@
                     <thead class="center-content">
                         <tr>
                             <th class="center col-stt">STT</th>
-                            <th class="col-ngay-lv">Ngày LV</th>
                             <th class="col-ten-hm">Tên hạng mục</th>
                             <th class="col-cv">Công việc</th>
-                            <th class="col-cach-thuc">Cách thức triển khai</th>
-                            <th class="col-dd-wow">Đại diện WOWS</th>
-                            <th class="col-dd-kh">Đại diện khách hàng</th>
-                            <th class="col-time">Timeline</th>
-                            <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
@@ -491,14 +485,8 @@
                 tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
-                <td>${formatDate(item['Ngay_LV']) || ''}</td>
                 <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
                 <td>${item['Công việc thực hiện'] || ''}</td>
-                <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
-                <td>${item['Đại diện WOWS'] || ''}</td>
-                <td>${item['Đại diện KH'] || ''}</td>
-                <td>${formatTimeRange(item['Thời gian từ'], item['Thời gian đến'])}</td>
-                <td>${item['Ghi chú'] || ''}</td>
             </tr>
         `).join('');
             } else {
