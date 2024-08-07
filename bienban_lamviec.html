@@ -538,7 +538,7 @@
         function updatePODetail() {
             const rows = document.querySelectorAll('#orderDetailsBody tr');
             rows.forEach((row, index) => {
-                PO_DETAIL[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Hoàn thành' : 'Chưa hoàn thành';
+                Kehoach_lamviec[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Hoàn thành' : 'Chưa hoàn thành';
             });
         }
 
