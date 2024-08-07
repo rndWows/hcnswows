@@ -246,23 +246,24 @@
 
                 <i>Hôm nay, ngày…. tháng……năm…. tại trụ sở Công ty <span id="companyName"></span>, chúng tôi gồm có:</i>
 
+
+                <div class="content">
+                    <p>Cùng nhau xác nhận công nợ cụ thể như sau:</p>
+                    <p>Công nợ đầu kỳ: ……………….đồng (Theo Biên bản số …….. ngày ……. tháng …. năm ….)</p>
+                    <p>Số phát sinh trong kỳ:</p>
+                </div>
+
+
+
                 <table class="table table-bordered">
                     <thead class="center-content">
                         <tr>
-                            <th rowspan="2" class="center">STT</th>
-                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
-
-                            <th rowspan="2" class="center">GHI CHÚ</th>
-                        </tr>
-                        <tr>
-                            <th>Mã sản phẩm</th>
+                            <th>STT</th>
                             <th>Tên sản phẩm</th>
-                            <th>Quy cách</th>
                             <th>Đơn vị tính</th>
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
-                            <th>Tổng giá trị <BR>
-                                (Giá gốc)</th>
+                            <th>Thành tiền</th>
 
                         </tr>
                     </thead>
@@ -371,14 +372,11 @@
             tableBody.innerHTML = PO_DETAIL.map((item, index) => `
                 <tr>
                     <td class="center">${index + 1}</td>
-                    <td>${item['Ma_HHDV'] || ''}</td>
                     <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
-                    <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
                     <td>${item['DVT'] || ''}</td>
                     <td>${item['So_luong'] || ''}</td>
                     <td>${formatCurrency(item['Gia_ban'])}</td>
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
-                    <td>${item['Ghi_chu'] || ''}</td>
                 </tr>
             `).join('');
         }
