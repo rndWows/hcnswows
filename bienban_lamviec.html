@@ -459,7 +459,7 @@
                     <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
                 </i>
                 <br>
-                <i>Tại văn phòng công ty: <input type="text" id="day" class="date-input" style="width: 250px; border: none;"> </i>
+                <i>Tại văn phòng công ty: <span id="companyName1"></span></i>
 
                 <br>
                 <div class="bold">THÀNH PHẦN THAM DỰ</div>
@@ -619,6 +619,7 @@
         function updateUI() {
             document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
+            document.getElementById('companyName1').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
             addInputListeners();
