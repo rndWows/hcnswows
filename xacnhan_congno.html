@@ -445,6 +445,7 @@
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
 
             updateProductTable();
+            updateProductTable1();
             updateTotals();
 
             updateFooter();
@@ -462,6 +463,8 @@
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
                 </tr>
             `).join('');
+        }
+        function updateProductTable1() {
 
             const tableBody1 = document.getElementById('orderDetailsBody1');
             tableBody1.innerHTML = LSTT.map((item, index) => `
