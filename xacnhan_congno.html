@@ -361,8 +361,8 @@
                     </tfoot>
                 </table>
                 <div class="content">
-                    <p>Số tiền bên A đã thanh toán: <span id="tongtiendaThanhToan"></span></p>
-                    <p>Kết luận: Tính đến ngày ………tháng……..năm….. bên A còn nợ bên B số tiền là: …………….đồng (bằng chữ:
+                    <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong></p>
+                    <p>Kết luận: Tính đến ngày ………tháng……..năm….. bên B còn nợ bên A số tiền là: <strong><span id="tongtienno"></span></strong> (bằng chữ:
                         …………….)</p>
                     <p>Biên bản này được lập thành 02 bản có giá trị như nhau. Mỗi bên giữ 01 bản làm cơ sở cho việc
                         thanh toán sau này giữa hai bên.
@@ -444,7 +444,7 @@
             document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
 
-            document.getElementById('tongtiendaThanhToan').textContent = formatCurrency(HOP_DONG['Tổng tiền đã thanh toán'] || 0);
+            document.getElementById('tongtienno').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] - HOP_DONG['Tổng tiền đã thanh toán'] || 0);
         }
 
 
