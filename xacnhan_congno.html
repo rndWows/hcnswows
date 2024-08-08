@@ -361,18 +361,11 @@
                     </tfoot>
                 </table>
 
-                <table class="table table-bordered">
-                    <thead class="center-content">
-                        <tr>
-                            <th>Lần thanh toán</th>
-                            <th>Ngày thanh toán </th>
-                            <th>Số tiền thanh toán</th>
-                        </tr>
-                    </thead>
-                    <tbody id="orderDetailsBody1">
-                        <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
-                    </tbody>
-                </table>
+                
+                <div id="orderDetailsBody1"> 
+
+                </div>
+                        
                 <div class="content">
                     <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong> (bằng chữ:<span id="tongtiendaThanhToanBangChu" style="font-style: italic;"></span>)</p>
                     <p>Kết luận: Tính đến <i>ngày
@@ -468,8 +461,8 @@
     const detailsContainer = document.getElementById('orderDetailsBody1');
     detailsContainer.innerHTML = LSTT.map((item, index) => `
         <p>
-            <strong>Lần thanh toán ${index + 1}:</strong> 
-            Ngày ${item['Ngày thanh toán'] || 'Chưa có thông tin'}, 
+            Lần thanh toán ${index + 1}:
+            Ngày ${formatDate(item['Ngày thanh toán']) || 'Chưa có thông tin'}, 
             Số tiền: ${formatCurrency(item['Số tiền thanh toán'])}
         </p>
     `).join('');
@@ -484,6 +477,16 @@
 
             document.getElementById('tongtienno').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] - HOP_DONG['Tổng tiền đã thanh toán'] || 0);
             document.getElementById('tongtiennoBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] - HOP_DONG['Tổng tiền đã thanh toán'] || 0)} đồng`;
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString; // Trả về chuỗi gốc nếu không phải ngày hợp lệ
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
         }
 
 
