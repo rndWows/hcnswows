@@ -281,11 +281,11 @@
                     <p>- Căn cứ vào thỏa thuận giữa hai bên;</p>
                     <p>- Căn cứ HĐ số <span id="id1"></span></p>
                     <p><i>Hôm nay, ngày
-                        <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                        <input type="text" id="day1" class="date-input" style="width: 21px; border: none;">
                         tháng
-                        <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                        <input type="text" id="month1" class="date-input" style="width: 21px; border: none;">
                         năm
-                        <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
+                        <input type="text" id="year1" class="date-input" style="width: 40px; border: none;">
                     </i>tại trụ sở <span id="companyName1"></span>, chúng tôi gồm có:
                     </p>
                 </div>
@@ -629,6 +629,11 @@
             document.getElementById('day').value = day;
             document.getElementById('month').value = month;
             document.getElementById('year').value = year;
+
+            // Điền ngày hôm nay vào các ô input
+            document.getElementById('day1').value = day;
+            document.getElementById('month1').value = month;
+            document.getElementById('year1').value = year;
 
         });
 
