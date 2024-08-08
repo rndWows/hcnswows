@@ -465,7 +465,7 @@
                 if (dkttItem) {
                     const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
                     let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
-                    let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']) || 0;
+                    let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm']+dkttItem['Phí duy trì App định kỳ theo năm'] *0.1 ) || 0;
                     let phiPublicApp = parseFloat(dkttItem['Phí Public App ']) || 0;
 
                     thanhToanHTML += `<p><strong>Thanh toán lần ${i.toString().padStart(2, '0')}: </strong></p>`;
