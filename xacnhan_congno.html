@@ -266,7 +266,13 @@
                     <hr class="bold-line">
                 </div>
                 <div class="date-header">
-                    <p>Hôm nay, ngày... tháng... năm....</p>
+                    <i>Bình Dương, Ngày
+                        <input type="text" id="day" class="date-input" style="width: 15px; border: none;">
+                        Tháng
+                        <input type="text" id="month" class="date-input" style="width: 15px; border: none;">
+                        Năm
+                        <input type="text" id="year" class="date-input" style="width: 50px; border: none;">
+                    </i>
                 </div>
                 <h3 style="text-align: center;" class="bold"><span>BIÊN BẢN XÁC NHẬN CÔNG NỢ</span></h3>
                 <br>
@@ -564,6 +570,42 @@
                 afterPrint: null
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hôm nay
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
+            var year = today.getFullYear();
+
+            // Điền ngày hôm nay vào các ô input
+            document.getElementById('day').value = day;
+            document.getElementById('month').value = month;
+            document.getElementById('year').value = year;
+
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hiện tại
+            var today = new Date();
+            var day = String(today.getDate()).padStart(2, '0');
+            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+
+            // Điền ngày và tháng vào span
+            var currentDateSpan = document.getElementById('currentDate');
+            currentDateSpan.textContent = day + '.' + month;
+
+            // Xử lý số thứ tự
+            var sequenceInput = document.getElementById('sequenceNumber');
+            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+
+            sequenceInput.addEventListener('input', function () {
+                var value = this.value.padStart(3, '0');
+                sequenceDisplay.textContent = value;
+            });
+        });
+
+
     </script>
 </body>
 
