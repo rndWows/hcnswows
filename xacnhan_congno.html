@@ -362,7 +362,13 @@
                 </table>
                 <div class="content">
                     <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong> (bằng chữ:<span id="tongtiendaThanhToanBangChu" style="font-style: italic;"></span>)</p>
-                    <p>Kết luận: Tính đến ngày ………tháng……..năm….. bên B còn nợ bên A số tiền là: <strong><span id="tongtienno"></span></strong> 
+                    <p>Kết luận: Tính đến <i>ngày
+                        <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                        tháng
+                        <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                        năm
+                        <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
+                    </i>bên B còn nợ bên A số tiền là: <strong><span id="tongtienno"></span></strong> 
                                     (bằng chữ:<span id="tongtiennoBangChu" style="font-style: italic;"></span>)</p>
                     <p>Biên bản này được lập thành 02 bản có giá trị như nhau. Mỗi bên giữ 01 bản làm cơ sở cho việc
                         thanh toán sau này giữa hai bên.
@@ -433,7 +439,7 @@
                     <td class="center">${index + 1}</td>
                     <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
                     <td>${item['DVT'] || ''}</td>
-                    <td>${item['So_luong'] || ''}</td>
+                    <td class="center">${item['So_luong'] || ''}</td>
                     <td>${formatCurrency(item['Gia_ban'])}</td>
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
                 </tr>
