@@ -267,9 +267,9 @@
                 </div>
                 <div class="date-header">
                     <i>Bình Dương, Ngày
-                        <input type="text" id="day" class="date-input" style="width: 20px; border: none;">
+                        <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
                         Tháng
-                        <input type="text" id="month" class="date-input" style="width: 20px; border: none;">
+                        <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
                         Năm
                         <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
                     </i>
@@ -280,13 +280,13 @@
                     <p>- Căn cứ vào biên bản giao nhận hàng hóa</p>
                     <p>- Căn cứ vào thỏa thuận giữa hai bên;</p>
                     <p>- Căn cứ HĐ số <span id="id1"></span></p>
-                    <p><i>Hôm nay, Ngày
-                        <input type="text" id="day" class="date-input" style="width: 20px; border: none;">
-                        Tháng
-                        <input type="text" id="month" class="date-input" style="width: 20px; border: none;">
-                        Năm
+                    <p><i>Hôm nay, ngày
+                        <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                        tháng
+                        <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                        năm
                         <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
-                    </i>. tại trụ sở Công ty ....., chúng tôi gồm có:
+                    </i>tại trụ sở Công ty <span id="companyName1"></span>, chúng tôi gồm có:
                     </p>
                 </div>
 
@@ -420,6 +420,7 @@
         function updateUI() {
             document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
+            document.getElementById('companyName1').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
 
             updateProductTable();
