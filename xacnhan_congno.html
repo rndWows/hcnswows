@@ -443,7 +443,7 @@
         function updateTotals() {
             document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
-
+            document.getElementById('tongtiendaThanhToan').textContent = formatCurrency(HOP_DONG['Tổng tiền đã thanh toán'] || 0);
             document.getElementById('tongtienno').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] - HOP_DONG['Tổng tiền đã thanh toán'] || 0);
         }
 
