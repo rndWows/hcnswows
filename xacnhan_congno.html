@@ -468,7 +468,7 @@
                 <tr>
                     <td class="center">${index + 1}</td>
                     <td>${item['Ngày thanh toán'] || ''}</td>
-                    <td>${item['Số tiền thanh toán'] || ''}</td>
+                    <td>${formatCurrency(item['Số tiền thanh toán'])}</td>
                 </tr>
             `).join('');
         }
