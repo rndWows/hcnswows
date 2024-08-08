@@ -465,16 +465,15 @@
             `).join('');
         }
         function updateProductTable1() {
-
-            const tableBody1 = document.getElementById('orderDetailsBody1');
-            tableBody1.innerHTML = LSTT.map((item, index) => `
-                <tr>
-                    <td class="center">${index + 1}</td>
-                    <td>${item['Ngày thanh toán'] || ''}</td>
-                    <td>${formatCurrency(item['Số tiền thanh toán'])}</td>
-                </tr>
-            `).join('');
-        }
+    const detailsContainer = document.getElementById('orderDetailsBody1');
+    detailsContainer.innerHTML = LSTT.map((item, index) => `
+        <p>
+            <strong>Lần thanh toán ${index + 1}:</strong> 
+            Ngày ${item['Ngày thanh toán'] || 'Chưa có thông tin'}, 
+            Số tiền: ${formatCurrency(item['Số tiền thanh toán'])}
+        </p>
+    `).join('');
+}
 
         function updateTotals() {
             document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
