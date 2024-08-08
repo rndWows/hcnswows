@@ -360,6 +360,19 @@
                         </tr>
                     </tfoot>
                 </table>
+
+                <table class="table table-bordered">
+                    <thead class="center-content">
+                        <tr>
+                            <th>Lần thanh toán</th>
+                            <th>Ngày thanh toán </th>
+                            <th>Số tiền thanh toán</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orderDetailsBody1">
+                        <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
+                    </tbody>
+                </table>
                 <div class="content">
                     <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong> (bằng chữ:<span id="tongtiendaThanhToanBangChu" style="font-style: italic;"></span>)</p>
                     <p>Kết luận: Tính đến <i>ngày
@@ -397,6 +410,7 @@
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
+        var LSTT = [];
         var KHTN = {};
         var DKTT = [];
 
@@ -407,6 +421,7 @@
                     if (data.success) {
                         HOP_DONG = data.hop_dong || {};
                         PO_DETAIL = data.po_detail || [];
+                        LSTT = data.lstt || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
@@ -445,6 +460,15 @@
                     <td class="center">${item['So_luong'] || ''}</td>
                     <td>${formatCurrency(item['Gia_ban'])}</td>
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
+                </tr>
+            `).join('');
+
+            const tableBody1 = document.getElementById('orderDetailsBody1');
+            tableBody1.innerHTML = LSTT.map((item, index) => `
+                <tr>
+                    <td class="center">${index + 1}</td>
+                    <td>${item['Ngày thanh toán'] || ''}</td>
+                    <td>${item['Số tiền thanh toán'] || ''}</td>
                 </tr>
             `).join('');
         }
