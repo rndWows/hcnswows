@@ -700,8 +700,8 @@
         function updatePODetail() {
             const rows = document.querySelectorAll('#orderDetailsBody tr');
             rows.forEach((row, index) => {
-                PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
-                PO_DETAIL[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Đạt' : 'Không đạt';
+                CT_BANGIAO[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
+                CT_BANGIAO[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Đạt' : 'Không đạt';
             });
         }
 
