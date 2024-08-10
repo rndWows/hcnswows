@@ -577,21 +577,21 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbxBC2rStHp37z7dUcwm-_4HOnsU1y7zTxqPuuPSKgBL0Q13llL1dqn3juQ2l_2jsGHm/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
 
         // Biến toàn cục để lưu trữ dữ liệu
-        var HOP_DONG = {};
-        var PO_DETAIL = [];
+        var BAN_GIAO = {};
+        var CT_BANGIAO = [];
         var KHTN = {};
         var DKTT = [];
 
-        function searchContract(soHD) {
-            fetch(`${API_URL}?SOHD=${encodeURIComponent(soHD)}`)
+        function searchContract(soBG) {
+            fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        HOP_DONG = data.hop_dong || {};
-                        PO_DETAIL = data.po_detail || [];
+                        BAN_GIAO = data.ban_giao || {};
+                        CT_BANGIAO = data.chitiet_bangiao || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
 
@@ -606,7 +606,7 @@
         }
 
         function updateUI() {
-            document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
+            document.getElementById('id').textContent = BAN_GIAO['ID_BG'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
@@ -620,17 +620,14 @@
 
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
-            tableBody.innerHTML = PO_DETAIL.map((item, index) => `
+            tableBody.innerHTML = CT_BANGIAO.map((item, index) => `
         <tr>
             <td class="center">${index + 1}</td>
             <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td class="center">${item['So_luong'] || ''}</td>
-            <td>
-                <input type="text" class="form-control link-bangiao" placeholder="Nhập link bàn giao" value="${item['Link_ban_giao'] || ''}">
-                <span class="print-only"></span>
-            </td>
+            <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
             <td>
                 <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
                 <span class="print-only"></span>
@@ -703,7 +700,6 @@
         function updatePODetail() {
             const rows = document.querySelectorAll('#orderDetailsBody tr');
             rows.forEach((row, index) => {
-                PO_DETAIL[index]['Link_ban_giao'] = row.querySelector('.link-bangiao').value;
                 PO_DETAIL[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
                 PO_DETAIL[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Đạt' : 'Không đạt';
             });
