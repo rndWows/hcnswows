@@ -763,11 +763,11 @@
 
         document.addEventListener('DOMContentLoaded', function () {
             const urlParams = new URLSearchParams(window.location.search);
-            const soHD = urlParams.get('SOHD');
-            if (soHD) {
-                searchContract(soHD);
+            const soBG = urlParams.get('SOBG');
+            if (soBG) {
+                searchContract(soBG);
             } else {
-                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
+                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOBG=HD001)');
             }
 
 
