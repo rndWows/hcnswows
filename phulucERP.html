@@ -385,23 +385,7 @@
             </tr>
             `;
 
-                   if (phiPublicApp > 0) {
-                            thanhToanHTML += `
-                    <tr>
-                        <td colspan="2">Thanh toán phí Public App: ${formatCurrency(phiPublicApp)} </td>
-                    </tr>
-                    `;
-                            soTienThanhToan += phiPublicApp;
-                        }
-
-                    if (phiDuyTri > 0) {
-                        thanhToanHTML += `
-                <tr>
-                    <td colspan="2">Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)}</td>
-                </tr>
-                `;
-                        soTienThanhToan += phiDuyTri;
-                    }
+                 
 
                     thanhToanHTML += `
             <tr>
