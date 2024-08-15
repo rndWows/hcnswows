@@ -395,7 +395,7 @@
                     <td>${item['So_luong'] || ''}</td>
                     <td>${formatCurrency(item['Gia_ban'])}</td>
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
-                    <td>${item['Ghi chú'] || ''}</td>
+                    <td class="preserve-format">${item['Ghi chú'] || ''}</td>
                 </tr>
             `).join('');
         }
