@@ -41,12 +41,16 @@
 
 
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
+
     @media print {
 
         body,
@@ -55,9 +59,11 @@
             box-shadow: 0;
             font-size: 18px !important;
         }
+
         h5 {
             font-size: 24px
         }
+
         .date-input {
             display: none;
         }
@@ -199,7 +205,7 @@
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-        class="language_print"></span></button>
+            class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -219,8 +225,8 @@
                         <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
                     </tr>
                     <tr>
-                        <td style="font-size: 12px;">Ngày ban hành: <span >01/07/2024</td>
-                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span >00</td>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
@@ -230,18 +236,21 @@
 
 
 
-          
+
                 <div style="clear: both"></div>
                 <br>
                 <h5 style="text-align: center;" class="bold"><span>HỢP ĐỒNG DỊCH VỤ TƯ VẤN, ĐÀO TẠO, SỐ HÓA DOANH
                         NGHIỆP</span></h5>
-                        <i>Bình Dương, &emsp; Ngày 
-                            <input type="text" id="day" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
-                            Tháng 
-                            <input type="text" id="month" class="date-input" style="width: 30px; border: none; border-bottom: 1px solid black;">
-                            Năm 
-                            <input type="text" id="year" class="date-input" style="width: 50px; border: none; border-bottom: 1px solid black;">
-                            </i>
+                <i>Bình Dương, &emsp; Ngày
+                    <input type="text" id="day" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Tháng
+                    <input type="text" id="month" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    Năm
+                    <input type="text" id="year" class="date-input"
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
+                </i>
                 <div class="info_student">
                     <table style="width: 100%; ">
                         <tr>
@@ -259,7 +268,8 @@
                         </tr>
                         <tr>
                             <th style="width: 30%;">Đại diện theo pháp luật</th>
-                            <td style="width: 70%;"><strong>Bà Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span class="bold">Chức
+                            <td style="width: 70%;"><strong>Bà Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span
+                                    class="bold">Chức
                                     vụ:</span> Tổng giám đốc
                             </td>
 
@@ -356,7 +366,8 @@
                                 lục 1 và 2 của Hợp Đồng</div>
                             <div>2.2 Thời hạn thanh toán theo thoả thuận của hợp đồng.</div>
                             <div>2.3 Chậm thanh toán:</div>
-                            <div style="margin-left: 10px;">Chậm thanh toán là trường hợp tới thời hạn thanh toán theo thỏa thuận và WOWS chưa
+                            <div style="margin-left: 10px;">Chậm thanh toán là trường hợp tới thời hạn thanh toán theo
+                                thỏa thuận và WOWS chưa
                                 nhận
                                 được/chưa nhận đủ số tiền Quý Khách Hàng cần thanh toán cho WOWS</div>
                             <div>2.4 Trong trường hợp Bên B không thanh toán đúng tiến độ hợp đồng thì việc triển khai
@@ -394,7 +405,7 @@
                 <h6 class="bold" ">B: ĐIỀU KHOẢN VỀ DỊCH VỤ
                 </h6>
 
-                <div class="info_student" style="margin-left: 10px;">
+                <div class=" info_student" style="margin-left: 10px;">
                     <div>1. Các tài liệu Tư vấn, đào tạo, số hóa mà Hai bên trao đổi, làm việc phải được bảo mật tuyệt
                         đối và
                         không được chia sẻ. Hai bên cùng cam kết không sử dụng ngoài mục đích đã quy định của hợp đồng
@@ -439,197 +450,210 @@
                         thiết, nhưng WOWS cam kết luôn đảm bảo giá trị dịch vụ Tư vấn, đào tạo, số hóa là tương đương.
                     </div>
                     <div>7. Các hạng mục quý Khách hàng đã ký kết với WOWS sẽ bắt buộc phải thực hiện và được tính phí
-                        như trong phần phụ lục 1,2 của hợp đồng. Wows sẽ <strong>không đồng ý cắt giảm</strong> các hạng mục sau khi hợp đồng chính
-                        thức được ký kết <strong>trừ khi điều chỉnh hạng mục tương đương</strong> có sự đồng ý của 2 bên bằng văn bản.
+                        như trong phần phụ lục 1,2 của hợp đồng. Wows sẽ <strong>không đồng ý cắt giảm</strong> các hạng
+                        mục sau khi hợp đồng chính
+                        thức được ký kết <strong>trừ khi điều chỉnh hạng mục tương đương</strong> có sự đồng ý của 2 bên
+                        bằng văn bản.
                     </div>
                     <div>- Các yêu cầu công việc phát sinh ngoài phạm vi báo giá hai bên cùng thảo luận thống nhất bổ
                         sung
                         thông qua phụ lục hợp đồng và được tính phí theo từng hạng mục.</div>
 
-                </div>
-                <br>
-                <h6 class="bold">C: QUY TRÌNH - THỜI GIAN TRIỂN KHAI, NÂNG CẤP VÀ BẢO TRÌ PHẦN MỀM
-                </h6>
-                <div class="info_student" style="margin-left: 10px;">
-                    <div>
-                        <div class="bold">1: Quy trình và thời gian triển khai phần mềm</div>
-                        <div class="bold" style="margin-left: 10px;">Quy trình triển khai:</div>
-                        <div  style="margin-left: 10px;">
-                            <div style="margin-left: 10px;"> Giai đoạn 1: Thu thập nhu cầu, xây dựng Phần mềm theo yêu cầu</div>
-                            <div>Bên A làm việc khảo sát và tư vấn cho bên B để mô tả các tính năng cần thiết của phần mềm phù hợp với nhu cầu hiện tại và tương lai của bên B
-                                Thống nhất các nhu cầu và xây dựng 
-                                </div>
-                            <div style="margin-left: 10px;">Giai đoạn 2: Cài đặt đào tạo </div>
-                            <div>Cài đặt phần mềm lên hệ thống do Bên B chỉ định.
-                                Các máy con của Bên B sẽ truy cập phần mềm thông qua trình duyệt Chrome.
-                                Đào tạo người dùng sử dụng phần mềm thông qua phương tiện từ xa.
-                                Bàn giao phần mềm qua emai, chuyển sang giai đoạn bảo hành phần mềm.
-                            </div>
-                            <div style="margin-left: 10px;">Giai đoạn 3: Nghiệm thu</div>
-                            <div>Hai Bên phối hợp để cùng kiểm tra chương trình đã được cài đặt và sử dụng, truy cập được trên môi trường thiết bị của Bên B trong thời gian 2 tuần tính từ lúc Bên A bàn giao phần
-                                mềm cho Bên B.                                
-                            </div>
-                            <div>Trường hợp quá 2 tuần sau khi Bên A bàn giao phần mềm mà Bên B không tiến hành công tác kiểm thử, nghiệm thu và không phản hồi đến Bên A về kết quả kiểm thử, nghiệm thu, thì mặc nhiên xem như là Bên B đã đồng ý nghiệm thu phần mềm do Bên A bàn giao.                                
-                            </div>
-                            
-                            <div style="margin-left: 10px;">Giai đoạn 4: Ký biên bản nghiệm thu phần mềm</div>
-                            <div>Ký biên bản nghiệm thu phần mềm.</div>
+            </div>
+            <br>
+            <h6 class="bold">C: QUY TRÌNH - THỜI GIAN TRIỂN KHAI, NÂNG CẤP VÀ BẢO TRÌ PHẦN MỀM
+            </h6>
+            <div class="info_student" style="margin-left: 10px;">
+                <div>
+                    <div class="bold">1: Quy trình và thời gian triển khai phần mềm</div>
+                    <div class="bold" style="margin-left: 10px;">Quy trình triển khai:</div>
+                    <div style="margin-left: 10px;">
+                        <div style="margin-left: 10px;"> Giai đoạn 1: Thu thập nhu cầu, xây dựng Phần mềm theo yêu cầu
                         </div>
-                    </div>
-                    <div>
-                        <div class="bold info_student">2: Thời gian triển khai:</div>
-                        <div style="margin-left: 10px;">
-                            <div>Theo tiến độ thoả thuận trong Hợp đồng tùy số lượng Module thực hiện.</div>
-                            <div>Đối với các gói tùy chỉnh, thêm chức năng, thời gian triển khai sẽ thảo luận thống nhất giữa 2 Bên</div>
+                        <div>Bên A làm việc khảo sát và tư vấn cho bên B để mô tả các tính năng cần thiết của phần mềm
+                            phù hợp với nhu cầu hiện tại và tương lai của bên B
+                            Thống nhất các nhu cầu và xây dựng
                         </div>
-                    </div>
-                    <div>
-                        <div class="bold info_student">3: Nâng cấp và Duy trì phần mềm</div>
-                        <div class="bold" style="margin-left: 10px;">a. Nâng cấp</div>
-                        <div style="margin-left: 10px;">
-                            
-                            <div>Thêm tính năng, tiện ích bên ngoài hợp đồng</div>
-                            <div>Nâng cấp phiên bản</div>
-                            <div>Phát sinh, thay đổi tính năng trong quá trình triển khai</div>
+                        <div style="margin-left: 10px;">Giai đoạn 2: Cài đặt đào tạo </div>
+                        <div>Cài đặt phần mềm lên hệ thống do Bên B chỉ định.
+                            Các máy con của Bên B sẽ truy cập phần mềm thông qua trình duyệt Chrome.
+                            Đào tạo người dùng sử dụng phần mềm thông qua phương tiện từ xa.
+                            Bàn giao phần mềm qua emai, chuyển sang giai đoạn bảo hành phần mềm.
                         </div>
-                        <div>Chi Phí: Được hai bên thống nhất bằng văn phản trước khi được tiến hành.</div>
+                        <div style="margin-left: 10px;">Giai đoạn 3: Nghiệm thu</div>
+                        <div>Hai Bên phối hợp để cùng kiểm tra chương trình đã được cài đặt và sử dụng, truy cập được
+                            trên môi trường thiết bị của Bên B trong thời gian 2 tuần tính từ lúc Bên A bàn giao phần
+                            mềm cho Bên B.
+                        </div>
+                        <div>Trường hợp quá 2 tuần sau khi Bên A bàn giao phần mềm mà Bên B không tiến hành công tác
+                            kiểm thử, nghiệm thu và không phản hồi đến Bên A về kết quả kiểm thử, nghiệm thu, thì mặc
+                            nhiên xem như là Bên B đã đồng ý nghiệm thu phần mềm do Bên A bàn giao.
+                        </div>
 
-                        <div class="bold" style="margin-left: 10px;">b. Duy Trì</div>
-                        <div style="margin-left: 10px;">
-                            <div>Duy trì quyền sử dụng 1 năm</div>
-                            <div>Bảo trì các lỗi phát sinh của phần mềm trong phạm vi hợp đồng</div>
-                            <div>Hỗ trợ sao lưu, phục hồi dữ liệu khi cần thiết</div>
-                            <div>Hỗ trợ người sử dụng trong quá trình sử dụng chương trình từ xa thông qua các công cụ như ultraviewer, e-mail, điện thoại</div>
-                            <div>Hỗ trợ nhân viên kỹ thuật của khách hàng về quản trị chương trình</div>
-                            <div>Hỗ trợ sử dụng không bao gồm các công việc nhập liệu, kiểm tra chứng từ, số liệu, số dư và các công việc hạch toán phát sinh khác</div>
-                        </div>
-                        <div>Chi phí duy trì hàng năm là [<strong>15%</strong> x (giá trị xây dựng ban đầu không ưu đãi)] cho các hạng mục trong phạm vi thực hiện (đóng 01 lần vào tháng đầu tiên sau khi hết bảo hành và đóng gia hạn hàng năm).</div>
-                            
+                        <div style="margin-left: 10px;">Giai đoạn 4: Ký biên bản nghiệm thu phần mềm</div>
+                        <div>Ký biên bản nghiệm thu phần mềm.</div>
                     </div>
                 </div>
-                <br>
-                <h6 class="bold">D: SỰ KIỆN BẤT KHẢ KHÁNG
-                </h6>
-                <div class="info_student" style="margin-left: 10px;">
-                    <div>1. Sự kiện bất khả kháng là sự kiện xảy ra một cách khách quan không thể lường trước được và
-                        không thể
-                        khắc phục được mặc dù đã áp dụng mọi biện pháp cần thiết và khả năng cho phép. Các sự kiện bất
-                        khả
-                        kháng bao gồm nhưng không giới hạn các trường hợp: (i) Thiên tai, động đất, lũ lụt, bão, cháy
-                        nổ,
-                        hỏa hoạn và các thảm họa thiên nhiên; (ii) Chiến tranh, hành động chống phá chính quyền, khủng
-                        bố,
-                        bạo loạn, đình công, biểu tình; (iii) Các hành động, quyết định của cơ quan có thẩm quyền ở Việt
-                        Nam
-                        như cấm vận hay thay đổi chính sách hay rút giấy phép hoạt động.</div>
-                    <div>2. Trường hợp bên có nghĩa vụ không thực hiện đúng nghĩa vụ của mình do sự kiện bất khả kháng
-                        thì không
-                        phải chịu trách nhiệm với Bên kia với điều kiện bên này đã thông báo cho Bên kia ngay từ khi
-                        biết
-                        hoặc phải biết về Sự kiện bất khả kháng.</div>
-                    <div>3. Trường hợp Sự kiện bất khả kháng kéo dài quá 30 (ba mươi) ngày liên tục thì một trong Các
-                        Bên có
-                        quyền yêu cầu chấm dứt thực hiện Hợp Đồng và Các Bên sẽ tiến hành thanh lý Hợp Đồng.</div>
-                    <div>4. Trong các điều kiện bất khả kháng như trên, Quý Khách Hàng hoặc WOWS có thể chấm dứt Hợp
-                        Đồng này,
-                        tuy nhiên Các Bên phải có trách nhiệm thông báo trước cho bên kia 30 ngày. WOWS có quyền không
-                        hoàn
-                        trả phí Tư vấn, đào tạo, số hóa cho Quý Khách Hàng nếu Quý Khách Hàng đơn phương chủ động từ bỏ,
-                        hoặc không tham gia, hoặc tham gia không đầy đủ thời gian diễn ra Tư vấn, đào tạo, số hóa đã
-                        được
-                        WOWS thông báo cho Quý Khách Hàng</div>
+                <div>
+                    <div class="bold info_student">2: Thời gian triển khai:</div>
+                    <div style="margin-left: 10px;">
+                        <div>Theo tiến độ thoả thuận trong Hợp đồng tùy số lượng Module thực hiện.</div>
+                        <div>Đối với các gói tùy chỉnh, thêm chức năng, thời gian triển khai sẽ thảo luận thống nhất
+                            giữa 2 Bên</div>
+                    </div>
+                </div>
+                <div>
+                    <div class="bold info_student">3: Nâng cấp và Duy trì phần mềm</div>
+                    <div class="bold" style="margin-left: 10px;">a. Nâng cấp</div>
+                    <div style="margin-left: 10px;">
 
+                        <div>Thêm tính năng, tiện ích bên ngoài hợp đồng</div>
+                        <div>Nâng cấp phiên bản</div>
+                        <div>Phát sinh, thay đổi tính năng trong quá trình triển khai</div>
+                    </div>
+                    <div>Chi Phí: Được hai bên thống nhất bằng văn phản trước khi được tiến hành.</div>
+
+                    <div class="bold" style="margin-left: 10px;">b. Duy Trì</div>
+                    <div style="margin-left: 10px;">
+                        <div>Duy trì quyền sử dụng 1 năm</div>
+                        <div>Bảo trì các lỗi phát sinh của phần mềm trong phạm vi hợp đồng</div>
+                        <div>Hỗ trợ sao lưu, phục hồi dữ liệu khi cần thiết</div>
+                        <div>Hỗ trợ người sử dụng trong quá trình sử dụng chương trình từ xa thông qua các công cụ như
+                            ultraviewer, e-mail, điện thoại</div>
+                        <div>Hỗ trợ nhân viên kỹ thuật của khách hàng về quản trị chương trình</div>
+                        <div>Hỗ trợ sử dụng không bao gồm các công việc nhập liệu, kiểm tra chứng từ, số liệu, số dư và
+                            các công việc hạch toán phát sinh khác</div>
+                    </div>
+                    <div>Chi phí duy trì hàng năm được thể hiện trong <strong>Phụ lục 01</strong> của hợp đồng cho các
+                        hạng mục trong phạm vi thực hiện (đóng 01 lần vào tháng đầu tiên sau khi hết bảo hành và đóng
+                        gia hạn hàng năm).</div>
 
                 </div>
-                <br>
-                <h6 class="bold">E: ĐIỀU KHOẢN CHUNG
-                </h6>
-                <div class="info_student" style="margin-left: 10px;">
-                    <div>1. Các Bên cam kết rằng Các Bên đáp ứng đủ các yêu cầu theo quy định của pháp luật Việt Nam để
-                        ký kết, thực hiện Hợp Đồng này mà không vi phạm bất kỳ quy định nào của pháp luật hiện hành.
-                    </div>
-                    <div>2. Hợp Đồng này tạo thành thỏa thuận thống nhất giữa Các Bên liên quan đến vấn đề đã đề cập
-                        trong Hợp Đồng này và thay thế tất cả các cam kết, thỏa thuận bằng văn bản hoặc bằng miệng hoặc
-                        văn bản trước đó. Tất cả các sửa đổi bổ sung cho Hợp Đồng chỉ có hiệu lực khi được lập thành văn
-                        bản được Các Bên ký</div>
-                    <div>3. Hợp Đồng này là độc lập đối với bất kỳ nghĩa vụ nào giữa Các Bên. Điều này có nghĩa là nó có
-                        hiệu lực ngay cả khi Quý Khách Hàng khiếu nại về sự vi phạm bất kỳ thỏa thuận, sự hiểu biết, cam
-                        kết hoặc hứa hẹn nào giữa Quý Khách Hàng và WOWS.</div>
-                    <div>4. Trừ khi nhận được sự đồng ý bằng văn bản của Bên kia, một Bên không được phép chuyển nhượng
-                        một phần/toàn bộ Hợp Đồng này cho Bên thứ ba khác.</div>
-                    <div>5. Mỗi và tất cả các điều khoản của Hợp Đồng này sẽ ràng buộc và sẽ có hiệu lực đối với lợi ích
-                        của Các Bên và Các Bên kế thừa/ Bên được chuyển giao (nếu có).</div>
-                    <div>6. Các Bên cam kết không tiết lộ các thông tin của Hợp Đồng này cho Bên khác trừ khi nhận được
-                        sự đồng ý trước bằng văn bản của Bên kia hoặc việc tiết lộ là bắt buộc theo yêu cầu của cơ quan
-                        Nhà nước có thẩm quyền, của nhân viên thực thi Hợp đồng này và luật sư của mỗi Bên.</div>
-                    <div>7. Việc từ bỏ bởi bất kỳ bên nào với bất kỳ điều khoản nào trong Hợp Đồng này sẽ không có hiệu
-                        lực trừ khi được quy định rõ ràng bằng văn bản và có chữ ký của bên từ bỏ. Việc không thực hiện,
-                        hoặc trì hoãn thực hiện, bất kỳ quyền, biện pháp, quyền lực hoặc đặc quyền nào phát sinh từ Hợp
-                        Đồng này sẽ không cấu thành hoặc được hiểu là sự từ bỏ.</div>
-                    <div>8. Quý Khách Hàng sẽ không, khi chưa có sự đồng ý bằng văn bản của WOWS, trực tiếp hay gián
-                        tiếp: i) Lôi kéo hay khuyến khích bất kỳ ai chấm dứt làm việc hoặc chấm dứt cung cấp dịch vụ cho
-                        WOWS hoặc các đơn vị phụ thuộc của nó; hoặc ii) thuê (dưới danh nghĩa của Quý Khách Hàng hoặc
-                        bất kỳ cá nhân hay thực thể nào khác) bất kỳ người nào đã chấm dứt làm việc hoặc chấm dứt cung
-                        cấp dịch vụ cho WOWS hoặc các đơn vị phụ thuộc của nó <strong>trong vòng một năm tiếp theo</strong> kể từ việc
-                        chấm dứt đó.
-                    </div>
-                    <div>9. Trường hợp Hợp Đồng bị chấm dứt thì các quy định liên quan đến phạt vi phạm, bồi thường
-                        thiệt hại và giải quyết tranh chấp tiếp tục có hiệu lực.</div>
-                    <div>10. Nếu có điều khoản trong Hợp Đồng bị cơ quan Nhà nước có thẩm quyền xác định là vô hiệu/
-                        không có giá trị pháp lý/ không có hiệu lực áp dụng, các điều khoản còn lại của Hợp Đồng cũng sẽ
-                        không bị ảnh hưởng về mặt hiệu lực. Các Bên sẽ thỏa thuận để sửa đổi điều khoản bị xác định là
-                        vô hiệu/không có giá trị pháp lý/không có hiệu lực áp dụng đó cho phù hợp với ý chí Các Bên và
-                        quy định pháp luật trong thời gian sớm nhất. Các Bên sẽ tiếp tục và không làm gián đoạn việc
-                        thực hiện các điều khoản, quy định khác vẫn đang có giá trị của Hợp Đồng.</div>
-                    <div>11. Hợp Đồng này được áp dụng, điều chỉnh, được hiểu và giải thích theo pháp luật của Việt Nam.
-                    </div>
-                    <div>12. Tranh chấp phát sinh liên quan đến Hợp Đồng này sẽ được giải quyết tại Tòa án có thẩm quyền
-                        bên bị
-                        đơn. Bên thua kiện sẽ chịu trách nhiệm hoàn toàn về các khoản chi phí phát sinh trong quá trình
-                        tranh chấp.</div>
+            </div>
+            <br>
+            <h6 class="bold">D: SỰ KIỆN BẤT KHẢ KHÁNG
+            </h6>
+            <div class="info_student" style="margin-left: 10px;">
+                <div>1. Sự kiện bất khả kháng là sự kiện xảy ra một cách khách quan không thể lường trước được và
+                    không thể
+                    khắc phục được mặc dù đã áp dụng mọi biện pháp cần thiết và khả năng cho phép. Các sự kiện bất
+                    khả
+                    kháng bao gồm nhưng không giới hạn các trường hợp: (i) Thiên tai, động đất, lũ lụt, bão, cháy
+                    nổ,
+                    hỏa hoạn và các thảm họa thiên nhiên; (ii) Chiến tranh, hành động chống phá chính quyền, khủng
+                    bố,
+                    bạo loạn, đình công, biểu tình; (iii) Các hành động, quyết định của cơ quan có thẩm quyền ở Việt
+                    Nam
+                    như cấm vận hay thay đổi chính sách hay rút giấy phép hoạt động.</div>
+                <div>2. Trường hợp bên có nghĩa vụ không thực hiện đúng nghĩa vụ của mình do sự kiện bất khả kháng
+                    thì không
+                    phải chịu trách nhiệm với Bên kia với điều kiện bên này đã thông báo cho Bên kia ngay từ khi
+                    biết
+                    hoặc phải biết về Sự kiện bất khả kháng.</div>
+                <div>3. Trường hợp Sự kiện bất khả kháng kéo dài quá 30 (ba mươi) ngày liên tục thì một trong Các
+                    Bên có
+                    quyền yêu cầu chấm dứt thực hiện Hợp Đồng và Các Bên sẽ tiến hành thanh lý Hợp Đồng.</div>
+                <div>4. Trong các điều kiện bất khả kháng như trên, Quý Khách Hàng hoặc WOWS có thể chấm dứt Hợp
+                    Đồng này,
+                    tuy nhiên Các Bên phải có trách nhiệm thông báo trước cho bên kia 30 ngày. WOWS có quyền không
+                    hoàn
+                    trả phí Tư vấn, đào tạo, số hóa cho Quý Khách Hàng nếu Quý Khách Hàng đơn phương chủ động từ bỏ,
+                    hoặc không tham gia, hoặc tham gia không đầy đủ thời gian diễn ra Tư vấn, đào tạo, số hóa đã
+                    được
+                    WOWS thông báo cho Quý Khách Hàng</div>
 
 
-
+            </div>
+            <br>
+            <h6 class="bold">E: ĐIỀU KHOẢN CHUNG
+            </h6>
+            <div class="info_student" style="margin-left: 10px;">
+                <div>1. Các Bên cam kết rằng Các Bên đáp ứng đủ các yêu cầu theo quy định của pháp luật Việt Nam để
+                    ký kết, thực hiện Hợp Đồng này mà không vi phạm bất kỳ quy định nào của pháp luật hiện hành.
                 </div>
-                <br>
-                <i>Hợp Đồng này được lập thành 02 (hai) bản với giá trị như nhau. Được thực hiện và có hiệu lực kể từ
-                    ngày ký.</i>
-                <br>
-                <br>
-
-
-                <table style="width: 100%; text-align: center;">
-                    <tr>
-                        <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS
-                            </span></td>
-                        <td style="width: 50%;"><span class="bold" id="benb1"></span></td>
-                    </tr>
-                    <tr>
-                        <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
-                        <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
-                        </td>
-                        <td>
-                            <p style="text-transform: uppercase;" class="bold"><span id="daidien1">0</span></p>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="">Ngày ký: .............................</i>
-                        </td>
-                        <td>
-                            <i class="">Ngày ký: .............................</i>
-                        </td>
-                    </tr>
-                </table>
+                <div>2. Hợp Đồng này tạo thành thỏa thuận thống nhất giữa Các Bên liên quan đến vấn đề đã đề cập
+                    trong Hợp Đồng này và thay thế tất cả các cam kết, thỏa thuận bằng văn bản hoặc bằng miệng hoặc
+                    văn bản trước đó. Tất cả các sửa đổi bổ sung cho Hợp Đồng chỉ có hiệu lực khi được lập thành văn
+                    bản được Các Bên ký</div>
+                <div>3. Hợp Đồng này là độc lập đối với bất kỳ nghĩa vụ nào giữa Các Bên. Điều này có nghĩa là nó có
+                    hiệu lực ngay cả khi Quý Khách Hàng khiếu nại về sự vi phạm bất kỳ thỏa thuận, sự hiểu biết, cam
+                    kết hoặc hứa hẹn nào giữa Quý Khách Hàng và WOWS.</div>
+                <div>4. Trừ khi nhận được sự đồng ý bằng văn bản của Bên kia, một Bên không được phép chuyển nhượng
+                    một phần/toàn bộ Hợp Đồng này cho Bên thứ ba khác.</div>
+                <div>5. Mỗi và tất cả các điều khoản của Hợp Đồng này sẽ ràng buộc và sẽ có hiệu lực đối với lợi ích
+                    của Các Bên và Các Bên kế thừa/ Bên được chuyển giao (nếu có).</div>
+                <div>6. Các Bên cam kết không tiết lộ các thông tin của Hợp Đồng này cho Bên khác trừ khi nhận được
+                    sự đồng ý trước bằng văn bản của Bên kia hoặc việc tiết lộ là bắt buộc theo yêu cầu của cơ quan
+                    Nhà nước có thẩm quyền, của nhân viên thực thi Hợp đồng này và luật sư của mỗi Bên.</div>
+                <div>7. Việc từ bỏ bởi bất kỳ bên nào với bất kỳ điều khoản nào trong Hợp Đồng này sẽ không có hiệu
+                    lực trừ khi được quy định rõ ràng bằng văn bản và có chữ ký của bên từ bỏ. Việc không thực hiện,
+                    hoặc trì hoãn thực hiện, bất kỳ quyền, biện pháp, quyền lực hoặc đặc quyền nào phát sinh từ Hợp
+                    Đồng này sẽ không cấu thành hoặc được hiểu là sự từ bỏ.</div>
+                <div>8. Quý Khách Hàng sẽ không, khi chưa có sự đồng ý bằng văn bản của WOWS, trực tiếp hay gián
+                    tiếp: i) Lôi kéo hay khuyến khích bất kỳ ai chấm dứt làm việc hoặc chấm dứt cung cấp dịch vụ cho
+                    WOWS hoặc các đơn vị phụ thuộc của nó; hoặc ii) thuê (dưới danh nghĩa của Quý Khách Hàng hoặc
+                    bất kỳ cá nhân hay thực thể nào khác) bất kỳ người nào đã chấm dứt làm việc hoặc chấm dứt cung
+                    cấp dịch vụ cho WOWS hoặc các đơn vị phụ thuộc của nó <strong>trong vòng một năm tiếp theo</strong>
+                    kể từ việc
+                    chấm dứt đó.
+                </div>
+                <div>9. Trường hợp Hợp Đồng bị chấm dứt thì các quy định liên quan đến phạt vi phạm, bồi thường
+                    thiệt hại và giải quyết tranh chấp tiếp tục có hiệu lực.</div>
+                <div>10. Nếu có điều khoản trong Hợp Đồng bị cơ quan Nhà nước có thẩm quyền xác định là vô hiệu/
+                    không có giá trị pháp lý/ không có hiệu lực áp dụng, các điều khoản còn lại của Hợp Đồng cũng sẽ
+                    không bị ảnh hưởng về mặt hiệu lực. Các Bên sẽ thỏa thuận để sửa đổi điều khoản bị xác định là
+                    vô hiệu/không có giá trị pháp lý/không có hiệu lực áp dụng đó cho phù hợp với ý chí Các Bên và
+                    quy định pháp luật trong thời gian sớm nhất. Các Bên sẽ tiếp tục và không làm gián đoạn việc
+                    thực hiện các điều khoản, quy định khác vẫn đang có giá trị của Hợp Đồng.</div>
+                <div>11. Hợp Đồng này được áp dụng, điều chỉnh, được hiểu và giải thích theo pháp luật của Việt Nam.
+                </div>
+                <div>12. Tranh chấp phát sinh liên quan đến Hợp Đồng này sẽ được giải quyết tại Tòa án có thẩm quyền
+                    bên bị
+                    đơn. Bên thua kiện sẽ chịu trách nhiệm hoàn toàn về các khoản chi phí phát sinh trong quá trình
+                    tranh chấp.</div>
 
 
 
             </div>
+            <br>
+            <i>Hợp Đồng này được lập thành 02 (hai) bản với giá trị như nhau. Được thực hiện và có hiệu lực kể từ
+                ngày ký.</i>
+            <br>
+            <br>
+
+
+            <table style="width: 100%; text-align: center;">
+                <tr>
+                    <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS
+                        </span></td>
+                    <td style="width: 50%;"><span class="bold" id="benb1"></span></td>
+                </tr>
+                <tr>
+                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
+                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
+                    </td>
+                    <td>
+                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">0</span></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <i class="">Ngày ký: .............................</i>
+                    </td>
+                    <td>
+                        <i class="">Ngày ký: .............................</i>
+                    </td>
+                </tr>
+            </table>
+
+
+
+        </div>
         </div>
     </page>
 
@@ -658,7 +682,7 @@
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
             var results = regex.exec(location.search);
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-            
+
         }
 
         // Function to set text content if element exists
@@ -707,30 +731,30 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded', function() {
-    // Lấy ngày hôm nay
-    var today = new Date();
-    var day = today.getDate();
-    var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
-    var year = today.getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy ngày hôm nay
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
+            var year = today.getFullYear();
 
-    // Điền ngày hôm nay vào các ô input
-    document.getElementById('day').value = day;
-    document.getElementById('month').value = month;
-    document.getElementById('year').value = year;
+            // Điền ngày hôm nay vào các ô input
+            document.getElementById('day').value = day;
+            document.getElementById('month').value = month;
+            document.getElementById('year').value = year;
 
-    // Tạo và cập nhật các span
-    var inputs = document.querySelectorAll('.date-input');
-    inputs.forEach(function(input) {
-        var span = document.createElement('span');
-        span.textContent = input.value;
-        input.parentNode.insertBefore(span, input.nextSibling);
+            // Tạo và cập nhật các span
+            var inputs = document.querySelectorAll('.date-input');
+            inputs.forEach(function (input) {
+                var span = document.createElement('span');
+                span.textContent = input.value;
+                input.parentNode.insertBefore(span, input.nextSibling);
 
-        input.addEventListener('input', function() {
-            span.textContent = this.value;
+                input.addEventListener('input', function () {
+                    span.textContent = this.value;
+                });
+            });
         });
-    });
-});
 
 
 
