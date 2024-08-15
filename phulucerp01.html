@@ -308,8 +308,8 @@
                             <td colspan="3" class="text-center"><span id="vat"></span></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC (Ghi chú):</strong></td>
-                            <td colspan="3" class="text-center"><span id=""></span></td>
+                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC:</strong></td>
+                            <td colspan="3" class="text-center"><span id="chiphikhac"></span></td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
@@ -410,8 +410,12 @@
             document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
             document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
             document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
-            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
-            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] || 0)} đồng`;
+            const chiPhiDuyTri = tienApp * phantramduytri * (1 + HOP_DONG['%VAT']); // 15% của giá trị xây dựng ban đầu
+            const phipulic = HOP_DONG['Phí Public App'] * (1 + HOP_DONG['%VAT']);
+            document.getElementById('chiphikhac').textContent = formatCurrency(chiPhiDuyTri+ phipulic || 0);
+            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT']  +chiPhiDuyTri+ phipulic || 0);
+            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] +chiPhiDuyTri+ phipulic  || 0)} đồng`;
+
         }
 
         function updateNotes() {
