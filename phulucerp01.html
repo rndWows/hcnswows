@@ -308,6 +308,10 @@
                             <td colspan="3" class="text-center"><span id="vat"></span></td>
                         </tr>
                         <tr>
+                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC (Ghi chú):</strong></td>
+                            <td colspan="3" class="text-center"><span id=""></span></td>
+                        </tr>
+                        <tr>
                             <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
                             <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
                         </tr>
@@ -416,7 +420,8 @@
             const phantramduytri = HOP_DONG['Chi phí'];
             const chiPhiDuyTri = tienApp * phantramduytri * (1 + HOP_DONG['%VAT']); // 15% của giá trị xây dựng ban đầu
             const phipulic = HOP_DONG['Phí Public App'] * (1 + HOP_DONG['%VAT']);
-            let ghiChuHTML = `
+            if (tienApp && tienApp > 0) {
+                let ghiChuHTML = `
         <li> <strong> Ghi chú: </strong></li>
         <ul>
             <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng File Google sheet và chuyển giao, Đối với App  ( chỉ chuyển giao với vai trò người dùng (không chuyển giao source nguồn code app).</li>
@@ -435,18 +440,19 @@
             <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
     `;
 
-            // Kiểm tra nếu `phipulic` khác 0 và không rỗng thì thêm dòng về phí public app
-            if (phipulic && phipulic > 0) {
-                ghiChuHTML += `
+                // Kiểm tra nếu `phipulic` khác 0 và không rỗng thì thêm dòng về phí public app
+                if (phipulic && phipulic > 0) {
+                    ghiChuHTML += `
             <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của Google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: ${formatCurrency(phipulic)} (${numberToWords(phipulic)}) và đóng định kỳ hàng năm cùng thời điểm</li>
         `;
-            }
+                }
 
-            ghiChuHTML += `
+                ghiChuHTML += `
         </ul>
     `;
 
-            ghiChuList.innerHTML = ghiChuHTML;
+                ghiChuList.innerHTML = ghiChuHTML;
+            }
         }
 
 
