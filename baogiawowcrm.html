@@ -439,26 +439,6 @@
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0)} đồng`;
 
             const ghiChuList = document.getElementById('ghiChu');
-
-            const ghiChuHTML = `
-        <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng File Google sheet và chuyển giao, Đối với App  ( chỉ chuyển giao với vai trò người dùng (không chuyển giao source nguồn code app).</li>
-        <li>Miễn phí hướng dẫn sử dụng app: <strong>${PO['Số buổi'] || ''}</strong> buổi Online/Offline</li>
-        <li>Buổi thứ <strong>${(parseInt(PO['Số buổi'] || 0) + 1)}</strong> trở đi: chi phí được tính là:<strong> 1.000.000/ 1 buổi Online/Offline </strong></li>
-        <li>Wows có trách nhiệm bảo hành và xử lý các vấn đề có liên quan đến app trong phạm vi đã thỏa thuận của hợp đồng đã ký.</li>
-        <li>Giá trị phần mềm:<strong> ${formatCurrency(tienApp)}</strong></li>
-        <li>Chi phí duy trì hàng năm là [<strong>${PO['Chi phí'] * 100 || ''} %</strong> x Giá trị xây dựng Module App ban đầu (không tính ưu đãi)] tương ứng trong Hợp đồng này là: <strong>${formatCurrency(chiPhiDuyTri)}</strong></li>
-        <li>Thanh toán cùng đợt thanh toán sau cùng sau khi nghiệm thu hạng mục và đóng định kỳ hàng năm cùng thời điểm.</li>
-        <li><em>Chi phí duy trì sau thời gian bảo hành gồm:</em>
-            <ul>
-                <li>Duy trì thời gian sử dụng app 1 năm.</li>
-                <li>Xử lý sự cố về app khi có phát sinh vấn đề trong phạm vi các hạng mục đã được thống nhất (nếu có)</li>
-                <li>Hỗ trợ backup dữ liệu định kỳ cho doanh nghiệp khách hàng khi dữ liệu lớn.</li>
-            </ul>
-        </li>
-        <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
-        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>15.000.000 vnd</strong> (Mười lăm triệu đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
-    `;
-
             if (tienApp && tienApp > 0) {
                 let ghiChuHTML = `
         <li> <strong> Ghi chú: </strong></li>
@@ -491,6 +471,40 @@
     `;
 
                 ghiChuList.innerHTML = ghiChuHTML;
+            }
+
+            // Thêm phần hiển thị thông tin thanh toán
+            const thanhToanInfo = document.getElementById('thanhToanInfo');
+            let thanhToanHTML = '<h4>Thông tin thanh toán:</h4>';
+
+            for (let i = 1; i <= 4; i++) {
+                const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
+                if (dkttItem) {
+                    const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
+                    let soTienThanhToan = PO['Tong_tien_sau_VAT'] * phanTramThanhToan;
+                    let phiDuyTri = parseFloat(dkttItem['Phí duy trì App định kỳ theo năm'] + dkttItem['Phí duy trì App định kỳ theo năm'] * 0.1) || 0;
+                    let phiPublicApp = parseFloat(dkttItem['Phí Public App ']) || 0;
+
+                    thanhToanHTML += `<p><strong>Thanh toán lần ${i.toString().padStart(2, '0')}: </strong></p>`;
+                    thanhToanHTML += `<p>Thanh toán phí tư vấn/số hóa lần ${i.toString().padStart(2, '0')}: (${(phanTramThanhToan * 100).toFixed(0)}%): ${formatCurrency(soTienThanhToan)}</p>`;
+
+                    if (phiPublicApp > 0) {
+                        thanhToanHTML += `<p>Thanh toán phí Public App: ${formatCurrency(phiPublicApp)}</p>`;
+                        soTienThanhToan += phiPublicApp;
+                    }
+
+                    if (phiDuyTri > 0) {
+                        thanhToanHTML += `<p>Thanh toán phí Duy trì App hàng năm: ${formatCurrency(phiDuyTri)}</p>`;
+                        soTienThanhToan += phiDuyTri;
+                    }
+
+                    thanhToanHTML += `<p>Tổng thanh toán: <strong>${formatCurrency(soTienThanhToan)}</strong></p>`;
+                    thanhToanHTML += `<p><em>Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng</em></p>`;
+                    thanhToanHTML += `
+                <p>${dkttItem['Nội dung yêu cầu'] || ''}</p>
+                <hr>
+            `;
+                }
             }
 
             thanhToanInfo.innerHTML = thanhToanHTML;
