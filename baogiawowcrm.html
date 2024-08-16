@@ -477,7 +477,7 @@
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
                 if (dkttItem) {
                     const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
-                    let soTienThanhToan =PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0;
+                    let soTienThanhToan =(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic)  * phanTramThanhToan || 0;
                     let phiDuyTri = parseFloat(PO['Tiền Phí Duy trì hàng năm']) * phanTramThanhToan || 0;
                     let phiPublicApp = parseFloat(PO['Phí Public App ']) * phanTramThanhToan || 0;
 
