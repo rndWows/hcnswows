@@ -194,6 +194,27 @@
             display: none !important;
         }
     }
+    @media print {
+            .khoi-chu-ky {
+                page-break-inside: avoid;
+            }
+        }
+        .khoi-chu-ky {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 50px; /* Điều chỉnh khoảng cách nếu cần */
+        }
+        .cot-chu-ky {
+            width: 45%;
+            text-align: center;
+        }
+        .tieu-de-chu-ky {
+            font-weight: bold;
+        }
+        .tieu-de-chu-ky-2 { 
+
+            margin-bottom: 70px; /* Khoảng trống cho chữ ký */
+        }
 </style>
 
 <body>
@@ -330,19 +351,18 @@
                     <br>
                 </div>
                 <div>
-                    <div style="width: 50%; float: right; text-align: center" class="bold">
-                        <div class="big-title" style="text-align: center;"><span> NGƯỜI SỬ DỤNG LAO ĐỘNG </span>
+                    <div class="khoi-chu-ky">
+                        <div class="cot-chu-ky">
+                            <div class="tieu-de-chu-ky">NGƯỜI LAO ĐỘNG</div>
+                            <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
                         </div>
-                        <p>(Ký, ghi rõ họ tên)</p>
-                    </div>
-                    <div style="width: 50%; float: right ; text-align: center" class="bold">
-                        <div class="big-title" style="text-align: center;"><span>NGƯỜI LAO ĐỘNG </span>
+                        <div class="cot-chu-ky">
+                            <div class="tieu-de-chu-ky">NGƯỜI SỬ DỤNG LAO ĐỘNG</div>
+                            <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
                         </div>
-                        <p>(Ký, ghi rõ họ tên)</p>
                     </div>
 
                 </div>
-                <br> <br> <br> <br>
             </div>
         </div>
 
