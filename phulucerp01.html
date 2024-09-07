@@ -305,7 +305,7 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span></td>
+                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)</td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC:</strong></td>
@@ -410,6 +410,7 @@
             document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
             document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
             document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
+            document.getElementById('tongTienVAT').textContent = formatCurrency(HOP_DONG['Tong_tien_VAT'] || 0);
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
             const phantramduytri = HOP_DONG['Chi phí'];
             const chiPhiDuyTri = tienApp * phantramduytri * (1 + HOP_DONG['%VAT']); // 15% của giá trị xây dựng ban đầu
@@ -564,7 +565,7 @@
             return `${day}/${month}/${year}`;
         }
         function formatCurrency(value) {
-            if (!value) return '';
+            if (!value || value == 0) return '0 ₫';
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
         }
 
