@@ -71,7 +71,7 @@
         }
 
         .col-quy-cach {
-            width: 35%;
+            width: 25%;
         }
 
         .col-dvt {
@@ -94,6 +94,9 @@
             width: 10%;
         }
 
+        .col-ghi-chu {
+            width: 10%;
+        }
 
         .table th,
         .table td {
@@ -474,6 +477,7 @@
                             <th class="col-link">Link bàn giao (Nếu có)</th>
                             
                             <th class="col-nguoi-nhan">Người tiếp nhận</th>
+                            <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
@@ -564,6 +568,7 @@
             <td>${item['Tên ứng viên'] || ''}</td>
             <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
             <td>${item['Nguoi_tiepnhan'] || ''}</td>
+            <td>${item['Ghi chú'] || ''}</td>
         </tr>
     `).join('');
         }else {
