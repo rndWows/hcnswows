@@ -71,7 +71,7 @@
         }
 
         .col-quy-cach {
-            width: 40%;
+            width: 35%;
         }
 
         .col-dvt {
@@ -81,6 +81,10 @@
         .col-so-luong {
             width: 5%;
         }
+        .col-tenuv{
+          width: 10%;
+        }
+        
 
         .col-link {
             width: 10%;
@@ -90,9 +94,6 @@
             width: 10%;
         }
 
-        .col-ghi-chu {
-            width: 5%;
-        }
 
         .table th,
         .table td {
@@ -469,9 +470,10 @@
                             <th class="col-quy-cach">Mô tả sản phẩm</th>
                             <th class="col-dvt">Đơn vị tính</th>
                             <th class="col-so-luong">Số lượng</th>
+                            <th class="col-tenuv">Tên ứng viên</th>
                             <th class="col-link">Link bàn giao (Nếu có)</th>
+                            
                             <th class="col-nguoi-nhan">Người tiếp nhận</th>
-                            <th class="center col-ghi-chu">Ghi chú</th>
                         </tr>
                     </thead>
                     <tbody id="orderDetailsBody">
@@ -559,9 +561,9 @@
             <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
             <td>${item['DVT'] || ''}</td>
             <td>${item['So_luong'] || ''}</td>
+            <td>${item['Tên ứng viên'] || ''}</td>
             <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
             <td>${item['Nguoi_tiepnhan'] || ''}</td>
-            <td>${item['Ghi chú'] || ''}</td>
         </tr>
     `).join('');
         }else {
