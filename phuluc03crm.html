@@ -255,7 +255,7 @@
         <div style="clear: both"></div>
         <br>
         <p><strong>Kính gửi: <span id="companyName"></span></strong></p>
-        <p>- Căn cứ hợp đồng số: <span id="idhd"></span> giữa CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS VÀ <span id="companyName"></span> về việc thỏa thuân cung cấp xây dựng hệ thống quản lý dữ liệu</p>
+        <p>- Căn cứ hợp đồng số: <span id="idhd"></span> giữa CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS VÀ <span id="companyName"></span> đã ký.</p>
         <p>Hai bên thống nhất và lập phụ lục hợp đồng này bổ sung thêm hạng mục chi tiết như sau:</p>
 
         <table class="table table-bordered">
@@ -486,7 +486,8 @@
       <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
     </tr>
     <tr>
-      <td colspan="2">${dkttItem['Nội dung yêu cầu'] || ''}</td>
+    <tr>
+        <td colspan="2">Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày sau khi ${dkttItem['Sau khi'] || ''}</td>
     </tr>
   `;
       });
