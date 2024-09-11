@@ -388,10 +388,12 @@
           </tr>
           <tr>
             <td style="font-size: 12px;">Số:</td>
-            <td style="font-size: 12px;">BGO-<span id="Tvt"></span>-<span id="currentDate"></span>-<input type="text"
+            <!-- <td style="font-size: 12px;">BGO-<span id="Tvt"></span>-<span id="currentDate"></span>-<input type="text"
                 id="sequenceNumber" class="no-print"
                 style="width: 40px; border: none; border-bottom: 1px solid black;"><span
                 id="sequenceNumberDisplay"></span>
+            </td> -->
+            <td style="font-size: 12px;"><span id="idBG"></span>
             </td>
           </tr>
         </table>
@@ -404,7 +406,7 @@
 
 
 
-        <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
+        <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="SoHD" class="bold"></span></i>
         <br>
 
         <i>Bình Dương, Ngày
@@ -545,7 +547,8 @@
     }
 
     function updateUI() {
-      document.getElementById('id').textContent = BAN_GIAO['ID_BG'] || '';
+      document.getElementById('idBG').textContent = BAN_GIAO['ID_BG'] || '';
+      document.getElementById('SoHD').textContent = BAN_GIAO['Số HĐ'] || '';
       document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
       document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
       document.getElementById('Mst').textContent = KHTN['MST'] || '';
@@ -553,9 +556,8 @@
       document.getElementById('Chucvu').textContent = KHTN['CHỨC VỤ'] || '';
       document.getElementById('Sdt').textContent = KHTN['SỐ ĐT NGƯỜI LIÊN HỆ'] || '';
       document.getElementById('Email').textContent = KHTN['EMAIL NGƯỜI LIÊN HỆ'] || '';
-      document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
-
-
+    //   document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
+      
       updateProductTable();
 
       updateFooter();
@@ -696,25 +698,25 @@
 
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-      // Lấy ngày hiện tại
-      var today = new Date();
-      var day = String(today.getDate()).padStart(2, '0');
-      var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+    // document.addEventListener('DOMContentLoaded', function () {
+    //   // Lấy ngày hiện tại
+    //   var today = new Date();
+    //   var day = String(today.getDate()).padStart(2, '0');
+    //   var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
 
-      // Điền ngày và tháng vào span
-      var currentDateSpan = document.getElementById('currentDate');
-      currentDateSpan.textContent = day + '.' + month;
+    //   // Điền ngày và tháng vào span
+    // //   var currentDateSpan = document.getElementById('currentDate');
+    // //   currentDateSpan.textContent = day + '.' + month;
 
-      // Xử lý số thứ tự
-      var sequenceInput = document.getElementById('sequenceNumber');
-      var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+    //   // Xử lý số thứ tự
+    //   var sequenceInput = document.getElementById('sequenceNumber');
+    //   var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
 
-      sequenceInput.addEventListener('input', function () {
-        var value = this.value.padStart(3, '0');
-        sequenceDisplay.textContent = value;
-      });
-    });
+    //   sequenceInput.addEventListener('input', function () {
+    //     var value = this.value.padStart(3, '0');
+    //     sequenceDisplay.textContent = value;
+    //   });
+    // });
 
 
 
