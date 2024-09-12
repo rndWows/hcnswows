@@ -433,11 +433,12 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;">BLV-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
+                        <td style="font-size: 12px;"><span id="id"></span>
+                        <!-- <td style="font-size: 12px;">BLV-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
                                 type="text" id="sequenceNumber" class="no-print"
                                 style="width: 40px; border: none; border-bottom: 1px solid black;"><span
                                 id="sequenceNumberDisplay"></span>
-                        </td>
+                        </td> -->
                     </tr>
                 </table>
 
@@ -448,7 +449,7 @@
                     </span></h2>
 
 
-                <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="id" class="bold"></span></i>
+                <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="idhd" class="bold"></span></i>
                 <br>
 
                 <i>Hôm nay, Ngày
@@ -550,7 +551,7 @@
                     </tbody>
 
                 </table>
-
+ 
                 <p>Biên bản kết thúc vào hồi <i>
                     
                     <input type="text" id="gio" class="date-input" style="width: 42px; border: none;">giờ, 
@@ -563,7 +564,7 @@
                 </i></p>
                 <p>Nội dung làm việc được các thành viên thông qua và đại diện xác nhận.</p>
                 <p>Biên bản có hiệu lực kể từ ngày ký.</p>
-
+                
 
                 <div id="footerInfo" class="mt-4">
                     <!-- Thông tin cuối sẽ được thêm vào đây -->
@@ -618,9 +619,11 @@
 
         function updateUI() {
             document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
+            document.getElementById('idhd').textContent = KE_HOACH['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyName1').textContent = KHTN['TÊN CÔNG TY'] || '';
-            document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
+            // document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
+            
             updateProductTable();
             addInputListeners();
 
@@ -769,7 +772,8 @@
                         <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
                     </td>
                     <td>
-                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || ' '}</span></p>
+                        <input style="text-transform: uppercase; border: none; width:80%; text-align: center;" class="bold" id="Nlh" value='${KHTN['NGƯỜI LIÊN HỆ'] || ' '}''>
+                        <!-- <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || ' '}</span></p> -->
                     </td>
                 </tr>
                 <tr>
@@ -868,25 +872,25 @@
 
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lấy ngày hiện tại
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     // Lấy ngày hiện tại
+        //     var today = new Date();
+        //     var day = String(today.getDate()).padStart(2, '0');
+        //     var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
 
-            // Điền ngày và tháng vào span
-            var currentDateSpan = document.getElementById('currentDate');
-            currentDateSpan.textContent = day + '.' + month;
+        //     // Điền ngày và tháng vào span
+        //     var currentDateSpan = document.getElementById('currentDate');
+        //     currentDateSpan.textContent = day + '.' + month;
 
-            // Xử lý số thứ tự
-            var sequenceInput = document.getElementById('sequenceNumber');
-            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+        //     // Xử lý số thứ tự
+        //     var sequenceInput = document.getElementById('sequenceNumber');
+        //     var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
 
-            sequenceInput.addEventListener('input', function () {
-                var value = this.value.padStart(3, '0');
-                sequenceDisplay.textContent = value;
-            });
-        });
+        //     sequenceInput.addEventListener('input', function () {
+        //         var value = this.value.padStart(3, '0');
+        //         sequenceDisplay.textContent = value;
+        //     });
+        // });
 
 
 
