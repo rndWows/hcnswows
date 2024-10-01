@@ -332,6 +332,36 @@
                 display: none !important;
             }
         }
+
+        #dateFilter {
+            margin-bottom: 20px;
+        }
+        .select2-container {
+            width: 100% !important;
+            max-width: 500px;
+        }
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            color: #fff;
+            border-radius: 0.25rem;
+            padding: 2px 8px;
+        }
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: #fff;
+            margin-right: 5px;
+        }
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #007bff;
+        }
     </style>
 
 </head>
@@ -381,15 +411,22 @@
                 <br>
 
                 <i>Bình Dương, Ngày
-                    <input type="text" id="day" class="date-input" style="width: 15px; border: none;">
+                    <input type="text" id="day" class="date-input" style="width: 25px; border: none;">
                     Tháng
-                    <input type="text" id="month" class="date-input" style="width: 15px; border: none;">
+                    <input type="text" id="month" class="date-input" style="width: 25px; border: none;">
                     Năm
                     <input type="text" id="year" class="date-input" style="width: 50px; border: none;">
                 </i>
                 <br>
 
                 <i colspan="4">Kế hoạch làm việc chi tiết các hạng mục như sau:</i>
+
+                <div id="dateFilter" class="form-group no-print">
+                    <label for="filterDate" class="font-weight-bold">Chọn ngày:</label>
+                    <select id="filterDate" class="form-control" multiple="multiple">
+                        <!-- Các option sẽ được thêm bằng JavaScript -->
+                    </select>
+                </div>
 
                 <table class="table table-bordered">
                     <thead class="center-content">
@@ -471,33 +508,61 @@
             document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
             updateProductTable();
-
+            updateDateFilter(); // Thêm dòng này
             updateFooter();
         }
 
 
 
-        function updateProductTable() {
+        function updateProductTable(data = Kehoach_lamviec) {
             const tableBody = document.getElementById('orderDetailsBody');
-            if (Array.isArray(Kehoach_lamviec)) {
-                tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
-            <tr>
-                <td class="center">${index + 1}</td>
-                <td>${formatDate(item['Ngay_LV']) || ''}</td>
-                <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
-                <td>${item['Công việc thực hiện'] || ''}</td>
-                <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
-                <td>${item['Đại diện WOWS'] || ''}</td>
-                <td>${item['Đại diện KH'] || ''}</td>
-                <td>${formatTimeRange(item['Thời gian từ'], item['Thời gian đến'])}</td>
-                <td>${item['Ghi chú'] || ''}</td>
-            </tr>
-        `).join('');
+            if (Array.isArray(data) && data.length > 0) {
+                tableBody.innerHTML = data.map((item, index) => `
+                    <tr>
+                        <td class="center">${index + 1}</td>
+                        <td>${formatDate(item['Ngay_LV']) || ''}</td>
+                        <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                        <td>${item['Công việc thực hiện'] || ''}</td>
+                        <td class="preserve-format">${item['Cách thức triển khai'] || ''}</td>
+                        <td>${item['Đại diện WOWS'] || ''}</td>
+                        <td>${item['Đại diện KH'] || ''}</td>
+                        <td>${formatTimeRange(item['Thời gian từ'], item['Thời gian đến'])}</td>
+                        <td>${item['Ghi chú'] || ''}</td>
+                    </tr>
+                `).join('');
             } else {
-                console.error('KHTK_DUAN is not an array');
                 tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
             }
+        }
 
+        function updateDateFilter() {
+            const filterSelect = document.getElementById('filterDate');
+            const dates = [...new Set(Kehoach_lamviec.map(item => formatDate(item['Ngay_LV'])))].sort();
+            
+            filterSelect.innerHTML = dates.map(date => `<option value="${date}">${date}</option>`).join('');
+            
+            // Khởi tạo Select2
+            $(filterSelect).select2({
+                placeholder: "Chọn một hoặc nhiều ngày",
+                allowClear: true
+            });
+
+            // Thêm sự kiện lắng nghe cho việc thay đổi lựa chọn
+            $(filterSelect).on('change', function() {
+                filterByDate();
+            });
+        }
+
+        function filterByDate() {
+            const selectedDates = $('#filterDate').val();
+            if (!selectedDates || selectedDates.length === 0) {
+                updateProductTable(Kehoach_lamviec);
+            } else {
+                const filteredData = Kehoach_lamviec.filter(item => 
+                    selectedDates.includes(formatDate(item['Ngay_LV']))
+                );
+                updateProductTable(filteredData);
+            }
         }
 
 
