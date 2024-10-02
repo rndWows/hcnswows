@@ -402,6 +402,42 @@
         .participant-row[style*="display: none"] {
             opacity: 0;
         }
+
+        #dateFilter {
+            margin-bottom: 20px;
+        }
+
+        .select2-container {
+            width: 100% !important;
+            max-width: 500px;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+
+        .select2-container--default.select2-container--focus .select2-selection--multiple {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            color: #fff;
+            border-radius: 0.25rem;
+            padding: 2px 8px;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: #fff;
+            margin-right: 5px;
+        }
+
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+            background-color: #007bff;
+        }
     </style>
 
 </head>
@@ -433,7 +469,10 @@
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
-                        <td style="font-size: 12px;"><span id="id"></span>
+                        <td style="font-size: 12px;"><span id="idhd"></span>/BLV<input type="text" 
+                            id="sequenceNumber" lass="no-print" style="width: 20px; border: none; border-bottom: 1px solid black;"><span 
+                            id="sequenceNumberDisplay"></span>
+                        </td>
                         <!-- <td style="font-size: 12px;">BLV-<span id="Tvt"></span>-<span id="currentDate"></span>-<input
                                 type="text" id="sequenceNumber" class="no-print"
                                 style="width: 40px; border: none; border-bottom: 1px solid black;"><span
@@ -449,7 +488,7 @@
                     </span></h2>
 
 
-                <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="idhd" class="bold"></span></i>
+                <i colspan="4">Căn cứ vào hợp đồng kinh tế số: <span id="idhd1" class="bold"></span></i>
                 <br>
 
                 <i>Hôm nay, Ngày
@@ -534,8 +573,14 @@
                 </div>
 
 
-
                 <P class="bold">NỘI DUNG LÀM VIỆC</P>
+
+                <div id="dateFilter" class="form-group no-print">
+                    <label for="filterDate" class="font-weight-bold">Chọn ngày:</label>
+                    <select id="filterDate" class="form-control" multiple="multiple">
+                        <!-- Các option sẽ được thêm bằng JavaScript -->
+                    </select>
+                </div>
 
                 <table class="table table-bordered">
                     <thead class="center-content">
@@ -551,20 +596,20 @@
                     </tbody>
 
                 </table>
- 
+
                 <p>Biên bản kết thúc vào hồi <i>
-                    
-                    <input type="text" id="gio" class="date-input" style="width: 42px; border: none;">giờ, 
-                    ngày
-                    <input type="text" id="day1" class="date-input" style="width: 21px; border: none;">
-                    tháng
-                    <input type="text" id="month1" class="date-input" style="width: 21px; border: none;">
-                    năm
-                    <input type="text" id="year1" class="date-input" style="width: 40px; border: none;">
-                </i></p>
+
+                        <input type="text" id="gio" class="date-input" style="width: 42px; border: none;">giờ,
+                        ngày
+                        <input type="text" id="day1" class="date-input" style="width: 21px; border: none;">
+                        tháng
+                        <input type="text" id="month1" class="date-input" style="width: 21px; border: none;">
+                        năm
+                        <input type="text" id="year1" class="date-input" style="width: 40px; border: none;">
+                    </i></p>
                 <p>Nội dung làm việc được các thành viên thông qua và đại diện xác nhận.</p>
                 <p>Biên bản có hiệu lực kể từ ngày ký.</p>
-                
+
 
                 <div id="footerInfo" class="mt-4">
                     <!-- Thông tin cuối sẽ được thêm vào đây -->
@@ -618,24 +663,25 @@
         }
 
         function updateUI() {
-            document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
+            // document.getElementById('id').textContent = KE_HOACH['ID_KH'] || '';
             document.getElementById('idhd').textContent = KE_HOACH['Số HĐ'] || '';
+            document.getElementById('idhd1').textContent = KE_HOACH['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyName1').textContent = KHTN['TÊN CÔNG TY'] || '';
             // document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
-            
+
             updateProductTable();
             addInputListeners();
-
+            updateDateFilter(); // Thêm dòng này
             updateFooter();
         }
 
 
 
-        function updateProductTable() {
+        function updateProductTable(data = Kehoach_lamviec) {
             const tableBody = document.getElementById('orderDetailsBody');
-            if (Array.isArray(Kehoach_lamviec)) {
-                tableBody.innerHTML = Kehoach_lamviec.map((item, index) => `
+            if (Array.isArray(data) && data.length > 0) {
+                tableBody.innerHTML = data.map((item, index) => `
             <tr>
                 <td class="center">${index + 1}</td>
                 <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
@@ -651,13 +697,41 @@
         `).join('');
                 addInputListeners();
             } else {
-                console.error('KHTK_DUAN is not an array');
+                // console.error('KHTK_DUAN is not an array');
                 tableBody.innerHTML = '<tr><td colspan="9">Không có dữ liệu</td></tr>';
             }
 
         }
 
+        function updateDateFilter() {
+            const filterSelect = document.getElementById('filterDate');
+            const dates = [...new Set(Kehoach_lamviec.map(item => formatDate(item['Ngay_LV'])))].sort();
 
+            filterSelect.innerHTML = dates.map(date => `<option value="${date}">${date}</option>`).join('');
+
+            // Khởi tạo Select2
+            $(filterSelect).select2({
+                placeholder: "Chọn một hoặc nhiều ngày",
+                allowClear: true
+            });
+
+            // Thêm sự kiện lắng nghe cho việc thay đổi lựa chọn
+            $(filterSelect).on('change', function () {
+                filterByDate();
+            });
+        }
+
+        function filterByDate() {
+            const selectedDates = $('#filterDate').val();
+            if (!selectedDates || selectedDates.length === 0) {
+                updateProductTable(Kehoach_lamviec);
+            } else {
+                const filteredData = Kehoach_lamviec.filter(item =>
+                    selectedDates.includes(formatDate(item['Ngay_LV']))
+                );
+                updateProductTable(filteredData);
+            }
+        }
 
 
 
@@ -872,25 +946,25 @@
 
         });
 
-        // document.addEventListener('DOMContentLoaded', function () {
-        //     // Lấy ngày hiện tại
-        //     var today = new Date();
-        //     var day = String(today.getDate()).padStart(2, '0');
-        //     var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
+        document.addEventListener('DOMContentLoaded', function () {
+            // // Lấy ngày hiện tại
+            // var today = new Date();
+            // var day = String(today.getDate()).padStart(2, '0');
+            // var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
 
-        //     // Điền ngày và tháng vào span
-        //     var currentDateSpan = document.getElementById('currentDate');
-        //     currentDateSpan.textContent = day + '.' + month;
+            // // Điền ngày và tháng vào span
+            // var currentDateSpan = document.getElementById('currentDate');
+            // currentDateSpan.textContent = day + '.' + month;
 
-        //     // Xử lý số thứ tự
-        //     var sequenceInput = document.getElementById('sequenceNumber');
-        //     var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+            // Xử lý số thứ tự
+            var sequenceInput = document.getElementById('sequenceNumber');
+            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
 
-        //     sequenceInput.addEventListener('input', function () {
-        //         var value = this.value.padStart(3, '0');
-        //         sequenceDisplay.textContent = value;
-        //     });
-        // });
+            sequenceInput.addEventListener('input', function () {
+                var value = this.value.padStart(2, '0');
+                sequenceDisplay.textContent = value;
+            });
+        });
 
 
 
