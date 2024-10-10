@@ -40,7 +40,7 @@
 
 
     @media print {
-        
+
         body,
         #content {
             margin: 0;
@@ -59,7 +59,7 @@
         @page {
             size: auto;
         }
-        
+
         #content-split {
             margin-top: 40px;
             position: absolute;
@@ -170,14 +170,18 @@
     .info_contract {
         margin-bottom: 5px !important
     }
+
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
-   
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
+
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -190,31 +194,37 @@
     }
 
     @media print {
-            .khoi-chu-ky {
-                page-break-inside: avoid;
-            }
-        }
         .khoi-chu-ky {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px; /* Điều chỉnh khoảng cách nếu cần */
+            page-break-inside: avoid;
         }
-        .cot-chu-ky {
-            width: 45%;
-            text-align: center;
-        }
-        .tieu-de-chu-ky {
-            font-weight: bold;
-        }
-        .tieu-de-chu-ky-2 { 
+    }
 
-            margin-bottom: 70px; /* Khoảng trống cho chữ ký */
-        }
+    .khoi-chu-ky {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+        /* Điều chỉnh khoảng cách nếu cần */
+    }
+
+    .cot-chu-ky {
+        width: 45%;
+        text-align: center;
+    }
+
+    .tieu-de-chu-ky {
+        font-weight: bold;
+    }
+
+    .tieu-de-chu-ky-2 {
+
+        margin-bottom: 70px;
+        /* Khoảng trống cho chữ ký */
+    }
 </style>
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-        class="language_print"></span></button>
+            class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -234,7 +244,8 @@
                 <div style="clear: both"></div>
 
                 <h4 style="text-align: center;" class="bold"><span>HỢP ĐỒNG THỬ VIỆC </span></h4>
-                <i>Hôm nay, Ngày <span>&emsp;</span> Tháng <span>&emsp;</span> Năm <span>&emsp;</span> Tại Công ty Cổ Phần Tập Đoàn Wows,
+                <i>Hôm nay, Ngày <span>&emsp;</span> Tháng <span>&emsp;</span> Năm <span>&emsp;</span> Tại Công ty Cổ
+                    Phần Tập Đoàn Wows,
                     chúng tôi gồm:</i>
                 <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên sử dụng lao động)</i> : <span
                         class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span>
@@ -250,7 +261,8 @@
                     <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns">20/03/2001 </span></div>
                     <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd">68201006681 </span>
                         &emsp; &emsp;
-                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="nccc">20/03/2001 </span>&emsp; &emsp;
+                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="nccc">20/03/2001 </span>&emsp;
+                        &emsp;
                         &emsp; &emsp; <span class="bold">Nơi cấp: </span> <span id="nc">Lâm đồng</span>
                         <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
                     </div>
@@ -309,7 +321,7 @@
 
                     <div><span class="bold">Quyền lợi:</span> </div>
 
-                    <div><span>- Lương thử việc : <span id="lcb"></span> 48 tiếng/tuần</div>
+                    <div><span>- Lương thử việc : <span id="lcb"></span></div>
                     <div>- Các khoản phụ cấp khác (nếu có): theo thỏa ước lao động tập thể, hoặc theo chính sách, quy
                         định của Công ty.
                         Hình thức trả lương: trả lương tháng và được thanh toán bằng TM/ chuyển khoản mỗi tháng một (01)
@@ -491,15 +503,25 @@
             return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
         }
 
-        // Function to set text content if element exists
+        // Hàm định dạng số thành tiền VND
+        function formatCurrency(amount) {
+            return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND';
+        }
+
+        // Cập nhật hàm thiết lập giá trị từ URL
         function setTextContentById(id, value) {
             var element = document.getElementById(id);
             if (element) {
-                element.textContent = value;
+                // Kiểm tra nếu ID là 'lcb' để định dạng tiền tệ
+                if (id === 'lcb') {
+                    element.textContent = formatCurrency(value);
+                } else {
+                    element.textContent = value;
+                }
             }
         }
 
-        // Get parameters from URL and set content
+        // Lấy thông tin từ URL và đặt giá trị cho các trường
         var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
