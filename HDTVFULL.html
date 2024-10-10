@@ -505,7 +505,11 @@
 
         // Hàm định dạng số thành tiền VND
         function formatCurrency(amount) {
-            return amount.replace(/\B(?=(\d{3})+(?!\d))/g, ',') + ' VND';
+            // Loại bỏ ký hiệu "₫" nếu có, sau đó thêm lại sau khi định dạng
+            let numberPart = amount.replace(/[^\d]/g, ''); // chỉ giữ lại phần số
+            let formattedNumber = Number(numberPart).toLocaleString('vi-VN'); // định dạng số với dấu phẩy
+
+            return formattedNumber + ' ₫';
         }
 
         // Cập nhật hàm thiết lập giá trị từ URL
@@ -527,6 +531,7 @@
             var value = getUrlParameter(param);
             setTextContentById(param, value);
         });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
