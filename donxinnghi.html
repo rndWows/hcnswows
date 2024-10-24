@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đơn nghỉ phép</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .input-icon {
+            position: absolute;
+            top: 68%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #6B7280;
+            pointer-events: none;
+        }
+
+        .input-with-icon {
+            padding-left: 40px;
+        }
+
+        .input-with-icon:focus {
+            border-color: #4F46E5;
+        }
+
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: calc(100% - 40px);
+            max-width: 600px;
+            z-index: 1000;
+        }
+
+        .form-container {
+            padding-bottom: 80px;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Styling to put fields side by side */
+        .grid-cols-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <!-- Form container -->
+    <div class="container mx-auto max-w-xl p-6 bg-white shadow-md rounded-lg  fade-in">
+        <h2 class="text-4xl font-extrabold text-center text-indigo-700 mb-6">Đơn xin nghỉ phép</h2>
+        <form id="expenseForm" class="space-y-8">
+            <!-- Họ và tên -->
+            <div>
+                <label for="sokey" class="block text-sm font-medium text-gray-700">Họ và tên</label>
+                <select id="sokey" name="sokey"
+                    class="mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Đang tải...</option>
+                </select>
+            </div>
+
+            <!-- Phòng ban và Chức vụ (mới thêm) -->
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="chucVu" class="block text-sm font-medium text-gray-700">Chức vụ</label>
+                    <input type="text" id="chucVu" name="chucVu" readonly
+                        class="mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 text-gray-900 bg-gray-100">
+                </div>
+                <div>
+                    <label for="phongBan" class="block text-sm font-medium text-gray-700">Phòng ban</label>
+                    <input type="text" id="phongBan" name="phongBan" readonly
+                        class="mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 text-gray-900 bg-gray-100">
+                </div>
+
+            </div>
+
+            <!-- Diện nghỉ -->
+            <div>
+                <label for="dienNghi" class="block text-sm font-medium text-gray-700">Diện nghỉ</label>
+                <select id="dienNghi" name="dienNghi"
+                    class="mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="">Chọn diện nghỉ</option>
+                    <option value="Nghỉ hưởng BHXH có chứng từ">Nghỉ hưởng BHXH có chứng từ</option>
+                    <option value="Nghỉ phép năm">Nghỉ phép năm</option>
+                    <option value="Nghỉ chế độ theo luật có chứng từ">Nghỉ chế độ theo luật có chứng từ</option>
+                    <option value="Nghỉ việc riêng không hưởng lương">Nghỉ việc riêng không hưởng lương</option>
+                    <option value="Nghỉ khác">Nghỉ khác</option>
+                </select>
+            </div>
+
+            <!-- Nghỉ từ và Nghỉ đến in the same row -->
+            <div class="grid-cols-2">
+                <div class="relative">
+                    <label for="nghiTu" class="block text-sm font-medium text-gray-700">Nghỉ từ</label>
+                    <input type="date" id="nghiTu" name="nghiTu"
+                        class=" mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+
+                </div>
+                <div class="relative">
+                    <label for="nghiDen" class="block text-sm font-medium text-gray-700">Nghỉ đến</label>
+                    <input type="date" id="nghiDen" name="nghiDen"
+                        class=" mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+
+                </div>
+            </div>
+
+            <!-- Nhân viên nhận bàn giao việc và Số giờ nghỉ in the same row -->
+            <div class="grid-cols-2">
+                <div class="relative">
+                    <i data-lucide="clock" class="input-icon"></i>
+                    <label for="soGioNghi" class="block text-sm font-medium text-gray-700">Số giờ nghỉ</label>
+                    <input type="number" id="soGioNghi" name="soGioNghi"
+                        class="input-with-icon mt-2 w-full border border-gray-300 rounded-lg py-3 pl-10 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+                <div class="relative">
+                    <i data-lucide="users" class="input-icon"></i>
+                    <label for="nhanVienNhanBanGiao" class="block text-sm font-medium text-gray-700">Bàn
+                        giao việc</label>
+                    <input type="text" id="nhanVienNhanBanGiao" name="nhanVienNhanBanGiao"
+                        class="input-with-icon mt-2 w-full border border-gray-300 rounded-lg py-3 pl-10 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
+            </div>
+
+            <!-- Lý do nghỉ -->
+            <div>
+                <label for="lyDoNghi" class="block text-sm font-medium text-gray-700">Lý do nghỉ</label>
+                <textarea id="lyDoNghi" name="lyDoNghi" rows="3"
+                    class="mt-2 w-full border border-gray-300 rounded-lg py-3 px-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
+                    placeholder="Lý do nghỉ..."></textarea>
+            </div>
+
+
+
+            <!-- File đính kèm -->
+            <div>
+                <label for="fileHS" class="block text-sm font-medium text-gray-700">Đơn đính kèm</label>
+                <input type="file" id="fileHS" name="fileHS"
+                    class="mt-2 block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer focus:outline-none">
+            </div>
+
+            <!-- Submit button -->
+            <div class="">
+                <button type="submit"
+                    class="w-full py-3 text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-md font-medium">
+                    Gửi đơn
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Các hằng số cho AppSheet API
+        const appId = 'f0dd0d6d-ecff-43d2-955e-f1043372dcf3';
+        const accessKey = 'V2-4Wugu-QKUHg-mouX7-xyDF8-AfRwt-7Phe6-JnZfW-6rrnv';
+        const region = 'www';
+
+        // Hàm gọi API AppSheet
+        function apiRequest(tableName, action, data) {
+            const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+            return $.ajax({
+                url: apiUrl,
+                method: 'POST',
+                headers: {
+                    'ApplicationAccessKey': accessKey,
+                    'Content-Type': 'application/json'
+                },
+                data: JSON.stringify({
+                    Action: action,
+                    Properties: {
+                        Locale: 'vi-VN',
+                        Timezone: 'Asia/Ho_Chi_Minh'
+                    },
+                    ...data
+                })
+            }).then(response => {
+                return response;
+            }).catch(error => {
+                throw error;
+            });
+        }
+
+        // Hàm đọc file
+        function readFile(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = error => reject(error);
+                reader.readAsDataURL(file);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', async function () {
+            // Khởi tạo các icon Lucide
+            lucide.createIcons();
+
+            // Lấy tên người dùng từ localStorage
+            const loggedInUser = localStorage.getItem('loggedInUser');
+
+            // Hàm tải danh sách Key từ bảng HCNS_HSNS
+            async function loadKeys() {
+                const selectElement = document.getElementById('sokey');
+                try {
+                    const response = await apiRequest('HCNS_HSNS', 'Find');
+                    const keys = response.map(item => ({
+                        KEY: item.KEY,
+                        name: item["Họ và tên"],
+                        phongBan: item["Phòng ban"],
+                        chucVu: item["Chức vụ"]
+                    })) || [];
+
+                    selectElement.innerHTML = '<option value="">Chọn họ và tên</option>';
+
+                    keys.forEach(row => {
+                        const option = document.createElement('option');
+                        option.value = row.KEY;
+                        option.text = row.name;
+                        option.dataset.phongBan = row.phongBan;
+                        option.dataset.chucVu = row.chucVu;
+
+                        // Tự động chọn người dùng đã đăng nhập
+                        if (row.name === loggedInUser) {
+                            option.selected = true;
+                            document.getElementById('phongBan').value = row.phongBan || '';
+                            document.getElementById('chucVu').value = row.chucVu || '';
+                        }
+
+                        selectElement.appendChild(option);
+                    });
+
+                    // Thêm event listener cho việc chọn họ tên
+                    selectElement.addEventListener('change', function () {
+                        const selectedOption = this.options[this.selectedIndex];
+                        document.getElementById('phongBan').value = selectedOption.dataset.phongBan || '';
+                        document.getElementById('chucVu').value = selectedOption.dataset.chucVu || '';
+                    });
+                } catch (error) {
+                    console.error('Không thể tải danh sách Key:', error);
+                    selectElement.innerHTML = '<option value="">Lỗi khi tải dữ liệu</option>';
+                }
+            }
+
+            // Gọi hàm loadKeys khi trang tải
+            loadKeys();
+
+            // Xử lý sự kiện submit form
+            document.getElementById('expenseForm').addEventListener('submit', async function (e) {
+                e.preventDefault();
+
+                // Kiểm tra các trường bắt buộc
+                const requiredFields = ['sokey'];
+                const missingFields = [];
+
+                requiredFields.forEach(field => {
+                    const input = this.elements[field];
+                    if (!input.value.trim()) {
+                        missingFields.push(input.previousElementSibling.textContent);
+                    }
+                });
+
+                if (missingFields.length > 0) {
+                    // Hiển thị thông báo lỗi nếu thiếu thông tin
+                    Toastify({
+                        text: `Vui lòng nhập đầy đủ thông tin: ${missingFields.join(', ')}`,
+                        duration: 4000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    }).showToast();
+                    return;
+                }
+
+                // Thu thập dữ liệu form
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData.entries());
+
+                // Xử lý file đính kèm
+                const fileInput = document.getElementById('fileHS');
+                let filebase = "";
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    filebase = await readFile(file);
+                }
+
+                // Chuẩn bị dữ liệu để gửi
+                const ungVienData = {
+                    "KEY": data.sokey,
+                    "DIỆN NGHỈ": data.dienNghi,
+                    "NGHỈ TỪ": data.nghiTu,
+                    "NGHỈ ĐẾN": data.nghiDen,
+                    "LÝ DO NGHỈ": data.lyDoNghi,
+                    "NHÂN VIÊN NHẬN BÀN GIAO VIỆC": data.nhanVienNhanBanGiao,
+                    "ĐƠN ĐÍNH KÈM": filebase,
+                    "Số giờ nghỉ": data.soGioNghi
+                };
+
+                console.log(ungVienData);
+                disableForm(); // Vô hiệu hóa form trong quá trình gửi
+                showLoadingOverlay(); // Hiển thị overlay loading
+
+                try {
+                    // Gửi dữ liệu đến API
+                    const duAnResponse = await apiRequest('Nghi phep', 'Add', {
+                        Rows: [ungVienData]
+                    });
+
+                    // Hiển thị thông báo thành công
+                    Toastify({
+                        text: "Form đã được gửi thành công!",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                    }).showToast();
+
+                    this.reset(); // Reset form sau khi gửi thành công
+                } catch (error) {
+                    // Xử lý lỗi nếu có
+                    console.error('Lỗi khi gửi form:', error);
+                    Toastify({
+                        text: "Có lỗi xảy ra khi gửi form. Vui lòng thử lại sau.",
+                        duration: 4000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    }).showToast();
+                } finally {
+                    enableForm(); // Kích hoạt lại form
+                    hideLoadingOverlay(); // Ẩn overlay loading
+                }
+            });
+        });
+
+        // Hàm để vô hiệu hóa form
+        function disableForm() {
+            const form = document.getElementById('expenseForm');
+            const elements = form.elements;
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].disabled = true;
+            }
+        }
+
+        // Hàm để kích hoạt lại form
+        function enableForm() {
+            const form = document.getElementById('expenseForm');
+            const elements = form.elements;
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].disabled = false;
+            }
+        }
+
+        // Hàm để hiển thị loading overlay
+        function showLoadingOverlay() {
+            const overlay = document.createElement('div');
+            overlay.id = 'loadingOverlay';
+            overlay.style.position = 'fixed';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+            overlay.style.width = '100%';
+            overlay.style.height = '100%';
+            overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            overlay.style.display = 'flex';
+            overlay.style.justifyContent = 'center';
+            overlay.style.alignItems = 'center';
+            overlay.style.zIndex = '9999';
+
+            const spinner = document.createElement('div');
+            spinner.style.border = '4px solid #f3f3f3';
+            spinner.style.borderTop = '4px solid #3498db';
+            spinner.style.borderRadius = '50%';
+            spinner.style.width = '50px';
+            spinner.style.height = '50px';
+            spinner.style.animation = 'spin 1s linear infinite';
+
+            const keyframes = document.createElement('style');
+            keyframes.textContent = `
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    `;
+
+            document.head.appendChild(keyframes);
+            overlay.appendChild(spinner);
+            document.body.appendChild(overlay);
+        }
+
+        // Hàm để ẩn loading overlay
+        function hideLoadingOverlay() {
+            const overlay = document.getElementById('loadingOverlay');
+            if (overlay) {
+                overlay.remove();
+            }
+        }
+    </script>
+</body>
+
+</html>
