@@ -244,7 +244,7 @@
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
                     <div><span class="bold">Bên B (Hoặc cả hai bên) đơn phương hoặc thỏa thuận chấm dứt Hợp đồng lao
-                            động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <span id="tungay"></span> và Bên (A; hoặc cả
+                            động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <span id="tungay1"></span> và Bên (A; hoặc cả
                                 hai bên) đồng ý chấm dứt Hợp đồng lao động số <span id="hdld"></span></span>
                     </div>
                 </div>
@@ -262,7 +262,7 @@
                         thiết bị văn phòng,…. của Bên B bàn giao;</div>
                     <div>2.4. Thanh quyết toán các khoản công nợ cho Bên B theo quy định chế độ quản lý kế toán – tài
                         chính hiện hành;</div>
-                    <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <span id="tungay"></span></div>
+                    <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <span id="tungay2"></span></div>
                 </div>
                 <br>
                 <h6 class="bold">ĐIỀU 3: TRÁCH NHIỆM BÊN B
@@ -301,7 +301,7 @@
 
                     </div>
                     <div>- Thỏa thuận chấm dứt hợp đồng lao động này được lập thành 02 bản, có giá trị pháp lý như nhau,
-                        mỗi bên giữ 01 bản và có hiệu lực thi hành kể từ ngày <span id="tungay"></span>
+                        mỗi bên giữ 01 bản và có hiệu lực thi hành kể từ ngày <span id="tungay3"></span>
                     </div>
                 </div>
                 <br>
@@ -361,7 +361,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay', 'hdld', 'cv', 'lcb'];
+        var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay1', 'tungay2', 'tungay3', 'hdld', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
