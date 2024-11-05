@@ -40,7 +40,7 @@
 
 
     @media print {
-        
+
         body,
         #content {
             margin: 0;
@@ -59,7 +59,7 @@
         @page {
             size: auto;
         }
-        
+
         #content-split {
             margin-top: 40px;
             position: absolute;
@@ -172,12 +172,15 @@
     }
 
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -192,7 +195,7 @@
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-        class="language_print"></span></button>
+            class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -244,8 +247,9 @@
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
                     <div><span class="bold">Bên B (Hoặc cả hai bên) đơn phương hoặc thỏa thuận chấm dứt Hợp đồng lao
-                            động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <span id="tungay1"></span> và Bên (A; hoặc cả
-                                hai bên) đồng ý chấm dứt Hợp đồng lao động số <span id="hdld"></span></span>
+                            động và có đơn xin thôi việc (Hoặc biên bản làm việc) ngày <span id="tungay1"></span> và Bên
+                            (A; hoặc cả
+                            hai bên) đồng ý chấm dứt Hợp đồng lao động số <span id="hdld"></span></span>
                     </div>
                 </div>
                 <br>
@@ -262,7 +266,8 @@
                         thiết bị văn phòng,…. của Bên B bàn giao;</div>
                     <div>2.4. Thanh quyết toán các khoản công nợ cho Bên B theo quy định chế độ quản lý kế toán – tài
                         chính hiện hành;</div>
-                    <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <span id="tungay2"></span></div>
+                    <div>2.5. Thanh toán lương và phụ cấp (nếu có) đầy đủ cho Bên B đến ngày: <span id="tungay2"></span>
+                    </div>
                 </div>
                 <br>
                 <h6 class="bold">ĐIỀU 3: TRÁCH NHIỆM BÊN B
@@ -360,12 +365,36 @@
             }
         }
 
+        // Function to format date as dd/MM/yyyy
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            if (isNaN(date.getTime())) {
+                return dateStr; // Return original if invalid date
+            }
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}/${month}/${year}`;
+        }
+
+        // Set text content if element exists with date formatting for specific IDs
+        function setTextContentById(id, value) {
+            var element = document.getElementById(id);
+            if (element) {
+                if (['tungay1', 'tungay2', 'tungay3'].includes(id)) {
+                    value = formatDate(value);
+                }
+                element.textContent = value;
+            }
+        }
+
         // Get parameters from URL and set content
         var parameters = ['shd', 'hvt', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay1', 'tungay2', 'tungay3', 'hdld', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
         });
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
