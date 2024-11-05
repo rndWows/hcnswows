@@ -365,16 +365,20 @@
             }
         }
 
-        // Function to format date as dd/MM/yyyy
+        // Function to parse and format date in dd/MM/yyyy format
         function formatDate(dateStr) {
-            const date = new Date(dateStr);
-            if (isNaN(date.getTime())) {
-                return dateStr; // Return original if invalid date
+            const parts = dateStr.split('-'); // Split the date string (assuming it's in YYYY-MM-DD format)
+            if (parts.length === 3) {
+                // Reorder parts to create a Date object
+                const formattedDate = new Date(parts[0], parts[1] - 1, parts[2]); // year, month (0-indexed), day
+                if (!isNaN(formattedDate.getTime())) {
+                    const day = String(formattedDate.getDate()).padStart(2, '0');
+                    const month = String(formattedDate.getMonth() + 1).padStart(2, '0');
+                    const year = formattedDate.getFullYear();
+                    return `${day}/${month}/${year}`;
+                }
             }
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = date.getFullYear();
-            return `${day}/${month}/${year}`;
+            return dateStr; // Return original if invalid date format
         }
 
         // Set text content if element exists with date formatting for specific IDs
@@ -394,6 +398,7 @@
             var value = getUrlParameter(param);
             setTextContentById(param, value);
         });
+
 
         $.ajaxSetup({
             headers: {
