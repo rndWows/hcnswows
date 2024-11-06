@@ -22,23 +22,43 @@
             overflow-x: hidden;
             overflow-y: visible !important;
         }
+
+        .progress-bar {
+            transition: width 0.3s ease-in-out;
+        }
+
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
     </style>
 </head>
 
 <body class="h-full bg-gray-100">
+    <!-- Progress Bar -->
+    <div id="progressContainer" class="progress-container hidden">
+        <div class="bg-gray-200 h-2">
+            <div id="progressBar" class="progress-bar bg-blue-600 h-2 w-0"></div>
+        </div>
+        <div id="progressText" class="text-center text-sm text-gray-600 bg-white py-1 shadow-sm"></div>
+    </div>
+
     <div class="min-h-full">
         <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center">
-                <img src="https://rndwows.github.io/WOWS_KPI/logowows.jpg" alt="WOWS logo"
-                    class="w-16 h-16 mr-4">
+                <img src="https://rndwows.github.io/WOWS_KPI/logowows.jpg" alt="WOWS logo" class="w-16 h-16 mr-4">
                 <h1 class="text-4xl sm:text-3xl font-bold tracking-tight text-gray-900">Chấm công</h1>
             </div>
         </header>
 
         <main class="max-w-7xl mx-auto px-3 py-3 sm:px-6 lg:px-8">
-            <span id="employeeCode" class="text-lg font-bold text-gray-700 block text-center w-full "></span>
+            <span id="employeeCode" class="text-lg font-bold text-gray-700 block text-center w-full"></span>
+
             <!-- Login Form -->
-            <div id="loginForm" class=" sm:mx-auto sm:w-full sm:max-w-md">
+            <div id="loginForm" class="sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <form class="space-y-6" action="#" method="POST">
                         <div>
@@ -67,7 +87,7 @@
             </div>
 
             <!-- Check In/Out Choice -->
-            <div id="checkInOutChoice" class="hidden  sm:mx-auto sm:w-full sm:max-w-md">
+            <div id="checkInOutChoice" class="hidden sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <div class="space-y-4">
                         <button id="requestPermissionsBtn"
@@ -90,13 +110,12 @@
                             class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                             Đăng xuất
                         </button>
-
                     </div>
                 </div>
             </div>
 
             <!-- Camera Container -->
-            <div id="cameraContainer" class="hidden  sm:mx-auto sm:w-full sm:max-w-md">
+            <div id="cameraContainer" class="hidden sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <div class="space-y-6">
                         <div class="relative">
@@ -119,7 +138,6 @@
                                 class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                 <i class="fas fa-camera mr-2"></i>Chụp ảnh vào
                             </button>
-
                             <button id="captureOutBtn"
                                 class="hidden w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                                 <i class="fas fa-camera mr-2"></i>Chụp ảnh ra
@@ -166,19 +184,14 @@
         </div>
     </div>
 
-    <div id="loadingBox" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
-        <div class="bg-white p-5 rounded-lg shadow-lg">
-            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
-            <p class="mt-3 text-gray-700">Đang gửi dữ liệu...</p>
-        </div>
-    </div>
-
     <script>
         // Constants
         const APP_ID = '86b46eb9-82ff-4d96-8a24-60d1d6051718';
         const ACCESS_KEY = 'V2-vs8Yq-Dlu04-NTTrn-CAH1W-3a6wc-zbfn3-dzAZu-mscwA';
         const REGION = 'www';
         const API_URL = `https://${REGION}.appsheet.com/api/v2/apps/${APP_ID}/tables`;
+        const IMGBB_API_KEY = '308f780c13a4248bbefa93729342dd47';
+        const ERROR_IMAGE_URL = 'https://i.ibb.co/YPXktqs/image-error.jpg';
 
         // DOM Elements
         const elements = {
@@ -191,7 +204,6 @@
             checkInOutChoice: document.getElementById('checkInOutChoice'),
             photo: document.getElementById('photo'),
             infoDisplay: document.getElementById('infoDisplay'),
-            loadingBox: document.getElementById('loadingBox'),
             checkInBtn: document.getElementById('checkInBtn'),
             checkOutBtn: document.getElementById('checkOutBtn'),
             logoutBtn: document.getElementById('logoutBtn'),
@@ -204,19 +216,34 @@
             modalConfirm: document.getElementById('modal-confirm'),
             modalCloseButtons: document.querySelectorAll('.modal-close'),
             rememberLoginCheckbox: document.getElementById('rememberLogin'),
-            employeeCode: document.getElementById('employeeCode')
+            employeeCode: document.getElementById('employeeCode'),
+            progressContainer: document.getElementById('progressContainer'),
+            progressBar: document.getElementById('progressBar'),
+            progressText: document.getElementById('progressText'),
         };
 
         // Global variables
         let stream;
         let facingMode = "environment";
         let currentUser = null;
-        const DEFAULT_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg=='; // 1x1 transparent PNG
-        const DEFAULT_LOCATION = { latitude: 0, longitude: 0 };
-        // Utility functions
-        const showLoading = () => elements.loadingBox.classList.remove('hidden');
-        const hideLoading = () => elements.loadingBox.classList.add('hidden');
 
+        // Progress Bar Functions
+        const showProgress = (message, progress = 0) => {
+            elements.progressContainer.classList.remove('hidden');
+            elements.progressBar.style.width = `${progress}%`;
+            elements.progressText.textContent = message;
+        };
+
+        const hideProgress = () => {
+            elements.progressContainer.classList.add('hidden');
+        };
+
+        const updateProgress = (progress, message) => {
+            elements.progressBar.style.width = `${progress}%`;
+            if (message) elements.progressText.textContent = message;
+        };
+
+        // Utility functions
         const showToast = (message, type = 'info') => {
             Toastify({
                 text: message,
@@ -243,9 +270,45 @@
             document.body.classList.remove('modal-active');
         };
 
+        // Enhanced Image Upload Function
+        const uploadImageToImgBB = async (base64Image) => {
+            try {
+                showProgress('Đang xử lý ảnh...', 20);
+
+                const base64Data = base64Image.replace(/^data:image\/(png|jpeg|jpg);base64,/, '');
+                updateProgress(40, 'Đang tải ảnh lên...');
+
+                const formData = new FormData();
+                formData.append('image', base64Data);
+
+                const response = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                updateProgress(70, 'Đang xác thực kết quả...');
+
+                if (!response.ok) {
+                    throw new Error('Upload failed');
+                }
+
+                const data = await response.json();
+                updateProgress(100, 'Hoàn thành!');
+
+                return data.data.url;
+            } catch (error) {
+                console.error('Error uploading image:', error);
+                showToast('Lỗi khi tải ảnh lên. Sử dụng ảnh dự phòng.', 'error');
+                return ERROR_IMAGE_URL;
+            } finally {
+                setTimeout(hideProgress, 500);
+            }
+        };
+
         // API functions
         const apiRequest = async (tableName, action, data, select = {}) => {
             try {
+                updateProgress(30, 'Đang gửi yêu cầu...');
                 const response = await fetch(`${API_URL}/${tableName}/Action`, {
                     method: 'POST',
                     headers: {
@@ -258,6 +321,9 @@
                         ...data
                     })
                 });
+
+                updateProgress(60, 'Đang xử lý phản hồi...');
+
                 if (!response.ok) throw new Error('Network response was not ok');
                 return await response.json();
             } catch (error) {
@@ -273,6 +339,7 @@
                 });
             } catch (error) {
                 console.error('Error checking existing record:', error);
+                showToast('Lỗi khi kiểm tra dữ liệu hiện có', 'error');
                 throw error;
             }
         };
@@ -289,7 +356,13 @@
         };
 
         const getLocation = () => {
-            return new Promise((resolve, reject) => {
+            return new Promise((resolve) => {
+                if (!navigator.geolocation) {
+                    showToast('Trình duyệt không hỗ trợ định vị', 'error');
+                    resolve({ latitude: 0, longitude: 0 });
+                    return;
+                }
+
                 navigator.geolocation.getCurrentPosition(
                     position => resolve({
                         latitude: position.coords.latitude,
@@ -297,31 +370,42 @@
                     }),
                     error => {
                         console.warn('Lỗi khi lấy vị trí:', error);
-                        resolve(DEFAULT_LOCATION);
+                        showToast('Không thể lấy vị trí. Sử dụng vị trí mặc định.', 'error');
+                        resolve({ latitude: 0, longitude: 0 });
                     },
                     { timeout: 10000, maximumAge: 0 }
                 );
             });
         };
+
         const requestPermissions = async () => {
-            try {
-                // Request camera permission
-                await navigator.mediaDevices.getUserMedia({ video: true });
-                console.log('Camera permission granted');
-            } catch (error) {
-                console.error('Error requesting camera permission:', error);
-                showToast('Vui lòng cấp quyền truy cập camera để sử dụng ứng dụng.', 'warning');
-            }
+            showProgress('Đang yêu cầu quyền truy cập...', 20);
 
             try {
+                // Request camera permission
+                updateProgress(40, 'Đang yêu cầu quyền camera...');
+                await navigator.mediaDevices.getUserMedia({ video: true });
+
+                updateProgress(70, 'Đang yêu cầu quyền định vị...');
                 // Request geolocation permission
-                await navigator.geolocation.getCurrentPosition(() => { });
-                console.log('Geolocation permission granted');
+                await new Promise((resolve) => {
+                    navigator.geolocation.getCurrentPosition(resolve, resolve);
+                });
+
+                updateProgress(100, 'Đã cấp quyền thành công!');
+                showToast('Đã cấp quyền thành công!');
+
+                // Hide permissions button if all permissions granted
+                const permissionsBtn = document.getElementById('requestPermissionsBtn');
+                permissionsBtn.classList.add('hidden');
             } catch (error) {
-                console.error('Error requesting geolocation permission:', error);
-                showToast('Vui lòng cấp quyền truy cập vị trí để sử dụng ứng dụng.', 'warning');
+                console.error('Error requesting permissions:', error);
+                showToast('Lỗi khi yêu cầu quyền truy cập. Vui lòng thử lại.', 'error');
+            } finally {
+                setTimeout(hideProgress, 500);
             }
         };
+
         // Camera functions
         const startCamera = async () => {
             const hasCameraPermission = await checkPermission('camera');
@@ -333,6 +417,7 @@
             if (stream) {
                 stream.getTracks().forEach(track => track.stop());
             }
+
             try {
                 const constraints = {
                     video: {
@@ -341,12 +426,16 @@
                         height: { ideal: 720 }
                     }
                 };
+
+                showProgress('Đang khởi tạo camera...', 50);
                 stream = await navigator.mediaDevices.getUserMedia(constraints);
                 elements.camera.srcObject = stream;
+                hideProgress();
                 return true;
             } catch (err) {
                 console.error("Không thể truy cập camera:", err);
                 showToast("Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập và thử lại.", 'error');
+                hideProgress();
                 return false;
             }
         };
@@ -357,45 +446,145 @@
         };
 
         const captureImage = async () => {
-            const canvas = document.createElement('canvas');
-            canvas.width = elements.camera.videoWidth;
-            canvas.height = elements.camera.videoHeight;
-            const ctx = canvas.getContext('2d');
+            try {
+                const canvas = document.createElement('canvas');
+                canvas.width = elements.camera.videoWidth;
+                canvas.height = elements.camera.videoHeight;
+                const ctx = canvas.getContext('2d');
 
-            ctx.drawImage(elements.camera, 0, 0);
+                if (!ctx) {
+                    throw new Error('Không thể tạo context canvas');
+                }
 
-            const location = await getLocation();
-            const currentTime = moment().tz("Asia/Ho_Chi_Minh");
-            const date = currentTime.format('YYYY-MM-DD');
-            const timeStr = currentTime.format('HH:mm:ss');
+                ctx.drawImage(elements.camera, 0, 0);
 
-            const overlayInfo = `
-        Vị trí: ${location.latitude}, ${location.longitude}
-        Thời gian: ${date} ${timeStr}
-    `;
+                const location = await getLocation();
+                const currentTime = moment().tz("Asia/Ho_Chi_Minh");
+                const date = currentTime.format('YYYY-MM-DD');
+                const timeStr = currentTime.format('HH:mm:ss');
 
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-            ctx.fillRect(10, 10, canvas.width - 20, 80);
-            ctx.fillStyle = 'white';
-            ctx.font = '14px Arial';
+                // Add overlay information
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+                ctx.fillRect(10, 10, canvas.width - 20, 80);
+                ctx.fillStyle = 'white';
+                ctx.font = '14px Arial';
 
-            overlayInfo.split('\n').forEach((line, index) => {
-                ctx.fillText(line.trim(), 20, 30 + (index * 20));
-            });
+                const overlayInfo = [
+                    `Vị trí: ${location.latitude}, ${location.longitude}`,
+                    `Thời gian: ${date} ${timeStr}`
+                ];
 
-            return new Promise((resolve) => {
-                canvas.toBlob((blob) => {
-                    const reader = new FileReader();
-                    reader.onloadend = () => resolve(reader.result);
-                    reader.readAsDataURL(blob);
-                }, 'image/jpeg', 0.8);
-            });
+                overlayInfo.forEach((line, index) => {
+                    ctx.fillText(line.trim(), 20, 30 + (index * 20));
+                });
+
+                return new Promise((resolve) => {
+                    canvas.toBlob((blob) => {
+                        if (!blob) {
+                            showToast('Lỗi khi tạo ảnh. Sử dụng ảnh dự phòng.', 'error');
+                            resolve(ERROR_IMAGE_URL);
+                            return;
+                        }
+
+                        const reader = new FileReader();
+                        reader.onloadend = () => resolve(reader.result);
+                        reader.onerror = () => {
+                            showToast('Lỗi khi đọc ảnh. Sử dụng ảnh dự phòng.', 'error');
+                            resolve(ERROR_IMAGE_URL);
+                        };
+                        reader.readAsDataURL(blob);
+                    }, 'image/jpeg', 0.8);
+                });
+            } catch (error) {
+                console.error('Error capturing image:', error);
+                showToast('Lỗi khi chụp ảnh. Sử dụng ảnh dự phòng.', 'error');
+                return ERROR_IMAGE_URL;
+            }
         };
 
+        // Check-in/out functions
+        const handleCheckInOut = async (type) => {
+            showProgress('Đang khởi tạo...', 10);
 
-        // Thêm hàm mới để cập nhật hiển thị mã nhân viên
-        const updateEmployeeCodeDisplay = (employeeCode) => {
-            elements.employeeCode.textContent = `Mã NV: ${employeeCode}`;
+            const fullName = currentUser['Họ và Tên'];
+            const currentTime = moment().tz("Asia/Ho_Chi_Minh");
+            const date = currentTime.format('DD/MM/YYYY');
+            const timeStr = currentTime.format('HH:mm:ss');
+            const idChamCong = `${fullName}${date}`;
+            const datee = currentTime.format('YYYY-MM-DD');
+            const note = document.getElementById('noteInput').value;
+
+            try {
+                updateProgress(20, 'Đang kiểm tra dữ liệu...');
+                const existingRecord = await checkExistingRecord(idChamCong);
+
+                let newData = {
+                    "ID CV": idChamCong,
+                    "NGÀY": datee,
+                    "Họ và Tên": fullName,
+                    "GHI CHÚ": note
+                };
+
+                const processCheckInOut = async () => {
+                    try {
+                        updateProgress(40, 'Đang chụp ảnh...');
+                        const imageWithLocation = await captureImage();
+
+                        updateProgress(60, 'Đang lấy vị trí...');
+                        const location = await getLocation();
+
+                        updateProgress(80, 'Đang tải ảnh lên...');
+                        const imageUrl = await uploadImageToImgBB(imageWithLocation);
+
+                        if (type === 'in') {
+                            if (existingRecord?.[0]?.IN) {
+                                newData["LỊCH SỬ IN"] = `${existingRecord[0]["LỊCH SỬ IN"] || ""}\n${fullName} Đã check in lại vào ngày: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+                            }
+                            newData["IN"] = timeStr;
+                            newData["HÌNH ẢNH IN"] = imageUrl;
+                            newData["ĐỊA CHỈ IN"] = `${location.latitude},${location.longitude}`;
+                        } else {
+                            if (existingRecord?.[0]?.OUT) {
+                                newData["LỊCH SỬ OUT"] = `${existingRecord[0]["LỊCH SỬ OUT"] || ""}\n${fullName} Đã check out lại vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+                            } else {
+                                newData["LỊCH SỬ OUT"] = `${fullName} Đã check out vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+                            }
+                            newData["OUT"] = timeStr;
+                            newData["HÌNH ẢNH OUT"] = imageUrl;
+                            newData["ĐỊA CHỈ OUT"] = `${location.latitude},${location.longitude}`;
+                        }
+
+                        const action = existingRecord?.[0] ? 'Edit' : 'Add';
+                        updateProgress(90, 'Đang lưu dữ liệu...');
+                        const response = await apiRequest('LICH CV', action, { Rows: [newData] });
+
+                        if (response?.Rows?.[0]) {
+                            updateProgress(100, 'Hoàn thành!');
+                            showToast(`Đã gửi thông tin check-${type} thành công!`);
+                        } else {
+                            throw new Error('Invalid response format');
+                        }
+                    } catch (error) {
+                        console.error('Process check in/out failed:', error);
+                        showToast(`Lỗi khi xử lý: ${error.message}`, 'error');
+                    } finally {
+                        setTimeout(hideProgress, 500);
+                        document.getElementById('noteInput').value = '';
+                    }
+                };
+
+                if (type === 'in' && existingRecord?.[0]?.IN) {
+                    openModal(`Bạn đã check-in lúc ${existingRecord[0].IN}. Bạn có muốn check-in lại không?`, processCheckInOut);
+                } else if (type === 'out' && existingRecord?.[0]?.OUT) {
+                    openModal(`Bạn đã check-out lúc ${existingRecord[0].OUT}. Bạn có muốn check-out lại không?`, processCheckInOut);
+                } else {
+                    await processCheckInOut();
+                }
+            } catch (error) {
+                console.error('Handle check in/out failed:', error);
+                showToast(`Lỗi: ${error.message}`, 'error');
+                hideProgress();
+            }
         };
 
         // Authentication functions
@@ -404,7 +593,7 @@
             const password = elements.passwordInput.value;
             const rememberLogin = elements.rememberLoginCheckbox.checked;
 
-            showLoading();
+            showProgress('Đang đăng nhập...', 30);
 
             try {
                 const result = await apiRequest('DSNV', 'Find', {
@@ -412,6 +601,8 @@
                         Selector: `Filter(DSNV, and( [username] = "${username}" , [password] = "${password}"))`
                     }
                 });
+
+                updateProgress(70, 'Đang xác thực...');
 
                 if (result && Array.isArray(result) && result.length === 1) {
                     const user = result[0];
@@ -425,117 +616,42 @@
                         }
                         elements.loginForm.classList.add('hidden');
                         elements.checkInOutChoice.classList.remove('hidden');
+                        updateProgress(100, 'Đăng nhập thành công!');
                         showToast(`Đăng nhập thành công! Xin chào, ${employeeCode}`);
                         updateEmployeeCodeDisplay(employeeCode);
                     } else {
-                        showToast('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
+                        throw new Error('Thông tin đăng nhập không chính xác');
                     }
                 } else {
-                    showToast('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
+                    throw new Error('Tên đăng nhập hoặc mật khẩu không đúng');
                 }
             } catch (error) {
                 console.error('Lỗi đăng nhập:', error);
-                showToast(`Lỗi đăng nhập: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
+                showToast(`Lỗi đăng nhập: ${error.message}`, 'error');
             } finally {
-                hideLoading();
+                setTimeout(hideProgress, 500);
             }
         };
 
         const logout = () => {
-            localStorage.removeItem('username');
-            localStorage.removeItem('employeeCode');
-            localStorage.removeItem('loginToken');
-            elements.checkInOutChoice.classList.add('hidden');
-            elements.cameraContainer.classList.add('hidden');
-            elements.loginForm.classList.remove('hidden');
-            elements.usernameInput.value = '';
-            elements.passwordInput.value = '';
-            currentUser = null;
+            showProgress('Đang đăng xuất...', 50);
+            setTimeout(() => {
+                localStorage.removeItem('username');
+                localStorage.removeItem('employeeCode');
+                localStorage.removeItem('loginToken');
+                elements.checkInOutChoice.classList.add('hidden');
+                elements.cameraContainer.classList.add('hidden');
+                elements.loginForm.classList.remove('hidden');
+                elements.usernameInput.value = '';
+                elements.passwordInput.value = '';
+                currentUser = null;
+                updateProgress(100, 'Đã đăng xuất!');
+                setTimeout(hideProgress, 500);
+            }, 500);
         };
 
-        // Check-in/out functions
-        const handleCheckInOut = async (type) => {
-            showLoading();
-            const fullName = currentUser['Họ và Tên'];
-            const currentTime = moment().tz("Asia/Ho_Chi_Minh");
-            const date = currentTime.format('DD/MM/YYYY');
-            const timeStr = currentTime.format('HH:mm:ss');
-            const idChamCong = `${fullName}${date}`;
-            const datee = currentTime.format('YYYY-MM-DD');
-            const note = document.getElementById('noteInput').value;
-
-            try {
-                const existingRecord = await checkExistingRecord(idChamCong);
-
-                let newData = {
-                    "ID CV": idChamCong,
-                    "NGÀY": datee,
-                    "Họ và Tên": fullName,
-                    "GHI CHÚ": note
-                };
-
-                const processCheckInOut = async () => {
-                    showLoading();
-                    try {
-                        const imageWithLocation = await captureImage();
-                        const location = await getLocation();
-
-                        if (type === 'in') {
-                            if (existingRecord && existingRecord[0] && existingRecord[0].IN) {
-                                newData["LỊCH SỬ IN"] = `${existingRecord[0]["LỊCH SỬ IN"] || ""}\n${fullName} Đã check in lại vào ngày: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
-
-                            }
-                            newData["IN"] = timeStr;
-                            newData["HÌNH ẢNH IN"] = imageWithLocation;
-                            newData["ĐỊA CHỈ IN"] = `${location.latitude},${location.longitude}`;
-                        } else if (type === 'out') {
-                            if (existingRecord && existingRecord[0] && existingRecord[0].OUT) {
-                                newData["LỊCH SỬ OUT"] = `${existingRecord[0]["LỊCH SỬ OUT"] || ""}\n${fullName} Đã check out lại vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
-                            } else {
-                                newData["LỊCH SỬ OUT"] = `${fullName} Đã check out vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
-                            }
-                            newData["OUT"] = timeStr;
-                            newData["HÌNH ẢNH OUT"] = imageWithLocation;
-                            newData["ĐỊA CHỈ OUT"] = `${location.latitude},${location.longitude}`;
-                        }
-
-                        const action = existingRecord && existingRecord[0] ? 'Edit' : 'Add';
-                        const response = await apiRequest('LICH CV', action, { Rows: [newData] });
-
-                        if (response && response.Rows && response.Rows.length > 0) {
-                            const sentData = response.Rows[0];
-                            if (sentData['ID CV'] === idChamCong) {
-                                showToast(`Đã gửi thông tin check-${type} thành công!`);
-                            } else {
-                                console.warn('Dữ liệu gửi không khớp:', sentData);
-                                showToast(`Dữ liệu đã được gửi nhưng có thể không chính xác. Vui lòng kiểm tra lại.`, 'warning');
-                            }
-                        } else {
-                            throw new Error(`API request failed: ${JSON.stringify(response)}`);
-                        }
-                    } catch (error) {
-                        console.error('API request failed:', error);
-                        showToast(`Lỗi khi gửi dữ liệu: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
-                    } finally {
-                        hideLoading();
-                    }
-                };
-
-                if (type === 'in' && existingRecord && existingRecord[0] && existingRecord[0].IN) {
-                    openModal(`Bạn đã check-in lúc ${existingRecord[0].IN}. Bạn có muốn check-in lại không?`, processCheckInOut);
-                } else if (type === 'out' && existingRecord && existingRecord[0] && existingRecord[0].OUT) {
-                    openModal(`Bạn đã check-out lúc ${existingRecord[0].OUT}. Bạn có muốn check-out lại không?`, processCheckInOut);
-                } else {
-                    await processCheckInOut();
-                }
-            } catch (error) {
-                console.error('API request failed:', error);
-                showToast(`Lỗi khi gửi dữ liệu: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
-            } finally {
-                hideLoading();
-                // Xóa nội dung của trường nhập liệu ghi chú sau khi gửi
-                document.getElementById('noteInput').value = '';
-            }
+        const updateEmployeeCodeDisplay = (employeeCode) => {
+            elements.employeeCode.textContent = `Mã NV: ${employeeCode}`;
         };
 
         const updateButtonVisibility = (state) => {
@@ -550,14 +666,22 @@
             const savedUsername = localStorage.getItem('username');
             const savedEmployeeCode = localStorage.getItem('employeeCode');
             const savedToken = localStorage.getItem('loginToken');
+
             if (savedUsername && savedEmployeeCode && savedToken) {
-                elements.usernameInput.value = savedUsername;
-                elements.loginForm.classList.add('hidden');
-                elements.checkInOutChoice.classList.remove('hidden');
-                updateButtonVisibility('initial');
-                currentUser = { 'Họ và Tên': savedEmployeeCode };
-                updateEmployeeCodeDisplay(savedEmployeeCode);
-                showToast(`Xin chào, ${savedEmployeeCode}!`);
+                showProgress('Đang khôi phục phiên đăng nhập...', 50);
+                setTimeout(() => {
+                    elements.usernameInput.value = savedUsername;
+                    elements.loginForm.classList.add('hidden');
+                    elements.checkInOutChoice.classList.remove('hidden');
+                    updateButtonVisibility('initial');
+                    currentUser = { 'Họ và Tên': savedEmployeeCode };
+                    updateEmployeeCodeDisplay(savedEmployeeCode);
+                    updateProgress(100, 'Đã khôi phục phiên đăng nhập!');
+                    setTimeout(() => {
+                        hideProgress();
+                        showToast(`Xin chào, ${savedEmployeeCode}!`);
+                    }, 500);
+                }, 500);
             }
         };
 
@@ -565,8 +689,7 @@
             window.location.href = 'https://rndwows.github.io/SonLongVu/donxinnghiphep.html';
         };
 
-        // Event listener for request permissions button
-        document.getElementById('requestPermissionsBtn').addEventListener('click', requestPermissions);
+        // Permissions check
         const checkPermissionsAndShowButton = async () => {
             const hasCameraPermission = await checkPermission('camera');
             const hasGeolocationPermission = await checkPermission('geolocation');
@@ -579,10 +702,24 @@
             }
         };
 
-        // Call this function on page load
-        document.addEventListener('DOMContentLoaded', checkPermissionsAndShowButton);
-        1
-        // Event listeners
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize permissions check
+            checkPermissionsAndShowButton();
+
+            // Check login status
+            checkLoginStatus();
+
+            // Initialize camera if needed
+            if (!elements.cameraContainer.classList.contains('hidden')) {
+                startCamera();
+            }
+
+            // Set initial button visibility
+            updateButtonVisibility('initial');
+        });
+
+        // Camera control listeners
         elements.switchCameraBtn.addEventListener('click', switchCamera);
         elements.captureBtn.addEventListener('click', () => handleCheckInOut('in'));
         elements.captureOutBtn.addEventListener('click', () => handleCheckInOut('out'));
@@ -590,31 +727,44 @@
             elements.cameraContainer.classList.add('hidden');
             elements.checkInOutChoice.classList.remove('hidden');
             updateButtonVisibility('initial');
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
         });
-        elements.checkInBtn.addEventListener('click', () => {
+
+        // Navigation listeners
+        elements.checkInBtn.addEventListener('click', async () => {
             elements.checkInOutChoice.classList.add('hidden');
             elements.cameraContainer.classList.remove('hidden');
             updateButtonVisibility('in');
+            await startCamera();
         });
-        elements.checkOutBtn.addEventListener('click', () => {
+
+        elements.checkOutBtn.addEventListener('click', async () => {
             elements.checkInOutChoice.classList.add('hidden');
             elements.cameraContainer.classList.remove('hidden');
             updateButtonVisibility('out');
+            await startCamera();
         });
+
+        // Authentication listeners
         elements.logoutBtn.addEventListener('click', logout);
         elements.loginBtn.addEventListener('click', login);
         elements.modalCloseButtons.forEach(button => {
             button.addEventListener('click', closeModal);
         });
-        elements.leaveRequestBtn = document.getElementById('leaveRequestBtn');
-        elements.leaveRequestBtn.addEventListener('click', handleLeaveRequest);
 
-        // Initialization
-        document.addEventListener('DOMContentLoaded', () => {
-            checkLoginStatus();
-            updateButtonVisibility('initial');
-            startCamera();
+        // Request permissions button listener
+        document.getElementById('requestPermissionsBtn').addEventListener('click', requestPermissions);
 
+        // Leave request button listener
+        document.getElementById('leaveRequestBtn').addEventListener('click', handleLeaveRequest);
+
+        // Handle Enter key for login
+        elements.passwordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                login();
+            }
         });
     </script>
 </body>
