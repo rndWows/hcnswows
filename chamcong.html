@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+<html lang="vi" class="h-full bg-gray-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ứng dụng Chấm công</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.33/moment-timezone-with-data.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    <style>
+        .modal {
+            transition: opacity 0.25s ease;
+        }
+
+        body.modal-active {
+            overflow-x: hidden;
+            overflow-y: visible !important;
+        }
+    </style>
+</head>
+
+<body class="h-full bg-gray-100">
+    <div class="min-h-full">
+        <header class="bg-white shadow">
+            <div class="max-w-7xl mx-auto px-4 py-4 sm:px-6 lg:px-8 flex items-center">
+                <img src="https://rndwows.github.io/WOWS_KPI/logowows.jpg" alt="WOWS logo"
+                    class="w-16 h-16 mr-4">
+                <h1 class="text-4xl sm:text-3xl font-bold tracking-tight text-gray-900">Chấm công</h1>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-3 py-3 sm:px-6 lg:px-8">
+            <span id="employeeCode" class="text-lg font-bold text-gray-700 block text-center w-full "></span>
+            <!-- Login Form -->
+            <div id="loginForm" class=" sm:mx-auto sm:w-full sm:max-w-md">
+                <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <form class="space-y-6" action="#" method="POST">
+                        <div>
+                            <label for="username" class="block text-sm font-medium text-gray-700">Tên đăng nhập</label>
+                            <input id="username" name="username" type="text" autocomplete="username" required
+                                class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div>
+                            <label for="password" class="block text-sm font-medium text-gray-700">Mật khẩu</label>
+                            <input id="password" name="password" type="password" autocomplete="current-password"
+                                required
+                                class="mt-1 appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        </div>
+                        <div class="flex items-center">
+                            <input id="rememberLogin" name="rememberLogin" type="checkbox"
+                                class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                            <label for="rememberLogin" class="ml-2 block text-sm text-gray-900">Ghi nhớ đăng
+                                nhập</label>
+                        </div>
+                        <button id="loginBtn" type="button"
+                            class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Đăng nhập
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Check In/Out Choice -->
+            <div id="checkInOutChoice" class="hidden  sm:mx-auto sm:w-full sm:max-w-md">
+                <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div class="space-y-4">
+                        <button id="requestPermissionsBtn"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cấp quyền truy cập camera và vị trí
+                        </button>
+                        <button id="checkInBtn"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Check In
+                        </button>
+                        <button id="checkOutBtn"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                            Check Out
+                        </button>
+                        <button id="leaveRequestBtn"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                            Đơn xin nghỉ phép
+                        </button>
+                        <button id="logoutBtn"
+                            class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                            Đăng xuất
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Camera Container -->
+            <div id="cameraContainer" class="hidden  sm:mx-auto sm:w-full sm:max-w-md">
+                <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+                    <div class="space-y-6">
+                        <div class="relative">
+                            <video id="camera" class="w-full rounded-lg shadow-lg" autoplay playsinline></video>
+                            <div id="cameraOverlay"
+                                class="absolute top-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded text-xs">
+                            </div>
+                        </div>
+                        <div class="mt-4">
+                            <input type="text" id="noteInput" name="note"
+                                class="mt-2 w-full border border-gray-300 rounded-lg py-3 px-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500"
+                                placeholder="Nhập ghi chú của bạn">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button id="switchCameraBtn"
+                                class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                                <i class="fas fa-sync-alt mr-2"></i>Đổi Camera
+                            </button>
+                            <button id="captureBtn"
+                                class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                <i class="fas fa-camera mr-2"></i>Chụp ảnh vào
+                            </button>
+
+                            <button id="captureOutBtn"
+                                class="hidden w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                <i class="fas fa-camera mr-2"></i>Chụp ảnh ra
+                            </button>
+                        </div>
+                        <button id="backBtn"
+                            class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-600 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+                            <i class="fas fa-arrow-left mr-2"></i>Quay lại
+                        </button>
+                        <img id="photo" class="w-full rounded-lg shadow-lg hidden"
+                            alt="Ảnh đã chụp sẽ xuất hiện ở đây.">
+                        <div id="infoDisplay" class="text-sm text-gray-600"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal -->
+    <div id="confirmModal"
+        class="modal opacity-0 pointer-events-none fixed w-full h-full top-0 left-0 flex items-center justify-center">
+        <div class="modal-overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div class="modal-content py-4 text-left px-6">
+                <div class="flex justify-between items-center pb-3">
+                    <p class="text-xl font-bold">Xác nhận ghi đè</p>
+                    <div class="modal-close cursor-pointer z-50">
+                        <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 18 18">
+                            <path
+                                d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z">
+                            </path>
+                        </svg>
+                    </div>
+                </div>
+                <p id="modal-text" class="my-4"></p>
+                <div class="flex justify-end pt-2">
+                    <button
+                        class="modal-close px-4 bg-transparent p-3 rounded-lg text-indigo-500 hover:bg-gray-100 hover:text-indigo-400 mr-2">Hủy</button>
+                    <button id="modal-confirm"
+                        class="px-4 bg-indigo-500 p-3 rounded-lg text-white hover:bg-indigo-400">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="loadingBox" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="bg-white p-5 rounded-lg shadow-lg">
+            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900"></div>
+            <p class="mt-3 text-gray-700">Đang gửi dữ liệu...</p>
+        </div>
+    </div>
+
+    <script>
+        // Constants
+        const APP_ID = '86b46eb9-82ff-4d96-8a24-60d1d6051718';
+        const ACCESS_KEY = 'V2-vs8Yq-Dlu04-NTTrn-CAH1W-3a6wc-zbfn3-dzAZu-mscwA';
+        const REGION = 'www';
+        const API_URL = `https://${REGION}.appsheet.com/api/v2/apps/${APP_ID}/tables`;
+
+        // DOM Elements
+        const elements = {
+            camera: document.getElementById('camera'),
+            captureBtn: document.getElementById('captureBtn'),
+            captureOutBtn: document.getElementById('captureOutBtn'),
+            switchCameraBtn: document.getElementById('switchCameraBtn'),
+            backBtn: document.getElementById('backBtn'),
+            cameraContainer: document.getElementById('cameraContainer'),
+            checkInOutChoice: document.getElementById('checkInOutChoice'),
+            photo: document.getElementById('photo'),
+            infoDisplay: document.getElementById('infoDisplay'),
+            loadingBox: document.getElementById('loadingBox'),
+            checkInBtn: document.getElementById('checkInBtn'),
+            checkOutBtn: document.getElementById('checkOutBtn'),
+            logoutBtn: document.getElementById('logoutBtn'),
+            loginBtn: document.getElementById('loginBtn'),
+            loginForm: document.getElementById('loginForm'),
+            usernameInput: document.getElementById('username'),
+            passwordInput: document.getElementById('password'),
+            modal: document.querySelector('.modal'),
+            modalText: document.getElementById('modal-text'),
+            modalConfirm: document.getElementById('modal-confirm'),
+            modalCloseButtons: document.querySelectorAll('.modal-close'),
+            rememberLoginCheckbox: document.getElementById('rememberLogin'),
+            employeeCode: document.getElementById('employeeCode')
+        };
+
+        // Global variables
+        let stream;
+        let facingMode = "environment";
+        let currentUser = null;
+        const DEFAULT_IMAGE = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAACklEQVR4nGMAAQAABQABDQottAAAAABJRU5ErkJggg=='; // 1x1 transparent PNG
+        const DEFAULT_LOCATION = { latitude: 0, longitude: 0 };
+        // Utility functions
+        const showLoading = () => elements.loadingBox.classList.remove('hidden');
+        const hideLoading = () => elements.loadingBox.classList.add('hidden');
+
+        const showToast = (message, type = 'info') => {
+            Toastify({
+                text: message,
+                duration: 3000,
+                close: true,
+                gravity: "top",
+                position: "center",
+                backgroundColor: type === 'error' ? "#ff0000" : "#4CAF50",
+            }).showToast();
+        };
+
+        const openModal = (message, onConfirm) => {
+            elements.modalText.textContent = message;
+            elements.modal.classList.remove('opacity-0', 'pointer-events-none');
+            document.body.classList.add('modal-active');
+            elements.modalConfirm.onclick = () => {
+                closeModal();
+                onConfirm();
+            };
+        };
+
+        const closeModal = () => {
+            elements.modal.classList.add('opacity-0', 'pointer-events-none');
+            document.body.classList.remove('modal-active');
+        };
+
+        // API functions
+        const apiRequest = async (tableName, action, data, select = {}) => {
+            try {
+                const response = await fetch(`${API_URL}/${tableName}/Action`, {
+                    method: 'POST',
+                    headers: {
+                        'ApplicationAccessKey': ACCESS_KEY,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Action: action,
+                        Properties: select,
+                        ...data
+                    })
+                });
+                if (!response.ok) throw new Error('Network response was not ok');
+                return await response.json();
+            } catch (error) {
+                console.error('API request failed:', error);
+                throw error;
+            }
+        };
+
+        const checkExistingRecord = async (idChamCong) => {
+            try {
+                return await apiRequest('LICH CV', 'Find', {}, {
+                    Selector: `Filter(LICH CV,[ID CV]="${idChamCong}")`
+                });
+            } catch (error) {
+                console.error('Error checking existing record:', error);
+                throw error;
+            }
+        };
+
+        // Location and permission functions
+        const checkPermission = async (permissionName) => {
+            try {
+                const result = await navigator.permissions.query({ name: permissionName });
+                return result.state === 'granted';
+            } catch (error) {
+                console.error(`Error checking ${permissionName} permission:`, error);
+                return false;
+            }
+        };
+
+        const getLocation = () => {
+            return new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    position => resolve({
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    }),
+                    error => {
+                        console.warn('Lỗi khi lấy vị trí:', error);
+                        resolve(DEFAULT_LOCATION);
+                    },
+                    { timeout: 10000, maximumAge: 0 }
+                );
+            });
+        };
+        const requestPermissions = async () => {
+            try {
+                // Request camera permission
+                await navigator.mediaDevices.getUserMedia({ video: true });
+                console.log('Camera permission granted');
+            } catch (error) {
+                console.error('Error requesting camera permission:', error);
+                showToast('Vui lòng cấp quyền truy cập camera để sử dụng ứng dụng.', 'warning');
+            }
+
+            try {
+                // Request geolocation permission
+                await navigator.geolocation.getCurrentPosition(() => { });
+                console.log('Geolocation permission granted');
+            } catch (error) {
+                console.error('Error requesting geolocation permission:', error);
+                showToast('Vui lòng cấp quyền truy cập vị trí để sử dụng ứng dụng.', 'warning');
+            }
+        };
+        // Camera functions
+        const startCamera = async () => {
+            const hasCameraPermission = await checkPermission('camera');
+            if (!hasCameraPermission) {
+                showToast("Không có quyền truy cập camera. Vui lòng cấp quyền và thử lại.", 'error');
+                return false;
+            }
+
+            if (stream) {
+                stream.getTracks().forEach(track => track.stop());
+            }
+            try {
+                const constraints = {
+                    video: {
+                        facingMode: facingMode,
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+                stream = await navigator.mediaDevices.getUserMedia(constraints);
+                elements.camera.srcObject = stream;
+                return true;
+            } catch (err) {
+                console.error("Không thể truy cập camera:", err);
+                showToast("Không thể truy cập camera. Vui lòng kiểm tra quyền truy cập và thử lại.", 'error');
+                return false;
+            }
+        };
+
+        const switchCamera = async () => {
+            facingMode = facingMode === "user" ? "environment" : "user";
+            await startCamera();
+        };
+
+        const captureImage = async () => {
+            const canvas = document.createElement('canvas');
+            canvas.width = elements.camera.videoWidth;
+            canvas.height = elements.camera.videoHeight;
+            const ctx = canvas.getContext('2d');
+
+            ctx.drawImage(elements.camera, 0, 0);
+
+            const location = await getLocation();
+            const currentTime = moment().tz("Asia/Ho_Chi_Minh");
+            const date = currentTime.format('YYYY-MM-DD');
+            const timeStr = currentTime.format('HH:mm:ss');
+
+            const overlayInfo = `
+        Vị trí: ${location.latitude}, ${location.longitude}
+        Thời gian: ${date} ${timeStr}
+    `;
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.5)';
+            ctx.fillRect(10, 10, canvas.width - 20, 80);
+            ctx.fillStyle = 'white';
+            ctx.font = '14px Arial';
+
+            overlayInfo.split('\n').forEach((line, index) => {
+                ctx.fillText(line.trim(), 20, 30 + (index * 20));
+            });
+
+            return new Promise((resolve) => {
+                canvas.toBlob((blob) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result);
+                    reader.readAsDataURL(blob);
+                }, 'image/jpeg', 0.8);
+            });
+        };
+
+
+        // Thêm hàm mới để cập nhật hiển thị mã nhân viên
+        const updateEmployeeCodeDisplay = (employeeCode) => {
+            elements.employeeCode.textContent = `Mã NV: ${employeeCode}`;
+        };
+
+        // Authentication functions
+        const login = async () => {
+            const username = elements.usernameInput.value;
+            const password = elements.passwordInput.value;
+            const rememberLogin = elements.rememberLoginCheckbox.checked;
+
+            showLoading();
+
+            try {
+                const result = await apiRequest('DSNV', 'Find', {
+                    Properties: {
+                        Selector: `Filter(DSNV, and( [username] = "${username}" , [password] = "${password}"))`
+                    }
+                });
+
+                if (result && Array.isArray(result) && result.length === 1) {
+                    const user = result[0];
+                    if (user.password === password) {
+                        currentUser = user;
+                        const employeeCode = user['Họ và Tên'];
+                        if (rememberLogin) {
+                            localStorage.setItem('username', username);
+                            localStorage.setItem('employeeCode', employeeCode);
+                            localStorage.setItem('loginToken', 'someTokenValue');
+                        }
+                        elements.loginForm.classList.add('hidden');
+                        elements.checkInOutChoice.classList.remove('hidden');
+                        showToast(`Đăng nhập thành công! Xin chào, ${employeeCode}`);
+                        updateEmployeeCodeDisplay(employeeCode);
+                    } else {
+                        showToast('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
+                    }
+                } else {
+                    showToast('Tên đăng nhập hoặc mật khẩu không đúng!', 'error');
+                }
+            } catch (error) {
+                console.error('Lỗi đăng nhập:', error);
+                showToast(`Lỗi đăng nhập: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
+            } finally {
+                hideLoading();
+            }
+        };
+
+        const logout = () => {
+            localStorage.removeItem('username');
+            localStorage.removeItem('employeeCode');
+            localStorage.removeItem('loginToken');
+            elements.checkInOutChoice.classList.add('hidden');
+            elements.cameraContainer.classList.add('hidden');
+            elements.loginForm.classList.remove('hidden');
+            elements.usernameInput.value = '';
+            elements.passwordInput.value = '';
+            currentUser = null;
+        };
+
+        // Check-in/out functions
+        const handleCheckInOut = async (type) => {
+            showLoading();
+            const fullName = currentUser['Họ và Tên'];
+            const currentTime = moment().tz("Asia/Ho_Chi_Minh");
+            const date = currentTime.format('DD/MM/YYYY');
+            const timeStr = currentTime.format('HH:mm:ss');
+            const idChamCong = `${fullName}${date}`;
+            const datee = currentTime.format('YYYY-MM-DD');
+            const note = document.getElementById('noteInput').value;
+
+            try {
+                const existingRecord = await checkExistingRecord(idChamCong);
+
+                let newData = {
+                    "ID CV": idChamCong,
+                    "NGÀY": datee,
+                    "Họ và Tên": fullName,
+                    "GHI CHÚ": note
+                };
+
+                const processCheckInOut = async () => {
+                    showLoading();
+                    try {
+                        const imageWithLocation = await captureImage();
+                        const location = await getLocation();
+
+                        if (type === 'in') {
+                            if (existingRecord && existingRecord[0] && existingRecord[0].IN) {
+                                newData["LỊCH SỬ IN"] = `${existingRecord[0]["LỊCH SỬ IN"] || ""}\n${fullName} Đã check in lại vào ngày: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+
+                            }
+                            newData["IN"] = timeStr;
+                            newData["HÌNH ẢNH IN"] = imageWithLocation;
+                            newData["ĐỊA CHỈ IN"] = `${location.latitude},${location.longitude}`;
+                        } else if (type === 'out') {
+                            if (existingRecord && existingRecord[0] && existingRecord[0].OUT) {
+                                newData["LỊCH SỬ OUT"] = `${existingRecord[0]["LỊCH SỬ OUT"] || ""}\n${fullName} Đã check out lại vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+                            } else {
+                                newData["LỊCH SỬ OUT"] = `${fullName} Đã check out vào: (${date} lúc: ${timeStr}) Ghi chú: ${note}`;
+                            }
+                            newData["OUT"] = timeStr;
+                            newData["HÌNH ẢNH OUT"] = imageWithLocation;
+                            newData["ĐỊA CHỈ OUT"] = `${location.latitude},${location.longitude}`;
+                        }
+
+                        const action = existingRecord && existingRecord[0] ? 'Edit' : 'Add';
+                        const response = await apiRequest('LICH CV', action, { Rows: [newData] });
+
+                        if (response && response.Rows && response.Rows.length > 0) {
+                            const sentData = response.Rows[0];
+                            if (sentData['ID CV'] === idChamCong) {
+                                showToast(`Đã gửi thông tin check-${type} thành công!`);
+                            } else {
+                                console.warn('Dữ liệu gửi không khớp:', sentData);
+                                showToast(`Dữ liệu đã được gửi nhưng có thể không chính xác. Vui lòng kiểm tra lại.`, 'warning');
+                            }
+                        } else {
+                            throw new Error(`API request failed: ${JSON.stringify(response)}`);
+                        }
+                    } catch (error) {
+                        console.error('API request failed:', error);
+                        showToast(`Lỗi khi gửi dữ liệu: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
+                    } finally {
+                        hideLoading();
+                    }
+                };
+
+                if (type === 'in' && existingRecord && existingRecord[0] && existingRecord[0].IN) {
+                    openModal(`Bạn đã check-in lúc ${existingRecord[0].IN}. Bạn có muốn check-in lại không?`, processCheckInOut);
+                } else if (type === 'out' && existingRecord && existingRecord[0] && existingRecord[0].OUT) {
+                    openModal(`Bạn đã check-out lúc ${existingRecord[0].OUT}. Bạn có muốn check-out lại không?`, processCheckInOut);
+                } else {
+                    await processCheckInOut();
+                }
+            } catch (error) {
+                console.error('API request failed:', error);
+                showToast(`Lỗi khi gửi dữ liệu: ${error.message || 'Không xác định'}. Vui lòng thử lại sau.`, 'error');
+            } finally {
+                hideLoading();
+                // Xóa nội dung của trường nhập liệu ghi chú sau khi gửi
+                document.getElementById('noteInput').value = '';
+            }
+        };
+
+        const updateButtonVisibility = (state) => {
+            elements.checkInBtn.classList.toggle('hidden', state !== 'initial');
+            elements.checkOutBtn.classList.toggle('hidden', state !== 'initial');
+            elements.logoutBtn.classList.remove('hidden');
+            elements.captureBtn.classList.toggle('hidden', state !== 'in');
+            elements.captureOutBtn.classList.toggle('hidden', state !== 'out');
+        };
+
+        const checkLoginStatus = () => {
+            const savedUsername = localStorage.getItem('username');
+            const savedEmployeeCode = localStorage.getItem('employeeCode');
+            const savedToken = localStorage.getItem('loginToken');
+            if (savedUsername && savedEmployeeCode && savedToken) {
+                elements.usernameInput.value = savedUsername;
+                elements.loginForm.classList.add('hidden');
+                elements.checkInOutChoice.classList.remove('hidden');
+                updateButtonVisibility('initial');
+                currentUser = { 'Họ và Tên': savedEmployeeCode };
+                updateEmployeeCodeDisplay(savedEmployeeCode);
+                showToast(`Xin chào, ${savedEmployeeCode}!`);
+            }
+        };
+
+        const handleLeaveRequest = () => {
+            window.location.href = 'https://rndwows.github.io/SonLongVu/donxinnghiphep.html';
+        };
+
+        // Event listener for request permissions button
+        document.getElementById('requestPermissionsBtn').addEventListener('click', requestPermissions);
+        const checkPermissionsAndShowButton = async () => {
+            const hasCameraPermission = await checkPermission('camera');
+            const hasGeolocationPermission = await checkPermission('geolocation');
+            const permissionsBtn = document.getElementById('requestPermissionsBtn');
+
+            if (!hasCameraPermission || !hasGeolocationPermission) {
+                permissionsBtn.classList.remove('hidden');
+            } else {
+                permissionsBtn.classList.add('hidden');
+            }
+        };
+
+        // Call this function on page load
+        document.addEventListener('DOMContentLoaded', checkPermissionsAndShowButton);
+        1
+        // Event listeners
+        elements.switchCameraBtn.addEventListener('click', switchCamera);
+        elements.captureBtn.addEventListener('click', () => handleCheckInOut('in'));
+        elements.captureOutBtn.addEventListener('click', () => handleCheckInOut('out'));
+        elements.backBtn.addEventListener('click', () => {
+            elements.cameraContainer.classList.add('hidden');
+            elements.checkInOutChoice.classList.remove('hidden');
+            updateButtonVisibility('initial');
+        });
+        elements.checkInBtn.addEventListener('click', () => {
+            elements.checkInOutChoice.classList.add('hidden');
+            elements.cameraContainer.classList.remove('hidden');
+            updateButtonVisibility('in');
+        });
+        elements.checkOutBtn.addEventListener('click', () => {
+            elements.checkInOutChoice.classList.add('hidden');
+            elements.cameraContainer.classList.remove('hidden');
+            updateButtonVisibility('out');
+        });
+        elements.logoutBtn.addEventListener('click', logout);
+        elements.loginBtn.addEventListener('click', login);
+        elements.modalCloseButtons.forEach(button => {
+            button.addEventListener('click', closeModal);
+        });
+        elements.leaveRequestBtn = document.getElementById('leaveRequestBtn');
+        elements.leaveRequestBtn.addEventListener('click', handleLeaveRequest);
+
+        // Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            checkLoginStatus();
+            updateButtonVisibility('initial');
+            startCamera();
+
+        });
+    </script>
+</body>
+
+</html>
