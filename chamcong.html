@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi" class="h-full bg-gray-100">
 
@@ -33,6 +32,25 @@
             left: 0;
             width: 100%;
             z-index: 1000;
+        }
+
+        /* Add new camera styles */
+        .camera-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .camera-front {
+            transform: scale(-1, 1);
+            -webkit-transform: scale(-1, 1);
+            -moz-transform: scale(-1, 1);
+        }
+
+        #camera {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
         }
     </style>
 </head>
@@ -118,7 +136,7 @@
             <div id="cameraContainer" class="hidden sm:mx-auto sm:w-full sm:max-w-md">
                 <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
                     <div class="space-y-6">
-                        <div class="relative">
+                        <div class="camera-container">
                             <video id="camera" class="w-full rounded-lg shadow-lg" autoplay playsinline></video>
                             <div id="cameraOverlay"
                                 class="absolute top-2 left-2 bg-black bg-opacity-50 text-white p-2 rounded text-xs">
@@ -430,6 +448,14 @@
                 showProgress('Đang khởi tạo camera...', 50);
                 stream = await navigator.mediaDevices.getUserMedia(constraints);
                 elements.camera.srcObject = stream;
+
+                // Add or remove the mirror class based on camera facing mode
+                if (facingMode === "user") {
+                    elements.camera.classList.add('camera-front');
+                } else {
+                    elements.camera.classList.remove('camera-front');
+                }
+
                 hideProgress();
                 return true;
             } catch (err) {
@@ -445,6 +471,7 @@
             await startCamera();
         };
 
+        // Modified captureImage function
         const captureImage = async () => {
             try {
                 const canvas = document.createElement('canvas');
@@ -456,7 +483,18 @@
                     throw new Error('Không thể tạo context canvas');
                 }
 
+                // Handle mirroring for front camera
+                if (facingMode === "user") {
+                    ctx.scale(-1, 1);
+                    ctx.translate(-canvas.width, 0);
+                }
+
                 ctx.drawImage(elements.camera, 0, 0);
+
+                // Reset transform
+                if (facingMode === "user") {
+                    ctx.setTransform(1, 0, 0, 1, 0, 0);
+                }
 
                 const location = await getLocation();
                 const currentTime = moment().tz("Asia/Ho_Chi_Minh");
