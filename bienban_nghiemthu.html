@@ -214,6 +214,14 @@
                 box-shadow: none;
             }
 
+            .signature-input {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
 
         }
 
@@ -371,6 +379,22 @@
             .print-only {
                 display: none;
             }
+
+            .signature-input {
+                display: block;
+            }
+        }
+
+        .signature-input {
+            font-weight: bold;
+            padding: 5px;
+            margin: 0;
+            width: 100%;
+        }
+
+        .signature-input:focus {
+            outline: none;
+            border-bottom: 2px solid #555;
         }
 
 
@@ -562,32 +586,32 @@
                     </div>
 
                     <div class="participants-container">
-                    <div class="column">
-                        <table class="participant-table">
-                            <tr>
-                                <th colspan="6">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</th>
-                            </tr>
-                            <tr class="participant-row">
-                                <td colspan="2">1. Ông/Bà: <input type="text" id="companyA-person1"
-                                        class="participant-input"></td>
-                                <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
-                                        class="participant-input"></td>
-                            </tr>
-                            <tr class="participant-row">
-                                <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person1"
-                                        class="participant-input"></td>
-                                <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
-                                        class="participant-input"></td>
-                            </tr>
-                            <tr class="participant-row">
-                                <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person1"
-                                        class="participant-input"></td>
-                                <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
-                                        class="participant-input"></td>
-                            </tr>
-                        </table>
+                        <div class="column">
+                            <table class="participant-table">
+                                <tr>
+                                    <th colspan="6">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</th>
+                                </tr>
+                                <tr class="participant-row">
+                                    <td colspan="2">1. Ông/Bà: <input type="text" id="companyA-person1"
+                                            class="participant-input"></td>
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                            class="participant-input"></td>
+                                </tr>
+                                <tr class="participant-row">
+                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person1"
+                                            class="participant-input"></td>
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                            class="participant-input"></td>
+                                </tr>
+                                <tr class="participant-row">
+                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person1"
+                                            class="participant-input"></td>
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                            class="participant-input"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
                 </div>
                 <div class="bold">3. Hội đồng nghiệm thu đã tiến hành:</div>
                 <div>Xem xét hồ sơ tài liệu sau:</div>
@@ -808,45 +832,58 @@
 
         function updateFooter() {
             const footerInfo = document.getElementById('footerInfo');
-            let footerHTML = '';
-
-            footerHTML += `
-       <table style="width: 100%; text-align: center;">
-            <tbody>
-
-                <tr>
-                    <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                    <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-                    </tr>
-                <tr>
-                    <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                    <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
-                </tr>
-                <tr>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
-                    </td>
-                    <td>
-                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Lê Văn Liêm'}</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                </tr>
-            </tbody>
-       </table>
+            let footerHTML = `
+    <table style="width: 100%; text-align: center;">
+        <tbody>
+            <tr>
+                <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+            </tr>
+            <tr>
+                <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
+            </tr>
+            <tr>
+                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" 
+                           style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                    <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                </td>
+                <td>
+                    <input type="text" class="bold signature-input no-print" 
+                           value="${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}" 
+                           style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc; text-transform: uppercase;">
+                    <p style="text-transform: uppercase;" class="bold print-only signature-text">
+                        ${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <i class="">Ngày ký: .............................</i>
+                </td>
+                <td>
+                    <i class="">Ngày ký: .............................</i>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     `;
 
             footerInfo.innerHTML = footerHTML;
+
+            // Thêm event listeners cho các input
+            const signatureInputs = document.querySelectorAll('.signature-input');
+            signatureInputs.forEach(input => {
+                const signatureText = input.nextElementSibling;
+                input.addEventListener('input', function () {
+                    signatureText.textContent = this.value;
+                });
+            });
         }
 
         // (Giữ nguyên các hàm hỗ trợ như formatCurrency, formatDate, numberToWords)
