@@ -461,10 +461,12 @@
                         <div class="cot-chu-ky">
                             <div class="tieu-de-chu-ky">NGƯỜI LAO ĐỘNG</div>
                             <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
+                            <div><span class="bold" id="hvt2"></span></div>
                         </div>
                         <div class="cot-chu-ky">
                             <div class="tieu-de-chu-ky">NGƯỜI SỬ DỤNG LAO ĐỘNG</div>
                             <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
+                            <div><span class="bold">Bà Đỗ Thị Kim Thủy</span></div>
                         </div>
                     </div>
 
@@ -511,7 +513,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['shd', 'hvt', 'ns', 'nccc', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
+        var parameters = ['shd', 'hvt', 'hvt2', 'ns', 'nccc', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
