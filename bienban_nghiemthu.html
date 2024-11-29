@@ -615,13 +615,7 @@
                 </div>
                 <div class="bold">3. Hội đồng nghiệm thu đã tiến hành:</div>
                 <div>Xem xét hồ sơ tài liệu sau:</div>
-                <div>
-                    Báo giá/hợp đồng số:
-                    <span id="id" class="bold">HDG-KVP-24.08-01</span>
-                    <span class="bold">/</span>
-                    <input type="text" id="contract_number" class="date-input bold" value="PL002"
-                        style="width: 50px; border: none; border-bottom: none; font-weight: bold; display: inline;">
-                </div>
+                <div>Báo giá/hợp đồng số: <span id="id" class="bold"></span></div>
                 <p class="bold">Kiểm tra thực tế thông tin tính năng của sản phẩm dịch vụ theo danh mục:</p>
 
                 <table class="table table-bordered">
@@ -714,16 +708,52 @@
                 });
         }
 
+        // Tìm phần tử span
+        const idSpan = document.getElementById('id');
+
+        // Tạo phần tử input mới
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = idSpan.textContent;
+        input.style.cssText = `
+    border: none; 
+    border-bottom: 1px solid #ccc;
+    font-weight: bold;
+    width: 200px;
+    padding: 2px 5px;
+`;
+
+        // Ẩn input khi in
+        input.classList.add('no-print');
+
+        // Tạo span chỉ hiển thị khi in
+        const printSpan = document.createElement('span');
+        printSpan.classList.add('print-only');
+        printSpan.textContent = idSpan.textContent;
+
+        // Thay thế span gốc bằng cả hai phần tử
+        idSpan.innerHTML = ''; // Xóa nội dung span gốc
+        idSpan.appendChild(input);
+        idSpan.appendChild(printSpan);
+
+        // Cập nhật span in khi input thay đổi
+        input.addEventListener('input', function () {
+            printSpan.textContent = this.value;
+        });
+
         function updateUI() {
             document.getElementById('id').textContent = BAN_GIAO['Số HĐ'] || '';
             document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
 
-            // Add this new event listener here
-            document.getElementById('contract_number').addEventListener('input', function () {
-                document.querySelector('.contract-number-print').textContent = this.value;
-            });
+            // Cập nhật input và print span với số hợp đồng
+            const input = document.querySelector('#id input');
+            const printSpan = document.querySelector('#id .print-only');
+            if (input && printSpan) {
+                input.value = BAN_GIAO['Số HĐ'] || '';
+                printSpan.textContent = BAN_GIAO['Số HĐ'] || '';
+            }
 
             updateProductTable();
             addInputListeners();
