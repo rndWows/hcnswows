@@ -1013,35 +1013,49 @@
         });
 
         document.addEventListener('DOMContentLoaded', function () {
-            // Tìm phần tử span
             const idSpan = document.getElementById('id');
 
-            // Tạo phần tử input mới
+            // Tạo một div container để giữ cả input và span
+            const container = document.createElement('div');
+            container.style.cssText = `
+        display: inline-block;
+        vertical-align: bottom;
+        margin: 0;
+        padding: 0;
+    `;
+
             const input = document.createElement('input');
             input.type = 'text';
             input.value = idSpan.textContent;
             input.style.cssText = `
-        border: none; 
+        border: none;
         border-bottom: 1px solid #ccc;
         font-weight: bold;
         width: 200px;
         padding: 2px 5px;
+        margin: 0;
+        display: inline-block;
+        vertical-align: bottom;
     `;
-
-            // Ẩn input khi in
             input.classList.add('no-print');
 
-            // Tạo span chỉ hiển thị khi in
             const printSpan = document.createElement('span');
+            printSpan.style.cssText = `
+        display: none;
+        font-weight: bold;
+        margin: 0;
+        padding: 0;
+        vertical-align: bottom;
+    `;
             printSpan.classList.add('print-only');
             printSpan.textContent = idSpan.textContent;
 
-            // Thay thế span gốc bằng cả hai phần tử
+            // Đưa tất cả vào container
+            container.appendChild(input);
+            container.appendChild(printSpan);
             idSpan.innerHTML = '';
-            idSpan.appendChild(input);
-            idSpan.appendChild(printSpan);
+            idSpan.appendChild(container);
 
-            // Cập nhật span in khi input thay đổi
             input.addEventListener('input', function () {
                 printSpan.textContent = this.value;
             });
