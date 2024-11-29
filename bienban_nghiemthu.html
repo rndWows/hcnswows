@@ -742,22 +742,23 @@
         });
 
         function updateUI() {
-            document.getElementById('id').textContent = BAN_GIAO['Số HĐ'] || '';
-            document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
-            document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
-            document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
-
-            // Cập nhật input và print span với số hợp đồng
+            // Tìm phần tử input và print span trong span id
             const input = document.querySelector('#id input');
             const printSpan = document.querySelector('#id .print-only');
+
+            // Cập nhật giá trị cho cả input và print span
             if (input && printSpan) {
                 input.value = BAN_GIAO['Số HĐ'] || '';
                 printSpan.textContent = BAN_GIAO['Số HĐ'] || '';
             }
 
+            // Các phần cập nhật khác
+            document.getElementById('companyName').textContent = KHTN['TÊN CÔNG TY'] || '';
+            document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
+            document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
+
             updateProductTable();
             addInputListeners();
-
             updateFooter();
         }
 
@@ -1008,6 +1009,41 @@
                 input.addEventListener('input', function () {
                     span.textContent = this.value;
                 });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            // Tìm phần tử span
+            const idSpan = document.getElementById('id');
+
+            // Tạo phần tử input mới
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.value = idSpan.textContent;
+            input.style.cssText = `
+        border: none; 
+        border-bottom: 1px solid #ccc;
+        font-weight: bold;
+        width: 200px;
+        padding: 2px 5px;
+    `;
+
+            // Ẩn input khi in
+            input.classList.add('no-print');
+
+            // Tạo span chỉ hiển thị khi in
+            const printSpan = document.createElement('span');
+            printSpan.classList.add('print-only');
+            printSpan.textContent = idSpan.textContent;
+
+            // Thay thế span gốc bằng cả hai phần tử
+            idSpan.innerHTML = '';
+            idSpan.appendChild(input);
+            idSpan.appendChild(printSpan);
+
+            // Cập nhật span in khi input thay đổi
+            input.addEventListener('input', function () {
+                printSpan.textContent = this.value;
             });
         });
 
