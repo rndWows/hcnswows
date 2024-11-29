@@ -619,7 +619,7 @@
                     Báo giá/hợp đồng số:
                     <span id="id" class="bold">HDG-KVP-24.08-01</span>
                     <span class="bold">/</span>
-                    <input type="text" id="contract_number" class="date-input bold" value="PL02"
+                    <input type="text" id="contract_number" class="date-input bold" value="PL002"
                         style="width: 50px; border: none; border-bottom: none; font-weight: bold; display: inline;">
                 </div>
                 <p class="bold">Kiểm tra thực tế thông tin tính năng của sản phẩm dịch vụ theo danh mục:</p>
@@ -720,6 +720,10 @@
             document.getElementById('companyAddress').textContent = KHTN['ĐỊA CHỈ'] || '';
             document.getElementById('Tvt').textContent = KHTN['TÊN VIẾT TẮT'] || '';
 
+            // Add this new event listener here
+            document.getElementById('contract_number').addEventListener('input', function () {
+                document.querySelector('.contract-number-print').textContent = this.value;
+            });
 
             updateProductTable();
             addInputListeners();
