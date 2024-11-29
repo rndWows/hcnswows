@@ -231,11 +231,10 @@
                 style="width: 100px; margin: -30px"></th>
             <th style="width: 60%;" rowspan="4" class="center">
               <h5 class=" bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h5>
-              <h5 class=" bold">PHỤ LỤC 3: HẠNG MỤC BỔ SUNG
-              </h5>
+              <h5 class="bold appendix-title">PHỤ LỤC 3: HẠNG MỤC BỔ SUNG</h5>
             </th>
             <td style="font-size: 12px;">Mã hiệu: </th>
-            <td style="font-size: 12px;"><span>PKD-QT02/PL03</span></th>
+              <td style="font-size: 12px;"><span class="pkd-number">PKD-QT02/PL03</span></th>
           </tr>
           <tr>
             <td style="font-size: 12px;"> Lần ban hành: 01</td>
@@ -255,7 +254,8 @@
         <div style="clear: both"></div>
         <br>
         <p><strong>Kính gửi: <span id="companyName"></span></strong></p>
-        <p>- Căn cứ hợp đồng số: <span id="idhd"></span> giữa CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS VÀ <span id="companyName"></span> đã ký.</p>
+        <p>- Căn cứ hợp đồng số: <span id="idhd"></span> giữa CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS VÀ <span
+            id="companyName"></span> đã ký.</p>
         <p>Hai bên thống nhất và lập phụ lục hợp đồng này bổ sung thêm hạng mục chi tiết như sau:</p>
 
         <table class="table table-bordered">
@@ -369,9 +369,38 @@
       return `${day}/${month}/${year}`;
     }
 
+    // Add this function after the existing updateUI function
+    function extractAppendixNumber(idbg) {
+      // Check if idbg matches the pattern and contains "PL" followed by numbers
+      const match = idbg.match(/PL(\d+)$/);
+      return match ? match[1] : '3'; // Default to 3 if no match found
+    }
+
     // Hàm này sẽ được gọi sau khi dữ liệu được cập nhật
     function updateUI() {
       console.log("Updating UI with data:", { PLHĐ, KHTN, DKTT });
+
+      // Function to extract appendix number from idbg
+      function extractAppendixNumber(idbg) {
+        const match = idbg.match(/PL(\d+)$/);
+        return match ? match[1] : '3';
+      }
+
+      // Get appendix number and update related elements
+      const idbg = PLHĐ[0]['Số phụ lục'] || '';
+      const appendixNumber = extractAppendixNumber(idbg);
+
+      // Update the heading text
+      const headingElement = document.querySelector('h5.bold:nth-child(2)');
+      if (headingElement) {
+        headingElement.textContent = `PHỤ LỤC ${appendixNumber}: HẠNG MỤC BỔ SUNG`;
+      }
+
+      // Update the PKD-QT02/PL number
+      const pkdElement = document.querySelector('td span');
+      if (pkdElement) {
+        pkdElement.textContent = `PKD-QT02/PL${appendixNumber}`;
+      }
       // Kiểm tra sự tồn tại của phần tử trước khi cập nhật
       const orderNumberElement = document.getElementById('orderNumber');
       if (orderNumberElement) {
@@ -524,7 +553,7 @@
 
       let footerHTML = '';
 
-        footerHTML += `
+      footerHTML += `
         <p>Thời gian thực hiện Dịch vụ: <br>
           Tổng thời gian Dự kiến: ${thoiGianThucHien} tháng. &nbsp &nbsp &nbsp  Từ ngày: ${formatDate(ngayBatdau)}
 
@@ -569,9 +598,9 @@
 
       footerInfo.innerHTML = footerHTML;
       // Cập nhật tất cả các phần tử có id="companyName" trong toàn bộ trang
-document.querySelectorAll('#companyName').forEach(element => {
-  element.textContent = KHTN['TÊN CÔNG TY'] || '';
-});
+      document.querySelectorAll('#companyName').forEach(element => {
+        element.textContent = KHTN['TÊN CÔNG TY'] || '';
+      });
     }
 
     function numberToWords(number) {
