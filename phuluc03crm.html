@@ -234,7 +234,7 @@
               <h5 class="bold appendix-title">PHỤ LỤC : HẠNG MỤC BỔ SUNG</h5>
             </th>
             <td style="font-size: 12px;">Mã hiệu: </th>
-              <td style="font-size: 12px;"><span class="pkd-number">PKD-QT02/PL0</span></th>
+            <td style="font-size: 12px;"><span class="pkd-number">PKD-QT02/PL0</span></th>
           </tr>
           <tr>
             <td style="font-size: 12px;"> Lần ban hành: 01</td>
@@ -605,42 +605,67 @@
 
     function numberToWords(number) {
       const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
-      const teens = ['mười', 'mười một', 'mười hai', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
-      const tens = ['', '', 'hai mươi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
       const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
 
       if (number === 0) return 'không';
 
       function convertGroup(n) {
         let result = '';
+
+        // Xử lý số hàng trăm
         if (n >= 100) {
           result += units[Math.floor(n / 100)] + ' trăm ';
           n %= 100;
+          if (n > 0 && n < 10) result += 'lẻ '; // Thêm từ "lẻ" cho số hàng đơn vị
         }
-        if (n >= 20) {
-          result += tens[Math.floor(n / 10)] + ' ';
+
+        // Xử lý số hàng chục
+        if (n >= 10) {
+          if (Math.floor(n / 10) === 1) {
+            result += 'mười ';
+          } else {
+            result += units[Math.floor(n / 10)] + ' mươi ';
+          }
           n %= 10;
         }
-        if (n >= 10) {
-          result += teens[n - 10] + ' ';
-        } else if (n > 0) {
-          result += units[n] + ' ';
+
+        // Xử lý số hàng đơn vị
+        if (n > 0) {
+          if (n === 5 && result.length > 0) {
+            result += 'lăm';
+          } else if (n === 1 && result.includes('mươi')) {
+            result += 'mốt';
+          } else {
+            result += units[n];
+          }
         }
+
         return result.trim();
       }
 
       let result = '';
       let scaleIndex = 0;
+
+      // Xử lý từng nhóm 3 số
       while (number > 0) {
         const group = number % 1000;
         if (group !== 0) {
-          result = convertGroup(group) + ' ' + scales[scaleIndex] + ' ' + result;
+          const groupText = convertGroup(group);
+          result = groupText + (groupText ? ' ' + scales[scaleIndex] + ' ' : '') + result;
+        } else if (scaleIndex === 2) {
+          // Thêm từ "triệu" ngay cả khi nhóm bằng 0
+          result = scales[scaleIndex] + ' ' + result;
         }
         number = Math.floor(number / 1000);
         scaleIndex++;
       }
+
+      // Xử lý kết quả cuối cùng
+      result = result.trim()
+        .replace(/\s+/g, ' ') // Loại bỏ khoảng trắng thừa
+        .replace(/\s+$/g, ''); // Loại bỏ khoảng trắng cuối cùng
+
       // Viết hoa chữ cái đầu tiên
-      result = result.trim();
       return result.charAt(0).toUpperCase() + result.slice(1);
     }
 
