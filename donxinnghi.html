@@ -63,19 +63,63 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
         }
+
+        /* Tùy chỉnh style cho Choices.js */
+        .choices__inner {
+            padding: 0.6rem !important;
+            min-height: 48px !important;
+            border-radius: 0.5rem !important;
+            border: 1px solid #E5E7EB !important;
+        }
+
+        .choices__input {
+            background-color: transparent !important;
+        }
+
+        .choices__list--dropdown {
+            border-radius: 0.5rem !important;
+        }
+
+        /* Tùy chỉnh style cho input type date và time */
+        input[type="date"]::-webkit-calendar-picker-indicator,
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            position: absolute;
+            right: 8px;
+            cursor: pointer;
+            opacity: 0.6;
+            filter: invert(0.5);
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:hover,
+        input[type="time"]::-webkit-calendar-picker-indicator:hover {
+            opacity: 1;
+        }
+
+        /* Đảm bảo input luôn có background trắng và không bị xám khi disabled */
+        input[type="date"],
+        input[type="time"] {
+            background-color: white !important;
+        }
+
+        /* Style cho focus state */
+        input[type="date"]:focus,
+        input[type="time"]:focus {
+            outline: none;
+            border-color: #6366F1;
+            box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+        }
     </style>
 </head>
 
 <body class="bg-gray-100">
     <!-- Form container -->
-    <div class="container mx-auto max-w-xl p-6 bg-white shadow-md rounded-lg  fade-in">
+    <div class="container mx-auto max-w-xl p-6 bg-white shadow-md rounded-lg fade-in">
         <h2 class="text-4xl font-extrabold text-center text-indigo-700 mb-6">Đơn xin nghỉ phép</h2>
         <form id="expenseForm" class="space-y-8">
-            <!-- Họ và tên -->
+            <!-- Phần select box có thể tìm kiếm cho Họ và tên -->
             <div>
                 <label for="sokey" class="block text-sm font-medium text-gray-700">Họ và tên</label>
-                <select id="sokey" name="sokey"
-                    class="mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
+                <select id="sokey" name="sokey" class="mt-2 w-full">
                     <option value="">Đang tải...</option>
                 </select>
             </div>
@@ -109,19 +153,48 @@
                 </select>
             </div>
 
-            <!-- Nghỉ từ và Nghỉ đến in the same row -->
-            <div class="grid-cols-2">
-                <div class="relative">
-                    <label for="nghiTu" class="block text-sm font-medium text-gray-700">Nghỉ từ</label>
-                    <input type="date" id="nghiTu" name="nghiTu"
-                        class=" mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
-
+            <!-- Nghỉ từ và Nghỉ đến với datetime -->
+            <div class="space-y-6">
+                <!-- Nghỉ từ -->
+                <div class="flex flex-col space-y-2">
+                    <label class="text-sm font-semibold text-gray-700">Nghỉ từ</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-500"></i>
+                            </div>
+                            <input type="date" id="nghiTuNgay" name="nghiTuNgay"
+                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="clock" class="w-5 h-5 text-gray-500"></i>
+                            </div>
+                            <input type="time" id="nghiTuGio" name="nghiTuGio"
+                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                        </div>
+                    </div>
                 </div>
-                <div class="relative">
-                    <label for="nghiDen" class="block text-sm font-medium text-gray-700">Nghỉ đến</label>
-                    <input type="date" id="nghiDen" name="nghiDen"
-                        class=" mt-2 w-full border border-gray-300 rounded-lg py-3 pl-3 pr-3 text-gray-900 focus:ring-indigo-500 focus:border-indigo-500">
 
+                <!-- Nghỉ đến -->
+                <div class="flex flex-col space-y-2">
+                    <label class="text-sm font-semibold text-gray-700">Nghỉ đến</label>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="calendar" class="w-5 h-5 text-gray-500"></i>
+                            </div>
+                            <input type="date" id="nghiDenNgay" name="nghiDenNgay"
+                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                        </div>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                <i data-lucide="clock" class="w-5 h-5 text-gray-500"></i>
+                            </div>
+                            <input type="time" id="nghiDenGio" name="nghiDenGio"
+                                class="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-white">
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -213,13 +286,53 @@
         }
 
         document.addEventListener('DOMContentLoaded', async function () {
-            // Khởi tạo các icon Lucide
+            // Khởi tạo các icon từ thư viện Lucide
             lucide.createIcons();
 
-            // Lấy tên người dùng từ localStorage
+            // Lấy người dùng đã đăng nhập từ localStorage
             const loggedInUser = localStorage.getItem('loggedInUser');
 
-            // Hàm tải danh sách Key từ bảng HCNS_HSNS
+            // Các hằng số cho AppSheet API
+            const appId = 'f0dd0d6d-ecff-43d2-955e-f1043372dcf3';
+            const accessKey = 'V2-4Wugu-QKUHg-mouX7-xyDF8-AfRwt-7Phe6-JnZfW-6rrnv';
+            const region = 'www';
+
+            // Hàm gọi API AppSheet
+            function apiRequest(tableName, action, data) {
+                const apiUrl = `https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`;
+                return $.ajax({
+                    url: apiUrl,
+                    method: 'POST',
+                    headers: {
+                        'ApplicationAccessKey': accessKey,
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({
+                        Action: action,
+                        Properties: {
+                            Locale: 'vi-VN',
+                            Timezone: 'Asia/Ho_Chi_Minh'
+                        },
+                        ...data
+                    })
+                }).then(response => {
+                    return response;
+                }).catch(error => {
+                    throw error;
+                });
+            }
+
+            // Hàm đọc file
+            function readFile(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = error => reject(error);
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            // Hàm tải danh sách nhân viên và khởi tạo select box
             async function loadKeys() {
                 const selectElement = document.getElementById('sokey');
                 try {
@@ -232,40 +345,130 @@
                     })) || [];
 
                     selectElement.innerHTML = '<option value="">Chọn họ và tên</option>';
-
                     keys.forEach(row => {
                         const option = document.createElement('option');
                         option.value = row.KEY;
                         option.text = row.name;
                         option.dataset.phongBan = row.phongBan;
                         option.dataset.chucVu = row.chucVu;
-
-                        // Tự động chọn người dùng đã đăng nhập
-                        if (row.name === loggedInUser) {
-                            option.selected = true;
-                            document.getElementById('phongBan').value = row.phongBan || '';
-                            document.getElementById('chucVu').value = row.chucVu || '';
-                        }
-
                         selectElement.appendChild(option);
                     });
 
-                    // Thêm event listener cho việc chọn họ tên
+                    // Khởi tạo Choices.js cho select box
+                    const choices = new Choices(selectElement, {
+                        searchEnabled: true,
+                        searchPlaceholderValue: "Tìm kiếm họ tên...",
+                        itemSelectText: '',
+                        noResultsText: 'Không tìm thấy kết quả',
+                        noChoicesText: 'Không có lựa chọn nào',
+                        searchResultLimit: 10,
+                        position: 'bottom'
+                    });
+
+                    // Tự động chọn người dùng đã đăng nhập
+                    if (loggedInUser) {
+                        const loggedInOption = Array.from(selectElement.options)
+                            .find(option => option.text === loggedInUser);
+                        if (loggedInOption) {
+                            choices.setChoiceByValue(loggedInOption.value);
+                            document.getElementById('phongBan').value = loggedInOption.dataset.phongBan || '';
+                            document.getElementById('chucVu').value = loggedInOption.dataset.chucVu || '';
+                        }
+                    }
+
+                    // Xử lý sự kiện khi thay đổi lựa chọn
                     selectElement.addEventListener('change', function () {
                         const selectedOption = this.options[this.selectedIndex];
                         document.getElementById('phongBan').value = selectedOption.dataset.phongBan || '';
                         document.getElementById('chucVu').value = selectedOption.dataset.chucVu || '';
                     });
+
                 } catch (error) {
                     console.error('Không thể tải danh sách Key:', error);
                     selectElement.innerHTML = '<option value="">Lỗi khi tải dữ liệu</option>';
                 }
             }
 
-            // Gọi hàm loadKeys khi trang tải
-            loadKeys();
+            // Thiết lập giá trị mặc định cho các trường thời gian
+            const now = new Date();
+            const timeString = now.toTimeString().slice(0, 5);
+            const dateString = now.toISOString().slice(0, 10);
 
-            // Xử lý sự kiện submit form
+            document.getElementById('nghiTuNgay').value = dateString;
+            document.getElementById('nghiTuGio').value = timeString;
+            document.getElementById('nghiDenNgay').value = dateString;
+            document.getElementById('nghiDenGio').value = timeString;
+
+            // Hàm kết hợp ngày và giờ thành datetime
+            function combineDateTime(date, time) {
+                if (!date || !time) return null;
+
+                // Tách giờ và phút từ chuỗi time
+                const [hours, minutes] = time.split(':');
+
+                // Tạo đối tượng Date từ ngày và giờ
+                const dateObj = new Date(`${date}T${hours}:${minutes}:00`);
+
+                // Format theo DD/MM/YYYY HH:mm:00
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const year = dateObj.getFullYear();
+                const formattedHours = String(dateObj.getHours()).padStart(2, '0');
+                const formattedMinutes = String(dateObj.getMinutes()).padStart(2, '0');
+
+                // Trả về chuỗi theo định dạng DD/MM/YYYY HH:mm:00
+                return `${day}/${month}/${year} ${formattedHours}:${formattedMinutes}:00`;
+            }
+
+            // Thiết lập giá trị mặc định cho các trường thời gian
+            function setDefaultDateTime() {
+                const now = new Date();
+
+                // Format ngày cho input date (YYYY-MM-DD)
+                const dateString = now.toISOString().split('T')[0];
+
+                // Format giờ cho input time (HH:mm)
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                const timeString = `${hours}:${minutes}`;
+
+                // Set giá trị cho các trường input
+                document.getElementById('nghiTuNgay').value = dateString;
+                document.getElementById('nghiTuGio').value = timeString;
+                document.getElementById('nghiDenNgay').value = dateString;
+                document.getElementById('nghiDenGio').value = timeString;
+            }
+
+            // Hàm kiểm tra hợp lệ của thời gian
+            function validateDateTime() {
+                const tuNgay = document.getElementById('nghiTuNgay').value;
+                const tuGio = document.getElementById('nghiTuGio').value;
+                const denNgay = document.getElementById('nghiDenNgay').value;
+                const denGio = document.getElementById('nghiDenGio').value;
+
+                const tuDateTime = new Date(`${tuNgay}T${tuGio}`);
+                const denDateTime = new Date(`${denNgay}T${denGio}`);
+
+                if (denDateTime < tuDateTime) {
+                    Toastify({
+                        text: "Thời gian kết thúc phải sau thời gian bắt đầu",
+                        duration: 3000,
+                        close: true,
+                        gravity: "top",
+                        position: "right",
+                        backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                    }).showToast();
+
+                    document.getElementById('nghiDenNgay').value = tuNgay;
+                    document.getElementById('nghiDenGio').value = tuGio;
+                }
+            }
+
+            // Thêm validation cho các trường thời gian
+            document.getElementById('nghiDenNgay').addEventListener('change', validateDateTime);
+            document.getElementById('nghiDenGio').addEventListener('change', validateDateTime);
+
+            // Xử lý submit form
             document.getElementById('expenseForm').addEventListener('submit', async function (e) {
                 e.preventDefault();
 
@@ -281,7 +484,6 @@
                 });
 
                 if (missingFields.length > 0) {
-                    // Hiển thị thông báo lỗi nếu thiếu thông tin
                     Toastify({
                         text: `Vui lòng nhập đầy đủ thông tin: ${missingFields.join(', ')}`,
                         duration: 4000,
@@ -305,29 +507,30 @@
                     filebase = await readFile(file);
                 }
 
+                // Chuyển đổi thời gian sang định dạng chuẩn
+                const nghiTuDateTime = combineDateTime(data.nghiTuNgay, data.nghiTuGio);
+                const nghiDenDateTime = combineDateTime(data.nghiDenNgay, data.nghiDenGio);
+
                 // Chuẩn bị dữ liệu để gửi
                 const ungVienData = {
                     "KEY": data.sokey,
                     "DIỆN NGHỈ": data.dienNghi,
-                    "NGHỈ TỪ": data.nghiTu,
-                    "NGHỈ ĐẾN": data.nghiDen,
+                    "NGHỈ TỪ": nghiTuDateTime,  // Đã được format đúng
+                    "NGHỈ ĐẾN": nghiDenDateTime, // Đã được format đúng
                     "LÝ DO NGHỈ": data.lyDoNghi,
                     "NHÂN VIÊN NHẬN BÀN GIAO VIỆC": data.nhanVienNhanBanGiao,
                     "ĐƠN ĐÍNH KÈM": filebase,
                     "Số giờ nghỉ": data.soGioNghi
                 };
 
-                console.log(ungVienData);
-                disableForm(); // Vô hiệu hóa form trong quá trình gửi
-                showLoadingOverlay(); // Hiển thị overlay loading
+                disableForm();
+                showLoadingOverlay();
 
                 try {
-                    // Gửi dữ liệu đến API
                     const duAnResponse = await apiRequest('Nghi phep', 'Add', {
                         Rows: [ungVienData]
                     });
 
-                    // Hiển thị thông báo thành công
                     Toastify({
                         text: "Form đã được gửi thành công!",
                         duration: 3000,
@@ -337,9 +540,8 @@
                         backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
                     }).showToast();
 
-                    this.reset(); // Reset form sau khi gửi thành công
+                    this.reset();
                 } catch (error) {
-                    // Xử lý lỗi nếu có
                     console.error('Lỗi khi gửi form:', error);
                     Toastify({
                         text: "Có lỗi xảy ra khi gửi form. Vui lòng thử lại sau.",
@@ -350,10 +552,13 @@
                         backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
                     }).showToast();
                 } finally {
-                    enableForm(); // Kích hoạt lại form
-                    hideLoadingOverlay(); // Ẩn overlay loading
+                    enableForm();
+                    hideLoadingOverlay();
                 }
             });
+
+            // Gọi hàm loadKeys khi trang được tải
+            await loadKeys();
         });
 
         // Hàm để vô hiệu hóa form
