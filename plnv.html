@@ -413,17 +413,19 @@
             return `ngày ${day} tháng ${month} năm ${year}`;
         }
 
-        // Trong phần xử lý tham số URL
-        var ndc = getUrlParameter('ndc');
-        if (ndc) {
-            setTextContentById('ndc', formatVietnameseDate(ndc));
-        }
+
 
         // Get parameters from URL and set content
-        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tn', 'dn', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong', 'khac', 'dt'];
+        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tn', 'dn', 'ndc', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong', 'khac', 'dt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
+
+            // Trong phần xử lý tham số URL
+            var ndc = getUrlParameter('ndc');
+            if (ndc) {
+                setTextContentById('ndc', formatVietnameseDate(ndc));
+            }
         });
         $.ajaxSetup({
             headers: {
