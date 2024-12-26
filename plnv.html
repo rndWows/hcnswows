@@ -348,34 +348,37 @@
                     <div>Các khoản phụ cấp trên tính theo số ngày công thực tế làm việc thuộc công chuẩn. Riêng ngày
                         (giờ) làm việc tăng ca căn cứ theo mức lương cơ bản để làm căn cứ tính tăng ca.</div>
                     <div>
-                    <div>
-                        Phụ lục này có hiệu lực kể từ ngày (<span id="tn"></span>), có giá trị thay thế cho các phụ lục ký trước
-                        đó và có hiệu lực đến ngày (<span id="dn"></span>) hoặc khi có một phụ lục khác thay thế.
-                    </div>
-                    <div>
-                        Phụ lục này là bộ phận của hợp đồng lao động số <span id="shd1"></span> được lập thành hai (02) bản
-                        có giá trị như nhau, mỗi bên giữ một (01) bản và là cơ sở để giải quyết khi có tranh chấp lao
-                        động.
-                    </div>
-                    <br>
-                </div>
-                <div>
-                    <div class="khoi-chu-ky">
-                        <div class="cot-chu-ky">
-                            <div class="tieu-de-chu-ky">NGƯỜI LAO ĐỘNG</div>
-                            <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
-                            <div><span class="bold" id="hvt2"></span></div>
+                        <div>
+                            Phụ lục này có hiệu lực kể từ ngày (<span id="tn"></span>), có giá trị thay thế cho các phụ
+                            lục ký trước
+                            đó và có hiệu lực đến ngày (<span id="dn"></span>) hoặc khi có một phụ lục khác thay thế.
                         </div>
-                        <div class="cot-chu-ky">
-                            <div class="tieu-de-chu-ky">NGƯỜI SỬ DỤNG LAO ĐỘNG</div>
-                            <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
-                            <div><span class="bold">Bà Đỗ Thị Kim Thủy</span></div>
+                        <div>
+                            Phụ lục này là bộ phận của hợp đồng lao động số <span id="shd1"></span> được lập thành hai
+                            (02) bản
+                            có giá trị như nhau, mỗi bên giữ một (01) bản và là cơ sở để giải quyết khi có tranh chấp
+                            lao
+                            động.
                         </div>
+                        <br>
                     </div>
+                    <div>
+                        <div class="khoi-chu-ky">
+                            <div class="cot-chu-ky">
+                                <div class="tieu-de-chu-ky">NGƯỜI LAO ĐỘNG</div>
+                                <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
+                                <div><span class="bold" id="hvt2"></span></div>
+                            </div>
+                            <div class="cot-chu-ky">
+                                <div class="tieu-de-chu-ky">NGƯỜI SỬ DỤNG LAO ĐỘNG</div>
+                                <p class="tieu-de-chu-ky-2">(Ký, ghi rõ họ tên)</p>
+                                <div><span class="bold">Bà Đỗ Thị Kim Thủy</span></div>
+                            </div>
+                        </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
 
     </page>
 
@@ -403,6 +406,17 @@
             if (element) {
                 element.textContent = value;
             }
+        }
+
+        function formatVietnameseDate(dateString) {
+            const [day, month, year] = dateString.split('/');
+            return `ngày ${day} tháng ${month} năm ${year}`;
+        }
+
+        // Trong phần xử lý tham số URL
+        var ndc = getUrlParameter('ndc');
+        if (ndc) {
+            setTextContentById('ndc', formatVietnameseDate(ndc));
         }
 
         // Get parameters from URL and set content
