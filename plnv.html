@@ -40,7 +40,7 @@
 
 
     @media print {
-        
+
         body,
         #content {
             margin: 0;
@@ -59,7 +59,7 @@
         @page {
             size: auto;
         }
-        
+
         #content-split {
             margin-top: 40px;
             position: absolute;
@@ -80,6 +80,7 @@
             left: 10px;
         }
     }
+
     #content {
         font-size: 13.5px;
 
@@ -178,12 +179,15 @@
     }
 
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -194,32 +198,39 @@
             display: none !important;
         }
     }
-    @media print {
-            .khoi-chu-ky {
-                page-break-inside: avoid;
-            }
-        }
-        .khoi-chu-ky {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px; /* Điều chỉnh khoảng cách nếu cần */
-        }
-        .cot-chu-ky {
-            width: 45%;
-            text-align: center;
-        }
-        .tieu-de-chu-ky {
-            font-weight: bold;
-        }
-        .tieu-de-chu-ky-2 { 
 
-            margin-bottom: 70px; /* Khoảng trống cho chữ ký */
+    @media print {
+        .khoi-chu-ky {
+            page-break-inside: avoid;
         }
+    }
+
+    .khoi-chu-ky {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+        /* Điều chỉnh khoảng cách nếu cần */
+    }
+
+    .cot-chu-ky {
+        width: 45%;
+        text-align: center;
+    }
+
+    .tieu-de-chu-ky {
+        font-weight: bold;
+    }
+
+    .tieu-de-chu-ky-2 {
+
+        margin-bottom: 70px;
+        /* Khoảng trống cho chữ ký */
+    }
 </style>
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-        class="language_print"></span></button>
+            class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -344,9 +355,13 @@
                             id="dn"></span>
                     </div>
                     <div>
-                        Phụ lục này là bộ phận của hợp đồng lao động số <span id="shd1"></span> được lập thành hai (02)
-                        bản có giá trị như nhau, mỗi bên giữ một (01) bản và là cơ sở để giải quyết khi có tranh chấp
-                        lao động.
+                        Phụ lục này có hiệu lực kể từ ngày (ngày hiệu lực), có giá trị thay thế cho các phụ lục ký trước
+                        đó và có hiệu lực đến ngày hết hạn hợp đồng hoặc khi có một phụ lục khác thay thế.
+                    </div>
+                    <div>
+                        Phụ lục này là bộ phận của hợp đồng lao động số HĐLĐ-24/11/09--NHN được lập thành hai (02) bản
+                        có giá trị như nhau, mỗi bên giữ một (01) bản và là cơ sở để giải quyết khi có tranh chấp lao
+                        động.
                     </div>
                     <br>
                 </div>
@@ -397,7 +412,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tn', 'dn', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong','khac','dt'];
+        var parameters = ['spl', 'shd', 'shd1', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tn', 'dn', 'kpi', 'cc', 'pcc', 'xx', 'htdl', 'htno', 'tong', 'khac', 'dt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
