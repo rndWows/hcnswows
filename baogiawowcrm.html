@@ -458,7 +458,7 @@
             </ul>
         </li>
         <li>Về chi phí mua tài khoản/ drive/ dung lượng để lưu trữ dữ liệu hoặc chi phí cấp license/ user người dùng và admin app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm mua và thanh toán theo chính sách của Google theo từng thời điểm.</li>
-        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>${formatCurrency(phipulic)}</strong> (Mười lăm triệu đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
+        <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>${formatCurrency(phipulic)}</strong> (${numberToWords(Math.round(phipulic))} đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
     `;
     ghiChuList.innerHTML = ghiChuHTML;
 } else {
