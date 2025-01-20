@@ -265,7 +265,7 @@
                     <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns"> </span></div>
                     <div><span class="bold">Số CCCD:</span>&emsp; &emsp; &ensp;<span id="cccd"> </span>
                         &emsp; &emsp;
-                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="ns"> </span>&emsp; &emsp;
+                        &emsp; &emsp; <span class="bold">Ngày cấp:</span> <span id="nccc"> </span>&emsp; &emsp;
                         &emsp; &emsp; <span class="bold">Nơi cấp: </span> <span id="nc"></span>
                         <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
                         <div><span class="bold">Hình thức làm việc:</span>&emsp; &emsp; &emsp;&ensp; <span
@@ -537,7 +537,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['shd', 'hvt', 'hvt2', 'ns', 'cccd', 'nc', 'dc', 'htlv', 'pb', 'cv', 'lcb'];
+        var parameters = ['shd', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'htlv', 'pb', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
