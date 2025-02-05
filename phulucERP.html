@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -30,12 +31,11 @@
         .fixed-button {
             position: fixed;
             bottom: 20px;
-            /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
             right: 20px;
-            /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
             width: 100%;
             max-width: 200px;
-            /* Điều chỉnh chiều rộng tối đa của button */
+            display: flex;
+            gap: 10px;
         }
 
         page {
@@ -220,8 +220,12 @@
 </head>
 
 <body>
-    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In phụ lục</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -310,7 +314,43 @@
 
     <script>
         const API_URL = 'https://script.google.com/macros/s/AKfycbxBC2rStHp37z7dUcwm-_4HOnsU1y7zTxqPuuPSKgBL0Q13llL1dqn3juQ2l_2jsGHm/exec';
+        let currentAccountIndex = 0;
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank',
+                branch: 'Chi nhánh Bình Dương'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank',
+                branch: 'Chi nhánh Bình Dương'
+            }
+        ];
 
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            const account = bankAccounts[currentAccountIndex];
+
+            // Tìm phần tử chứa thông tin tài khoản trong bảng
+            const rows = document.querySelectorAll('#thanhToanInfo tr');
+            rows.forEach(row => {
+                const td = row.querySelector('td');
+                if (td) {
+                    if (td.textContent.includes('Số tài khoản:')) {
+                        td.innerHTML = `Số tài khoản:<span class="bold"> ${account.accountNumber}</span>`;
+                    } else if (td.textContent.includes('Tên chủ tài khoản:')) {
+                        td.textContent = `Tên chủ tài khoản: ${account.accountHolder}`;
+                    } else if (td.textContent.includes('Ngân hàng thụ hưởng:')) {
+                        td.textContent = `Ngân hàng thụ hưởng: ${account.bank}`;
+                    } else if (td.textContent.includes('Chi nhánh NH thụ hưởng:')) {
+                        td.textContent = `Chi nhánh NH thụ hưởng: ${account.branch}`;
+                    }
+                }
+            });
+        }
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
