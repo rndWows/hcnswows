@@ -303,16 +303,19 @@
                             <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
                             <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
                         </tr>
-                        <tr>
+                        <tr id="vatRow">
                             <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)</td>
+                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
+                            </td>
                         </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC(Phí duy trì + Phí public):</strong></td>
+                        <tr id="chiphikhacRow"> >
+                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC(Phí duy trì + Phí public):</strong>
+                            </td>
                             <td colspan="3" class="text-center"><span id="chiphikhac"></span></td>
                         </tr>
                         <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
+                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN: <span
+                                        id="checkvat"></span></strong></td>
                             <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
                         </tr>
                     </tfoot>
@@ -409,16 +412,41 @@
             document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
             document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
             document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
-            document.getElementById('vat').textContent = HOP_DONG['%VAT'] ? HOP_DONG['%VAT'] * 100 + ' %' : '0%';
-            document.getElementById('tongTienVAT').textContent = formatCurrency(HOP_DONG['Tong_tien_VAT'] || 0);
+
+            // Handle VAT row visibility
+            const vatValue = HOP_DONG['%VAT'];
+            const vatRow = document.getElementById('vatRow');
+            if (!vatValue || vatValue === 0) {
+                vatRow.style.display = 'none';
+                document.getElementById('checkvat').textContent = '(Chưa bao gồm VAT)';
+            } else {
+                vatRow.style.display = '';
+                document.getElementById('vat').textContent = vatValue ? vatValue * 100 + ' %' : '0%';
+                document.getElementById('tongTienVAT').textContent = formatCurrency(HOP_DONG['Tong_tien_VAT'] || 0);
+                document.getElementById('checkvat').textContent = '(Đã bao gồm VAT)';
+
+            }
+
+            // Calculate additional fees
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
             const phantramduytri = HOP_DONG['Chi phí'];
             const chiPhiDuyTri = HOP_DONG['Tiền Phí Duy trì hàng năm'];
             const phipulic = HOP_DONG['Phí Public App'] * (1 + HOP_DONG['%VAT']);
-            document.getElementById('chiphikhac').textContent = formatCurrency(chiPhiDuyTri+ phipulic || 0);
-            document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT']  +chiPhiDuyTri+ phipulic || 0);
-            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(HOP_DONG['Tong_tien_sau_VAT'] +chiPhiDuyTri+ phipulic  || 0)} đồng`;
 
+            // Handle additional costs row visibility
+            const chiphikhacRow = document.getElementById('chiphikhacRow');
+            const totalAdditionalCosts = chiPhiDuyTri + phipulic;
+            if (!totalAdditionalCosts || totalAdditionalCosts === 0) {
+                chiphikhacRow.style.display = 'none';
+            } else {
+                chiphikhacRow.style.display = '';
+                document.getElementById('chiphikhac').textContent = formatCurrency(totalAdditionalCosts || 0);
+            }
+
+            // Update total payment
+            const totalPayment = HOP_DONG['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0;
+            document.getElementById('tongThanhToan').textContent = formatCurrency(totalPayment);
+            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(totalPayment)} đồng`;
         }
 
         function updateNotes() {
