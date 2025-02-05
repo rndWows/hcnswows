@@ -41,12 +41,21 @@
 
 
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 100%;
+        max-width: 200px;
+        /* Tăng max-width để chứa 2 nút */
+        display: flex;
+        gap: 10px;
+        /* Khoảng cách giữa 2 nút */
+    }
+
+    .btn-fixed {
+        flex: 1;
+    }
+
     @media print {
 
         body,
@@ -55,6 +64,7 @@
             box-shadow: 0;
             font-size: 18px !important;
         }
+
         h5 {
             font-size: 24px
         }
@@ -195,8 +205,14 @@
 </style>
 
 <body>
-    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In hợp đồng</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
+
+
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -216,8 +232,8 @@
                         <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
                     </tr>
                     <tr>
-                        <td style="font-size: 12px;">Ngày ban hành: <span >01/07/2024</td>
-                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span >00</td>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
@@ -228,13 +244,13 @@
                 <div style="clear: both"></div>
                 <br>
                 <h5 style="text-align: center;" class="bold"><span>HỢP ĐỒNG DỊCH VỤ TUYỂN DỤNG NHÂN SỰ</span></h5>
-                        <i>Hôm nay, ngày
-                            <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
-                            tháng
-                            <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
-                            năm
-                            <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
-                        </i>
+                <i>Hôm nay, ngày
+                    <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                    tháng
+                    <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                    năm
+                    <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
+                </i>
                 <div class="info_student">
                     <table style="width: 100%; ">
                         <tr>
@@ -252,11 +268,13 @@
                         </tr>
                         <tr>
                             <th style="width: 30%;">Đại diện theo pháp luật</th>
-                            <td style="width: 70%;">Bà <strong>Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span class="bold">Chức
+                            <td style="width: 70%;">Bà <strong>Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span
+                                    class="bold">Chức
                                     vụ:</span> Tổng giám đốc
                             </td>
 
                         </tr>
+
                         <tr>
                             <th style="width: 30%;">Số tài khoản</th>
                             <td style="width: 70%;">1025576073</td>
@@ -308,33 +326,35 @@
                     <div>
                         <p>Bên A cung cấp dịch vụ tuyển dụng nhân sự theo yêu cầu của Bên B.<br>Dịch vụ bao gồm:
                             <br>- Thống nhất vị trí tuyển dụng và yêu cầu chi tiết về ứng viên.
-                
+
                             <br>- Sàng lọc hồ sơ, đánh giá ứng viên.
                             <br>- Phỏng vấn sơ tuyển và đề xuất danh sách ứng viên phù hợp.
                             <br>- Tổ chức vòng phỏng vấn cuối với sự tham gia của Bên A và Bên B.
                             <br>- Đảm bảo quyền lợi bảo hành nhân sự (nếu có) trong thời gian quy định.
                         </p>
-                
-                
-                
+
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <h6 class="bold">Điều 2: Phí dịch vụ và phương thức thanh toán
                 </h6>
                 <div class="info_student" style="margin-left: 10px;">
                     <div>
-                        <p>- Dịch vụ mà Quý Khách Hàng lựa chọn và nội dung thanh toán tương ứng sẽ được ghi nhận tại các phụ lục đính kèm của hợp đồng.
-                       
-                            <br>- Hợp đồng đã ký sẽ không được hoàn phí dưới mọi hình thức, mọi thay đổi điều chỉnh đều cần có văn bản thỏa thuận được đồng thuận từ hai phía.
+                        <p>- Dịch vụ mà Quý Khách Hàng lựa chọn và nội dung thanh toán tương ứng sẽ được ghi nhận tại
+                            các phụ lục đính kèm của hợp đồng.
+
+                            <br>- Hợp đồng đã ký sẽ không được hoàn phí dưới mọi hình thức, mọi thay đổi điều chỉnh đều
+                            cần có văn bản thỏa thuận được đồng thuận từ hai phía.
                         </p>
-                
-                
-                
+
+
+
                     </div>
-                
-                  
+
+
                 </div>
 
                 <h6 class="bold">Điều 3: Quyền và nghĩa vụ của các bên
@@ -343,98 +363,103 @@
                     <div>
                         <p class="bold"> 3.1. Trách nhiệm của Bên A:</p>
                         <p>- Cung cấp dịch vụ theo đúng cam kết.
-                       
+
                             <br>- Đảm bảo bảo mật thông tin ứng viên và quy trình tuyển dụng.
-                        <br>- Bảo hành ứng viên theo thỏa thuận.
+                            <br>- Bảo hành ứng viên theo thỏa thuận.
                         </p>
                         <p class="bold"> 3.2. Trách nhiệm của Bên B:</p>
                         <p>
                             - Cung cấp đầy đủ thông tin về vị trí tuyển dụng.
-                            <br>  - Phối hợp với Bên A để tổ chức phỏng vấn và đánh giá ứng viên.
-                            <br>  - Thanh toán đầy đủ, đúng hạn theo hợp đồng.
-                            
-                            
-                 
+                            <br> - Phối hợp với Bên A để tổ chức phỏng vấn và đánh giá ứng viên.
+                            <br> - Thanh toán đầy đủ, đúng hạn theo hợp đồng.
+
+
+
                         </p>
-                
-                
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <h6 class="bold">Điều 4: Bảo hành nhân sự
                 </h6>
                 <div class="info_student" style="margin-left: 10px;">
                     <div>
-                      
-                      
+
+
                         <p>
                             - Bên A cam kết bảo hành nhân sự trong ... ngày kể từ ngày nhận việc.
-                            <br> - Trong thời gian bảo hành, nếu ứng viên không đáp ứng yêu cầu, Bên A sẽ hỗ trợ thay thế một lần miễn phí.
-                            
-                 
+                            <br> - Trong thời gian bảo hành, nếu ứng viên không đáp ứng yêu cầu, Bên A sẽ hỗ trợ thay
+                            thế một lần miễn phí.
+
+
                         </p>
-                
-                
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <h6 class="bold">Điều 5: Bảo mật thông tin
                 </h6>
                 <div class="info_student" style="margin-left: 10px;">
                     <div>
-                      
-                       
+
+
                         <p>
                             Hai bên cam kết bảo mật thông tin liên quan đến quá trình tuyển dụng và ứng viên.
 
 
-                 
+
                         </p>
-                
-                
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <h6 class="bold">Điều 6: Chấm dứt hợp đồng
                 </h6>
                 <div class="info_student" style="margin-left: 10px;">
                     <div>
-                      
-                        
+
+
                         <p>
-                            - Hợp đồng có thể chấm dứt khi hai bên thỏa thuận hoặc khi một bên vi phạm nghĩa vụ hợp đồng.
-                            <br>- Hợp đồng có thể chấm dứt khi hai bên thỏa thuận hoặc khi một bên vi phạm nghĩa vụ hợp đồng
+                            - Hợp đồng có thể chấm dứt khi hai bên thỏa thuận hoặc khi một bên vi phạm nghĩa vụ hợp
+                            đồng.
+                            <br>- Hợp đồng có thể chấm dứt khi hai bên thỏa thuận hoặc khi một bên vi phạm nghĩa vụ hợp
+                            đồng
 
 
-                 
+
                         </p>
-                
-                
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <h6 class="bold">Điều 7: Điều khoản chung
                 </h6>
                 <div class="info_student" style="margin-left: 10px;">
                     <div>
-                      
+
                         <p>
                             - Hợp đồng có hiệu lực từ ngày ký.
-                            <br> - Mọi tranh chấp phát sinh liên quan đến hợp đồng này sẽ được giải quyết tại Tòa án tỉnh Bình Dương. Bên thua kiện sẽ chịu trách nhiệm hoàn toàn về các khoản chi phí phát sinh trong quá trình tranh chấp.
+                            <br> - Mọi tranh chấp phát sinh liên quan đến hợp đồng này sẽ được giải quyết tại Tòa án
+                            tỉnh Bình Dương. Bên thua kiện sẽ chịu trách nhiệm hoàn toàn về các khoản chi phí phát sinh
+                            trong quá trình tranh chấp.
                             <br>- Hợp đồng này được lập thành 02 bản có giá trị pháp lý như nhau, mỗi bên giữ một bản.
-                            
-                            
-                 
+
+
+
                         </p>
-                
-                
+
+
                     </div>
-                
-                  
+
+
                 </div>
                 <br>
                 <i>Hợp Đồng này được lập thành 02 (hai) bản với giá trị như nhau. Được thực hiện và có hiệu lực kể từ
@@ -498,6 +523,39 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
+        let currentAccountIndex = 0;
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank'
+            }
+        ];
+
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            const account = bankAccounts[currentAccountIndex];
+
+            // Cập nhật thông tin tài khoản hiển thị
+            const rows = document.querySelectorAll('table tr');
+            rows.forEach(row => {
+                const header = row.querySelector('th');
+                if (header) {
+                    if (header.textContent.includes('Số tài khoản')) {
+                        row.querySelector('td').textContent = account.accountNumber;
+                    } else if (header.textContent.includes('Tên Tài Khoản')) {
+                        row.querySelector('td').textContent = account.accountHolder;
+                    } else if (header.textContent.includes('Tên ngân hàng')) {
+                        row.querySelector('td').textContent = account.bank;
+                    }
+                }
+            });
+        }
         function getUrlParameter(name) {
             name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
             var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
