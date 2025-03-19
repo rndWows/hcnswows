@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -24,19 +23,39 @@
 
     <style>
         body {
-            background: rgb(204, 204, 204);
             font-family: "Times New Roman", Times, serif;
         }
 
         .fixed-button {
             position: fixed;
-            bottom: 20px;
-            /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+            top: 20px;
+            /* Thay đổi từ bottom thành top */
             right: 20px;
-            /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
             width: 100%;
             max-width: 200px;
-            /* Điều chỉnh chiều rộng tối đa của button */
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            /* Đảm bảo nút luôn nằm trên các phần tử khác */
+        }
+
+        .fixed-button:hover {
+            background-color: #138496;
+            transform: translateY(3px);
+            /* Thay đổi hướng hiệu ứng hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .fixed-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
 
         page {
@@ -110,6 +129,7 @@
 
         .center {
             text-align: center;
+
         }
 
         .right {
@@ -259,25 +279,23 @@
                 <p>Chúng tôi xin gửi đến Quý khách hàng thông tin báo giá như sau:</p>
 
                 <table class="table table-bordered">
-                    <thead class="center-content">
-                        <tr>
-                            <th rowspan="2" class="center">STT</th>
-                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
+                    <tr class="center-content">
+                        <th rowspan="2" class="center">STT</th>
+                        <th colspan="7">THÔNG TIN SẢN PHẨM</th>
 
-                            <th rowspan="2" class="center">GHI CHÚ</th>
-                        </tr>
-                        <tr>
-                            <th>Mã sản phẩm</th>
-                            <th>Tên sản phẩm</th>
-                            <th>Quy cách</th>
-                            <th>Đơn vị tính</th>
-                            <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tổng giá trị <BR>
-                                (Giá gốc)</th>
+                        <th rowspan="2" class="center">GHI CHÚ</th>
+                    </tr>
+                    <tr class="center-content">
+                        <th>Mã sản phẩm</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Quy cách</th>
+                        <th>Đơn vị tính</th>
+                        <th>Số lượng</th>
+                        <th>Đơn giá</th>
+                        <th>Tổng giá trị <BR>
+                            (Giá gốc)</th>
 
-                        </tr>
-                    </thead>
+                    </tr>
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
@@ -300,7 +318,8 @@
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)</td>
+                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
+                            </td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC:</strong></td>
@@ -434,7 +453,7 @@
             document.getElementById('tongTienVAT').textContent = formatCurrency(PO['Tong_tien_VAT'] || 0);
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
             const phantramduytri = PO['Chi phí'];
-            const chiPhiDuyTri = PO['Phí duy trì']; 
+            const chiPhiDuyTri = PO['Phí duy trì'];
             const phipulic = PO['Phí Public App'] * (1 + PO['%VAT']);
             document.getElementById('chiphikhac').textContent = formatCurrency(chiPhiDuyTri + phipulic || 0);
             document.getElementById('tongThanhToan').textContent = formatCurrency(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0);
@@ -443,7 +462,7 @@
             const ghiChuList = document.getElementById('ghiChu');
 
             if (tienApp > 0) {
-    const ghiChuHTML = `
+                const ghiChuHTML = `
         <li>Chi phí trên được tính cho việc xây dựng và hướng dẫn doanh nghiệp khách hàng sử dụng File Google sheet và chuyển giao, Đối với App  ( chỉ chuyển giao với vai trò người dùng (không chuyển giao source nguồn code app).</li>
         <li>Miễn phí hướng dẫn sử dụng app: <strong>${PO['Số buổi'] || ''}</strong> buổi Online/Offline</li>
         <li>Buổi thứ <strong>${(parseInt(PO['Số buổi'] || 0) + 1)}</strong> trở đi: chi phí được tính là:<strong> 1.000.000/ 1 buổi Online/Offline </strong></li>
@@ -460,10 +479,10 @@
         <li>Về chi phí mua tài khoản/ drive/ dung lượng cloud/ server để lưu trữ, back up dữ liệu hoặc chi phí cấp license/ user người dùng và quản trị app, user owner cho Wows: doanh nghiệp khách hàng sẽ chịu trách nhiệm thanh toán theo chính sách của Google hoặc đơn vị cung cấp dịch vụ theo gói mà doanh nghiệp khách hàng lựa chọn.</li>
         <li>Phí public app để sử dụng cho số lượng người dùng lớn được tính theo chính sách giá của google (có thể điều chỉnh hàng năm nếu có). WOWS chỉ đóng vai trò thu hộ và phí này được thanh toán cùng đợt thanh toán lần 01 sau khi ký hợp đồng: Phí cho năm hiện tại là: <strong>${formatCurrency(phipulic)}</strong> (${numberToWords(Math.round(phipulic))} đồng) và đóng định kỳ hàng năm cùng thời điểm.</li>
     `;
-    ghiChuList.innerHTML = ghiChuHTML;
-} else {
-    ghiChuList.style.display = 'none';
-}
+                ghiChuList.innerHTML = ghiChuHTML;
+            } else {
+                ghiChuList.style.display = 'none';
+            }
 
             const thanhToanInfo = document.getElementById('thanhToanInfo');
             let thanhToanHTML = `
@@ -481,7 +500,7 @@
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
                 if (dkttItem) {
                     const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
-                    let soTienThanhToan =(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic)  * phanTramThanhToan || 0;
+                    let soTienThanhToan = (PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic) * phanTramThanhToan || 0;
                     let phiDuyTri = parseFloat(PO['Tiền Phí Duy trì hàng năm']) * phanTramThanhToan || 0;
                     let phiPublicApp = parseFloat(PO['Phí Public App ']) * phanTramThanhToan || 0;
 
