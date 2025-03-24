@@ -314,7 +314,7 @@
                 <div class="info_student" style="margin-left: 10px;">
                     <div>1.1. Bản thỏa thuận này có giá trị ràng buộc bắt buộc đối với cả hai bên, được xem và hiểu như
                         là một bộ phận không thể tách rời với các hợp đồng, phụ lục hoặc thỏa thuận khác … mà hai bên ký
-                        kết với nhau trong quá trình triển khai Hợp đồng/ Hợp đồng số 09/23/WOWS-NPC.</div>
+                        kết với nhau trong quá trình triển khai Hợp đồng/ Hợp đồng số <span id="HD">0</span>.</div>
                     <div>1.2. Bí mật kinh doanh và tài sản sở hữu trí tuệ : được hiểu là các thông tin, tài liệu, ý
                         tưởng kinh doanh, file, biểu mẫu … thể hiện hoặc lưu trữ dưới các dạng như : văn bản, file máy
                         tính, thư điện tử, hình ảnh, mã code phần mềm tin học… mà mỗi bên có được và thuộc quyền sở hữu
@@ -422,7 +422,7 @@
             }
         }
 
-        var parameters = ['id', 'date', 'benb', 'mst', 'diachi', 'daidien', 'cv', 'benb1', 'daidien1'];
+        var parameters = ['id', 'HD', 'date', 'benb', 'mst', 'diachi', 'daidien', 'cv', 'benb1', 'daidien1'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
