@@ -236,6 +236,12 @@
                 display: none !important;
             }
         }
+
+        @media print {
+            #accountSelect {
+                display: none;
+            }
+        }
     </style>
 
 </head>
@@ -486,15 +492,15 @@
 
             const thanhToanInfo = document.getElementById('thanhToanInfo');
             let thanhToanHTML = `
-    <div class="info_student">
-        <table style="width: 100%;">
-            <tr>
-                <td colspan="2"><span class="bold">Điều khoản thanh toán:</span></td>
-            </tr>
-            <tr>
-                <td colspan="2">Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm thanh toán cho hợp đồng theo các đợt như sau:</td>
-            </tr>
-    `;
+<div class="info_student">
+    <table style="width: 100%;">
+        <tr>
+            <td colspan="2"><span class="bold">Điều khoản thanh toán:</span></td>
+        </tr>
+        <tr>
+            <td colspan="2">Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm thanh toán cho hợp đồng theo các đợt như sau:</td>
+        </tr>
+`;
 
             for (let i = 1; i <= 4; i++) {
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
@@ -505,45 +511,50 @@
                     let phiPublicApp = parseFloat(PO['Phí Public App ']) * phanTramThanhToan || 0;
 
                     thanhToanHTML += `
-            <tr>
-                <td colspan="2"><span class="bold">Thanh toán lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
-            </tr>
-            <tr>
-                <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
-            </tr>
-            `;
-
-
-
-                    thanhToanHTML += `
-          
-            <tr>
-                <td colspan="2">Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày sau khi ${dkttItem['Sau khi'] || ''}</td>
-            </tr>
-            `;
+        <tr>
+            <td colspan="2"><span class="bold">Thanh toán lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
+        </tr>
+        <tr>
+            <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
+        </tr>
+        <tr>
+            <td colspan="2">Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày sau khi ${dkttItem['Sau khi'] || ''}</td>
+        </tr>
+        `;
                 }
             }
 
-            thanhToanHTML += ` <tr>
-                            <td colspan="2" class="bold">Phương thức thanh toán: Chuyển khoản</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Số tài khoản:<span class="bold"> 1025576073</span> </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Tên chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Ngân hàng thụ hưởng: Ngân Hàng Vietcombank
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Chi nhánh NH thụ hưởng: Chi nhánh Bình Dương
-                            </td>
-                        </tr>
-        </table>
-    </div>
-    `;
+            thanhToanHTML += `
+    <tr>
+        <td colspan="2" class="bold">Phương thức thanh toán: Chuyển khoản</td>
+    </tr>
+`;
+
+            // Thêm dropdown select và xử lý thay đổi tài khoản
+            thanhToanHTML += `
+    <tr>
+        <td colspan="2">
+            <select id="accountSelect" onchange="updateBankDetails()" style="margin-bottom: 10px;">
+                <option value="0">Ngân Hàng Vietcombank - 0281000569347</option>
+                <option value="1">VCB: 1025576073 CONG TY CO PHAN TAP DOAN WOWS</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">Số tài khoản: <span id="accountNumber" class="bold"></span></td>
+    </tr>
+    <tr>
+        <td colspan="2">Tên chủ tài khoản: <span id="accountHolder"></span></td>
+    </tr>
+    <tr>
+        <td colspan="2">Ngân hàng thụ hưởng: <span id="bankName"></span></td>
+    </tr>
+    <tr>
+        <td colspan="2">Chi nhánh NH thụ hưởng: Chi nhánh Bình Dương</td>
+    </tr>
+</table>
+</div>
+`;
 
             thanhToanInfo.innerHTML = thanhToanHTML;
             // Thêm phần thông tin cuối
@@ -604,6 +615,32 @@
     `;
 
             footerInfo.innerHTML = footerHTML;
+            // Khởi tạo thông tin tài khoản ngân hàng mặc định
+            updateBankDetails();
+        }
+
+        // Thêm mảng chứa thông tin tài khoản ngân hàng
+        const bankAccounts = [
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank'
+            },
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank'
+            }
+        ];
+
+        // Hàm cập nhật thông tin tài khoản khi người dùng thay đổi lựa chọn
+        function updateBankDetails() {
+            const selectElement = document.getElementById('accountSelect');
+            const selectedAccount = bankAccounts[selectElement.value];
+
+            document.getElementById('accountNumber').textContent = selectedAccount.accountNumber;
+            document.getElementById('accountHolder').textContent = selectedAccount.accountHolder;
+            document.getElementById('bankName').textContent = selectedAccount.bank;
         }
 
         function numberToWords(number) {
