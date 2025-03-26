@@ -308,8 +308,9 @@
                             <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
                             </td>
                         </tr>
-                        <tr id="chiphikhacRow"> 
-                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC(Phí duy trì + Phí public):</strong>
+                        <tr id="chiphikhacRow">
+                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC (Phí duy trì + Phí
+                                    public):</strong>
                             </td>
                             <td colspan="3" class="text-center"><span id="chiphikhac"></span></td>
                         </tr>
@@ -430,17 +431,25 @@
             // Calculate additional fees
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
             const phantramduytri = HOP_DONG['Chi phí'];
-            const chiPhiDuyTri = HOP_DONG['Tiền Phí Duy trì hàng năm'];
-            const phipulic = HOP_DONG['Phí Public App'] * (1 + HOP_DONG['%VAT']);
-
-            // Handle additional costs row visibility
             const chiphikhacRow = document.getElementById('chiphikhacRow');
+            const chiPhiDuyTri = HOP_DONG['Tiền Phí Duy trì hàng năm'] || 0;
+            const phipulic = (HOP_DONG['Phí Public App'] || 0) * (1 + (HOP_DONG['%VAT'] || 0));
             const totalAdditionalCosts = chiPhiDuyTri + phipulic;
-            if (!totalAdditionalCosts || totalAdditionalCosts === 0) {
+
+            if (totalAdditionalCosts === 0) {
                 chiphikhacRow.style.display = 'none';
             } else {
                 chiphikhacRow.style.display = '';
-                document.getElementById('chiphikhac').textContent = formatCurrency(totalAdditionalCosts || 0);
+                let feeLabel = '';
+                if (chiPhiDuyTri > 0 && phipulic > 0) {
+                    feeLabel = 'CHI PHÍ KHÁC (Phí duy trì + Phí public):';
+                } else if (chiPhiDuyTri > 0) {
+                    feeLabel = 'CHI PHÍ KHÁC (Phí duy trì):';
+                } else if (phipulic > 0) {
+                    feeLabel = 'CHI PHÍ KHÁC (Phí public):';
+                }
+                chiphikhacRow.querySelector('strong').textContent = feeLabel;
+                document.getElementById('chiphikhac').textContent = formatCurrency(totalAdditionalCosts);
             }
 
             // Update total payment
