@@ -20,8 +20,6 @@
             };
         }
 
-        // Function to convert number to Vietnamese words
-        // Function to convert number to Vietnamese words
         function numberToWords(num) {
             if (num === 0) return "Không đồng";
 
@@ -29,7 +27,6 @@
             const tens = ["", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"];
             const scales = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
 
-            // Function to handle hundreds
             function handleHundreds(number) {
                 const hundred = Math.floor(number / 100);
                 const remainder = number % 100;
@@ -66,7 +63,6 @@
                 return result.trim();
             }
 
-            // Convert number to string and process by chunks of 3 digits
             const strNum = num.toString();
             const chunks = [];
 
@@ -88,7 +84,6 @@
                 }
             }
 
-            // Capitalize the first letter and trim
             let finalResult = result.trim() + " đồng";
             finalResult = finalResult.charAt(0).toUpperCase() + finalResult.slice(1);
 
@@ -104,25 +99,17 @@
         window.onload = function () {
             const params = getUrlParams();
 
-            // Set date in the header using ngayDeNghi parameter or default to current date
+            // Set date in the header
             if (params.ngayDeNghi) {
-                // Split the date string (format: DD/MM/YYYY)
                 const dateParts = params.ngayDeNghi.split('/');
                 if (dateParts.length === 3) {
-                    const day = dateParts[0];
-                    const month = dateParts[1];
-                    const year = dateParts[2];
                     document.querySelector('.date').innerText =
-                        `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+                        `Bình Dương, ngày ${dateParts[0]} tháng ${dateParts[1]} năm ${dateParts[2]}`;
                 }
             } else {
-                // Fallback to current date
                 const today = new Date();
-                const day = today.getDate();
-                const month = today.getMonth() + 1;
-                const year = today.getFullYear();
                 document.querySelector('.date').innerText =
-                    `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+                    `Bình Dương, ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
             }
 
             // Update contract number
@@ -134,9 +121,7 @@
                 `- Kỳ thanh toán: ${params.tuNgay} đến ${params.denNgay}`;
 
             // Update amount and convert to words
-            // Update amount and convert to words
             const amount = parseInt(params.phiDuyTri.replace(/\D/g, '')) || 0;
-            // Format number with commas as thousand separators
             const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById('amount').innerText =
                 `- Số tiền: ${formattedAmount} đồng`;
@@ -145,6 +130,7 @@
 
             // Update company name
             document.getElementById('recipientCompany').innerText = `Kính gửi: ${params.tenCongTy}`;
+            document.getElementById('companyName').innerText = params.tenCongTy;
 
             // Update signing date
             document.getElementById('contractDate').innerText =
@@ -154,12 +140,9 @@
             document.getElementById('paymentDeadline').innerText =
                 `Thời hạn thanh toán: Ngày ${params.hanThanhToan}`;
 
-            // Thêm vào phần window.onload, sau các dòng khác
-            document.getElementById('companyName').innerText = params.tenCongTy;
-
+            // Update document number
             document.getElementById('soPDT').innerText = params.idpdt;
         }
-
     </script>
     <style>
         @page {
@@ -189,12 +172,14 @@
             padding: 20mm;
             box-sizing: border-box;
             background: white;
+            line-height: 1.5;
+            color: #000;
         }
 
         .header {
             width: 100%;
             display: table;
-            margin-bottom: 20pt;
+            margin-bottom: 30pt;
         }
 
         .left-header {
@@ -213,11 +198,13 @@
 
         .company-name {
             font-weight: bold;
-            margin-bottom: 5pt;
+            margin-bottom: 8pt;
+            font-size: 15px;
         }
 
         .doc-number {
             margin-top: 10pt;
+            font-style: italic;
         }
 
         .republic {
@@ -235,64 +222,64 @@
         .independence::after {
             content: "";
             display: block;
+            width: 30%;
+            border-bottom: 1px solid #000;
             margin: 5pt 0 5pt auto;
         }
 
         .date {
             font-style: italic;
-            margin-top: 10pt;
+            margin-top: 15pt;
         }
 
         .title {
             text-align: center;
+            margin: 30pt 0;
         }
 
         .title h1 {
             font-size: 18pt;
             font-weight: bold;
             text-transform: uppercase;
-            margin: 0 0 5pt 0;
+            margin: 0 0 10pt 0;
         }
 
         .title p {
             font-style: italic;
             margin: 0;
+            font-size: 14px;
         }
 
         .recipient {
-            margin-bottom: 10pt;
+            margin-bottom: 15pt;
         }
 
         .content {
             text-align: justify;
-            margin-top: 10pt;
-        }
-
-        .indent {
-            text-indent: 30pt;
-        }
-
-        .payment-details {
-            margin: 10pt 0 10pt 15pt;
+            margin-top: 20pt;
+            font-size: 14px;
         }
 
         .payment-info {
-            margin: 10pt 0 10pt 15pt;
+            margin: 15pt 0 15pt 30pt;
         }
 
         .signature {
-            margin-top: 20pt;
-            text-align: right;
-            padding-right: 50pt;
+            margin-top: 40pt;
+            width: 50%;
+            float: right;
+            text-align: center;
         }
 
         .signature-title {
             font-weight: bold;
-            margin-bottom: 70pt;
+            margin-bottom: 80pt;
+            font-size: 15px;
         }
 
         .signature-name {
             font-weight: bold;
+            font-size: 15px;
         }
 
         .amount {
@@ -301,7 +288,7 @@
         }
 
         p {
-            margin: 5pt 0;
+            margin: 8pt 0;
         }
 
         #printBtn {
@@ -309,16 +296,26 @@
             top: 20px;
             right: 20px;
             padding: 10px 20px;
-            background-color: #4CAF50;
+            background-color: #2c7ebd;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
         }
 
         #printBtn:hover {
-            background-color: #45a049;
+            background-color: #1c5f9c;
+        }
+
+        .bold-text {
+            font-weight: bold;
+        }
+
+        .underline {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -328,7 +325,6 @@
 
     <div class="header">
         <div class="left-header">
-            <!-- <div class="company-name">Logo</div> -->
             <div class="company-name">Công ty cổ phần Tập đoàn WOWS</div>
             <div class="doc-number">Số: <span id="soPDT">.............</span></div>
         </div>
@@ -345,13 +341,14 @@
     </div>
 
     <div class="content">
-        <div class="recipient indent">
+        <div class="recipient">
             <b id="recipientCompany">Kính gửi: CÔNG TY.....</b>
         </div>
 
-        <p id="contractDate" class="">Căn cứ hợp đồng..... ký ngày......</p>
+        <p id="contractDate" class="indent">Căn cứ hợp đồng..... ký ngày......</p>
 
-        <p class="">Nay, chúng tôi đề nghị quý công ty <span id="companyName"></span> thanh toán phí duy trì phần mềm:
+        <p class="indent">Nay, chúng tôi đề nghị quý công ty <span id="companyName" class="bold-text"></span> thanh toán
+            phí duy trì phần mềm:
         </p>
 
         <div class="payment-details">
@@ -360,14 +357,14 @@
             <p id="amountInWords" class="amount">(Bằng chữ: ................................................)</p>
         </div>
 
-        <p><b>Thông tin thanh toán:</b></p>
+        <p class="bold-text underline">Thông tin thanh toán:</p>
         <div class="payment-info">
             <p>- Số tài khoản: 1025576073</p>
             <p>- Ngân hàng: Ngân Hàng Vietcombank</p>
             <p>- Chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</p>
         </div>
 
-        <p id="paymentDeadline"><b>Thời hạn thanh toán:</b> Ngày .......</p>
+        <p id="paymentDeadline" class="bold-text">Thời hạn thanh toán: Ngày .......</p>
 
         <div class="signature">
             <div class="signature-title">Người đề nghị</div>
