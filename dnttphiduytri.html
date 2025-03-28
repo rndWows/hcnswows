@@ -203,7 +203,6 @@
         }
 
         .doc-number {
-            margin-top: 10pt;
             font-style: italic;
         }
 
@@ -223,7 +222,6 @@
             content: "";
             display: block;
             width: 30%;
-            border-bottom: 1px solid #000;
             margin: 5pt 0 5pt auto;
         }
 
@@ -317,6 +315,26 @@
         .underline {
             text-decoration: underline;
         }
+
+        .company-header {
+            display: flex;
+            align-items: center;
+        }
+
+        .company-logo {
+            max-height: 50px;
+            margin-right: 10px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            /* This helps ensure text is vertically centered */
+            height: 50px;
+            /* Match the height of the logo */
+        }
     </style>
 </head>
 
@@ -325,7 +343,11 @@
 
     <div class="header">
         <div class="left-header">
-            <div class="company-name">Công ty cổ phần Tập đoàn WOWS</div>
+            <div class="company-header">
+                <img src="https://rndwows.github.io/hcnswows/WOWS-GROUP-logo.png" alt="WOWS Group Logo"
+                    class="company-logo">
+                <div class="company-name">Công ty cổ phần Tập đoàn WOWS</div>
+            </div>
             <div class="doc-number">Số: <span id="soPDT">.............</span></div>
         </div>
         <div class="right-header">
