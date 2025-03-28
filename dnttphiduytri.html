@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Đề nghị thanh toán</title>
+    <script>
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                soHD: params.get('soHD') || '',
+                phiDuyTri: params.get('phiDuyTri') || '',
+                tuNgay: params.get('tuNgay') || '',
+                denNgay: params.get('denNgay') || '',
+                tenCongTy: params.get('tenCongTy') || '',
+                ngayKy: params.get('ngayKy') || '',
+                hanThanhToan: params.get('hanThanhToan') || '',
+                idpdt: params.get('idpdt') || ''  // Thêm dòng này
+            };
+        }
+
+        // Function to convert number to Vietnamese words
+        // Function to convert number to Vietnamese words
+        function numberToWords(num) {
+            if (num === 0) return "Không đồng";
+
+            const units = ["", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
+            const tens = ["", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"];
+            const scales = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
+
+            // Function to handle hundreds
+            function handleHundreds(number) {
+                const hundred = Math.floor(number / 100);
+                const remainder = number % 100;
+                let result = "";
+
+                if (hundred > 0) {
+                    result += units[hundred] + " trăm";
+                }
+
+                if (remainder > 0) {
+                    const ten = Math.floor(remainder / 10);
+                    const unit = remainder % 10;
+
+                    if (remainder < 10) {
+                        if (hundred > 0) result += " lẻ";
+                        result += " " + units[unit];
+                    } else if (remainder < 20) {
+                        result += " mười";
+                        if (unit > 0) {
+                            if (unit === 5) result += " lăm";
+                            else if (unit === 1) result += " một";
+                            else result += " " + units[unit];
+                        }
+                    } else {
+                        result += " " + tens[ten];
+                        if (unit > 0) {
+                            if (unit === 1) result += " mốt";
+                            else if (unit === 5) result += " lăm";
+                            else result += " " + units[unit];
+                        }
+                    }
+                }
+
+                return result.trim();
+            }
+
+            // Convert number to string and process by chunks of 3 digits
+            const strNum = num.toString();
+            const chunks = [];
+
+            for (let i = strNum.length; i > 0; i -= 3) {
+                const start = Math.max(0, i - 3);
+                chunks.unshift(parseInt(strNum.substring(start, i)));
+            }
+
+            let result = "";
+            for (let i = 0; i < chunks.length; i++) {
+                const chunk = chunks[i];
+                if (chunk === 0) continue;
+
+                const scaleIndex = chunks.length - i - 1;
+                const chunkWords = handleHundreds(chunk);
+
+                if (chunkWords !== "") {
+                    result += chunkWords + " " + scales[scaleIndex] + " ";
+                }
+            }
+
+            // Capitalize the first letter and trim
+            let finalResult = result.trim() + " đồng";
+            finalResult = finalResult.charAt(0).toUpperCase() + finalResult.slice(1);
+
+            return finalResult;
+        }
+
+        function printDocument() {
+            document.getElementById('printBtn').style.display = 'none';
+            window.print();
+            document.getElementById('printBtn').style.display = 'block';
+        }
+
+        window.onload = function () {
+            const params = getUrlParams();
+
+            // Set current date in the header
+            const today = new Date();
+            const day = today.getDate();
+            const month = today.getMonth() + 1;
+            const year = today.getFullYear();
+            document.querySelector('.date').innerText =
+                `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+
+            // Update contract number
+            document.getElementById('contractTitle').innerText =
+                `(V/v: Phí duy trì phần mềm theo hợp đồng số ${params.soHD})`;
+
+            // Update payment period
+            document.getElementById('paymentPeriod').innerText =
+                `- Kỳ thanh toán: ${params.tuNgay} đến ${params.denNgay}`;
+
+            // Update amount and convert to words
+            const amount = parseInt(params.phiDuyTri.replace(/\D/g, '')) || 0;
+            document.getElementById('amount').innerText =
+                `- Số tiền: ${params.phiDuyTri} đồng`;
+            document.getElementById('amountInWords').innerText =
+                `(Bằng chữ: ${numberToWords(amount)})`;
+
+            // Update company name
+            document.getElementById('recipientCompany').innerText = `Kính gửi: ${params.tenCongTy}`;
+
+            // Update signing date
+            document.getElementById('contractDate').innerText =
+                `Căn cứ hợp đồng ${params.soHD} ký ngày ${params.ngayKy}`;
+
+            // Update payment deadline
+            document.getElementById('paymentDeadline').innerText =
+                `Thời hạn thanh toán: Ngày ${params.hanThanhToan}`;
+
+            // Thêm vào phần window.onload, sau các dòng khác
+            document.getElementById('companyName').innerText = params.tenCongTy;
+
+            document.getElementById('soPDT').innerText = params.idpdt;
+        }
+
+    </script>
+    <style>
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        @media print {
+            body {
+                width: 210mm;
+                height: 297mm;
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            #printBtn {
+                display: none !important;
+            }
+        }
+
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 20mm;
+            box-sizing: border-box;
+            background: white;
+        }
+
+        .header {
+            width: 100%;
+            display: table;
+            margin-bottom: 20pt;
+        }
+
+        .left-header {
+            display: table-cell;
+            width: 50%;
+            vertical-align: top;
+        }
+
+        .right-header {
+            display: table-cell;
+            width: 50%;
+            text-align: center;
+            vertical-align: top;
+            font-size: 13px;
+        }
+
+        .company-name {
+            font-weight: bold;
+            margin-bottom: 5pt;
+        }
+
+        .doc-number {
+            margin-top: 10pt;
+        }
+
+        .republic {
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 5pt;
+        }
+
+        .independence {
+            font-weight: bold;
+            margin-bottom: 5pt;
+            text-transform: uppercase;
+        }
+
+        .independence::after {
+            content: "";
+            display: block;
+            margin: 5pt 0 5pt auto;
+        }
+
+        .date {
+            font-style: italic;
+            margin-top: 10pt;
+        }
+
+        .title {
+            text-align: center;
+        }
+
+        .title h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 0 0 5pt 0;
+        }
+
+        .title p {
+            font-style: italic;
+            margin: 0;
+        }
+
+        .recipient {
+            margin-bottom: 10pt;
+        }
+
+        .content {
+            text-align: justify;
+            margin-top: 10pt;
+        }
+
+        .indent {
+            text-indent: 30pt;
+        }
+
+        .payment-details {
+            margin: 10pt 0 10pt 15pt;
+        }
+
+        .payment-info {
+            margin: 10pt 0 10pt 15pt;
+        }
+
+        .signature {
+            margin-top: 20pt;
+            text-align: right;
+            padding-right: 50pt;
+        }
+
+        .signature-title {
+            font-weight: bold;
+            margin-bottom: 70pt;
+        }
+
+        .signature-name {
+            font-weight: bold;
+        }
+
+        .amount {
+            font-style: italic;
+            margin-left: 20pt;
+        }
+
+        p {
+            margin: 5pt 0;
+        }
+
+        #printBtn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #printBtn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="printBtn" onclick="printDocument()">In tài liệu</button>
+
+    <div class="header">
+        <div class="left-header">
+            <!-- <div class="company-name">Logo</div> -->
+            <div class="company-name">Công ty cổ phần Tập đoàn WOWS</div>
+            <div class="doc-number">Số: <span id="soPDT">.............</span></div>
+        </div>
+        <div class="right-header">
+            <div class="republic">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
+            <div class="independence">Độc lập - Tự do - Hạnh phúc</div>
+            <div class="date">Bình Dương, ngày ... tháng ... năm ...</div>
+        </div>
+    </div>
+
+    <div class="title">
+        <h1>ĐỀ NGHỊ THANH TOÁN</h1>
+        <p id="contractTitle">(V/v: Phí duy trì phần mềm theo hợp đồng số...)</p>
+    </div>
+
+    <div class="content">
+        <div class="recipient indent">
+            <b id="recipientCompany">Kính gửi: CÔNG TY.....</b>
+        </div>
+
+        <p id="contractDate" class="">Căn cứ hợp đồng..... ký ngày......</p>
+
+        <p class="">Nay, chúng tôi đề nghị quý công ty <span id="companyName"></span> thanh toán phí duy trì phần mềm:
+        </p>
+
+        <div class="payment-details">
+            <p id="paymentPeriod">- Kỳ thanh toán: Tháng 03/2025 đến 03/2026</p>
+            <p id="amount">- Số tiền: ......................................................... đồng</p>
+            <p id="amountInWords" class="amount">(Bằng chữ: ................................................)</p>
+        </div>
+
+        <p><b>Thông tin thanh toán:</b></p>
+        <div class="payment-info">
+            <p>- Số tài khoản: 1025576073</p>
+            <p>- Ngân hàng: Ngân Hàng Vietcombank</p>
+            <p>- Chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</p>
+        </div>
+
+        <p id="paymentDeadline"><b>Thời hạn thanh toán:</b> Ngày .......</p>
+
+        <div class="signature">
+            <div class="signature-title">Người đề nghị</div>
+            <div class="signature-name">Đỗ Thị Kim Thủy</div>
+        </div>
+    </div>
+</body>
+
+</html>
