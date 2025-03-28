@@ -39,9 +39,9 @@
     }
 
 
-   
+
     @media print {
-        
+
         body,
         #content {
             margin: 0;
@@ -60,7 +60,7 @@
         @page {
             size: auto;
         }
-        
+
         #content-split {
             margin-top: 40px;
             position: absolute;
@@ -171,13 +171,17 @@
     .info_contract {
         margin-bottom: 5px !important
     }
+
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
 
     @media only screen and (max-width: 1024px) {
         #fixed-panel {
@@ -188,32 +192,39 @@
             display: none !important;
         }
     }
-    @media print {
-            .khoi-chu-ky {
-                page-break-inside: avoid;
-            }
-        }
-        .khoi-chu-ky {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 50px; /* Điều chỉnh khoảng cách nếu cần */
-        }
-        .cot-chu-ky {
-            width: 45%;
-            text-align: center;
-        }
-        .tieu-de-chu-ky {
-            font-weight: bold;
-        }
-        .tieu-de-chu-ky-2 { 
 
-            margin-bottom: 70px; /* Khoảng trống cho chữ ký */
+    @media print {
+        .khoi-chu-ky {
+            page-break-inside: avoid;
         }
+    }
+
+    .khoi-chu-ky {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 50px;
+        /* Điều chỉnh khoảng cách nếu cần */
+    }
+
+    .cot-chu-ky {
+        width: 45%;
+        text-align: center;
+    }
+
+    .tieu-de-chu-ky {
+        font-weight: bold;
+    }
+
+    .tieu-de-chu-ky-2 {
+
+        margin-bottom: 70px;
+        /* Khoảng trống cho chữ ký */
+    }
 </style>
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-        class="language_print"></span></button>
+            class="language_print"></span></button>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -233,7 +244,7 @@
                 <div style="clear: both"></div>
 
                 <h4 style="text-align: center;" class="bold"><span>HỢP ĐỒNG LAO ĐỘNG </span></h4>
-                <i>Hôm nay, Ngày <span>&emsp;</span> Tháng <span>&emsp;</span> Năm <span>&emsp;</span> Tại Công ty Cổ Phần Tập Đoàn Wows,
+                <i>Hôm nay, Ngày <span id="nhdld"> </span> Tại Công ty Cổ Phần Tập Đoàn Wows,
                     chúng tôi gồm:</i>
                 <div class="info_student"><span class="bold">Bên A: </span> <i>(Người sử dụng lao động)</i> : <span
                         class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span>
@@ -243,7 +254,7 @@
                     <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; Thửa đất số 131, Tờ bản đồ số 7,
                         Đường ĐT 747, Khu phố 3, Phường Hội Nghĩa, Tân Uyên, Bình Dương.</div>
                     <div><span class="bold">Điện thoại:</span>&emsp; &emsp;&ensp; (0274) 9999 899</div>
-                </div> 
+                </div>
                 <div class="info_student"><span class="bold">Bên B: </span> <i>(Người lao động)</i> : <span class="bold"
                         id="hvt"></span>
                     <div><span class="bold">Ngày sinh:</span>&emsp; &emsp;&ensp; <span id="ns"> </span></div>
@@ -254,8 +265,8 @@
                         <div><span class="bold">Địa chỉ:</span>&emsp; &emsp; &emsp;&ensp; <span id="dc"></span></div>
                     </div>
                 </div>
-                <p style=" text-align: justify;"><i>Sau khi thảo luận, Hai bên cùng thỏa thuận ký kết Hợp đồng lao động 
-                    (gọi tắt là “Hợp đồng”) và cam kết thực hiện đúng những điều khoản sau:</i></p>
+                <p style=" text-align: justify;"><i>Sau khi thảo luận, Hai bên cùng thỏa thuận ký kết Hợp đồng lao động
+                        (gọi tắt là “Hợp đồng”) và cam kết thực hiện đúng những điều khoản sau:</i></p>
                 <h6 class="bold">ĐIỀU 1: THỜI HẠN CỦA HỢP ĐỒNG
                 </h6>
                 <div class="info_student" style="margin-left: 13px;">
@@ -306,23 +317,30 @@
                     <div><span class="bold">Quyền lợi:</span> </div>
 
                     <div><span class="bold">- Lương cơ bản: <span id="lcb"></span> Lương cơ bản</div>
-                    <div>Mức lương này làm cơ sở thực hiện các chế độ đối với người lao động theo quy định của Bộ luật lao động.
+                    <div>Mức lương này làm cơ sở thực hiện các chế độ đối với người lao động theo quy định của Bộ luật
+                        lao động.
                     </div>
 
                     <div><span class="bold">- Phụ cấp:</span> </div>
-                    <div>Các khoản phụ cấp khác (nếu có): theo thỏa ước lao động tập thể, hoặc theo chính sách, quy định của Công ty.
+                    <div>Các khoản phụ cấp khác (nếu có): theo thỏa ước lao động tập thể, hoặc theo chính sách, quy định
+                        của Công ty.
                     </div>
-                    <div>Hình thức trả lương: trả lương tháng và được thanh toán bằng TM/ chuyển khoản mỗi tháng một (01) lần, vào ngày chín (09) mỗi tháng.</div>
+                    <div>Hình thức trả lương: trả lương tháng và được thanh toán bằng TM/ chuyển khoản mỗi tháng một
+                        (01) lần, vào ngày chín (09) mỗi tháng.</div>
                     <div>Nâng lương: theo chính sách, quy định của Công ty.
                     </div>
-                    <div>Tiền thưởng: theo sự cống hiến của cá nhân và kết quả kinh doanh của Cty. Công ty sẽ khấu trừ thuế thu nhập cá nhân và các nghĩa vụ tài chính khác của Bên B trước khi chi trả khoản tiền thưởng này.</div>
+                    <div>Tiền thưởng: theo sự cống hiến của cá nhân và kết quả kinh doanh của Cty. Công ty sẽ khấu trừ
+                        thuế thu nhập cá nhân và các nghĩa vụ tài chính khác của Bên B trước khi chi trả khoản tiền
+                        thưởng này.</div>
                     <div>Chế độ đào tạo: theo nhu cầu và chính sách Công ty.
                     </div>
                     <div>Trợ cấp thôi việc/mất việc: theo quy định của pháp luật và Công ty.</div>
                     <div>Trang bị bảo hộ lao động: theo quy định của pháp luật và Công ty.</div>
-                    <div>Chế độ nghỉ lễ, nghỉ phép: thực hiện theo quy định hiện hành của Nhà nước và quy định của Công ty.
+                    <div>Chế độ nghỉ lễ, nghỉ phép: thực hiện theo quy định hiện hành của Nhà nước và quy định của Công
+                        ty.
                     </div>
-                    <div>Bảo hiểm xã hội, Bảo hiểm y tế, bảo hiểm thất nghiệp, các khoản phí Đoàn/Đảng: theo quy định của pháp luật.
+                    <div>Bảo hiểm xã hội, Bảo hiểm y tế, bảo hiểm thất nghiệp, các khoản phí Đoàn/Đảng: theo quy định
+                        của pháp luật.
                     </div>
                     <div>Phương tiện đi lại: bên B tự túc.</div>
 
@@ -512,8 +530,31 @@
             }
         }
 
+        function formatVietnameseDate(dateString) {
+            // Nếu dateString được cung cấp, sử dụng nó, nếu không sử dụng ngày hiện tại
+            const date = dateString ? new Date(dateString) : new Date();
+
+            // Lấy ngày, tháng, năm
+            const day = date.getDate();
+            const month = date.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0
+            const year = date.getFullYear();
+
+            // Định dạng ngày tháng kiểu Việt Nam
+            return ` ${month} tháng ${day} năm ${year}`;
+        }
+
+        // Sử dụng hàm để cập nhật phần tử có id là "nhdld"
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy giá trị từ URL parameter nếu có
+            const dateParam = getUrlParameter('nhdld');
+
+            // Định dạng ngày tháng và gán vào phần tử
+            const formattedDate = formatVietnameseDate(dateParam);
+            setTextContentById('nhdld', formattedDate);
+        });
+
         // Get parameters from URL and set content
-        var parameters = ['shd', 'hvt', 'hvt2', 'ns', 'nccc', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
+        var parameters = ['shd', 'nhdld', 'hvt', 'hvt2', 'ns', 'nccc', 'cccd', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
