@@ -15,7 +15,8 @@
                 tenCongTy: params.get('tenCongTy') || '',
                 ngayKy: params.get('ngayKy') || '',
                 hanThanhToan: params.get('hanThanhToan') || '',
-                idpdt: params.get('idpdt') || ''  // Thêm dòng này
+                idpdt: params.get('idpdt') || '',
+                ngayDeNghi: params.get('ngayDeNghi') || ''
             };
         }
 
@@ -103,13 +104,26 @@
         window.onload = function () {
             const params = getUrlParams();
 
-            // Set current date in the header
-            const today = new Date();
-            const day = today.getDate();
-            const month = today.getMonth() + 1;
-            const year = today.getFullYear();
-            document.querySelector('.date').innerText =
-                `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+            // Set date in the header using ngayDeNghi parameter or default to current date
+            if (params.ngayDeNghi) {
+                // Split the date string (format: DD/MM/YYYY)
+                const dateParts = params.ngayDeNghi.split('/');
+                if (dateParts.length === 3) {
+                    const day = dateParts[0];
+                    const month = dateParts[1];
+                    const year = dateParts[2];
+                    document.querySelector('.date').innerText =
+                        `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+                }
+            } else {
+                // Fallback to current date
+                const today = new Date();
+                const day = today.getDate();
+                const month = today.getMonth() + 1;
+                const year = today.getFullYear();
+                document.querySelector('.date').innerText =
+                    `Bình Dương, ngày ${day} tháng ${month} năm ${year}`;
+            }
 
             // Update contract number
             document.getElementById('contractTitle').innerText =
@@ -120,9 +134,12 @@
                 `- Kỳ thanh toán: ${params.tuNgay} đến ${params.denNgay}`;
 
             // Update amount and convert to words
+            // Update amount and convert to words
             const amount = parseInt(params.phiDuyTri.replace(/\D/g, '')) || 0;
+            // Format number with commas as thousand separators
+            const formattedAmount = amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             document.getElementById('amount').innerText =
-                `- Số tiền: ${params.phiDuyTri} đồng`;
+                `- Số tiền: ${formattedAmount} đồng`;
             document.getElementById('amountInWords').innerText =
                 `(Bằng chữ: ${numberToWords(amount)})`;
 
