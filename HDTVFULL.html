@@ -244,8 +244,7 @@
                 <div style="clear: both"></div>
 
                 <h4 style="text-align: center;" class="bold"><span>HỢP ĐỒNG THỬ VIỆC </span></h4>
-                <i>Hôm nay, Ngày <span>&emsp;</span> Tháng <span>&emsp;</span> Năm <span>&emsp;</span> Tại Công ty Cổ
-                    Phần Tập Đoàn Wows,
+                <i>Hôm nay, Ngày <span id="nhdld"> </span> Tại Công ty Cổ Phần Tập Đoàn Wows,
                     chúng tôi gồm:</i>
                 <div class="info_student"><span class="bold">Bên A: </span> <i>(Bên sử dụng lao động)</i> : <span
                         class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span>
@@ -527,8 +526,38 @@
             }
         }
 
+        function formatVietnameseDate(dateString) {
+            // Kiểm tra xem dateString có giá trị hợp lệ không
+            if (!dateString) {
+                return '';  // Trả về chuỗi rỗng nếu không có giá trị
+            }
+
+            // Xử lý chuỗi ngày tháng từ URL (format MM/DD/YYYY)
+            const parts = dateString.split('/');
+            if (parts.length !== 3) {
+                return ''; // Trả về chuỗi rỗng nếu không đúng định dạng
+            }
+
+            const day = parseInt(parts[1], 10);
+            const month = parseInt(parts[0], 10);
+            const year = parseInt(parts[2], 10);
+
+            // Định dạng ngày tháng kiểu Việt Nam
+            return ` ${month} tháng ${day} năm ${year}`;
+        }
+
+        // Sử dụng hàm để cập nhật phần tử có id là "nhdld"
+        document.addEventListener('DOMContentLoaded', function () {
+            // Lấy giá trị từ URL parameter nếu có
+            const dateParam = getUrlParameter('nhdld');
+
+            // Định dạng ngày tháng và gán vào phần tử
+            const formattedDate = formatVietnameseDate(dateParam);
+            setTextContentById('nhdld', formattedDate);
+        });
+
         // Lấy thông tin từ URL và đặt giá trị cho các trường
-        var parameters = ['shd', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
+        var parameters = ['shd', 'nhdld', 'hvt', 'hvt2', 'ns', 'cccd', 'nccc', 'nc', 'dc', 'tungay', 'denngay', 'cv', 'lcb'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
