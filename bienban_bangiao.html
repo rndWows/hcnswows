@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -117,7 +118,9 @@
         white-space: normal;
         word-wrap: break-word;
       }
-
+      .table-controls {
+      display: none !important;
+    }
       .link-bangiao,
       .nguoi-tiepnhan {
         display: none;
@@ -142,7 +145,7 @@
         display: none;
       }
 
-      .no-print {
+      .no-print .table-controls {
         display: none;
       }
 
@@ -364,6 +367,7 @@
 <body>
   <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
       class="language_print"></span></button>
+      
   <page size="A4" id="page" layout="landscape">
     <div id="content">
       <div class="content_page1">
@@ -472,7 +476,85 @@
 
 
 
-
+<!-- Thêm nút điều khiển phía trên bảng -->
+<div class="table-controls mb-2 no-print">
+    <button id="toggleColumnsBtn" class="btn btn-sm btn-info"><i class="fa fa-eye-slash"></i> Ẩn/Hiện cột</button>
+    
+    <!-- Popup chọn cột để ẩn/hiện -->
+    <div id="columnsPopup" style="display: none; position: absolute; background: white; border: 1px solid #ddd; padding: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.2); z-index: 1000; width: 200px;">
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="0" id="col-stt-check" checked>
+        <label class="form-check-label" for="col-stt-check">STT</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="1" id="col-ma-sp-check" checked>
+        <label class="form-check-label" for="col-ma-sp-check">Mã sản phẩm</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="2" id="col-ten-sp-check" checked>
+        <label class="form-check-label" for="col-ten-sp-check">Tên sản phẩm</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="3" id="col-quy-cach-check" checked>
+        <label class="form-check-label" for="col-quy-cach-check">Mô tả sản phẩm</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="4" id="col-dvt-check" checked>
+        <label class="form-check-label" for="col-dvt-check">Đơn vị tính</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="5" id="col-so-luong-check" checked>
+        <label class="form-check-label" for="col-so-luong-check">Số lượng</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="6" id="col-tenuv-check" checked>
+        <label class="form-check-label" for="col-tenuv-check">Tên ứng viên</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="7" id="col-link-check" checked>
+        <label class="form-check-label" for="col-link-check">Link bàn giao</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="8" id="col-nguoi-nhan-check" checked>
+        <label class="form-check-label" for="col-nguoi-nhan-check">Người tiếp nhận</label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input toggle-column" type="checkbox" value="9" id="col-ghi-chu-check" checked>
+        <label class="form-check-label" for="col-ghi-chu-check">Ghi chú</label>
+      </div>
+      <button id="closePopupBtn" class="btn btn-sm btn-secondary mt-2">Đóng</button>
+    </div>
+  </div>
+  
+  <!-- Thêm form dialog để thêm cột mới -->
+  <div id="addColumnDialog" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thêm cột mới</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id="addColumnForm">
+            <div class="form-group">
+              <label for="columnName">Tên cột</label>
+              <input type="text" class="form-control" id="columnName" required>
+            </div>
+            <div class="form-group">
+              <label for="columnWidth">Độ rộng (%)</label>
+              <input type="number" class="form-control" id="columnWidth" value="10" min="5" max="30">
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+          <button type="button" class="btn btn-primary" id="saveColumnBtn">Lưu</button>
+        </div>
+      </div>
+    </div>
+  </div>
         <table class="table table-bordered">
           <thead class="center-content">
             <tr>
@@ -718,7 +800,133 @@
     //   });
     // });
 
-
+// Xử lý ẩn/hiện cột và thêm cột mới
+document.addEventListener('DOMContentLoaded', function() {
+  // Cấu hình cho nút toggle columns
+  const toggleColumnsBtn = document.getElementById('toggleColumnsBtn');
+  const columnsPopup = document.getElementById('columnsPopup');
+  const closePopupBtn = document.getElementById('closePopupBtn');
+  const toggleColumnInputs = document.querySelectorAll('.toggle-column');
+  
+  toggleColumnsBtn.addEventListener('click', function(event) {
+    event.stopPropagation();
+    if (columnsPopup.style.display === 'none' || columnsPopup.style.display === '') {
+      columnsPopup.style.display = 'block';
+      const rect = toggleColumnsBtn.getBoundingClientRect();
+      columnsPopup.style.top = (rect.bottom + window.scrollY) + 'px';
+      columnsPopup.style.left = (rect.left + window.scrollX) + 'px';
+    } else {
+      columnsPopup.style.display = 'none';
+    }
+  });
+  
+  closePopupBtn.addEventListener('click', function() {
+    columnsPopup.style.display = 'none';
+  });
+  
+  // Đóng popup khi click bên ngoài
+  document.addEventListener('click', function(event) {
+    if (!columnsPopup.contains(event.target) && event.target !== toggleColumnsBtn) {
+      columnsPopup.style.display = 'none';
+    }
+  });
+  
+  // Xử lý toggle columns
+  toggleColumnInputs.forEach(input => {
+    input.addEventListener('change', function() {
+      const colIndex = parseInt(this.value);
+      const table = document.querySelector('.table');
+      const headerCells = table.querySelectorAll('thead th');
+      const rows = table.querySelectorAll('tbody tr');
+      
+      if (this.checked) {
+        // Hiện cột
+        if (headerCells[colIndex]) headerCells[colIndex].style.display = '';
+        rows.forEach(row => {
+          const cell = row.cells[colIndex];
+          if (cell) cell.style.display = '';
+        });
+      } else {
+        // Ẩn cột
+        if (headerCells[colIndex]) headerCells[colIndex].style.display = 'none';
+        rows.forEach(row => {
+          const cell = row.cells[colIndex];
+          if (cell) cell.style.display = 'none';
+        });
+      }
+    });
+  });
+  
+  // Cấu hình nút thêm cột
+  const addColumnBtn = document.getElementById('addColumnBtn');
+  const addColumnDialog = document.getElementById('addColumnDialog');
+  const saveColumnBtn = document.getElementById('saveColumnBtn');
+  
+  addColumnBtn.addEventListener('click', function() {
+    $('#addColumnDialog').modal('show');
+  });
+  
+  saveColumnBtn.addEventListener('click', function() {
+    const columnName = document.getElementById('columnName').value;
+    const columnWidth = document.getElementById('columnWidth').value;
+    
+    if (columnName) {
+      // Thêm một cột mới vào thead
+      const table = document.querySelector('.table');
+      const thead = table.querySelector('thead tr');
+      const newTh = document.createElement('th');
+      newTh.className = 'center';
+      newTh.textContent = columnName;
+      newTh.style.width = columnWidth + '%';
+      thead.appendChild(newTh);
+      
+      // Thêm một ô trống vào mỗi hàng trong tbody
+      const rows = table.querySelectorAll('tbody tr');
+      rows.forEach(row => {
+        const newTd = document.createElement('td');
+        newTd.contentEditable = 'true';
+        row.appendChild(newTd);
+      });
+      
+      // Thêm cột mới vào popup ẩn/hiện
+      const newColIndex = thead.children.length - 1;
+      const newCheck = document.createElement('div');
+      newCheck.className = 'form-check';
+      newCheck.innerHTML = `
+        <input class="form-check-input toggle-column" type="checkbox" value="${newColIndex}" id="col-custom-${newColIndex}-check" checked>
+        <label class="form-check-label" for="col-custom-${newColIndex}-check">${columnName}</label>
+      `;
+      columnsPopup.insertBefore(newCheck, closePopupBtn);
+      
+      // Thêm sự kiện cho checkbox mới
+      const newInput = newCheck.querySelector('input');
+      newInput.addEventListener('change', function() {
+        const colIndex = parseInt(this.value);
+        const headerCells = table.querySelectorAll('thead th');
+        const rows = table.querySelectorAll('tbody tr');
+        
+        if (this.checked) {
+          if (headerCells[colIndex]) headerCells[colIndex].style.display = '';
+          rows.forEach(row => {
+            const cell = row.cells[colIndex];
+            if (cell) cell.style.display = '';
+          });
+        } else {
+          if (headerCells[colIndex]) headerCells[colIndex].style.display = 'none';
+          rows.forEach(row => {
+            const cell = row.cells[colIndex];
+            if (cell) cell.style.display = 'none';
+          });
+        }
+      });
+      
+      // Đóng dialog
+      $('#addColumnDialog').modal('hide');
+      document.getElementById('columnName').value = '';
+      document.getElementById('columnWidth').value = '10';
+    }
+  });
+});
 
 
   </script>
