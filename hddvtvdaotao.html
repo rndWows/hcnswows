@@ -642,6 +642,40 @@
             }
         });
 
+        let currentAccountIndex = 0;
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank'
+            }
+        ];
+
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            const account = bankAccounts[currentAccountIndex];
+
+            // Update displayed account information
+            const rows = document.querySelectorAll('table tr');
+            rows.forEach(row => {
+                const header = row.querySelector('th');
+                if (header) {
+                    if (header.textContent.includes('Số tài khoản')) {
+                        row.querySelector('td').textContent = account.accountNumber;
+                    } else if (header.textContent.includes('Tên Tài Khoản')) {
+                        row.querySelector('td').textContent = account.accountHolder;
+                    } else if (header.textContent.includes('Tên ngân hàng')) {
+                        row.querySelector('td').textContent = account.bank;
+                    }
+                }
+            });
+        }
+
 
 
         function print() {
