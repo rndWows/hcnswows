@@ -39,6 +39,20 @@
 
     }
 
+    .fixed-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-fixed {
+        flex: 1;
+    }
+
 
     .fixed-button {
         position: fixed;
@@ -204,8 +218,12 @@
 </style>
 
 <body>
-    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In hợp đồng</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -704,6 +722,40 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+        let currentAccountIndex = 0;
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank'
+            }
+        ];
+
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            const account = bankAccounts[currentAccountIndex];
+
+            // Update displayed account information
+            const rows = document.querySelectorAll('table tr');
+            rows.forEach(row => {
+                const header = row.querySelector('th');
+                if (header) {
+                    if (header.textContent.includes('Số tài khoản')) {
+                        row.querySelector('td').textContent = account.accountNumber;
+                    } else if (header.textContent.includes('Tên Tài Khoản')) {
+                        row.querySelector('td').textContent = account.accountHolder;
+                    } else if (header.textContent.includes('Tên ngân hàng')) {
+                        row.querySelector('td').textContent = account.bank;
+                    }
+                }
+            });
+        }
 
         function print() {
 
