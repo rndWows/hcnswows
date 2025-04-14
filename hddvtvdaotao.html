@@ -39,14 +39,31 @@
 
     }
 
+    .fixed-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-fixed {
+        flex: 1;
+    }
 
     .fixed-button {
-            position: fixed;
-            bottom: 20px; /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-            right: 20px;  /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-            width: 100%;
-            max-width: 200px; /* Điều chỉnh chiều rộng tối đa của button */
-        }
+        position: fixed;
+        bottom: 20px;
+        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+        right: 20px;
+        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
+        width: 100%;
+        max-width: 200px;
+        /* Điều chỉnh chiều rộng tối đa của button */
+    }
+
     @media print {
 
         body,
@@ -55,6 +72,7 @@
             box-shadow: 0;
             font-size: 18px !important;
         }
+
         h5 {
             font-size: 24px
         }
@@ -195,8 +213,12 @@
 </style>
 
 <body>
-    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In hợp đồng</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -216,8 +238,8 @@
                         <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
                     </tr>
                     <tr>
-                        <td style="font-size: 12px;">Ngày ban hành: <span >01/07/2024</td>
-                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span >00</td>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
@@ -229,13 +251,13 @@
                 <br>
                 <h5 style="text-align: center;" class="bold"><span>HỢP ĐỒNG DỊCH VỤ TƯ VẤN, ĐÀO TẠO, SỐ HÓA DOANH
                         NGHIỆP</span></h5>
-                        <i>Hôm nay, ngày
-                            <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
-                            tháng
-                            <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
-                            năm
-                            <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
-                        </i>
+                <i>Hôm nay, ngày
+                    <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                    tháng
+                    <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                    năm
+                    <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
+                </i>
                 <div class="info_student">
                     <table style="width: 100%; ">
                         <tr>
@@ -253,7 +275,8 @@
                         </tr>
                         <tr>
                             <th style="width: 30%;">Đại diện theo pháp luật</th>
-                            <td style="width: 70%;">Bà <strong>Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span class="bold">Chức
+                            <td style="width: 70%;">Bà <strong>Đỗ Thị Kim Thủy</strong> &emsp; &emsp; &emsp; <span
+                                    class="bold">Chức
                                     vụ:</span> Tổng giám đốc
                             </td>
 
@@ -351,7 +374,8 @@
                                 lục 1 và 2 của Hợp Đồng</div>
                             <div>2.2 Thời hạn thanh toán theo thoả thuận của hợp đồng.</div>
                             <div>2.3 Chậm thanh toán:</div>
-                            <div style="margin-left: 10px;">Chậm thanh toán là trường hợp tới thời hạn thanh toán theo thỏa thuận và WOWS chưa
+                            <div style="margin-left: 10px;">Chậm thanh toán là trường hợp tới thời hạn thanh toán theo
+                                thỏa thuận và WOWS chưa
                                 nhận được/chưa nhận đủ số tiền Quý Khách Hàng cần thanh toán cho WOWS</div>
                             <div>2.4 Trong trường hợp Bên B không thanh toán đúng tiến độ hợp đồng thì việc triển khai
                                 hợp đồng
@@ -434,8 +458,10 @@
                     </div>
                     <div>7. Các hạng mục quý Khách hàng đã ký kết với WOWS sẽ bắt buộc phải thực hiện và được tính phí
                         như trong
-                        phần phụ lục 1,2 của hợp đồng. Wows sẽ <strong>không đồng ý cắt giảm</strong> các hạng mục sau khi hợp đồng chính
-                        thức được ký kết <strong>trừ khi điều chỉnh hạng mục tương đương</strong> có sự đồng ý của 2 bên bằng văn bản.
+                        phần phụ lục 1,2 của hợp đồng. Wows sẽ <strong>không đồng ý cắt giảm</strong> các hạng mục sau
+                        khi hợp đồng chính
+                        thức được ký kết <strong>trừ khi điều chỉnh hạng mục tương đương</strong> có sự đồng ý của 2 bên
+                        bằng văn bản.
                     </div>
                     <div>- Các yêu cầu công việc phát sinh ngoài phạm vi báo giá hai bên cùng thảo luận thống nhất bổ
                         sung
@@ -505,7 +531,8 @@
                         tiếp: i) Lôi kéo hay khuyến khích bất kỳ ai chấm dứt làm việc hoặc chấm dứt cung cấp dịch vụ cho
                         WOWS hoặc các đơn vị phụ thuộc của nó; hoặc ii) thuê (dưới danh nghĩa của Quý Khách Hàng hoặc
                         bất kỳ cá nhân hay thực thể nào khác) bất kỳ người nào đã chấm dứt làm việc hoặc chấm dứt cung
-                        cấp dịch vụ cho WOWS hoặc các đơn vị phụ thuộc của nó <strong>trong vòng một năm tiếp theo</strong> kể từ việc
+                        cấp dịch vụ cho WOWS hoặc các đơn vị phụ thuộc của nó <strong>trong vòng một năm tiếp
+                            theo</strong> kể từ việc
                         chấm dứt đó.
                     </div>
                     <div>9. Trường hợp Hợp Đồng bị chấm dứt thì các quy định liên quan đến phạt vi phạm, bồi thường
@@ -614,6 +641,8 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+
+
 
         function print() {
 
