@@ -32,8 +32,14 @@
         right: 20px;
         /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
         width: 100%;
-        max-width: 200px;
+        max-width: 400px;
         /* Điều chỉnh chiều rộng tối đa của button */
+        display: flex;
+        gap: 10px;
+    }
+
+    .btn-fixed {
+        flex: 1;
     }
 
     page {
@@ -49,8 +55,6 @@
         height: 100%;
 
     }
-
-
 
     @media print {
 
@@ -69,8 +73,9 @@
             text-align: center;
         }
 
-        .no-print {
-            display: none;
+        .no-print,
+        .fixed-button {
+            display: none !important;
         }
 
         .big-title {
@@ -209,14 +214,22 @@
 
     @media print {
         #accountSelect {
-            display: none;
+            display: none !important;
         }
+    }
+
+    #accountSelect {
+        display: none;
     }
 </style>
 
 <body>
-    <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In đề nghị</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
             <div class="content_page1">
@@ -282,7 +295,8 @@
                         </tr>
                         <tr>
                             <td colspan="2">Căn cứ theo nội dung hợp đồng đã ký, Quý công ty có trách nhiệm thanh toán
-                                đợt <span id="ltt2"></span> cho WOWS số tiền <span class="bold" id="ttt"></span><span class="bold"> VND</span></td>
+                                đợt <span id="ltt2"></span> cho WOWS số tiền <span class="bold" id="ttt"></span><span
+                                    class="bold"> VND</span></td>
                         </tr>
                         <tr>
                             <td colspan="2"><i>(Bằng chữ: <span id="tttbc"></span>)</i></td>
@@ -363,7 +377,7 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-
+        let currentAccountIndex = 0;
         const bankAccounts = [
             {
                 accountNumber: '0281000569347',
@@ -376,6 +390,16 @@
                 bank: 'Ngân Hàng Vietcombank'
             }
         ];
+
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+
+            // Cập nhật dropdown để phản ánh tài khoản hiện tại
+            document.getElementById('accountSelect').value = currentAccountIndex;
+
+            // Cập nhật thông tin tài khoản hiển thị
+            updateBankDetails();
+        }
 
         function updateBankDetails() {
             const selectElement = document.getElementById('accountSelect');
@@ -405,7 +429,7 @@
         }
 
         // Get parameters from URL and set content
-        var parameters = ['idhd', 'tvt', 'idhd1', 'name', 'cty', 'dclh', 'mst', 'nd', 'ltt', 'ltt2', 'ttt'];
+        var parameters = ['idhd', 'tvt', 'idhd1', 'name', 'cty', 'dclh', 'mst', 'ndtt', 'ltt', 'ltt2', 'ttt'];
         parameters.forEach(function (param) {
             var value = getUrlParameter(param);
             setTextContentById(param, value);
@@ -423,7 +447,6 @@
         });
 
         function print() {
-
             $('#content').printThis({
                 debug: false, // show the iframe for debugging
                 importCSS: true, // import parent page css
@@ -446,6 +469,7 @@
                 afterPrint: null // function called before iframe is removed
             });
         }
+
         document.addEventListener('DOMContentLoaded', function () {
             // Lấy ngày hôm nay
             var today = new Date();
@@ -458,10 +482,7 @@
             document.getElementById('month').value = month;
             document.getElementById('year').value = year;
 
-        });
-        document.addEventListener('DOMContentLoaded', function () {
             // Lấy ngày hiện tại
-            var today = new Date();
             var day = String(today.getDate()).padStart(2, '0');
             var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
 
@@ -479,9 +500,26 @@
             });
         });
 
+        // Hàm chuyển số thành chữ (cần thay thế bằng hàm từ doctien.js)
+        function convertNumberToVietnamese(number) {
+            // Đây là hàm mẫu, thực tế hàm này sẽ được thay thế bởi hàm từ doctien.js
+            // Nếu không có doctien.js, bạn có thể implement một hàm đơn giản ở đây
+            if (typeof doctien !== 'undefined' && typeof doctien.convert === 'function') {
+                return doctien.convert(number);
+            }
 
+            // Fallback đơn giản nếu không có hàm doctien
+            const units = ["", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
+            const tens = ["", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"];
 
+            if (number < 10) return units[number];
+            if (number < 100) {
+                return tens[Math.floor(number / 10)] + (number % 10 > 0 ? " " + units[number % 10] : "");
+            }
 
-
+            return number.toString() + " đồng";
+        }
     </script>
 </body>
+
+</html>
