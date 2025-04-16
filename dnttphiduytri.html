@@ -4,7 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Đề nghị thanh toán</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script>
+        // Khởi tạo biến và mảng tài khoản
+        let currentAccountIndex = 0;
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank'
+            }
+        ];
+
+        // Hàm chuyển đổi giữa các tài khoản
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            updateBankInfo();
+        }
+
+        // Hàm cập nhật thông tin tài khoản hiển thị
+        function updateBankInfo() {
+            const account = bankAccounts[currentAccountIndex];
+            const paymentInfo = document.querySelector('.payment-info');
+            const paragraphs = paymentInfo.querySelectorAll('p');
+            
+            paragraphs[0].innerText = `- Số tài khoản: ${account.accountNumber}`;
+            paragraphs[1].innerText = `- Ngân hàng: ${account.bank}`;
+            paragraphs[2].innerText = `- Chủ tài khoản: ${account.accountHolder}`;
+        }
+
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
@@ -91,9 +126,13 @@
         }
 
         function printDocument() {
-            document.getElementById('printBtn').style.display = 'none';
+            document.querySelectorAll('.no-print').forEach(el => {
+                el.style.display = 'none';
+            });
             window.print();
-            document.getElementById('printBtn').style.display = 'block';
+            document.querySelectorAll('.no-print').forEach(el => {
+                el.style.display = '';
+            });
         }
 
         window.onload = function () {
@@ -142,6 +181,9 @@
 
             // Update document number
             document.getElementById('soPDT').innerText = params.idpdt;
+
+            // Cập nhật thông tin tài khoản ban đầu
+            updateBankInfo();
         }
     </script>
     <style>
@@ -159,7 +201,7 @@
                 box-sizing: border-box;
             }
 
-            #printBtn {
+            .no-print {
                 display: none !important;
             }
         }
@@ -289,10 +331,15 @@
             margin: 8pt 0;
         }
 
-        #printBtn {
+        .fixed-buttons {
             position: fixed;
             top: 20px;
             right: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
             padding: 10px 20px;
             background-color: #2c7ebd;
             color: white;
@@ -304,7 +351,7 @@
             transition: background-color 0.3s;
         }
 
-        #printBtn:hover {
+        .btn:hover {
             background-color: #1c5f9c;
         }
 
@@ -331,15 +378,16 @@
             font-size: 15px;
             display: flex;
             align-items: center;
-            /* This helps ensure text is vertically centered */
             height: 50px;
-            /* Match the height of the logo */
         }
     </style>
 </head>
 
 <body>
-    <button id="printBtn" onclick="printDocument()">In tài liệu</button>
+    <div class="fixed-buttons no-print">
+        <button class="btn" onclick="printDocument()"><i class="fa fa-print"></i> In tài liệu</button>
+        <button class="btn" onclick="toggleBankAccount()"><i class="fas fa-exchange-alt"></i> Đổi tài khoản</button>
+    </div>
 
     <div class="header">
         <div class="left-header">
