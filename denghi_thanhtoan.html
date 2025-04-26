@@ -225,10 +225,9 @@
 
 <body>
     <div class="fixed-button">
-        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
-                class="language_print">In đề nghị</span></button>
-        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
-            khoản</button>
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span class="language_print">In đề nghị</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài khoản</button>
+        <button onclick="toggleSignature()" class="btn btn-info btn-fixed"><i class="fas fa-signature"></i> <span id="signatureButtonText">Ẩn chữ ký</span></button>
     </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
@@ -338,28 +337,22 @@
                 <table style="width: 100%; ">
                     <tr>
                         <td style="width: 50%;"></td>
-                        <td style="width: 50%; text-align: center;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN
-                                WOWS</span></td>
-
+                        <td style="width: 50%; text-align: center;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
                     </tr>
                     <tr>
-                        <td><span>Nơi nhận<br>Như trên <br>Lưu VP.
-                            </span></td>
-                        <td style="width: 50%; text-align: center;">(Tổng Giám Đốc) <br> <br> <br> <br> <br> <br> </td>
-
+                        <td><span>Nơi nhận<br>Như trên <br>Lưu VP.</span></td>
+                        <td style="width: 50%; text-align: center;">
+                            (Tổng Giám Đốc) <br> 
+                            <img id="signatureImage" src="https://rndwows.github.io/hcnswows/%E1%BA%A2nh1.png" style="width: 150px; margin-top: 10px;">
+                        </td>
                     </tr>
-
                     <tr>
                         <td></td>
                         <td style="width: 50%; text-align: center;">
                             <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
                         </td>
-
                     </tr>
                 </table>
-
-
-
             </div>
         </div>
     </page>
@@ -522,6 +515,23 @@
                 beforePrint: null, // function called before iframe is filled
                 afterPrint: null // function called before iframe is removed
             });
+        }
+
+        // Thêm vào phần script
+        let signatureVisible = true;
+
+        function toggleSignature() {
+            signatureVisible = !signatureVisible;
+            const signatureImage = document.getElementById('signatureImage');
+            const signatureButtonText = document.getElementById('signatureButtonText');
+            
+            if (signatureVisible) {
+                signatureImage.style.display = 'inline';
+                signatureButtonText.textContent = 'Ẩn chữ ký';
+            } else {
+                signatureImage.style.display = 'none';
+                signatureButtonText.textContent = 'Hiện chữ ký';
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function () {
