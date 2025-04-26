@@ -224,10 +224,14 @@
 </style>
 
 <body>
+    <!-- Thêm nút ẩn/hiện chữ ký vào phần fixed-button -->
     <div class="fixed-button">
-        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span class="language_print">In đề nghị</span></button>
-        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài khoản</button>
-        <button onclick="toggleSignature()" class="btn btn-info btn-fixed"><i class="fas fa-signature"></i> <span id="signatureButtonText">Ẩn chữ ký</span></button>
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In đề nghị</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+        <button onclick="toggleSignature()" class="btn btn-info btn-fixed"><i class="fas fa-signature"></i> <span
+                id="signatureButtonText">Ẩn chữ ký</span></button>
     </div>
     <page size="A4" id="page" layout="portrait">
         <div id="content">
@@ -334,16 +338,21 @@
 
                 <br>
 
+                <!-- Thêm hình chữ ký vào phần chữ ký -->
                 <table style="width: 100%; ">
                     <tr>
                         <td style="width: 50%;"></td>
-                        <td style="width: 50%; text-align: center;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                        <td style="width: 50%; text-align: center;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN
+                                WOWS</span></td>
                     </tr>
                     <tr>
                         <td><span>Nơi nhận<br>Như trên <br>Lưu VP.</span></td>
                         <td style="width: 50%; text-align: center;">
-                            (Tổng Giám Đốc) <br> 
-                            <img id="signatureImage" src="https://rndwows.github.io/hcnswows/%E1%BA%A2nh1.png" style="width: 150px; margin-top: 10px;">
+                            (Tổng Giám Đốc) <br> <br>
+                            <div style="height: 100px; position: relative;">
+                                <img id="signatureImage" src="https://rndwows.github.io/hcnswows/%E1%BA%A2nh1.png"
+                                    style="width: 150px; position: absolute; top: 0; left: 50%; transform: translateX(-50%);">
+                            </div>
                         </td>
                     </tr>
                     <tr>
@@ -370,15 +379,15 @@
         // New function to convert numbers to Vietnamese text
         function convertNumberToVietnamese(number) {
             if (number === 0) return "Không đồng";
-            
+
             const units = ["", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
             const teens = ["", "mười một", "mười hai", "mười ba", "mười bốn", "mười lăm", "mười sáu", "mười bảy", "mười tám", "mười chín"];
             const tens = ["", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"];
             const scales = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
-            
+
             function readGroup(triplet) {
                 let result = "";
-                
+
                 // Read hundreds
                 if (triplet[0] !== 0) {
                     result += units[triplet[0]] + " trăm ";
@@ -386,7 +395,7 @@
                         result += "lẻ ";
                     }
                 }
-                
+
                 // Read tens and units
                 if (triplet[1] !== 0) {
                     if (triplet[1] === 1) {
@@ -408,37 +417,37 @@
                 } else if (triplet[2] !== 0) {
                     result += "lẻ " + units[triplet[2]] + " ";
                 }
-                
+
                 return result;
             }
-            
+
             let result = "";
             let numStr = Math.floor(number).toString();
-            
+
             // Pad with zeros to make length multiple of 3
             while (numStr.length % 3 !== 0) {
                 numStr = "0" + numStr;
             }
-            
+
             // Process each group of 3 digits
             const groups = numStr.match(/.{3}/g);
-            
+
             for (let i = 0; i < groups.length; i++) {
                 const group = groups[i];
                 const triplet = [parseInt(group[0]), parseInt(group[1]), parseInt(group[2])];
-                
+
                 // Skip empty groups
                 if (triplet[0] === 0 && triplet[1] === 0 && triplet[2] === 0) {
                     continue;
                 }
-                
+
                 result += readGroup(triplet) + scales[groups.length - i - 1] + " ";
             }
-            
+
             result = result.trim();
             // Capitalize first letter
             result = result.charAt(0).toUpperCase() + result.slice(1);
-            
+
             return result + " đồng";
         }
 
@@ -524,12 +533,12 @@
             signatureVisible = !signatureVisible;
             const signatureImage = document.getElementById('signatureImage');
             const signatureButtonText = document.getElementById('signatureButtonText');
-            
+
             if (signatureVisible) {
-                signatureImage.style.display = 'inline';
+                signatureImage.style.visibility = 'visible'; // Chỉ ẩn hình, không xóa khoảng trống
                 signatureButtonText.textContent = 'Ẩn chữ ký';
             } else {
-                signatureImage.style.display = 'none';
+                signatureImage.style.visibility = 'hidden'; // Chỉ ẩn hình, không xóa khoảng trống
                 signatureButtonText.textContent = 'Hiện chữ ký';
             }
         }
@@ -541,14 +550,14 @@
                 var value = getUrlParameter(param);
                 setTextContentById(param, value);
             });
-            
+
             // Convert amount to text
             var ttt = getUrlParameter('ttt');
             if (ttt) {
                 var amount = Number(ttt.replace(/\./g, ''));
                 document.getElementById('tttbc').textContent = convertNumberToVietnamese(amount);
             }
-            
+
             // Lấy ngày hôm nay
             var today = new Date();
             var day = today.getDate();
