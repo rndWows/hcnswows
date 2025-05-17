@@ -406,19 +406,8 @@
             document.getElementById('thoiGianThucHien').innerHTML = thoiGianHTML;
             
             // Cập nhật các phần khác
-            updateGhiChu();
             updatePaymentInfo();
             updateFooter();
-        }
-
-        function updateGhiChu() {
-            const ghiChuElement = document.getElementById('ghiChu');
-            
-            // Thêm các ghi chú
-            ghiChuElement.innerHTML = `
-                <li>Thời hạn thanh toán: trong vòng 03 ngày làm việc kể từ ngày nhận được yêu cầu thanh toán và hồ sơ hợp lệ.</li>
-                <li>Mọi thay đổi về thời gian và nội dung dịch vụ phải được thống nhất bằng văn bản giữa hai bên.</li>
-            `;
         }
 
         function updatePaymentInfo() {
