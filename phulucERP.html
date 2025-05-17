@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -49,11 +48,78 @@
         page[size="A4"][layout="portrait"] {
             width: 21cm;
             height: 100%;
-
         }
 
+        /* Style mới */
+        .info_student {
+            margin-top: 15px;
+            text-align: justify;
+        }
+        
+        .payment-section {
+            margin-top: 15px;
+            padding-left: 20px; /* Thụt lề cho phần thanh toán */
+        }
+        
+        .payment-item {
+            margin-top: 10px;
+            padding-left: 20px; /* Thụt lề cho từng đợt thanh toán */
+        }
+        .payment-item1 {
+            margin-top: 10px;
+        }
+        
+        .payment-detail {
+            padding-left: 30px; /* Thụt lề sâu hơn cho chi tiết */
+            margin-top: 5px;
+        }
+        
+        .header-section {
+            margin-bottom: 15px;
+        }
+        
+        .section-title {
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
 
+        .content-block {
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
 
+        .indent-1 {
+            padding-left: 20px;
+        }
+
+        .indent-2 {
+            padding-left: 40px;
+        }
+
+        .indent-3 {
+            padding-left: 60px;
+        }
+        
+        ul#ghiChu {
+            padding-left: 40px; /* Thụt lề cho danh sách ghi chú */
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-section {
+            margin-top: 30px;
+        }
+        
+        /* Điều chỉnh khoảng cách giữa các dòng */
+        tr {
+            line-height: 1.5;
+        }
+
+        .bullet-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 5px;
+        }
 
         @media print {
 
@@ -103,9 +169,8 @@
 
         #content {
             font-size: 13.5px;
-
+            padding: 40px 40px;
         }
-
 
         .center {
             text-align: center;
@@ -121,17 +186,15 @@
 
         .big-title {
             font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding-bottom: 5px;
         }
 
         #fixed-panel,
         #fixed-show-user,
         #fixed-show-reason {
             font-size: 13px;
-        }
-
-
-        #content {
-            padding: 40px 40px;
         }
 
         #select-setup-print {
@@ -150,10 +213,8 @@
             background-color: #ffffff;
             padding: 10px;
             border-radius: 5px;
-            /*font-size: 13px;*/
             box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
         }
-
 
         .heigth-90px {
             height: 90px !important;
@@ -170,30 +231,14 @@
             vertical-align: middle;
         }
 
-        .big-title {
-            text-transform: uppercase;
-            font-weight: bold;
-            /*font-size: 15px;*/
-            padding-bottom: 5px;
-        }
-
         hr {
             margin-top: 5px;
             margin-bottom: 5px;
         }
 
-        .bold {
-            font-weight: bold;
-        }
-
         .table-center th {
             text-align: center;
             vertical-align: middle;
-        }
-
-        .info_student {
-            margin-top: 10px;
-            text-align: justify;
         }
 
         .info_contract {
@@ -204,7 +249,6 @@
             white-space: pre-wrap;
             word-wrap: break-word;
         }
-
 
         @media only screen and (max-width: 1024px) {
             #fixed-panel {
@@ -235,7 +279,6 @@
                                 style="width: 100px; margin: -30px"></th>
                         <th style="width: 60%;" rowspan="4" class="center">
                             <h5 class=" bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h5>
-
                         </th>
                         <td style="font-size: 12px;">Mã hiệu: </th>
                         <td style="font-size: 12px;"><span>WS-KD-QT01/BM04</span></th>
@@ -254,59 +297,36 @@
                     </tr>
                 </table>
 
-
                 <div style="clear: both"></div>
                 <br>
                 <h4 style="text-align: center;" class="bold"><span>PHỤ LỤC 02</span></h4>
                 <h4 style="text-align: center;" class="bold"><span>PHƯƠNG THỨC VÀ ĐIỀU KHOẢN THANH TOÁN</span></h4>
                 <div style="text-align: center;"> <i>Đính kèm HĐ số <span id="id1"></span></i><br></div>
-                <i>WOWS sẽ cung cấp cho Quý Khách Hàng Dịch vụ với nội dung chi tiết như sau:</i> <br>
+                <div class="content-block">
+                    <i>WOWS sẽ cung cấp cho Quý Khách Hàng Dịch vụ với nội dung chi tiết như sau:</i>
+                </div>
 
                 <div class="info_student" id="thoiGianThucHien">
-                    <table style="width: 100%; ">
-                        <tr>
-                            <td colspan="2"><span class="bold"> Thời gian thực hiện Dịch vụ:</td>
-                        </tr>
-                        <tr>
-                            <td>Tổng thời gian dự kiến: <span id="tongThoiGian"></span> Tháng</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style=" vertical-align: top;">Từ ngày: <span id="ngayBatDau"></span>
-                                &emsp; &emsp; &emsp; Đến ngày: <span id="ngayKetThuc"></span></td>
+                    <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                </div>
 
-                        </tr>
-                        <tr>
-                            <td colspan="2">Tổng chi phí sau ưu đãi: <span id="tongChiPhi"></span></td>
-
-
-                        </tr>
-                        <tr>
-                            <td colspan="2">Bằng chữ: <i id="tongChiPhiBangChu"></i></td>
-
-                        </tr>
-
-                    </table>
+                <ul id="ghiChu" class="content-block">
+                    <!-- Nội dung ghi chú sẽ được thêm bằng JavaScript -->
+                </ul>
+                
+                <div id="thanhToanInfo" class="content-block">
+                    <!-- Thông tin thanh toán sẽ được thêm bằng JavaScript -->
                 </div>
                 
-
-                <ul id="ghiChu">
-                    <!-- Nội dung ghi chú sẽ được thêm vào đây bằng JavaScript -->
-                </ul>
-                <div id="thanhToanInfo" class="mt-4">
-                    <!-- Thông tin thanh toán sẽ được thêm vào đây -->
-                </div>
-                <div id="footerInfo" class="mt-4">
-                    <!-- Thông tin cuối sẽ được thêm vào đây -->
+                <div id="footerInfo" class="content-block">
+                    <!-- Thông tin cuối sẽ được thêm bằng JavaScript -->
                 </div>
             </div>
         </div>
     </page>
 
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"
         integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -332,25 +352,9 @@
 
         function toggleBankAccount() {
             currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
-            const account = bankAccounts[currentAccountIndex];
-
-            // Tìm phần tử chứa thông tin tài khoản trong bảng
-            const rows = document.querySelectorAll('#thanhToanInfo tr');
-            rows.forEach(row => {
-                const td = row.querySelector('td');
-                if (td) {
-                    if (td.textContent.includes('Số tài khoản:')) {
-                        td.innerHTML = `Số tài khoản:<span class="bold"> ${account.accountNumber}</span>`;
-                    } else if (td.textContent.includes('Tên chủ tài khoản:')) {
-                        td.textContent = `Tên chủ tài khoản: ${account.accountHolder}`;
-                    } else if (td.textContent.includes('Ngân hàng thụ hưởng:')) {
-                        td.textContent = `Ngân hàng thụ hưởng: ${account.bank}`;
-                    } else if (td.textContent.includes('Chi nhánh NH thụ hưởng:')) {
-                        td.textContent = `Chi nhánh NH thụ hưởng: ${account.branch}`;
-                    }
-                }
-            });
+            updatePaymentInfo();
         }
+        
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
@@ -380,135 +384,145 @@
         function updateUI() {
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
-            // Thêm phần cập nhật thông tin thời gian thực hiện
-            document.getElementById('tongThoiGian').textContent = HOP_DONG['Thời gian thực hiện dự kiến'] || '06';
-            document.getElementById('ngayBatDau').textContent = formatDate(HOP_DONG['Từ ngày'] || '2024-07-25');
-            document.getElementById('ngayKetThuc').textContent = formatDate(HOP_DONG['Đến ngày'] || '2025-01-25');
-            document.getElementById('tongChiPhi').textContent = formatCurrency(HOP_DONG['Tổng toàn bộ tiền'] || 0);
-            document.getElementById('tongChiPhiBangChu').textContent = numberToWords(HOP_DONG['Tổng toàn bộ tiền'] || 0) + ' đồng';
-
-
+            
+            // Cập nhật thông tin thời gian thực hiện với bố cục mới
+            const thoiGianHTML = `
+                <div class="section-title">Thời gian thực hiện Dịch vụ:</div>
+                <div class="indent-1">
+                    <div>Tổng thời gian dự kiến: <span>${HOP_DONG['Thời gian thực hiện dự kiến'] || '06'}</span> Tháng</div>
+                    <div style="margin-top: 5px;">
+                        Từ ngày: <span>${formatDate(HOP_DONG['Từ ngày'] || '2024-07-25')}</span>
+                        &emsp; &emsp; &emsp; Đến ngày: <span>${formatDate(HOP_DONG['Đến ngày'] || '2025-01-25')}</span>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        Tổng chi phí sau ưu đãi: <span>${formatCurrency(HOP_DONG['Tổng toàn bộ tiền'] || 0)}</span>
+                    </div>
+                    <div style="margin-top: 5px;">
+                        Bằng chữ: <i>${numberToWords(HOP_DONG['Tổng toàn bộ tiền'] || 0) + ' đồng'}</i>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('thoiGianThucHien').innerHTML = thoiGianHTML;
+            
+            // Cập nhật các phần khác
+            updateGhiChu();
             updatePaymentInfo();
             updateFooter();
         }
 
-
-
+        function updateGhiChu() {
+            const ghiChuElement = document.getElementById('ghiChu');
+            
+            // Thêm các ghi chú
+            ghiChuElement.innerHTML = `
+                <li>Thời hạn thanh toán: trong vòng 03 ngày làm việc kể từ ngày nhận được yêu cầu thanh toán và hồ sơ hợp lệ.</li>
+                <li>Mọi thay đổi về thời gian và nội dung dịch vụ phải được thống nhất bằng văn bản giữa hai bên.</li>
+            `;
+        }
 
         function updatePaymentInfo() {
             const thanhToanInfo = document.getElementById('thanhToanInfo');
+            const account = bankAccounts[currentAccountIndex];
+            
             let thanhToanHTML = `
-    <div class="info_student">
-        <table style="width: 100%;">
-            <tr>
-                <td colspan="2"><span class="bold">Điều khoản thanh toán:</span></td>
-            </tr>
-            <tr>
-                <td colspan="2">Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm thanh toán cho hợp đồng theo các đợt như sau:</td>
-            </tr>
-    `;
+                <div class="section-title">Điều khoản thanh toán:</div>
+                <div class="indent-1">
+                    Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm thanh toán cho hợp đồng theo các đợt như sau:
+                </div>
+            `;
 
             for (let i = 1; i <= 4; i++) {
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
                 if (dkttItem) {
                     const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
                     let soTienThanhToan = HOP_DONG['Tổng toàn bộ tiền'] * phanTramThanhToan;
-                    let phiDuyTri = parseFloat(HOP_DONG['Tiền Phí Duy trì hàng năm']) * phanTramThanhToan || 0;
-                    let phiPublicApp = parseFloat(HOP_DONG['Phí Public App '])  * phanTramThanhToan || 0;
 
                     thanhToanHTML += `
-            <tr>
-                <td colspan="2"><span class="bold">Thanh toán lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
-            </tr>
-            <tr>
-                <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
-            </tr>
-            `;
-
-                 
-
-                    thanhToanHTML += `
-          
-            <tr>
-                <td colspan="2">${dkttItem['Nội dung yêu cầu'] || ''}</td>
-            </tr>
-            `;
+                        <div class="payment-item">
+                            <div class="bold">Thanh toán lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</div>
+                            <div class="payment-detail">
+                                Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ 
+                                <div><i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></div>
+                            </div>
+                            <div class="payment-detail">
+                                ${dkttItem['Nội dung yêu cầu'] || ''}
+                            </div>
+                        </div>
+                    `;
                 }
             }
 
-            thanhToanHTML += ` <tr>
-                            <td colspan="2" class="bold">Phương thức thanh toán: Chuyển khoản</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Số tài khoản:<span class="bold"> 1025576073</span> </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Tên chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Ngân hàng thụ hưởng: Ngân Hàng Vietcombank
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">Chi nhánh NH thụ hưởng: Chi nhánh Bình Dương
-                            </td>
-                        </tr>
-        </table>
-    </div>
-    `;
+            thanhToanHTML += `
+                <div class="payment-item1">
+                    <div class="bold">Thanh lý hợp đồng:</div>
+                    <div class="payment-detail">
+                        Sau khi 2 Bên xác nhận hoàn thành dịch vụ thì Bên A sẽ hoàn tất chứng từ và gửi hồ sơ thanh toán cho Bên B như sau:
+                    </div>
+                    <div class="payment-detail">
+                        <ul class="bullet-list">
+                            <li>Hóa đơn GTGT theo quy định của Nhà nước.</li>
+                            <li>Biên bản nghiệm thu, bàn giao đã hoàn thành có xác nhận đại diện 2 Bên.</li>
+                            <li>Thanh lý hợp đồng.</li>
+                        </ul>
+                    </div>
+                    <div class="payment-detail">
+                        Sau khi nhận đủ hồ sơ thanh toán như trên, Bên B sẽ kiểm tra nhận hồ sơ thanh toán. Trường hợp sau 03 ngày làm việc mà Bên A không nhận được thông tin phản hồi về hồ sơ thanh toán thì hồ sơ đó được xem là hợp lệ.
+                    </div>
+                </div>
+
+                <div class="payment-item1">
+                    <div class="bold">Phương thức thanh toán: Chuyển khoản</div>
+                    <div class="payment-detail">
+                        <div>Số tài khoản: <span class="bold">${account.accountNumber}</span></div>
+                        <div>Tên chủ tài khoản: ${account.accountHolder}</div>
+                        <div>Ngân hàng thụ hưởng: ${account.bank}</div>
+                        <div>Chi nhánh NH thụ hưởng: ${account.branch}</div>
+                    </div>
+                </div>
+            `;
 
             thanhToanInfo.innerHTML = thanhToanHTML;
         }
 
         function updateFooter() {
             const footerInfo = document.getElementById('footerInfo');
-            let footerHTML = '';
-
-            footerHTML += `
-       <table style="width: 100%; text-align: center;">
-            <tbody>
-                <tr>
-                    <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                    <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
-                </tr>
-                <tr>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-                </tr>
-                <tr>
-                    <td>
-                        <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
-                    </td>
-                    <td>
-                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Lê Văn Liêm'}</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                </tr>
-            </tbody>
-       </table>
-    `;
+            let footerHTML = `
+                <div class="footer-section">
+                   <table style="width: 100%; text-align: center; margin-top: 30px;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                                <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
+                            </tr>
+                            <tr>
+                                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
+                                </td>
+                                <td>
+                                    <p style="text-transform: uppercase;" class="bold"><span id="daidien1">${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Lê Văn Liêm'}</span></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <i class="">Ngày ký: .............................</i>
+                                </td>
+                                <td>
+                                    <i class="">Ngày ký: .............................</i>
+                                </td>
+                            </tr>
+                        </tbody>
+                   </table>
+                </div>
+            `;
 
             footerInfo.innerHTML = footerHTML;
         }
 
-        // (Giữ nguyên các hàm hỗ trợ như formatCurrency, formatDate, numberToWords)
-
-        document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const soHD = urlParams.get('SOHD');
-            if (soHD) {
-                searchContract(soHD);
-            } else {
-                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
-            }
-        });
         function numberToWords(number) {
             const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
             const teens = ['mười', 'mười một', 'mười hai', 'mười ba', 'mười bốn', 'mười lăm', 'mười sáu', 'mười bảy', 'mười tám', 'mười chín'];
@@ -549,6 +563,7 @@
             result = result.trim();
             return result.charAt(0).toUpperCase() + result.slice(1);
         }
+        
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
@@ -558,6 +573,7 @@
             const year = String(date.getFullYear());
             return `${day}/${month}/${year}`;
         }
+        
         function formatCurrency(value) {
             if (!value) return '';
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
@@ -585,6 +601,16 @@
                 afterPrint: null
             });
         }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const soHD = urlParams.get('SOHD');
+            if (soHD) {
+                searchContract(soHD);
+            } else {
+                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOHD=HD001)');
+            }
+        });
     </script>
 </body>
 
