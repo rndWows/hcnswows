@@ -55,29 +55,33 @@
             margin-top: 15px;
             text-align: justify;
         }
-        
+
         .payment-section {
             margin-top: 15px;
-            padding-left: 20px; /* Thụt lề cho phần thanh toán */
+            padding-left: 20px;
+            /* Thụt lề cho phần thanh toán */
         }
-        
+
         .payment-item {
             margin-top: 10px;
-            padding-left: 20px; /* Thụt lề cho từng đợt thanh toán */
+            padding-left: 20px;
+            /* Thụt lề cho từng đợt thanh toán */
         }
+
         .payment-item1 {
             margin-top: 10px;
         }
-        
+
         .payment-detail {
-            padding-left: 30px; /* Thụt lề sâu hơn cho chi tiết */
+            padding-left: 30px;
+            /* Thụt lề sâu hơn cho chi tiết */
             margin-top: 5px;
         }
-        
+
         .header-section {
             margin-bottom: 15px;
         }
-        
+
         .section-title {
             font-weight: bold;
             margin-bottom: 8px;
@@ -99,17 +103,18 @@
         .indent-3 {
             padding-left: 60px;
         }
-        
+
         ul#ghiChu {
-            padding-left: 40px; /* Thụt lề cho danh sách ghi chú */
+            padding-left: 40px;
+            /* Thụt lề cho danh sách ghi chú */
             margin-top: 15px;
             margin-bottom: 15px;
         }
-        
+
         .footer-section {
             margin-top: 30px;
         }
-        
+
         /* Điều chỉnh khoảng cách giữa các dòng */
         tr {
             line-height: 1.5;
@@ -313,11 +318,11 @@
                 <ul id="ghiChu" class="content-block">
                     <!-- Nội dung ghi chú sẽ được thêm bằng JavaScript -->
                 </ul>
-                
+
                 <div id="thanhToanInfo" class="content-block">
                     <!-- Thông tin thanh toán sẽ được thêm bằng JavaScript -->
                 </div>
-                
+
                 <div id="footerInfo" class="content-block">
                     <!-- Thông tin cuối sẽ được thêm bằng JavaScript -->
                 </div>
@@ -354,7 +359,7 @@
             currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
             updatePaymentInfo();
         }
-        
+
         // Biến toàn cục để lưu trữ dữ liệu
         var HOP_DONG = {};
         var PO_DETAIL = [];
@@ -384,7 +389,7 @@
         function updateUI() {
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
-            
+
             // Cập nhật thông tin thời gian thực hiện với bố cục mới
             const thoiGianHTML = `
                 <div class="section-title">Thời gian thực hiện Dịch vụ:</div>
@@ -402,9 +407,9 @@
                     </div>
                 </div>
             `;
-            
+
             document.getElementById('thoiGianThucHien').innerHTML = thoiGianHTML;
-            
+
             // Cập nhật các phần khác
             updatePaymentInfo();
             updateFooter();
@@ -413,7 +418,7 @@
         function updatePaymentInfo() {
             const thanhToanInfo = document.getElementById('thanhToanInfo');
             const account = bankAccounts[currentAccountIndex];
-            
+
             let thanhToanHTML = `
                 <div class="section-title">Điều khoản thanh toán:</div>
                 <div class="indent-1">
@@ -429,7 +434,7 @@
 
                     thanhToanHTML += `
                         <div class="payment-item">
-                            <div class="bold">Thanh toán lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</div>
+                            <div class="bold">Tạm ứng lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</div>
                             <div class="payment-detail">
                                 Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ 
                                 <div><i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></div>
@@ -443,6 +448,15 @@
             }
 
             thanhToanHTML += `
+                <div class="payment-item1">
+                    <div class="payment-detail">
+                        Các đợt tạm ứng là để đảm bảo thực hiện hợp đồng cung cấp các dịch vụ
+                    </div>
+                    <div class="payment-detail">
+                        Sau khi hoàn thành dịch vụ, hai Bên không phát sinh chi phí ngoài hợp đồng thì Bên A phát hành hóa đơn tài chính gửi Bên B
+                    </div>
+                </div>
+                
                 <div class="payment-item1">
                     <div class="bold">Thanh lý hợp đồng:</div>
                     <div class="payment-detail">
@@ -552,7 +566,7 @@
             result = result.trim();
             return result.charAt(0).toUpperCase() + result.slice(1);
         }
-        
+
         function formatDate(dateString) {
             if (!dateString) return '';
             const date = new Date(dateString);
@@ -562,7 +576,7 @@
             const year = String(date.getFullYear());
             return `${day}/${month}/${year}`;
         }
-        
+
         function formatCurrency(value) {
             if (!value) return '';
             return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
