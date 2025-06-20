@@ -424,7 +424,7 @@
                 vatRow.style.display = '';
                 document.getElementById('vat').textContent = vatValue * 100 + '%';
                 document.getElementById('tongTienVAT').textContent = formatCurrency(HOP_DONG['Tong_tien_VAT'] || 0);
-                document.getElementById('checkvat').textContent = '(Đã bao gồm VAT)';
+                document.getElementById('checkvat').textContent = `(Đã bao gồm VAT ${vatValue * 100}%)`;
             }
 
             // Calculate additional fees
