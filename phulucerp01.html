@@ -415,15 +415,16 @@
             // Handle VAT row visibility
             const vatValue = HOP_DONG['%VAT'];
             const vatRow = document.getElementById('vatRow');
-            if (!vatValue || vatValue === 0) {
+
+            // Chỉ ẩn khi không có dữ liệu VAT (null, undefined, empty string)
+            if (vatValue == null || vatValue === '') {
                 vatRow.style.display = 'none';
                 document.getElementById('checkvat').textContent = '(Chưa bao gồm VAT)';
             } else {
                 vatRow.style.display = '';
-                document.getElementById('vat').textContent = vatValue ? vatValue * 100 + ' %' : '0%';
+                document.getElementById('vat').textContent = vatValue * 100 + '%';
                 document.getElementById('tongTienVAT').textContent = formatCurrency(HOP_DONG['Tong_tien_VAT'] || 0);
                 document.getElementById('checkvat').textContent = '(Đã bao gồm VAT)';
-
             }
 
             // Calculate additional fees
