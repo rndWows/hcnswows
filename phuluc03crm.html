@@ -288,32 +288,29 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
-                        <td colspan="1" class="text-center"><span id=""></span></td>
-                        <td colspan="2" class="text-center"><span id="tongGiaTri"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
-                        <td colspan="1" class="text-center"><span id="phanTramUuDai"></span></td>
-                        <td colspan="2" class="text-center"><span id="tongTienUuDai"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
-                        <td colspan="1" class="text-center"><span id=""></span></td>
-                        <td colspan="2" class="text-center"><span id="thanhTien"></span></td>
-                    </tr>
-                    <tr id="vatRow">
-                        <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                        <td colspan="1" class="text-center"><span id="vat"></span></td>
-                        <td colspan="2" class="text-center"><span id="tongTienVAT"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN: <span
-                                    id="checkvat"></span></strong></td>
-                        <td colspan="1" class="text-center"><span id=""></span></td>
-                        <td colspan="2" class="text-center"><span id="tongThanhToan"></span></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
+                            <td colspan="1" class="text-center"><span id=""></span></td>
+                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
+                            <td colspan="1" class="text-center"><span id="phanTramUuDai"></span></td>
+                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
+                        </tr>
+                        <tr id="vatRow">
+                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
+                            <td colspan="1" class="text-center"><span id="vat"></span></td>
+                            <td colspan="3" class="text-center"><span id="tongTienVAT"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN: <span
+                                        id="checkvat"></span></strong></td>
+                            <td colspan="1" class="text-center"><span id=""></span></td>
+                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div class="mt-3">
                     <span style="font-style: italic;">TỔNG THANH TOÁN BẰNG CHỮ: </span>
@@ -513,27 +510,33 @@
             const tongTienUD = tongGiaTri * averageDiscount;
             document.getElementById('tongTienUuDai').textContent = formatCurrency(tongTienUD);
 
-            // Calculate amount after discount
-            const thanhTien = tongGiaTri - tongTienUD;
-            document.getElementById('thanhTien').textContent = formatCurrency(thanhTien);
-
             // Handle VAT row visibility and content
             const vatRow = document.getElementById('vatRow');
-            let tongTienVAT = 0;
 
-            if (averageVAT && averageVAT > 0) {
+            // Kiểm tra xem có dữ liệu VAT hay không (khác null, undefined, empty string)
+            const hasVATData = PLHĐ.some(item =>
+                item['%VAT'] !== null &&
+                item['%VAT'] !== undefined &&
+                item['%VAT'] !== '' &&
+                !isNaN(item['%VAT'])
+            );
+
+            if (hasVATData) {
+                // Có dữ liệu VAT (dù là 0% hay giá trị khác) → Hiển thị dòng VAT
                 vatRow.style.display = '';
                 document.getElementById('vat').textContent = (averageVAT * 100).toFixed(2) + ' %';
-                tongTienVAT = thanhTien * averageVAT;
+
+                const tongTienVAT = (tongGiaTri - tongTienUD) * averageVAT;
                 document.getElementById('tongTienVAT').textContent = formatCurrency(tongTienVAT);
                 document.getElementById('checkvat').textContent = ` (Đã bao gồm VAT ${(averageVAT * 100).toFixed(2)}%)`;
             } else {
+                // Không có dữ liệu VAT → Ẩn dòng VAT
                 vatRow.style.display = 'none';
                 document.getElementById('checkvat').textContent = ' (Chưa bao gồm VAT)';
             }
 
             // Calculate final total
-            const tongTienSauVAT = thanhTien + tongTienVAT;
+            const tongTienSauVAT = (tongGiaTri - tongTienUD) * (1 + (hasVATData ? averageVAT : 0));
             document.getElementById('tongThanhToan').textContent = formatCurrency(tongTienSauVAT);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(Math.round(tongTienSauVAT))} đồng`;
 
