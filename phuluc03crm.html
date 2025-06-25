@@ -524,11 +524,12 @@
             if (hasVATData) {
                 // Có dữ liệu VAT (dù là 0% hay giá trị khác) → Hiển thị dòng VAT
                 vatRow.style.display = '';
-                document.getElementById('vat').textContent = (averageVAT * 100).toFixed(2) + ' %';
+                const vatPercent = Math.round(averageVAT * 100);
+                document.getElementById('vat').textContent = vatPercent + '%';
 
                 const tongTienVAT = (tongGiaTri - tongTienUD) * averageVAT;
                 document.getElementById('tongTienVAT').textContent = formatCurrency(tongTienVAT);
-                document.getElementById('checkvat').textContent = ` (Đã bao gồm VAT ${(averageVAT * 100).toFixed(2)}%)`;
+                document.getElementById('checkvat').textContent = ` (Đã bao gồm VAT ${vatPercent}%)`;
             } else {
                 // Không có dữ liệu VAT → Ẩn dòng VAT
                 vatRow.style.display = 'none';
