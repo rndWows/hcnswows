@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>PHỤ LỤC 4</title>
+    <meta name="csrf-token" content="MHMXdIG4tBlzbq7sMs8y0wjq43Dtbf8PaMgnKDS3">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="https://rndwows.github.io/hcnswows/logowows.jpg" type="image/x-icon">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+
+    <style>
+        body {
+            background: rgb(204, 204, 204);
+            font-family: "Times New Roman", Times, serif;
+        }
+
+        .fixed-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 100%;
+            max-width: 200px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-fixed {
+            flex: 1;
+        }
+
+        page {
+            background: white;
+            display: block;
+            margin: 0 auto;
+            margin-bottom: 0.5cm;
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+        page[size="A4"][layout="landscape"] {
+            width: 29.7cm;
+            height: 100%;
+
+        }
+
+        #loadingOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .fa-spinner {
+            animation: spin 1s infinite linear;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @media print {
+
+            body,
+            #content {
+                margin: 0;
+                box-shadow: 0;
+                font-size: 18px !important;
+            }
+
+            h5 {
+                font-size: 24px
+            }
+
+            .big-title {
+                font-size: 18px !important;
+            }
+
+            .total-pay {
+                font-size: 15px !important;
+            }
+
+            @page {
+                size: auto;
+            }
+
+            #content-split {
+                margin-top: 40px;
+                position: absolute;
+                top: 50%;
+                width: 920px;
+            }
+
+            .height_hr {
+                border-top: 3px dashed black;
+                width: 100%;
+                position: absolute;
+                top: 49%;
+            }
+
+            #content-split .div-logo {
+                position: relative;
+                top: -10px;
+                left: 10px;
+            }
+
+            .fixed-button {
+                display: none !important;
+            }
+
+            #loadingOverlay {
+                display: none !important;
+            }
+        }
+
+        #content {
+            font-size: 13.5px;
+
+        }
+
+
+        .center {
+            text-align: center;
+        }
+
+        .right {
+            text-align: right;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .big-title {
+            font-size: 15px;
+        }
+
+        #fixed-panel,
+        #fixed-show-user,
+        #fixed-show-reason {
+            font-size: 13px;
+        }
+
+
+        #content {
+            padding: 40px 40px;
+        }
+
+        #select-setup-print {
+            position: relative;
+            top: -2px;
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        #setup-print {
+            position: fixed;
+            top: 480px;
+            left: 30px;
+            width: 150px;
+            height: 54px;
+            background-color: #ffffff;
+            padding: 10px;
+            border-radius: 5px;
+            /*font-size: 13px;*/
+            box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
+        }
+
+
+        .heigth-90px {
+            height: 90px !important;
+        }
+
+        #page {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .center-content {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .big-title {
+            text-transform: uppercase;
+            font-weight: bold;
+            /*font-size: 15px;*/
+            padding-bottom: 5px;
+        }
+
+        hr {
+            margin-top: 5px;
+            margin-bottom: 5px;
+        }
+
+        .bold {
+            font-weight: bold;
+        }
+
+        .table-center th {
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .info_student {
+            margin-top: 10px;
+            text-align: justify;
+        }
+
+        .info_contract {
+            margin-bottom: 5px !important
+        }
+
+        .preserve-format {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+
+        @media only screen and (max-width: 1024px) {
+            #fixed-panel {
+                display: none !important;
+            }
+
+            #list_option_print {
+                display: none !important;
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="fixed-button">
+        <button onclick="print()" class="btn btn-info btn-fixed"><i class="fa fa-print"></i> <span
+                class="language_print">In phụ lục</span></button>
+        <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
+            khoản</button>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay">
+        <div style="
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            color: #333;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        ">
+            <i class="fa fa-spinner fa-spin" style="font-size: 24px; margin-bottom: 10px;"></i>
+            <br>
+            Đang tải dữ liệu...
+        </div>
+    </div>
+
+    <page size="A4" id="page" layout="landscape">
+        <div id="content">
+            <div class="content_page1">
+                <table style="width: 100%;">
+                    <tr>
+                        <th rowspan="4"> <img src="https://rndwows.github.io/hcnswows/logowows.jpg"
+                                style="width: 100px; margin: -30px"></th>
+                        <th style="width: 60%;" rowspan="4" class="center">
+                            <h5 class=" bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h5>
+                            <h5 class="bold appendix-title">PHỤ LỤC : HẠNG MỤC BỔ SUNG</h5>
+                        </th>
+                        <td style="font-size: 12px;">Mã hiệu: </th>
+                        <td style="font-size: 12px;"><span class="pkd-number">PKD-QT02/PL0</span></th>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;"> Lần ban hành: 01</td>
+                        <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 12px;">Số:</td>
+                        <td style="font-size: 12px;"><span id="idbg"></span></td>
+                    </tr>
+                </table>
+
+
+                <div style="clear: both"></div>
+                <br>
+                <p><strong>Kính gửi: <span id="companyName"></span></strong></p>
+                <p>- Căn cứ hợp đồng số: <span id="idhd"></span> giữa CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS VÀ <span
+                        id="companyName"></span> đã ký.</p>
+                <p>Hai bên thống nhất và lập phụ lục hợp đồng này bổ sung thêm hạng mục chi tiết như sau:</p>
+
+                <table class="table table-bordered">
+                    <thead class="center-content">
+                        <tr>
+                            <th rowspan="2" class="center">STT</th>
+                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
+
+                            <th rowspan="2" class="center">GHI CHÚ</th>
+                        </tr>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Quy cách</th>
+                            <th>Đơn vị tính</th>
+                            <th>Số lượng</th>
+                            <th>Đơn giá</th>
+                            <th>Tổng giá trị <BR>
+                                (Giá gốc)</th>
+
+                        </tr>
+                    </thead>
+                    <tbody id="orderDetailsBody">
+                        <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
+                    </tbody>
+                    <tbody>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
+                            <td colspan="1" class="text-center"><span id=""></span></td>
+                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
+                            <td colspan="1" class="text-center"><span id="phanTramUuDai"></span></td>
+                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
+                        </tr>
+                        <tr id="vatRow">
+                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
+                            <td colspan="1" class="text-center"><span id="vat"></span></td>
+                            <td colspan="3" class="text-center"><span id="tongTienVAT"></span></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN: <span
+                                        id="checkvat"></span></strong></td>
+                            <td colspan="1" class="text-center"><span id=""></span></td>
+                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="mt-3">
+                    <span style="font-style: italic;">TỔNG THANH TOÁN BẰNG CHỮ: </span>
+                    <span id="tongThanhToanBangChu" style="font-style: italic;"></span>
+                </div>
+                <ul id="ghiChu">
+                    <!-- Nội dung ghi chú sẽ được thêm vào đây bằng JavaScript -->
+                </ul>
+                <div id="thanhToanInfo" class="mt-4">
+                    <!-- Thông tin thanh toán sẽ được thêm vào đây -->
+                </div>
+                <div id="footerInfo" class="mt-4">
+                    <!-- Thông tin cuối sẽ được thêm vào đây -->
+                </div>
+            </div>
+        </div>
+    </page>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"
+        integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
+    <script>
+        // ================ APPSHEET API CONFIGURATION ================
+        const appId = '33cdf12c-2ebe-48e4-ba68-a8885fb462f6';
+        const accessKey = 'V2-8MaSv-WMZDd-BZ2mS-PDo0M-xVU8u-E4lXo-gSr7O-xuJWd';
+        const region = 'www';
+
+        // Global variables
+        let currentAccountIndex = 0;
+        let PLHĐ = [];
+        let KHTN = {};
+        let DKTT = [];
+        let PO = {};
+
+        // Bank accounts configuration
+        const bankAccounts = [
+            {
+                accountNumber: '1025576073',
+                accountHolder: 'CONG TY CO PHAN TAP DOAN WOWS',
+                bank: 'Ngân Hàng Vietcombank',
+                branch: 'Chi nhánh Bình Dương'
+            },
+            {
+                accountNumber: '0281000569347',
+                accountHolder: 'DO THI KIM THUY',
+                bank: 'Ngân Hàng Vietcombank',
+                branch: 'Chi nhánh Bình Dương'
+            }
+        ];
+
+        // ================ LOADING FUNCTIONS ================
+        function showLoading() {
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function hideLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function toggleBankAccount() {
+            currentAccountIndex = (currentAccountIndex + 1) % bankAccounts.length;
+            const account = bankAccounts[currentAccountIndex];
+
+            // Tìm phần tử chứa thông tin tài khoản trong bảng
+            const rows = document.querySelectorAll('#thanhToanInfo tr');
+            rows.forEach(row => {
+                const td = row.querySelector('td');
+                if (td) {
+                    if (td.textContent.includes('Số tài khoản:')) {
+                        td.innerHTML = `Số tài khoản:<span class="bold"> ${account.accountNumber}</span>`;
+                    } else if (td.textContent.includes('Tên chủ tài khoản:')) {
+                        td.textContent = `Tên chủ tài khoản: ${account.accountHolder}`;
+                    } else if (td.textContent.includes('Ngân hàng thụ hưởng:')) {
+                        td.textContent = `Ngân hàng thụ hưởng: ${account.bank}`;
+                    } else if (td.textContent.includes('Chi nhánh NH thụ hưởng:')) {
+                        td.textContent = `Chi nhánh NH thụ hưởng: ${account.branch}`;
+                    }
+                }
+            });
+        }
+
+        // ================ APPSHEET API FUNCTIONS ================
+        async function fetchFromAppSheet(tableName, filter = "true") {
+            try {
+                const response = await fetch(`https://${region}.appsheet.com/api/v2/apps/${appId}/tables/${tableName}/Action`, {
+                    method: 'POST',
+                    headers: {
+                        'ApplicationAccessKey': accessKey,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        Action: 'Find',
+                        Properties: {
+                            Selector: `Filter(${tableName}, ${filter})`
+                        }
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                if (!Array.isArray(data)) {
+                    throw new Error('Invalid data format received');
+                }
+
+                return data;
+            } catch (error) {
+                console.error(`Failed to fetch from ${tableName}:`, error);
+                throw error;
+            }
+        }
+
+        async function searchOrderFast(soPhuLuc) {
+            try {
+                console.log('Fast searching for:', soPhuLuc);
+                showLoading();
+
+                // Load TẤT CẢ bảng cùng lúc
+                const [plhdData, poData, dkttData, khtnData] = await Promise.all([
+                    fetchFromAppSheet('PLHĐ', `[Số phụ lục] = "${soPhuLuc}"`),
+                    fetchFromAppSheet('PO', 'true'), // Lấy tất cả PO
+                    fetchFromAppSheet('DKTT', 'true'), // Lấy tất cả DKTT
+                    fetchFromAppSheet('KHTN', 'true') // Lấy tất cả KHTN
+                ]);
+
+                console.log('All raw data loaded');
+
+                // Kiểm tra PLHĐ
+                if (plhdData.length === 0) {
+                    throw new Error(`Không tìm thấy phụ lục với số: ${soPhuLuc}`);
+                }
+
+                PLHĐ = plhdData;
+                const idBbgth = PLHĐ[0]['ID_BBGTH'];
+                const key = PLHĐ[0]['KEY'];
+
+                // Filter dữ liệu đã load
+                PO = poData.find(item => item['ID_BBGTH'] === idBbgth) || {};
+                DKTT = dkttData.filter(item => item['ID_BBGTH'] === idBbgth) || [];
+                KHTN = khtnData.find(item => item['KEY'] === key) || {};
+
+                console.log('Filtered data:', { PLHĐ, PO, DKTT, KHTN });
+
+                hideLoading();
+                updateUI();
+
+            } catch (error) {
+                hideLoading();
+                console.error('Error in fast search:', error);
+                alert('Lỗi: ' + error.message);
+            }
+        }
+
+        function formatCurrency(value) {
+            if (!value || value == 0) return '0 ₫';
+            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            if (isNaN(date.getTime())) return dateString;
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = String(date.getFullYear());
+            return `${day}/${month}/${year}`;
+        }
+
+        // Add this function after the existing updateUI function
+        function extractAppendixNumber(idbg) {
+            // Check if idbg matches the pattern and contains "PL" followed by numbers
+            const match = idbg.match(/PL(\d+)$/);
+            return match ? match[1] : '4'; // Default to 4 if no match found
+        }
+
+        function updateUI() {
+            console.log("Updating UI with data:", { PLHĐ, KHTN, DKTT, PO });
+
+            // Function to extract appendix number from idbg
+            function extractAppendixNumber(idbg) {
+                const match = idbg.match(/PL(\d+)$/);
+                return match ? match[1] : '4';
+            }
+
+            // Get appendix number and update related elements
+            const idbg = PLHĐ[0]['Số phụ lục'] || '';
+            const appendixNumber = extractAppendixNumber(idbg);
+
+            // Update the heading text
+            const headingElement = document.querySelector('h5.bold:nth-child(2)');
+            if (headingElement) {
+                headingElement.textContent = `PHỤ LỤC ${appendixNumber}: HẠNG MỤC BỔ SUNG`;
+            }
+
+            // Update the PKD-QT02/PL number
+            const pkdElement = document.querySelector('.pkd-number');
+            if (pkdElement) {
+                pkdElement.textContent = `PKD-QT02/PL${appendixNumber}`;
+            }
+
+            // Update order elements
+            const companyIdbgElement = document.getElementById('idbg');
+            if (companyIdbgElement) {
+                companyIdbgElement.textContent = PLHĐ[0]['Số phụ lục'] || '';
+            }
+            const hdIdbgElement = document.getElementById('idhd');
+            if (hdIdbgElement) {
+                hdIdbgElement.textContent = PLHĐ[0]['Số HĐ'] || PO['Số HĐ'] || '';
+            }
+
+            // Cập nhật tên công ty
+            document.querySelectorAll('#companyName').forEach(element => {
+                element.textContent = KHTN['TÊN CÔNG TY'] || '';
+            });
+
+            // Update table body and calculate totals
+            const tableBody = document.getElementById('orderDetailsBody');
+            let tongGiaTri = 0;
+            let totalDiscount = 0;
+            let totalVAT = 0;
+            let productCount = 0;
+
+            if (tableBody) {
+                tableBody.innerHTML = '';
+                PLHĐ.forEach((item, index) => {
+                    const row = tableBody.insertRow();
+                    row.innerHTML = `
+                <td class="center">${index + 1}</td>
+                <td>${item['Ma_HHDV'] || ''}</td>
+                <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
+                <td>${item['DVT'] || ''}</td>
+                <td>${item['So_luong'] || ''}</td>
+                <td>${formatCurrency(item['Gia_ban'])}</td>
+                <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
+                <td>${item['Ghi chú'] || ''}</td>
+            `;
+
+                    tongGiaTri += parseFloat(item['Thanh_tien_chi_tiet'] || 0);
+
+                    if (item['% Uu_dai'] !== undefined && !isNaN(item['% Uu_dai']) &&
+                        item['%VAT'] !== undefined && !isNaN(item['%VAT'])) {
+                        totalDiscount += parseFloat(item['% Uu_dai']);
+                        totalVAT += parseFloat(item['%VAT']);
+                        productCount++;
+                    }
+                });
+            }
+
+            // Calculate averages
+            const averageDiscount = productCount > 0 ? totalDiscount / productCount : 0;
+            const averageVAT = productCount > 0 ? totalVAT / productCount : 0;
+
+            // Update totals display
+            document.getElementById('tongGiaTri').textContent = formatCurrency(tongGiaTri);
+            document.getElementById('phanTramUuDai').textContent = averageDiscount ? (averageDiscount * 100).toFixed(2) + ' %' : '0%';
+
+            // Calculate discount amount
+            const tongTienUD = tongGiaTri * averageDiscount;
+            document.getElementById('tongTienUuDai').textContent = formatCurrency(tongTienUD);
+
+            // Handle VAT row visibility and content
+            const vatRow = document.getElementById('vatRow');
+
+            // Kiểm tra xem có dữ liệu VAT hay không (khác null, undefined, empty string)
+            const hasVATData = PLHĐ.some(item =>
+                item['%VAT'] !== null &&
+                item['%VAT'] !== undefined &&
+                item['%VAT'] !== '' &&
+                !isNaN(item['%VAT'])
+            );
+
+            if (hasVATData) {
+                // Có dữ liệu VAT (dù là 0% hay giá trị khác) → Hiển thị dòng VAT
+                vatRow.style.display = '';
+                const vatPercent = Math.round(averageVAT * 100);
+                document.getElementById('vat').textContent = vatPercent + '%';
+
+                const tongTienVAT = (tongGiaTri - tongTienUD) * averageVAT;
+                document.getElementById('tongTienVAT').textContent = formatCurrency(tongTienVAT);
+                document.getElementById('checkvat').textContent = ` (Đã bao gồm VAT ${vatPercent}%)`;
+            } else {
+                // Không có dữ liệu VAT → Ẩn dòng VAT
+                vatRow.style.display = 'none';
+                document.getElementById('checkvat').textContent = ' (Chưa bao gồm VAT)';
+            }
+
+            // Calculate final total
+            const tongTienSauVAT = (tongGiaTri - tongTienUD) * (1 + (hasVATData ? averageVAT : 0));
+            document.getElementById('tongThanhToan').textContent = formatCurrency(tongTienSauVAT);
+            document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(Math.round(tongTienSauVAT))} đồng`;
+
+            // Update payment terms
+            const thanhToanInfo = document.getElementById('thanhToanInfo');
+            let thanhToanHTML = `
+        <div class="info_student">
+            <table style="width: 100%;">
+                <tr>
+                    <td colspan="2"><span class="bold">Điều khoản thanh toán:</span></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm thanh toán cho hợp đồng theo các đợt như sau:</td>
+                </tr>
+    `;
+
+            // Sort and add payment terms
+            DKTT.sort((a, b) => a['Lần thanh toán'] - b['Lần thanh toán']);
+            DKTT.forEach((dkttItem) => {
+                const phanTramThanhToan = parseFloat(dkttItem['%thanh toán']) || 0;
+                let soTienThanhToan = tongTienSauVAT * phanTramThanhToan;
+
+                thanhToanHTML += `
+            <tr>
+                <td colspan="2"><span class="bold">Tạm ứng lần ${dkttItem['Lần thanh toán']}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
+            </tr>
+            <tr>
+                <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
+            </tr>
+            <tr>
+                <td colspan="2">Thanh toán trong vòng ${dkttItem['Thanh toán trong vòng (ngày)'] || ''} ngày sau khi ${dkttItem['Sau khi'] || ''}</td>
+            </tr>
+        `;
+            });
+
+            // Add bank account information
+            thanhToanHTML += `
+        <tr>
+            <td colspan="2" class="bold">Phương thức thanh toán: Chuyển khoản</td>
+        </tr>
+        <tr>
+            <td colspan="2">Số tài khoản:<span class="bold"> 1025576073</span></td>
+        </tr>
+        <tr>
+            <td colspan="2">Tên chủ tài khoản: CONG TY CO PHAN TAP DOAN WOWS</td>
+        </tr>
+        <tr>
+            <td colspan="2">Ngân hàng thụ hưởng: Ngân Hàng Vietcombank</td>
+        </tr>
+        <tr>
+           <td colspan="2">Chi nhánh NH thụ hưởng: Chi nhánh Bình Dương</td>
+       </tr>
+       </table>
+   </div>
+   `;
+
+           thanhToanInfo.innerHTML = thanhToanHTML;
+
+           // Update footer information
+           const footerInfo = document.getElementById('footerInfo');
+           const thoiGianThucHien = PLHĐ[0]['Thời gian thực hiện'] || PO['Thời gian thực hiện'] || '';
+           const ngayBatdau = PLHĐ[0]['Ngày bắt đầu'] || PO['Ngày bắt đầu'] || '';
+
+           let footerHTML = `
+       <p>Thời gian thực hiện Dịch vụ: <br>
+           Tổng thời gian Dự kiến: ${thoiGianThucHien} tháng. &nbsp &nbsp &nbsp  Từ ngày: ${formatDate(ngayBatdau)}
+       </p>
+       <table style="width: 100%; text-align: center;">
+           <tr>
+               <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+               <td style="width: 50%;"><span class="bold"><span id="companyName"></span></span></td>
+           </tr>
+           <tr>
+               <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br></td>
+               <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br></td>
+           </tr>
+           <tr>
+               <td><p class="bold">BÀ ĐỖ THỊ KIM THỦY</p></td>
+               <td><p style="text-transform: uppercase;" class="bold"><span id="">${KHTN['NGƯỜI LIÊN HỆ'] || ''}</span></p></td>
+           </tr>
+           <tr>
+               <td><i class="">Ngày ký:...........................</i></td>
+               <td><i class="">Ngày ký:...........................</i></td>
+           </tr>
+       </table>
+   `;
+
+           footerInfo.innerHTML = footerHTML;
+
+           // Update all company name elements
+           document.querySelectorAll('#companyName').forEach(element => {
+               element.textContent = KHTN['TÊN CÔNG TY'] || '';
+           });
+       }
+
+       function numberToWords(number) {
+           const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+           const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
+
+           if (number === 0) return 'không';
+
+           function convertGroup(n) {
+               let result = '';
+
+               // Xử lý số hàng trăm
+               if (n >= 100) {
+                   result += units[Math.floor(n / 100)] + ' trăm ';
+                   n %= 100;
+                   if (n > 0 && n < 10) result += 'lẻ '; // Thêm từ "lẻ" cho số hàng đơn vị
+               }
+
+               // Xử lý số hàng chục
+               if (n >= 10) {
+                   if (Math.floor(n / 10) === 1) {
+                       result += 'mười ';
+                   } else {
+                       result += units[Math.floor(n / 10)] + ' mươi ';
+                   }
+                   n %= 10;
+               }
+
+               // Xử lý số hàng đơn vị
+               if (n > 0) {
+                   if (n === 5 && result.length > 0) {
+                       result += 'lăm';
+                   } else if (n === 1 && result.includes('mươi')) {
+                       result += 'mốt';
+                   } else {
+                       result += units[n];
+                   }
+               }
+
+               return result.trim();
+           }
+
+           let result = '';
+           let scaleIndex = 0;
+
+           // Xử lý từng nhóm 3 số
+           while (number > 0) {
+               const group = number % 1000;
+               if (group !== 0) {
+                   const groupText = convertGroup(group);
+                   result = groupText + (groupText ? ' ' + scales[scaleIndex] + ' ' : '') + result;
+               } else if (scaleIndex === 2) {
+                   // Thêm từ "triệu" ngay cả khi nhóm bằng 0
+                   result = scales[scaleIndex] + ' ' + result;
+               }
+               number = Math.floor(number / 1000);
+               scaleIndex++;
+           }
+
+           // Xử lý kết quả cuối cùng
+           result = result.trim()
+               .replace(/\s+/g, ' ') // Loại bỏ khoảng trắng thừa
+               .replace(/\s+$/g, ''); // Loại bỏ khoảng trắng cuối cùng
+
+           // Viết hoa chữ cái đầu tiên
+           return result.charAt(0).toUpperCase() + result.slice(1);
+       }
+
+       // ================ INITIALIZATION ================
+       document.addEventListener('DOMContentLoaded', function () {
+           const urlParams = new URLSearchParams(window.location.search);
+           const soPhuLuc = urlParams.get('soPL');
+
+           if (soPhuLuc) {
+               // Sử dụng searchOrderFast để load nhanh hơn
+               searchOrderFast(soPhuLuc);
+           } else {
+               console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+               alert('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+           }
+       });
+
+       // Tự động tìm kiếm khi trang được tải
+       window.onload = function () {
+           const urlParams = new URLSearchParams(window.location.search);
+           const soPhuLuc = urlParams.get('soPL');
+           if (soPhuLuc) {
+               searchOrderFast(soPhuLuc);
+           } else {
+               console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+           }
+       };
+
+       function print() {
+           $('#content').printThis({
+               debug: false,
+               importCSS: true,
+               importStyle: true,
+               printContainer: true,
+               pageTitle: "",
+               removeInline: false,
+               removeInlineSelector: "*",
+               printDelay: 333,
+               header: null,
+               footer: null,
+               base: false,
+               formValues: true,
+               canvas: false,
+               removeScripts: false,
+               copyTagClasses: false,
+               beforePrintEvent: null,
+               beforePrint: null,
+               afterPrint: null
+           });
+       }
+   </script>
+</body>
+
+</html>
