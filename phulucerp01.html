@@ -277,9 +277,7 @@
                             <th>Quy cách</th>
                             <th>Đơn vị tính</th>
                             <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tổng giá trị <BR>
-                                (Giá gốc)</th>
+                            <th>Tổng giá trị</th>
 
                         </tr>
                     </thead>
@@ -387,7 +385,6 @@
                     <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
                     <td>${item['DVT'] || ''}</td>
                     <td>${item['So_luong'] || ''}</td>
-                    <td>${formatCurrency(item['Gia_ban'])}</td>
                     <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
                     <td class="preserve-format">${item['Ghi chú'] || ''}</td>
                 </tr>
