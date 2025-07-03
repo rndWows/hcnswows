@@ -331,7 +331,7 @@
                     <thead class="center-content">
                         <tr>
                             <th rowspan="2" class="center">STT</th>
-                            <th colspan="7">THÔNG TIN SẢN PHẨM</th>
+                            <th colspan="6">THÔNG TIN SẢN PHẨM</th>
 
                             <th rowspan="2" class="center">GHI CHÚ</th>
                         </tr>
@@ -341,9 +341,7 @@
                             <th>Quy cách</th>
                             <th>Đơn vị tính</th>
                             <th>Số lượng</th>
-                            <th>Đơn giá</th>
-                            <th>Tổng giá trị <BR>
-                                (Giá gốc)</th>
+                            <th>Tổng giá trị</th>
 
                         </tr>
                     </thead>
@@ -354,18 +352,18 @@
                         <tr>
                             <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
                             <td colspan="1" class="text-center"><span id=""></span></td>
-                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
+                            <td colspan="2" class="text-center"><span id="tongGiaTri"></span></td>
                         </tr>
                         <tr id="vatRow">
                             <td colspan="6" class="text-center"><strong>VAT:</strong></td>
                             <td colspan="1" class="text-center"><span id="vat"></span></td>
-                            <td colspan="3" class="text-center"><span id="tongTienVAT"></span></td>
+                            <td colspan="2" class="text-center"><span id="tongTienVAT"></span></td>
                         </tr>
                         <tr>
                             <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN: <span
                                         id="checkvat"></span></strong></td>
                             <td colspan="1" class="text-center"><span id=""></span></td>
-                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
+                            <td colspan="2" class="text-center"><span id="tongThanhToan"></span></td>
                         </tr>
                     </tbody>
                 </table>
@@ -639,7 +637,6 @@
                 <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
                 <td>${item['DVT'] || ''}</td>
                 <td>${item['So_luong'] || ''}</td>
-                <td>${formatCurrency(item['Gia_ban'])}</td>
                 <td>${formatCurrency(item['Thanh_tien_chi_tiet'])}</td>
                 <td>${item['Ghi chú'] || ''}</td>
             `;
