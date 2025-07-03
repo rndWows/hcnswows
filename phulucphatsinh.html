@@ -41,6 +41,17 @@
             flex: 1;
         }
 
+        .btn-warning {
+            background-color: #ffc107;
+            border-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            border-color: #d39e00;
+        }
+
         page {
             background: white;
             display: block;
@@ -61,7 +72,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             display: none;
             justify-content: center;
             align-items: center;
@@ -73,8 +84,13 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
 
         @media print {
@@ -255,6 +271,8 @@
                 class="language_print">In phụ lục</span></button>
         <button onclick="toggleBankAccount()" class="btn btn-info btn-fixed"><i class="fas fa-exchange-alt"></i> Đổi tài
             khoản</button>
+        <button onclick="togglePaymentText()" class="btn btn-warning btn-fixed"><i class="fas fa-edit"></i> Đổi từ thanh
+            toán</button>
     </div>
 
     <!-- Loading Overlay -->
@@ -390,6 +408,7 @@
 
         // Global variables
         let currentAccountIndex = 0;
+        let currentPaymentText = 'Tạm ứng'; // Thêm biến này
         let PLHĐ = [];
         let KHTN = {};
         let DKTT = [];
@@ -418,6 +437,35 @@
 
         function hideLoading() {
             document.getElementById('loadingOverlay').style.display = 'none';
+        }
+
+        function togglePaymentText() {
+            // Chuyển đổi giữa "Tạm ứng" và "Thanh toán"
+            currentPaymentText = currentPaymentText === 'Tạm ứng' ? 'Thanh toán' : 'Tạm ứng';
+
+            // Cập nhật tất cả các phần tử có chứa text thanh toán
+            const paymentElements = document.querySelectorAll('#thanhToanInfo .bold');
+            paymentElements.forEach(element => {
+                if (element.textContent.includes('Tạm ứng lần') || element.textContent.includes('Thanh toán lần')) {
+                    // Lấy số lần thanh toán từ text hiện tại
+                    const match = element.textContent.match(/lần (\d+):/);
+                    if (match) {
+                        const lanThanhToan = match[1];
+                        const phanTramMatch = element.textContent.match(/: (\d+%)/);
+                        if (phanTramMatch) {
+                            const phanTram = phanTramMatch[1];
+                            element.textContent = `${currentPaymentText} lần ${lanThanhToan}: ${phanTram}`;
+                        }
+                    }
+                }
+            });
+
+            // Cập nhật text của nút
+            const button = document.querySelector('button[onclick="togglePaymentText()"]');
+            if (button) {
+                const icon = button.querySelector('i');
+                button.innerHTML = `${icon.outerHTML} Đổi thành ${currentPaymentText === 'Tạm ứng' ? 'Thanh toán' : 'Tạm ứng'}`;
+            }
         }
 
         function toggleBankAccount() {
@@ -675,9 +723,9 @@
                 let soTienThanhToan = tongTienSauVAT * phanTramThanhToan;
 
                 thanhToanHTML += `
-            <tr>
-                <td colspan="2"><span class="bold">Tạm ứng lần ${dkttItem['Lần thanh toán']}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
-            </tr>
+    <tr>
+        <td colspan="2"><span class="bold">${currentPaymentText} lần ${dkttItem['Lần thanh toán']}: ${(phanTramThanhToan * 100).toFixed(0)}%</span></td>
+    </tr>
             <tr>
                 <td colspan="2">Số tiền: ${formatCurrency(soTienThanhToan)} <i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></td>
             </tr>
@@ -708,14 +756,14 @@
    </div>
    `;
 
-           thanhToanInfo.innerHTML = thanhToanHTML;
+            thanhToanInfo.innerHTML = thanhToanHTML;
 
-           // Update footer information
-           const footerInfo = document.getElementById('footerInfo');
-           const thoiGianThucHien = PLHĐ[0]['Thời gian thực hiện'] || PO['Thời gian thực hiện'] || '';
-           const ngayBatdau = PLHĐ[0]['Ngày bắt đầu'] || PO['Ngày bắt đầu'] || '';
+            // Update footer information
+            const footerInfo = document.getElementById('footerInfo');
+            const thoiGianThucHien = PLHĐ[0]['Thời gian thực hiện'] || PO['Thời gian thực hiện'] || '';
+            const ngayBatdau = PLHĐ[0]['Ngày bắt đầu'] || PO['Ngày bắt đầu'] || '';
 
-           let footerHTML = `
+            let footerHTML = `
        <p>Thời gian thực hiện Dịch vụ: <br>
            Tổng thời gian Dự kiến: ${thoiGianThucHien} tháng. &nbsp &nbsp &nbsp  Từ ngày: ${formatDate(ngayBatdau)}
        </p>
@@ -739,128 +787,128 @@
        </table>
    `;
 
-           footerInfo.innerHTML = footerHTML;
+            footerInfo.innerHTML = footerHTML;
 
-           // Update all company name elements
-           document.querySelectorAll('#companyName').forEach(element => {
-               element.textContent = KHTN['TÊN CÔNG TY'] || '';
-           });
-       }
+            // Update all company name elements
+            document.querySelectorAll('#companyName').forEach(element => {
+                element.textContent = KHTN['TÊN CÔNG TY'] || '';
+            });
+        }
 
-       function numberToWords(number) {
-           const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
-           const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
+        function numberToWords(number) {
+            const units = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+            const scales = ['', 'nghìn', 'triệu', 'tỷ', 'nghìn tỷ', 'triệu tỷ'];
 
-           if (number === 0) return 'không';
+            if (number === 0) return 'không';
 
-           function convertGroup(n) {
-               let result = '';
+            function convertGroup(n) {
+                let result = '';
 
-               // Xử lý số hàng trăm
-               if (n >= 100) {
-                   result += units[Math.floor(n / 100)] + ' trăm ';
-                   n %= 100;
-                   if (n > 0 && n < 10) result += 'lẻ '; // Thêm từ "lẻ" cho số hàng đơn vị
-               }
+                // Xử lý số hàng trăm
+                if (n >= 100) {
+                    result += units[Math.floor(n / 100)] + ' trăm ';
+                    n %= 100;
+                    if (n > 0 && n < 10) result += 'lẻ '; // Thêm từ "lẻ" cho số hàng đơn vị
+                }
 
-               // Xử lý số hàng chục
-               if (n >= 10) {
-                   if (Math.floor(n / 10) === 1) {
-                       result += 'mười ';
-                   } else {
-                       result += units[Math.floor(n / 10)] + ' mươi ';
-                   }
-                   n %= 10;
-               }
+                // Xử lý số hàng chục
+                if (n >= 10) {
+                    if (Math.floor(n / 10) === 1) {
+                        result += 'mười ';
+                    } else {
+                        result += units[Math.floor(n / 10)] + ' mươi ';
+                    }
+                    n %= 10;
+                }
 
-               // Xử lý số hàng đơn vị
-               if (n > 0) {
-                   if (n === 5 && result.length > 0) {
-                       result += 'lăm';
-                   } else if (n === 1 && result.includes('mươi')) {
-                       result += 'mốt';
-                   } else {
-                       result += units[n];
-                   }
-               }
+                // Xử lý số hàng đơn vị
+                if (n > 0) {
+                    if (n === 5 && result.length > 0) {
+                        result += 'lăm';
+                    } else if (n === 1 && result.includes('mươi')) {
+                        result += 'mốt';
+                    } else {
+                        result += units[n];
+                    }
+                }
 
-               return result.trim();
-           }
+                return result.trim();
+            }
 
-           let result = '';
-           let scaleIndex = 0;
+            let result = '';
+            let scaleIndex = 0;
 
-           // Xử lý từng nhóm 3 số
-           while (number > 0) {
-               const group = number % 1000;
-               if (group !== 0) {
-                   const groupText = convertGroup(group);
-                   result = groupText + (groupText ? ' ' + scales[scaleIndex] + ' ' : '') + result;
-               } else if (scaleIndex === 2) {
-                   // Thêm từ "triệu" ngay cả khi nhóm bằng 0
-                   result = scales[scaleIndex] + ' ' + result;
-               }
-               number = Math.floor(number / 1000);
-               scaleIndex++;
-           }
+            // Xử lý từng nhóm 3 số
+            while (number > 0) {
+                const group = number % 1000;
+                if (group !== 0) {
+                    const groupText = convertGroup(group);
+                    result = groupText + (groupText ? ' ' + scales[scaleIndex] + ' ' : '') + result;
+                } else if (scaleIndex === 2) {
+                    // Thêm từ "triệu" ngay cả khi nhóm bằng 0
+                    result = scales[scaleIndex] + ' ' + result;
+                }
+                number = Math.floor(number / 1000);
+                scaleIndex++;
+            }
 
-           // Xử lý kết quả cuối cùng
-           result = result.trim()
-               .replace(/\s+/g, ' ') // Loại bỏ khoảng trắng thừa
-               .replace(/\s+$/g, ''); // Loại bỏ khoảng trắng cuối cùng
+            // Xử lý kết quả cuối cùng
+            result = result.trim()
+                .replace(/\s+/g, ' ') // Loại bỏ khoảng trắng thừa
+                .replace(/\s+$/g, ''); // Loại bỏ khoảng trắng cuối cùng
 
-           // Viết hoa chữ cái đầu tiên
-           return result.charAt(0).toUpperCase() + result.slice(1);
-       }
+            // Viết hoa chữ cái đầu tiên
+            return result.charAt(0).toUpperCase() + result.slice(1);
+        }
 
-       // ================ INITIALIZATION ================
-       document.addEventListener('DOMContentLoaded', function () {
-           const urlParams = new URLSearchParams(window.location.search);
-           const soPhuLuc = urlParams.get('soPL');
+        // ================ INITIALIZATION ================
+        document.addEventListener('DOMContentLoaded', function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const soPhuLuc = urlParams.get('soPL');
 
-           if (soPhuLuc) {
-               // Sử dụng searchOrderFast để load nhanh hơn
-               searchOrderFast(soPhuLuc);
-           } else {
-               console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
-               alert('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
-           }
-       });
+            if (soPhuLuc) {
+                // Sử dụng searchOrderFast để load nhanh hơn
+                searchOrderFast(soPhuLuc);
+            } else {
+                console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+                alert('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+            }
+        });
 
-       // Tự động tìm kiếm khi trang được tải
-       window.onload = function () {
-           const urlParams = new URLSearchParams(window.location.search);
-           const soPhuLuc = urlParams.get('soPL');
-           if (soPhuLuc) {
-               searchOrderFast(soPhuLuc);
-           } else {
-               console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
-           }
-       };
+        // Tự động tìm kiếm khi trang được tải
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const soPhuLuc = urlParams.get('soPL');
+            if (soPhuLuc) {
+                searchOrderFast(soPhuLuc);
+            } else {
+                console.error('Vui lòng cung cấp số phụ lục trong URL (ví dụ: ?soPL=07/23/WOWS-NNA/PL04)');
+            }
+        };
 
-       function print() {
-           $('#content').printThis({
-               debug: false,
-               importCSS: true,
-               importStyle: true,
-               printContainer: true,
-               pageTitle: "",
-               removeInline: false,
-               removeInlineSelector: "*",
-               printDelay: 333,
-               header: null,
-               footer: null,
-               base: false,
-               formValues: true,
-               canvas: false,
-               removeScripts: false,
-               copyTagClasses: false,
-               beforePrintEvent: null,
-               beforePrint: null,
-               afterPrint: null
-           });
-       }
-   </script>
+        function print() {
+            $('#content').printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                pageTitle: "",
+                removeInline: false,
+                removeInlineSelector: "*",
+                printDelay: 333,
+                header: null,
+                footer: null,
+                base: false,
+                formValues: true,
+                canvas: false,
+                removeScripts: false,
+                copyTagClasses: false,
+                beforePrintEvent: null,
+                beforePrint: null,
+                afterPrint: null
+            });
+        }
+    </script>
 </body>
 
 </html>
