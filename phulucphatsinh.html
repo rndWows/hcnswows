@@ -679,7 +679,7 @@
                 const vatPercent = Math.round(averageVAT * 100);
                 document.getElementById('vat').textContent = vatPercent + '%';
 
-                const tongTienVAT = (tongGiaTri - tongTienUD) * averageVAT;
+                const tongTienVAT = tongGiaTri * averageVAT;
                 document.getElementById('tongTienVAT').textContent = formatCurrency(tongTienVAT);
                 document.getElementById('checkvat').textContent = ` (Đã bao gồm VAT ${vatPercent}%)`;
             } else {
@@ -689,7 +689,7 @@
             }
 
             // Calculate final total
-            const tongTienSauVAT = (tongGiaTri - tongTienUD) * (1 + (hasVATData ? averageVAT : 0));
+            const tongTienSauVAT = tongGiaTri * (1 + (hasVATData ? averageVAT : 0));
             document.getElementById('tongThanhToan').textContent = formatCurrency(tongTienSauVAT);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(Math.round(tongTienSauVAT))} đồng`;
 
