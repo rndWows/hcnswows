@@ -390,23 +390,27 @@
             document.getElementById('id').textContent = HOP_DONG['Số HĐ'] || '';
             document.getElementById('id1').textContent = HOP_DONG['Số HĐ'] || '';
 
+            // Kiểm tra xem có VAT hay không
+            const hasVAT = HOP_DONG['%VAT'] !== undefined && HOP_DONG['%VAT'] !== null && HOP_DONG['%VAT'] !== '';
+            const vatText = hasVAT ? ' (đã bao gồm VAT)' : '';
+
             // Cập nhật thông tin thời gian thực hiện với bố cục mới
             const thoiGianHTML = `
-                <div class="section-title">Thời gian thực hiện Dịch vụ:</div>
-                <div class="indent-1">
-                    <div>Tổng thời gian dự kiến: <span>${HOP_DONG['Thời gian thực hiện dự kiến'] || '06'}</span> Tháng</div>
-                    <div style="margin-top: 5px;">
-                        Từ ngày: <span>${formatDate(HOP_DONG['Từ ngày'] || '2024-07-25')}</span>
-                        &emsp; &emsp; &emsp; Đến ngày: <span>${formatDate(HOP_DONG['Đến ngày'] || '2025-01-25')}</span>
-                    </div>
-                    <div style="margin-top: 5px;">
-                        Tổng giá trị hợp đồng: <span>${formatCurrency(HOP_DONG['Tổng toàn bộ tiền'] || 0)}</span>
-                    </div>
-                    <div style="margin-top: 5px;">
-                        Bằng chữ: <i>${numberToWords(HOP_DONG['Tổng toàn bộ tiền'] || 0) + ' đồng'}</i>
-                    </div>
-                </div>
-            `;
+        <div class="section-title">Thời gian thực hiện Dịch vụ:</div>
+        <div class="indent-1">
+            <div>Tổng thời gian dự kiến: <span>${HOP_DONG['Thời gian thực hiện dự kiến'] || '06'}</span> Tháng</div>
+            <div style="margin-top: 5px;">
+                Từ ngày: <span>${formatDate(HOP_DONG['Từ ngày'] || '2024-07-25')}</span>
+                &emsp; &emsp; &emsp; Đến ngày: <span>${formatDate(HOP_DONG['Đến ngày'] || '2025-01-25')}</span>
+            </div>
+            <div style="margin-top: 5px;">
+                Tổng giá trị hợp đồng: <span>${formatCurrency(HOP_DONG['Tổng toàn bộ tiền'] || 0)}</span>
+            </div>
+            <div style="margin-top: 5px;">
+                Bằng chữ: <i>${numberToWords(HOP_DONG['Tổng toàn bộ tiền'] || 0) + ' đồng' + vatText}</i>
+            </div>
+        </div>
+    `;
 
             document.getElementById('thoiGianThucHien').innerHTML = thoiGianHTML;
 
