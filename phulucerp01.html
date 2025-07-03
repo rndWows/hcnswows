@@ -290,18 +290,6 @@
                         <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
                         <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
                     </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
-                        <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
-                        <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
-                    </tr>
-                    <tr>
-                        <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
-                        <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
-                    </tr>
                     <tr id="vatRow">
                         <td colspan="6" class="text-center"><strong>VAT:</strong></td>
                         <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
@@ -408,9 +396,6 @@
 
         function updateTotals() {
             document.getElementById('tongGiaTri').textContent = formatCurrency(HOP_DONG['Tong_tien_truoc_UD'] || 0);
-            document.getElementById('phanTramUuDai').textContent = HOP_DONG['Uu_dai'] ? HOP_DONG['Uu_dai'] * 100 + ' %' : '0%';
-            document.getElementById('tongTienUuDai').textContent = formatCurrency(HOP_DONG['Tong_tien_UD'] || 0);
-            document.getElementById('thanhTien').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_UD'] || 0);
 
             // Handle VAT row visibility
             const vatValue = HOP_DONG['%VAT'];
