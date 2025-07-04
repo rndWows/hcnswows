@@ -95,45 +95,7 @@
             border-top: 1px solid #dee2e6;
         }
 
-        /* CSS cho date input để không xuống hàng */
-        .inline-date-container {
-            display: inline-block;
-            white-space: nowrap;
-        }
-
-        .inline-date-container input,
-        .inline-date-container span {
-            display: inline !important;
-            vertical-align: baseline;
-            margin: 0 2px;
-        }
-
-        .date-input {
-            display: inline !important;
-            vertical-align: baseline;
-            margin: 0 2px;
-            width: auto !important;
-        }
-
-        .no-wrap-date {
-            white-space: nowrap;
-            display: inline-block;
-        }
-
-        .no-wrap-date input {
-            display: inline !important;
-            width: auto !important;
-            min-width: 25px;
-            vertical-align: baseline;
-        }
-
-        .no-wrap-date span {
-            display: inline !important;
-            vertical-align: baseline;
-        }
-
         @media print {
-
             .table th,
             .table td {
                 overflow: visible;
@@ -147,7 +109,7 @@
             }
 
             .print-only {
-                display: inline !important;
+                display: inline;
             }
 
             body,
@@ -162,7 +124,7 @@
             }
 
             .date-input {
-                display: none !important;
+                display: none;
             }
 
             .no-print {
@@ -244,7 +206,7 @@
             }
 
             .print-only {
-                display: inline !important;
+                display: block !important;
             }
         }
 
@@ -470,11 +432,11 @@
             border-radius: 3px;
         }
 
-        .checkbox-container:hover input~.checkmark {
+        .checkbox-container:hover input ~ .checkmark {
             background-color: #ccc;
         }
 
-        .checkbox-container input:checked~.checkmark {
+        .checkbox-container input:checked ~ .checkmark {
             background-color: #2196F3;
         }
 
@@ -484,7 +446,7 @@
             display: none;
         }
 
-        .checkbox-container input:checked~.checkmark:after {
+        .checkbox-container input:checked ~ .checkmark:after {
             display: block;
         }
 
@@ -537,79 +499,70 @@
                 <div style="clear: both"></div>
                 <br>
                 <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN NGHIỆM THU</span></h2>
-
-                <div class="no-wrap-date">
-                    <i>Hôm nay, &emsp; Ngày
-                        <input type="text" id="day1" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="day1-print"></span>
-                        Tháng
-                        <input type="text" id="month1" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="month1-print"></span>
-                        Năm
-                        <input type="text" id="year1" class="date-input"
-                            style="width: 45px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="year1-print"></span>
-                    </i>
-                </div>
+                <i>Hôm nay, &emsp; Ngày
+                    <input type="text" id="day1" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day1-print"></span>
+                    Tháng
+                    <input type="text" id="month1" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month1-print"></span>
+                    Năm
+                    <input type="text" id="year1" class="date-input"
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year1-print"></span>
+                </i>
                 <br>
                 <i>Tại văn phòng công ty: </i><span id="companyName"></span>
                 <br>
                 <i>Địa chỉ: </i><span id="companyAddress"></span>
                 <br>
                 <div class="bold">1. Thời gian nghiệm thu: </div>
-
-                <div class="no-wrap-date">
-                    <i>Bắt đầu: &emsp; Giờ
-                        <input type="text" id="hour1" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="hour1-print"></span>
-                        Phút
-                        <input type="text" id="phut1" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="phut1-print"></span>
-                        Ngày
-                        <input type="text" id="day2" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="day2-print"></span>
-                        Tháng
-                        <input type="text" id="month2" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="month2-print"></span>
-                        Năm
-                        <input type="text" id="year2" class="date-input"
-                            style="width: 45px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="year2-print"></span>
-                    </i>
-                </div>
+                <i>Bắt đầu: &emsp;
+                    Giờ
+                    <input type="text" id="hour1" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="hour1-print"></span>
+                    Phút
+                    <input type="text" id="phut1" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="phut1-print"></span>
+                    Ngày
+                    <input type="text" id="day2" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day2-print"></span>
+                    Tháng
+                    <input type="text" id="month2" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month2-print"></span>
+                    Năm
+                    <input type="text" id="year2" class="date-input"
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year2-print"></span>
+                </i> <br>
+                <i>kết thúc: &emsp;
+                    Giờ
+                    <input type="text" id="hour2" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="hour2-print"></span>
+                    Phút
+                    <input type="text" id="phut2" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="phut2-print"></span>
+                    Ngày
+                    <input type="text" id="day3" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day3-print"></span>
+                    Tháng
+                    <input type="text" id="month3" class="date-input"
+                        style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month3-print"></span>
+                    Năm
+                    <input type="text" id="year3" class="date-input"
+                        style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year3-print"></span>
+                </i>
                 <br>
-
-                <div class="no-wrap-date">
-                    <i>kết thúc: &emsp; Giờ
-                        <input type="text" id="hour2" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="hour2-print"></span>
-                        Phút
-                        <input type="text" id="phut2" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="phut2-print"></span>
-                        Ngày
-                        <input type="text" id="day3" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="day3-print"></span>
-                        Tháng
-                        <input type="text" id="month3" class="date-input"
-                            style="width: 25px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="month3-print"></span>
-                        Năm
-                        <input type="text" id="year3" class="date-input"
-                            style="width: 45px; border: none; border-bottom: 1px solid black;">
-                        <span class="print-only" id="year3-print"></span>
-                    </i>
-                </div>
-                <br>
-
                 <div class="bold">2. Hội đồng nghiệm thu bao gồm:</div>
                 <div style="display: flex; justify-content: space-between;">
 
@@ -733,390 +686,351 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
 
-        // Biến toàn cục để lưu trữ dữ liệu
-        var BAN_GIAO = {};
-        var CT_BANGIAO = [];
-        var KHTN = {};
-        var DKTT = [];
+    // Biến toàn cục để lưu trữ dữ liệu
+    var BAN_GIAO = {};
+    var CT_BANGIAO = [];
+    var KHTN = {};
+    var DKTT = [];
 
-        function searchContract(soBG) {
-            console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
-
-            if (!soBG) {
-                console.error('❌ Số hợp đồng không được để trống');
-                return;
-            }
-
-            console.log('📡 Đang gọi API...');
-
-            fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
-                .then(response => {
-                    console.log('📥 Response nhận được:', response.status);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('✅ Data nhận được:', data);
-
-                    if (data.success) {
-                        BAN_GIAO = data.ban_giao || {};
-                        CT_BANGIAO = data.chitiet_bangiao || [];
-                        KHTN = data.khtn || {};
-                        DKTT = data.hd || [];
-
-                        console.log('📊 Dữ liệu đã parse:');
-                        console.log('- BAN_GIAO:', BAN_GIAO);
-                        console.log('- CT_BANGIAO:', CT_BANGIAO);
-                        console.log('- KHTN:', KHTN);
-
-                        updateUI();
-                    } else {
-                        console.error('❌ API trả về lỗi:', data.message);
-                        alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
-                    }
-                })
-                .catch(error => {
-                    console.error('❌ Lỗi khi gọi API:', error);
-                    alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
-                });
+    function searchContract(soBG) {
+        console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
+        
+        if (!soBG) {
+            console.error('❌ Số hợp đồng không được để trống');
+            return;
         }
-
-        function updateUI() {
-            console.log('🔄 Bắt đầu cập nhật UI...');
-
-            try {
-                // Cập nhật số hợp đồng
-                const idContainer = document.getElementById('id');
-                if (idContainer) {
-                    const input = idContainer.querySelector('input');
-                    const printSpan = idContainer.querySelector('.print-only');
-
-                    const soHD = BAN_GIAO['Số HĐ'] || '';
-                    console.log('📄 Số HĐ:', soHD);
-
-                    if (input) input.value = soHD;
-                    if (printSpan) printSpan.textContent = soHD;
+        
+        console.log('📡 Đang gọi API...');
+        
+        fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
+            .then(response => {
+                console.log('📥 Response nhận được:', response.status);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
-
-                // Cập nhật thông tin công ty
-                // Cập nhật thông tin công ty
-                const companyName = KHTN['TÊN CÔNG TY'] || '';
-                const companyAddress = KHTN['ĐỊA CHỈ'] || '';
-                const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
-
-                console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
-
-                const companyNameEl = document.getElementById('companyName');
-                const companyAddressEl = document.getElementById('companyAddress');
-                const tvtEl = document.getElementById('Tvt');
-
-                if (companyNameEl) companyNameEl.textContent = companyName;
-                if (companyAddressEl) companyAddressEl.textContent = companyAddress;
-                if (tvtEl) tvtEl.textContent = tenVietTat;
-
-                console.log('📋 Cập nhật bảng sản phẩm...');
-                updateProductTable();
-
-                console.log('🔗 Thêm event listeners...');
-                addInputListeners();
-
-                console.log('📝 Cập nhật footer...');
-                updateFooter();
-
-                console.log('✅ Hoàn thành cập nhật UI');
-
-            } catch (error) {
-                console.error('❌ Lỗi trong updateUI:', error);
-                alert('Lỗi khi cập nhật giao diện: ' + error.message);
-            }
-        }
-
-        function updateProductTable() {
-            console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
-
-            const tableBody = document.getElementById('orderDetailsBody');
-            if (!tableBody) {
-                console.error('❌ Không tìm thấy element orderDetailsBody');
-                return;
-            }
-
-            if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
-                console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
-                tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
-                return;
-            }
-
-            try {
-                const htmlContent = CT_BANGIAO.map((item, index) => {
-                    console.log(`📦 Xử lý item ${index}:`, item);
-
-                    return `
-                       <tr>
-                           <td class="center">${index + 1}</td>
-                           <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
-                           <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
-                           <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
-                           <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
-                           <td class="preserve-format">
-                               <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
-                               <span class="print-only">${item['Link_bangiao'] || ''}</span>
-                           </td>
-                           <td>
-                               <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
-                               <span class="print-only"></span>
-                           </td>
-                           <td>
-                               <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
-                               <span class="print-only"></span>
-                           </td>
-                           <td class="center">
-                               <label class="checkbox-container no-print">
-                                   <input type="checkbox" class="form-control ket-quanghiemthu">
-                                   <span class="checkmark"></span>
-                               </label>
-                               <span class="print-only ket-qua-text">Chưa kiểm tra</span>
-                           </td>
-                       </tr>
-                   `;
-                }).join('');
-
-                tableBody.innerHTML = htmlContent;
-                console.log('✅ Đã cập nhật bảng thành công');
-
-            } catch (error) {
-                console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
-                tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
-            }
-        }
-
-        function addInputListeners() {
-            console.log('🔗 Đang thêm event listeners...');
-
-            try {
-                // Thêm listener cho date inputs
-                const dateInputs = document.querySelectorAll('.date-input');
-                dateInputs.forEach(input => {
-                    if (!input.hasAttribute('data-listener-added')) {
-                        const printSpan = input.nextElementSibling;
-                        if (printSpan && printSpan.classList.contains('print-only')) {
-                            printSpan.textContent = input.value;
-
-                            input.addEventListener('input', function () {
-                                printSpan.textContent = this.value;
-                            });
-
-                            input.setAttribute('data-listener-added', 'true');
-                        }
-                    }
-                });
-
-                // Thêm listener cho các input trong bảng
-                const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-                console.log('📝 Tìm thấy', inputs.length, 'inputs');
-
-                inputs.forEach((input, index) => {
-                    if (!input.hasAttribute('data-listener-added')) {
-                        const printSpan = input.nextElementSibling;
-                        if (printSpan && printSpan.classList.contains('print-only')) {
-                            printSpan.textContent = input.value;
-
-                            input.addEventListener('input', function () {
-                                printSpan.textContent = this.value;
-                            });
-
-                            input.setAttribute('data-listener-added', 'true');
-                        }
-                    }
-                });
-
-                // Xử lý checkbox
-                const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
-                console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
-
-                checkboxes.forEach(checkbox => {
-                    if (!checkbox.hasAttribute('data-listener-added')) {
-                        const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
-                        if (printSpan) {
-                            checkbox.addEventListener('change', function () {
-                                printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
-                            });
-
-                            checkbox.setAttribute('data-listener-added', 'true');
-                        }
-                    }
-                });
-
-                console.log('✅ Hoàn thành thêm listeners');
-
-            } catch (error) {
-                console.error('❌ Lỗi khi thêm listeners:', error);
-            }
-        }
-
-        function updateFooter() {
-            try {
-                const footerInfo = document.getElementById('footerInfo');
-                if (!footerInfo) return;
-
-                let footerHTML = `
-                   <table style="width: 100%; text-align: center;">
-                       <tbody>
-                           <tr>
-                               <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                               <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-                           </tr>
-                           <tr>
-                               <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                               <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
-                           </tr>
-                           <tr>
-                               <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                               <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                           </tr>
-                           <tr>
-                               <td>
-                                   <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                                   <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
-                               </td>
-                               <td>
-                                   <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                                   <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
-                               </td>
-                           </tr>
-                           <tr>
-                               <td><i>Ngày ký: ..............................</i></td>
-                               <td><i>Ngày ký: ..............................</i></td>
-                           </tr>
-                       </tbody>
-                   </table>
-               `;
-
-                footerInfo.innerHTML = footerHTML;
-
-                // Thêm listeners cho signature inputs
-                const signatureInputs = document.querySelectorAll('.signature-input');
-                signatureInputs.forEach(input => {
-                    const signatureText = input.nextElementSibling;
-                    if (signatureText) {
-                        input.addEventListener('input', function () {
-                            signatureText.textContent = this.value;
-                        });
-                    }
-                });
-
-            } catch (error) {
-                console.error('❌ Lỗi trong updateFooter:', error);
-            }
-        }
-
-        function print() {
-            $('#content').printThis({
-                debug: false,
-                importCSS: true,
-                importStyle: true,
-                printContainer: true,
-                pageTitle: "",
-                removeInline: false,
-                removeInlineSelector: "*",
-                printDelay: 333,
-                header: null,
-                footer: null,
-                base: false,
-                formValues: true,
-                canvas: false,
-                removeScripts: false,
-                copyTagClasses: false
-            });
-        }
-
-        // DOMContentLoaded event
-        document.addEventListener('DOMContentLoaded', function () {
-            console.log('🚀 DOM đã load, khởi tạo...');
-
-            try {
-                // Thiết lập ngày tháng
-                var today = new Date();
-                var day = today.getDate();
-                var month = today.getMonth() + 1;
-                var year = today.getFullYear();
-
-                // Điền ngày hôm nay vào các ô input
-                const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
-                dateFields.forEach(fieldId => {
-                    const field = document.getElementById(fieldId);
-                    if (field) {
-                        if (fieldId.includes('day')) {
-                            field.value = day;
-                        } else if (fieldId.includes('month')) {
-                            field.value = month;
-                        } else if (fieldId.includes('year')) {
-                            field.value = year;
-                        }
-                    }
-                });
-
-                // Thiết lập input cho số hợp đồng
-                const idSpan = document.getElementById('id');
-                if (idSpan && !idSpan.querySelector('input')) {
-                    const input = document.createElement('input');
-                    input.type = 'text';
-                    input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
-                    input.classList.add('no-print');
-
-                    const printSpan = document.createElement('span');
-                    printSpan.classList.add('print-only');
-                    printSpan.style.cssText = 'display: none; font-weight: bold;';
-
-                    input.addEventListener('input', function () {
-                        printSpan.textContent = this.value;
-                    });
-
-                    idSpan.appendChild(input);
-                    idSpan.appendChild(printSpan);
-                }
-
-                // Thiết lập ngày hiện tại
-                var currentDateSpan = document.getElementById('currentDate');
-                if (currentDateSpan) {
-                    currentDateSpan.textContent = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0');
-                }
-
-                // Xử lý số thứ tự
-                var sequenceInput = document.getElementById('sequenceNumber');
-                var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
-                if (sequenceInput && sequenceDisplay) {
-                    sequenceInput.addEventListener('input', function () {
-                        var value = this.value.padStart(3, '0');
-                        sequenceDisplay.textContent = value;
-                    });
-                }
-
-                // Khởi tạo listeners
-                addInputListeners();
-
-                // Tìm kiếm hợp đồng từ URL
-                const urlParams = new URLSearchParams(window.location.search);
-                const soBG = urlParams.get('SOBG');
-
-                console.log('🔍 SOBG từ URL:', soBG);
-
-                if (soBG) {
-                    setTimeout(() => {
-                        searchContract(soBG);
-                    }, 100);
+                return response.json();
+            })
+            .then(data => {
+                console.log('✅ Data nhận được:', data);
+                
+                if (data.success) {
+                    BAN_GIAO = data.ban_giao || {};
+                    CT_BANGIAO = data.chitiet_bangiao || [];
+                    KHTN = data.khtn || {};
+                    DKTT = data.hd || []; // Sửa từ dktt thành hd
+                    
+                    console.log('📊 Dữ liệu đã parse:');
+                    console.log('- BAN_GIAO:', BAN_GIAO);
+                    console.log('- CT_BANGIAO:', CT_BANGIAO);
+                    console.log('- KHTN:', KHTN);
+                    
+                    updateUI();
                 } else {
-                    console.warn('⚠️ Không có SOBG trong URL');
+                    console.error('❌ API trả về lỗi:', data.message);
+                    alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
                 }
+            })
+            .catch(error => {
+                console.error('❌ Lỗi khi gọi API:', error);
+                alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
+            });
+    }
 
-            } catch (error) {
-                console.error('❌ Lỗi trong DOMContentLoaded:', error);
+    function updateUI() {
+        console.log('🔄 Bắt đầu cập nhật UI...');
+        
+        try {
+            // Cập nhật số hợp đồng
+            const idContainer = document.getElementById('id');
+            if (idContainer) {
+                const input = idContainer.querySelector('input');
+                const printSpan = idContainer.querySelector('.print-only');
+                
+                const soHD = BAN_GIAO['Số HĐ'] || '';
+                console.log('📄 Số HĐ:', soHD);
+                
+                if (input) input.value = soHD;
+                if (printSpan) printSpan.textContent = soHD;
             }
-        });
-    </script>
-</body>
 
+            // Cập nhật thông tin công ty
+            const companyName = KHTN['TÊN CÔNG TY'] || '';
+            const companyAddress = KHTN['ĐỊA CHỈ'] || '';
+            const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
+            
+            console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
+            
+            const companyNameEl = document.getElementById('companyName');
+            const companyAddressEl = document.getElementById('companyAddress');
+            const tvtEl = document.getElementById('Tvt');
+            
+            if (companyNameEl) companyNameEl.textContent = companyName;
+            if (companyAddressEl) companyAddressEl.textContent = companyAddress;
+            if (tvtEl) tvtEl.textContent = tenVietTat;
+
+            console.log('📋 Cập nhật bảng sản phẩm...');
+            updateProductTable();
+            
+            console.log('🔗 Thêm event listeners...');
+            addInputListeners();
+            
+            console.log('📝 Cập nhật footer...');
+            updateFooter();
+            
+            console.log('✅ Hoàn thành cập nhật UI');
+            
+        } catch (error) {
+            console.error('❌ Lỗi trong updateUI:', error);
+            alert('Lỗi khi cập nhật giao diện: ' + error.message);
+        }
+    }
+
+    function updateProductTable() {
+        console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
+        
+        const tableBody = document.getElementById('orderDetailsBody');
+        if (!tableBody) {
+            console.error('❌ Không tìm thấy element orderDetailsBody');
+            return;
+        }
+        
+        if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
+            console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
+            tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
+            return;
+        }
+
+        try {
+            const htmlContent = CT_BANGIAO.map((item, index) => {
+                console.log(`📦 Xử lý item ${index}:`, item);
+                
+                return `
+                    <tr>
+                        <td class="center">${index + 1}</td>
+                        <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
+                        <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
+                        <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
+                        <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
+                        <td class="preserve-format">
+                            <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
+                            <span class="print-only">${item['Link_bangiao'] || ''}</span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
+                            <span class="print-only"></span>
+                        </td>
+                        <td>
+                            <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
+                            <span class="print-only"></span>
+                        </td>
+                        <td class="center">
+                            <label class="checkbox-container no-print">
+                                <input type="checkbox" class="form-control ket-quanghiemthu">
+                                <span class="checkmark"></span>
+                            </label>
+                            <span class="print-only ket-qua-text">Chưa kiểm tra</span>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+            
+            tableBody.innerHTML = htmlContent;
+            console.log('✅ Đã cập nhật bảng thành công');
+            
+        } catch (error) {
+            console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
+            tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
+        }
+    }
+
+    // Đơn giản hóa addInputListeners để tránh vòng lặp
+    function addInputListeners() {
+        console.log('🔗 Đang thêm event listeners...');
+        
+        try {
+            // Chỉ thêm listener cho các element mới, tránh duplicate
+            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+            console.log('📝 Tìm thấy', inputs.length, 'inputs');
+            
+            inputs.forEach((input, index) => {
+                // Kiểm tra xem đã có listener chưa
+                if (!input.hasAttribute('data-listener-added')) {
+                    const printSpan = input.nextElementSibling;
+                    if (printSpan && printSpan.classList.contains('print-only')) {
+                        printSpan.textContent = input.value;
+                        
+                        input.addEventListener('input', function () {
+                            printSpan.textContent = this.value;
+                        });
+                        
+                        input.setAttribute('data-listener-added', 'true');
+                    }
+                }
+            });
+            
+            // Xử lý checkbox
+            const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+            console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
+            
+            checkboxes.forEach(checkbox => {
+                if (!checkbox.hasAttribute('data-listener-added')) {
+                    const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
+                    if (printSpan) {
+                        checkbox.addEventListener('change', function () {
+                            printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
+                        });
+                        
+                        checkbox.setAttribute('data-listener-added', 'true');
+                    }
+                }
+            });
+            
+            console.log('✅ Hoàn thành thêm listeners');
+            
+        } catch (error) {
+            console.error('❌ Lỗi khi thêm listeners:', error);
+        }
+    }
+
+    // Các function khác giữ nguyên nhưng thêm try-catch
+    function updateFooter() {
+        try {
+            const footerInfo = document.getElementById('footerInfo');
+            if (!footerInfo) return;
+            
+            let footerHTML = `
+                <table style="width: 100%; text-align: center;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                            <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                            <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
+                        </tr>
+                        <tr>
+                            <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                            <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                            </td>
+                            <td>
+                                <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i>Ngày ký: ..............................</i></td>
+                            <td><i>Ngày ký: ..............................</i></td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            
+            footerInfo.innerHTML = footerHTML;
+            
+        } catch (error) {
+            console.error('❌ Lỗi trong updateFooter:', error);
+        }
+    }
+
+    function print() {
+        $('#content').printThis({
+            debug: false,
+            importCSS: true,
+            importStyle: true,
+            printContainer: true,
+            pageTitle: "",
+            removeInline: false,
+            removeInlineSelector: "*",
+            printDelay: 333,
+            header: null,
+            footer: null,
+            base: false,
+            formValues: true,
+            canvas: false,
+            removeScripts: false,
+            copyTagClasses: false
+        });
+    }
+
+    // DOMContentLoaded event
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log('🚀 DOM đã load, khởi tạo...');
+        
+        try {
+            // Thiết lập ngày tháng
+            var today = new Date();
+            var day = today.getDate();
+            var month = today.getMonth() + 1;
+            var year = today.getFullYear();
+
+            // Điền ngày hôm nay
+            const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
+            dateFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (field) {
+                    if (fieldId.includes('day')) {
+                        field.value = day;
+                    } else if (fieldId.includes('month')) {
+                        field.value = month;
+                    } else if (fieldId.includes('year')) {
+                        field.value = year;
+                    }
+                }
+            });
+
+            // Thiết lập input cho số hợp đồng
+            const idSpan = document.getElementById('id');
+            if (idSpan && !idSpan.querySelector('input')) {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
+                input.classList.add('no-print');
+
+                const printSpan = document.createElement('span');
+                printSpan.classList.add('print-only');
+                printSpan.style.cssText = 'display: none; font-weight: bold;';
+
+                input.addEventListener('input', function () {
+                    printSpan.textContent = this.value;
+                });
+
+                idSpan.appendChild(input);
+                idSpan.appendChild(printSpan);
+            }
+
+            // Thiết lập ngày hiện tại
+            var currentDateSpan = document.getElementById('currentDate');
+            if (currentDateSpan) {
+                currentDateSpan.textContent = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0');
+            }
+
+            // Tìm kiếm hợp đồng từ URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const soBG = urlParams.get('SOBG');
+            
+            console.log('🔍 SOBG từ URL:', soBG);
+            
+            if (soBG) {
+                // Delay một chút để đảm bảo trang đã render xong
+                setTimeout(() => {
+                    searchContract(soBG);
+                }, 100);
+            } else {
+                console.warn('⚠️ Không có SOBG trong URL');
+            }
+            
+        } catch (error) {
+            console.error('❌ Lỗi trong DOMContentLoaded:', error);
+        }
+    });
+</script>
+</body>
 </html>
