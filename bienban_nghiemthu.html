@@ -96,117 +96,137 @@
         }
 
         @media print {
+
+            /* Reset margin và padding */
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            /* Cấu hình trang in */
+            @page {
+                size: A4 landscape;
+                margin: 1cm;
+            }
+
+            body {
+                font-size: 12px !important;
+                line-height: 1.2;
+                color: black !important;
+                background: white !important;
+            }
+
+            /* Đảm bảo nội dung vừa trang */
+            #content {
+                width: 100% !important;
+                max-width: none !important;
+                margin: 0 !important;
+                padding: 10px !important;
+                font-size: 12px !important;
+                transform: scale(0.85);
+                /* Thu nhỏ nội dung để vừa trang */
+                transform-origin: top left;
+            }
+
+            /* Tối ưu bảng */
+            .table {
+                width: 100% !important;
+                table-layout: fixed !important;
+                border-collapse: collapse !important;
+                font-size: 10px !important;
+                page-break-inside: avoid;
+            }
+
             .table th,
             .table td {
-                overflow: visible;
-                white-space: normal;
-                word-wrap: break-word;
+                padding: 3px !important;
+                font-size: 10px !important;
+                border: 1px solid #000 !important;
+                word-wrap: break-word !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                vertical-align: top !important;
             }
 
+            /* Đảm bảo các cột có kích thước phù hợp */
+            .col-stt {
+                width: 4% !important;
+            }
+
+            .col-ten-sp {
+                width: 12% !important;
+            }
+
+            .col-quy-cach {
+                width: 35% !important;
+            }
+
+            .col-dvt {
+                width: 6% !important;
+            }
+
+            .col-so-luong {
+                width: 6% !important;
+            }
+
+            .col-link {
+                width: 12% !important;
+            }
+
+            .col-thoi-gian {
+                width: 15% !important;
+            }
+
+            .col-nghiem-thu {
+                width: 10% !important;
+            }
+
+            /* Ẩn các element không cần thiết khi in */
+            .no-print,
+            .date-input,
             .link-bangiao,
-            .nguoi-tiepnhan {
-                display: none;
+            .nguoi-tiepnhan,
+            .fixed-button,
+            .checkbox-container {
+                display: none !important;
             }
 
+            /* Hiển thị nội dung print-only */
             .print-only {
-                display: inline;
+                display: inline !important;
             }
 
-            body,
-            #content {
-                margin: 0;
-                box-shadow: 0;
-                font-size: 18px !important;
+            /* Tối ưu tiêu đề */
+            h2,
+            h4 {
+                font-size: 14px !important;
+                margin: 5px 0 !important;
             }
 
-            h5 {
-                font-size: 24px
+            /* Tối ưu header table */
+            table:first-child {
+                margin-bottom: 10px !important;
             }
 
-            .date-input {
-                display: none;
+            /* Tránh page break */
+            .table thead {
+                display: table-header-group;
             }
 
-            .no-print {
-                display: none !important;
+            .table tbody tr {
+                page-break-inside: avoid;
             }
 
-            .big-title {
-                font-size: 18px !important;
+            /* Signature section */
+            #footerInfo table {
+                width: 100% !important;
+                margin-top: 20px !important;
             }
 
-            .total-pay {
-                font-size: 15px !important;
-            }
-
-            @page {
-                size: auto;
-            }
-
-            #content-split {
-                margin-top: 40px;
-                position: absolute;
-                top: 50%;
-                width: 920px;
-            }
-
-            .height_hr {
-                border-top: 3px dashed black;
-                width: 100%;
-                position: absolute;
-                top: 49%;
-            }
-
-            #content-split .div-logo {
-                position: relative;
-                top: -10px;
-                left: 10px;
-            }
-
-            #sequenceNumber {
-                display: none;
-            }
-
-            .participant-row.empty {
-                display: none !important;
-            }
-
-            .participant-table input[type="text"] {
-                border: none;
-                border-bottom: none !important;
-                text-align: left;
-                padding-left: 0;
-                background: transparent;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }
-
-            .participant-table td {
-                text-align: left;
-            }
-
-            .company-header {
-                text-align: left;
-                font-weight: bold;
-            }
-
-            .print-align-left {
-                text-align: left !important;
-            }
-
-            .participant-table input[type="text"]:focus {
-                outline: none;
-                border: none;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }
-
-            .signature-input {
-                display: none !important;
-            }
-
-            .print-only {
-                display: block !important;
+            #footerInfo td {
+                padding: 5px !important;
+                font-size: 11px !important;
             }
         }
 
@@ -432,11 +452,11 @@
             border-radius: 3px;
         }
 
-        .checkbox-container:hover input ~ .checkmark {
+        .checkbox-container:hover input~.checkmark {
             background-color: #ccc;
         }
 
-        .checkbox-container input:checked ~ .checkmark {
+        .checkbox-container input:checked~.checkmark {
             background-color: #2196F3;
         }
 
@@ -446,7 +466,7 @@
             display: none;
         }
 
-        .checkbox-container input:checked ~ .checkmark:after {
+        .checkbox-container input:checked~.checkmark:after {
             display: block;
         }
 
@@ -686,127 +706,127 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
 
-    // Biến toàn cục để lưu trữ dữ liệu
-    var BAN_GIAO = {};
-    var CT_BANGIAO = [];
-    var KHTN = {};
-    var DKTT = [];
+        // Biến toàn cục để lưu trữ dữ liệu
+        var BAN_GIAO = {};
+        var CT_BANGIAO = [];
+        var KHTN = {};
+        var DKTT = [];
 
-    function searchContract(soBG) {
-        console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
-        
-        if (!soBG) {
-            console.error('❌ Số hợp đồng không được để trống');
-            return;
-        }
-        
-        console.log('📡 Đang gọi API...');
-        
-        fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
-            .then(response => {
-                console.log('📥 Response nhận được:', response.status);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('✅ Data nhận được:', data);
-                
-                if (data.success) {
-                    BAN_GIAO = data.ban_giao || {};
-                    CT_BANGIAO = data.chitiet_bangiao || [];
-                    KHTN = data.khtn || {};
-                    DKTT = data.hd || []; // Sửa từ dktt thành hd
-                    
-                    console.log('📊 Dữ liệu đã parse:');
-                    console.log('- BAN_GIAO:', BAN_GIAO);
-                    console.log('- CT_BANGIAO:', CT_BANGIAO);
-                    console.log('- KHTN:', KHTN);
-                    
-                    updateUI();
-                } else {
-                    console.error('❌ API trả về lỗi:', data.message);
-                    alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
-                }
-            })
-            .catch(error => {
-                console.error('❌ Lỗi khi gọi API:', error);
-                alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
-            });
-    }
+        function searchContract(soBG) {
+            console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
 
-    function updateUI() {
-        console.log('🔄 Bắt đầu cập nhật UI...');
-        
-        try {
-            // Cập nhật số hợp đồng
-            const idContainer = document.getElementById('id');
-            if (idContainer) {
-                const input = idContainer.querySelector('input');
-                const printSpan = idContainer.querySelector('.print-only');
-                
-                const soHD = BAN_GIAO['Số HĐ'] || '';
-                console.log('📄 Số HĐ:', soHD);
-                
-                if (input) input.value = soHD;
-                if (printSpan) printSpan.textContent = soHD;
+            if (!soBG) {
+                console.error('❌ Số hợp đồng không được để trống');
+                return;
             }
 
-            // Cập nhật thông tin công ty
-            const companyName = KHTN['TÊN CÔNG TY'] || '';
-            const companyAddress = KHTN['ĐỊA CHỈ'] || '';
-            const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
-            
-            console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
-            
-            const companyNameEl = document.getElementById('companyName');
-            const companyAddressEl = document.getElementById('companyAddress');
-            const tvtEl = document.getElementById('Tvt');
-            
-            if (companyNameEl) companyNameEl.textContent = companyName;
-            if (companyAddressEl) companyAddressEl.textContent = companyAddress;
-            if (tvtEl) tvtEl.textContent = tenVietTat;
+            console.log('📡 Đang gọi API...');
 
-            console.log('📋 Cập nhật bảng sản phẩm...');
-            updateProductTable();
-            
-            console.log('🔗 Thêm event listeners...');
-            addInputListeners();
-            
-            console.log('📝 Cập nhật footer...');
-            updateFooter();
-            
-            console.log('✅ Hoàn thành cập nhật UI');
-            
-        } catch (error) {
-            console.error('❌ Lỗi trong updateUI:', error);
-            alert('Lỗi khi cập nhật giao diện: ' + error.message);
-        }
-    }
+            fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
+                .then(response => {
+                    console.log('📥 Response nhận được:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('✅ Data nhận được:', data);
 
-    function updateProductTable() {
-        console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
-        
-        const tableBody = document.getElementById('orderDetailsBody');
-        if (!tableBody) {
-            console.error('❌ Không tìm thấy element orderDetailsBody');
-            return;
-        }
-        
-        if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
-            console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
-            tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
-            return;
+                    if (data.success) {
+                        BAN_GIAO = data.ban_giao || {};
+                        CT_BANGIAO = data.chitiet_bangiao || [];
+                        KHTN = data.khtn || {};
+                        DKTT = data.hd || []; // Sửa từ dktt thành hd
+
+                        console.log('📊 Dữ liệu đã parse:');
+                        console.log('- BAN_GIAO:', BAN_GIAO);
+                        console.log('- CT_BANGIAO:', CT_BANGIAO);
+                        console.log('- KHTN:', KHTN);
+
+                        updateUI();
+                    } else {
+                        console.error('❌ API trả về lỗi:', data.message);
+                        alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Lỗi khi gọi API:', error);
+                    alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
+                });
         }
 
-        try {
-            const htmlContent = CT_BANGIAO.map((item, index) => {
-                console.log(`📦 Xử lý item ${index}:`, item);
-                
-                return `
+        function updateUI() {
+            console.log('🔄 Bắt đầu cập nhật UI...');
+
+            try {
+                // Cập nhật số hợp đồng
+                const idContainer = document.getElementById('id');
+                if (idContainer) {
+                    const input = idContainer.querySelector('input');
+                    const printSpan = idContainer.querySelector('.print-only');
+
+                    const soHD = BAN_GIAO['Số HĐ'] || '';
+                    console.log('📄 Số HĐ:', soHD);
+
+                    if (input) input.value = soHD;
+                    if (printSpan) printSpan.textContent = soHD;
+                }
+
+                // Cập nhật thông tin công ty
+                const companyName = KHTN['TÊN CÔNG TY'] || '';
+                const companyAddress = KHTN['ĐỊA CHỈ'] || '';
+                const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
+
+                console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
+
+                const companyNameEl = document.getElementById('companyName');
+                const companyAddressEl = document.getElementById('companyAddress');
+                const tvtEl = document.getElementById('Tvt');
+
+                if (companyNameEl) companyNameEl.textContent = companyName;
+                if (companyAddressEl) companyAddressEl.textContent = companyAddress;
+                if (tvtEl) tvtEl.textContent = tenVietTat;
+
+                console.log('📋 Cập nhật bảng sản phẩm...');
+                updateProductTable();
+
+                console.log('🔗 Thêm event listeners...');
+                addInputListeners();
+
+                console.log('📝 Cập nhật footer...');
+                updateFooter();
+
+                console.log('✅ Hoàn thành cập nhật UI');
+
+            } catch (error) {
+                console.error('❌ Lỗi trong updateUI:', error);
+                alert('Lỗi khi cập nhật giao diện: ' + error.message);
+            }
+        }
+
+        function updateProductTable() {
+            console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
+
+            const tableBody = document.getElementById('orderDetailsBody');
+            if (!tableBody) {
+                console.error('❌ Không tìm thấy element orderDetailsBody');
+                return;
+            }
+
+            if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
+                console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
+                tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
+                return;
+            }
+
+            try {
+                const htmlContent = CT_BANGIAO.map((item, index) => {
+                    console.log(`📦 Xử lý item ${index}:`, item);
+
+                    return `
                     <tr>
                         <td class="center">${index + 1}</td>
                         <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
@@ -834,73 +854,73 @@
                         </td>
                     </tr>
                 `;
-            }).join('');
-            
-            tableBody.innerHTML = htmlContent;
-            console.log('✅ Đã cập nhật bảng thành công');
-            
-        } catch (error) {
-            console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
-            tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
-        }
-    }
+                }).join('');
 
-    // Đơn giản hóa addInputListeners để tránh vòng lặp
-    function addInputListeners() {
-        console.log('🔗 Đang thêm event listeners...');
-        
-        try {
-            // Chỉ thêm listener cho các element mới, tránh duplicate
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            console.log('📝 Tìm thấy', inputs.length, 'inputs');
-            
-            inputs.forEach((input, index) => {
-                // Kiểm tra xem đã có listener chưa
-                if (!input.hasAttribute('data-listener-added')) {
-                    const printSpan = input.nextElementSibling;
-                    if (printSpan && printSpan.classList.contains('print-only')) {
-                        printSpan.textContent = input.value;
-                        
-                        input.addEventListener('input', function () {
-                            printSpan.textContent = this.value;
-                        });
-                        
-                        input.setAttribute('data-listener-added', 'true');
-                    }
-                }
-            });
-            
-            // Xử lý checkbox
-            const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
-            console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
-            
-            checkboxes.forEach(checkbox => {
-                if (!checkbox.hasAttribute('data-listener-added')) {
-                    const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
-                    if (printSpan) {
-                        checkbox.addEventListener('change', function () {
-                            printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
-                        });
-                        
-                        checkbox.setAttribute('data-listener-added', 'true');
-                    }
-                }
-            });
-            
-            console.log('✅ Hoàn thành thêm listeners');
-            
-        } catch (error) {
-            console.error('❌ Lỗi khi thêm listeners:', error);
-        }
-    }
+                tableBody.innerHTML = htmlContent;
+                console.log('✅ Đã cập nhật bảng thành công');
 
-    // Các function khác giữ nguyên nhưng thêm try-catch
-    function updateFooter() {
-        try {
-            const footerInfo = document.getElementById('footerInfo');
-            if (!footerInfo) return;
-            
-            let footerHTML = `
+            } catch (error) {
+                console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
+                tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
+            }
+        }
+
+        // Đơn giản hóa addInputListeners để tránh vòng lặp
+        function addInputListeners() {
+            console.log('🔗 Đang thêm event listeners...');
+
+            try {
+                // Chỉ thêm listener cho các element mới, tránh duplicate
+                const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+                console.log('📝 Tìm thấy', inputs.length, 'inputs');
+
+                inputs.forEach((input, index) => {
+                    // Kiểm tra xem đã có listener chưa
+                    if (!input.hasAttribute('data-listener-added')) {
+                        const printSpan = input.nextElementSibling;
+                        if (printSpan && printSpan.classList.contains('print-only')) {
+                            printSpan.textContent = input.value;
+
+                            input.addEventListener('input', function () {
+                                printSpan.textContent = this.value;
+                            });
+
+                            input.setAttribute('data-listener-added', 'true');
+                        }
+                    }
+                });
+
+                // Xử lý checkbox
+                const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+                console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
+
+                checkboxes.forEach(checkbox => {
+                    if (!checkbox.hasAttribute('data-listener-added')) {
+                        const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
+                        if (printSpan) {
+                            checkbox.addEventListener('change', function () {
+                                printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
+                            });
+
+                            checkbox.setAttribute('data-listener-added', 'true');
+                        }
+                    }
+                });
+
+                console.log('✅ Hoàn thành thêm listeners');
+
+            } catch (error) {
+                console.error('❌ Lỗi khi thêm listeners:', error);
+            }
+        }
+
+        // Các function khác giữ nguyên nhưng thêm try-catch
+        function updateFooter() {
+            try {
+                const footerInfo = document.getElementById('footerInfo');
+                if (!footerInfo) return;
+
+                let footerHTML = `
                 <table style="width: 100%; text-align: center;">
                     <tbody>
                         <tr>
@@ -932,105 +952,106 @@
                     </tbody>
                 </table>
             `;
-            
-            footerInfo.innerHTML = footerHTML;
-            
-        } catch (error) {
-            console.error('❌ Lỗi trong updateFooter:', error);
+
+                footerInfo.innerHTML = footerHTML;
+
+            } catch (error) {
+                console.error('❌ Lỗi trong updateFooter:', error);
+            }
         }
-    }
 
-    function print() {
-        $('#content').printThis({
-            debug: false,
-            importCSS: true,
-            importStyle: true,
-            printContainer: true,
-            pageTitle: "",
-            removeInline: false,
-            removeInlineSelector: "*",
-            printDelay: 333,
-            header: null,
-            footer: null,
-            base: false,
-            formValues: true,
-            canvas: false,
-            removeScripts: false,
-            copyTagClasses: false
-        });
-    }
-
-    // DOMContentLoaded event
-    document.addEventListener('DOMContentLoaded', function () {
-        console.log('🚀 DOM đã load, khởi tạo...');
-        
-        try {
-            // Thiết lập ngày tháng
-            var today = new Date();
-            var day = today.getDate();
-            var month = today.getMonth() + 1;
-            var year = today.getFullYear();
-
-            // Điền ngày hôm nay
-            const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
-            dateFields.forEach(fieldId => {
-                const field = document.getElementById(fieldId);
-                if (field) {
-                    if (fieldId.includes('day')) {
-                        field.value = day;
-                    } else if (fieldId.includes('month')) {
-                        field.value = month;
-                    } else if (fieldId.includes('year')) {
-                        field.value = year;
-                    }
-                }
+        function print() {
+            $('#content').printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                pageTitle: "",
+                removeInline: false,
+                removeInlineSelector: "*",
+                printDelay: 333,
+                header: null,
+                footer: null,
+                base: false,
+                formValues: true,
+                canvas: false,
+                removeScripts: false,
+                copyTagClasses: false
             });
+        }
 
-            // Thiết lập input cho số hợp đồng
-            const idSpan = document.getElementById('id');
-            if (idSpan && !idSpan.querySelector('input')) {
-                const input = document.createElement('input');
-                input.type = 'text';
-                input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
-                input.classList.add('no-print');
+        // DOMContentLoaded event
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 DOM đã load, khởi tạo...');
 
-                const printSpan = document.createElement('span');
-                printSpan.classList.add('print-only');
-                printSpan.style.cssText = 'display: none; font-weight: bold;';
+            try {
+                // Thiết lập ngày tháng
+                var today = new Date();
+                var day = today.getDate();
+                var month = today.getMonth() + 1;
+                var year = today.getFullYear();
 
-                input.addEventListener('input', function () {
-                    printSpan.textContent = this.value;
+                // Điền ngày hôm nay
+                const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
+                dateFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        if (fieldId.includes('day')) {
+                            field.value = day;
+                        } else if (fieldId.includes('month')) {
+                            field.value = month;
+                        } else if (fieldId.includes('year')) {
+                            field.value = year;
+                        }
+                    }
                 });
 
-                idSpan.appendChild(input);
-                idSpan.appendChild(printSpan);
-            }
+                // Thiết lập input cho số hợp đồng
+                const idSpan = document.getElementById('id');
+                if (idSpan && !idSpan.querySelector('input')) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
+                    input.classList.add('no-print');
 
-            // Thiết lập ngày hiện tại
-            var currentDateSpan = document.getElementById('currentDate');
-            if (currentDateSpan) {
-                currentDateSpan.textContent = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0');
-            }
+                    const printSpan = document.createElement('span');
+                    printSpan.classList.add('print-only');
+                    printSpan.style.cssText = 'display: none; font-weight: bold;';
 
-            // Tìm kiếm hợp đồng từ URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const soBG = urlParams.get('SOBG');
-            
-            console.log('🔍 SOBG từ URL:', soBG);
-            
-            if (soBG) {
-                // Delay một chút để đảm bảo trang đã render xong
-                setTimeout(() => {
-                    searchContract(soBG);
-                }, 100);
-            } else {
-                console.warn('⚠️ Không có SOBG trong URL');
+                    input.addEventListener('input', function () {
+                        printSpan.textContent = this.value;
+                    });
+
+                    idSpan.appendChild(input);
+                    idSpan.appendChild(printSpan);
+                }
+
+                // Thiết lập ngày hiện tại
+                var currentDateSpan = document.getElementById('currentDate');
+                if (currentDateSpan) {
+                    currentDateSpan.textContent = String(day).padStart(2, '0') + '.' + String(month).padStart(2, '0');
+                }
+
+                // Tìm kiếm hợp đồng từ URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const soBG = urlParams.get('SOBG');
+
+                console.log('🔍 SOBG từ URL:', soBG);
+
+                if (soBG) {
+                    // Delay một chút để đảm bảo trang đã render xong
+                    setTimeout(() => {
+                        searchContract(soBG);
+                    }, 100);
+                } else {
+                    console.warn('⚠️ Không có SOBG trong URL');
+                }
+
+            } catch (error) {
+                console.error('❌ Lỗi trong DOMContentLoaded:', error);
             }
-            
-        } catch (error) {
-            console.error('❌ Lỗi trong DOMContentLoaded:', error);
-        }
-    });
-</script>
+        });
+    </script>
 </body>
+
 </html>
