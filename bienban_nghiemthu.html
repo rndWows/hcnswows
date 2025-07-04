@@ -30,12 +30,9 @@
         .fixed-button {
             position: fixed;
             bottom: 20px;
-            /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
             right: 20px;
-            /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
             width: 100%;
             max-width: 200px;
-            /* Điều chỉnh chiều rộng tối đa của button */
         }
 
         page {
@@ -49,9 +46,7 @@
         page[size="A4"][layout="landscape"] {
             width: 29.7cm;
             height: 100%;
-
         }
-
 
         .table {
             table-layout: fixed;
@@ -95,13 +90,12 @@
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: normal;
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #dee2e6;
         }
 
-
-
-
         @media print {
-
             .table th,
             .table td {
                 overflow: visible;
@@ -173,24 +167,18 @@
                 display: none;
             }
 
-
             .participant-row.empty {
                 display: none !important;
             }
 
-
             .participant-table input[type="text"] {
                 border: none;
                 border-bottom: none !important;
-                /* Đảm bảo không có gạch chân */
                 text-align: left;
                 padding-left: 0;
                 background: transparent;
-                /* Loại bỏ background */
                 -webkit-box-shadow: none;
-                /* Loại bỏ box-shadow trên webkit browsers */
                 box-shadow: none;
-                /* Loại bỏ box-shadow */
             }
 
             .participant-table td {
@@ -206,7 +194,6 @@
                 text-align: left !important;
             }
 
-            /* Ẩn outline khi focus */
             .participant-table input[type="text"]:focus {
                 outline: none;
                 border: none;
@@ -221,15 +208,12 @@
             .print-only {
                 display: block !important;
             }
-
-
         }
 
         #content {
             font-size: 13.5px;
-
+            padding: 40px 40px;
         }
-
 
         .center {
             text-align: center;
@@ -245,17 +229,15 @@
 
         .big-title {
             font-size: 15px;
+            text-transform: uppercase;
+            font-weight: bold;
+            padding-bottom: 5px;
         }
 
         #fixed-panel,
         #fixed-show-user,
         #fixed-show-reason {
             font-size: 13px;
-        }
-
-
-        #content {
-            padding: 40px 40px;
         }
 
         #select-setup-print {
@@ -274,10 +256,8 @@
             background-color: #ffffff;
             padding: 10px;
             border-radius: 5px;
-            /*font-size: 13px;*/
             box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
         }
-
 
         .heigth-90px {
             height: 90px !important;
@@ -294,20 +274,9 @@
             vertical-align: middle;
         }
 
-        .big-title {
-            text-transform: uppercase;
-            font-weight: bold;
-            /*font-size: 15px;*/
-            padding-bottom: 5px;
-        }
-
         hr {
             margin-top: 5px;
             margin-bottom: 5px;
-        }
-
-        .bold {
-            font-weight: bold;
         }
 
         .table-center th {
@@ -335,44 +304,26 @@
             border-bottom: 2px solid #dee2e6;
         }
 
-        d .table th,
-        .table td {
-            padding: 0.75rem;
-            vertical-align: top;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .center {
-            text-align: center;
-        }
-
         .table-bordered {
             border: 1px solid #dee2e6;
         }
-
 
         .form-control.link-bangiao,
         .form-control.nguoi-tiepnhan {
             width: 100%;
             padding: 0.25rem 0.5rem;
-            /* Giảm padding */
             font-size: 0.875rem;
-            /* Giảm kích thước font */
             line-height: 1.3;
-            /* Giảm line-height */
             color: #495057;
             background-color: #fff;
             background-clip: padding-box;
             border: 1px solid #ced4da;
             border-radius: 0.2rem;
-            /* Giảm border-radius nếu cần */
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
 
-        /* Nếu bạn muốn giảm kích thước tổng thể của input */
         .table td {
             padding: 0.4rem;
-            /* Giảm padding của ô td */
         }
 
         @media screen {
@@ -397,7 +348,6 @@
             border-bottom: 2px solid #555;
         }
 
-
         @media only screen and (max-width: 1024px) {
             #fixed-panel {
                 display: none !important;
@@ -414,12 +364,9 @@
             }
         }
 
-
-
         .participants-container {
             display: flex;
         }
-
 
         .participant-table {
             width: 100%;
@@ -430,7 +377,6 @@
         .participant-table td {
             padding: 5px;
             border: none;
-            /* Loại bỏ viền của các ô */
         }
 
         .company-header {
@@ -441,7 +387,6 @@
         .participant-table input[type="text"] {
             border: none;
             border-bottom: 1px solid #ccc;
-            /* Thêm đường gạch chân nhẹ */
             outline: none;
             padding: 2px;
             width: 70%;
@@ -449,9 +394,7 @@
 
         .participant-table input[type="text"]:focus {
             border-bottom: 2px solid #555;
-            /* Đường gạch chân đậm hơn khi focus */
         }
-
 
         .participant-row {
             transition: opacity 0.3s ease;
@@ -460,34 +403,88 @@
         .participant-row[style*="display: none"] {
             opacity: 0;
         }
-    </style>
 
+        /* Checkbox styling */
+        .checkbox-container {
+            display: block;
+            position: relative;
+            cursor: pointer;
+            font-size: 14px;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 20px;
+            width: 20px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #2196F3;
+        }
+
+        .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 6px;
+            top: 2px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+    </style>
 </head>
 
 <body>
     <button onclick="print()" class="btn btn-info fixed-button" style="width: 100%"><i class="fa fa-print"></i> <span
-            class="language_print"></span></button>
+            class="language_print">In</span></button>
     <page size="A4" id="page" layout="landscape">
         <div id="content">
             <div class="content_page1">
                 <table style="width: 100%;">
                     <tr>
-                        <th rowspan="4"> <img src="https://rndwows.github.io/hcnswows/logowows.jpg"
-                                style="width: 100px; margin: -30px"></th>
-                        <th style="width: 60%;" rowspan="4" class="center">
-                            <h4 class=" bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h4>
-
-                        </th>
-                        <td style="font-size: 12px;">Mã hiệu: </th>
-                        <td style="font-size: 12px;"><span>WS-KD-QT02/BM05</span></th>
+                        <td rowspan="4"> <img src="https://rndwows.github.io/hcnswows/logowows.jpg"
+                                style="width: 100px; margin: -30px"></td>
+                        <td style="width: 60%;" rowspan="4" class="center">
+                            <h4 class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h4>
+                        </td>
+                        <td style="font-size: 12px;">Mã hiệu: </td>
+                        <td style="font-size: 12px;"><span>WS-KD-QT02/BM05</span></td>
                     </tr>
                     <tr>
                         <td style="font-size: 12px;"> Lần ban hành: 01</td>
                         <td style="font-size: 12px;">Hiệu chỉnh lần: 00</td>
                     </tr>
                     <tr>
-                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</td>
-                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</td>
+                        <td style="font-size: 12px;">Ngày ban hành: <span>01/07/2024</span></td>
+                        <td style="font-size: 12px;">Ngày hiệu chỉnh: <span>00</span></td>
                     </tr>
                     <tr>
                         <td style="font-size: 12px;">Số:</td>
@@ -499,19 +496,21 @@
                     </tr>
                 </table>
 
-
                 <div style="clear: both"></div>
                 <br>
                 <h2 style="text-align: center;" class="bold"><span>BIÊN BẢN NGHIỆM THU</span></h2>
                 <i>Hôm nay, &emsp; Ngày
-                    <input type="text" id="day" class="date-input"
+                    <input type="text" id="day1" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day1-print"></span>
                     Tháng
-                    <input type="text" id="month" class="date-input"
+                    <input type="text" id="month1" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month1-print"></span>
                     Năm
-                    <input type="text" id="year" class="date-input"
+                    <input type="text" id="year1" class="date-input"
                         style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year1-print"></span>
                 </i>
                 <br>
                 <i>Tại văn phòng công ty: </i><span id="companyName"></span>
@@ -521,37 +520,47 @@
                 <div class="bold">1. Thời gian nghiệm thu: </div>
                 <i>Bắt đầu: &emsp;
                     Giờ
-                    <input type="text" id="hour" class="date-input"
+                    <input type="text" id="hour1" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="hour1-print"></span>
                     Phút
-                    <input type="text" id="phut" class="date-input"
+                    <input type="text" id="phut1" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="phut1-print"></span>
                     Ngày
-                    <input type="text" id="day" class="date-input"
+                    <input type="text" id="day2" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day2-print"></span>
                     Tháng
-                    <input type="text" id="month" class="date-input"
+                    <input type="text" id="month2" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month2-print"></span>
                     Năm
-                    <input type="text" id="year" class="date-input"
+                    <input type="text" id="year2" class="date-input"
                         style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year2-print"></span>
                 </i> <br>
                 <i>kết thúc: &emsp;
                     Giờ
-                    <input type="text" id="hour" class="date-input"
+                    <input type="text" id="hour2" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="hour2-print"></span>
                     Phút
-                    <input type="text" id="phut" class="date-input"
+                    <input type="text" id="phut2" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="phut2-print"></span>
                     Ngày
-                    <input type="text" id="day" class="date-input"
+                    <input type="text" id="day3" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="day3-print"></span>
                     Tháng
-                    <input type="text" id="month" class="date-input"
+                    <input type="text" id="month3" class="date-input"
                         style="width: 30px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="month3-print"></span>
                     Năm
-                    <input type="text" id="year" class="date-input"
+                    <input type="text" id="year3" class="date-input"
                         style="width: 50px; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="year3-print"></span>
                 </i>
                 <br>
                 <div class="bold">2. Hội đồng nghiệm thu bao gồm:</div>
@@ -570,15 +579,15 @@
                                             class="participant-input"></td>
                                 </tr>
                                 <tr class="participant-row">
-                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person1"
+                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person2"
                                             class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position2"
                                             class="participant-input"></td>
                                 </tr>
                                 <tr class="participant-row">
-                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person1"
+                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person3"
                                             class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position3"
                                             class="participant-input"></td>
                                 </tr>
                             </table>
@@ -592,21 +601,21 @@
                                     <th colspan="6">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</th>
                                 </tr>
                                 <tr class="participant-row">
-                                    <td colspan="2">1. Ông/Bà: <input type="text" id="companyA-person1"
+                                    <td colspan="2">1. Ông/Bà: <input type="text" id="companyB-person1"
                                             class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
-                                            class="participant-input"></td>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person1"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position1"
                                             class="participant-input"></td>
                                 </tr>
                                 <tr class="participant-row">
-                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person1"
+                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyB-person2"
                                             class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position2"
+                                            class="participant-input"></td>
+                                </tr>
+                                <tr class="participant-row">
+                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyB-person3"
+                                            class="participant-input"></td>
+                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position3"
                                             class="participant-input"></td>
                                 </tr>
                             </table>
@@ -638,29 +647,29 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-
                 </table>
 
                 <div class="bold">4. Những sửa đổi lớn so với yêu cầu ban đầu:</div>
                 <i>
                     <input type="text" id="ghichu" class="date-input"
                         style="width: 100%; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="ghichu-print"></span>
                 </i>
                 <br>
                 <div class="bold">5. Kiến nghị:</div>
                 <i>
                     <input type="text" id="kiennghi" class="date-input"
                         style="width: 100%; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="kiennghi-print"></span>
                 </i>
                 <br>
                 <div class="bold">6. Kết luận:</div>
                 <i>
                     <input type="text" id="ketluan" class="date-input"
                         style="width: 100%; border: none; border-bottom: 1px solid black;">
+                    <span class="print-only" id="ketluan-print"></span>
                 </i> <br>
                 <i>Xác nhận của các thành phần tham gia hội đồng nghiệm thu :</i>
-
-
 
                 <div id="footerInfo" class="mt-4">
                     <!-- Thông tin cuối sẽ được thêm vào đây -->
@@ -669,11 +678,8 @@
         </div>
     </page>
 
-
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/printThis/1.15.0/printThis.min.js"
         integrity="sha512-d5Jr3NflEZmFDdFHZtxeJtBzk0eB+kkRXWFQqEc1EKmolXjHm2IKCA7kTvXBNjIYzjXfD5XzIjaaErpkZHCkBg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -689,15 +695,24 @@
         var DKTT = [];
 
         function searchContract(soBG) {
+            if (!soBG) {
+                console.error('Số hợp đồng không được để trống');
+                return;
+            }
+            
             fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.success) {
                         BAN_GIAO = data.ban_giao || {};
                         CT_BANGIAO = data.chitiet_bangiao || [];
                         KHTN = data.khtn || {};
                         DKTT = data.dktt || [];
-
                         updateUI();
                     } else {
                         console.error('Lỗi:', data.message);
@@ -707,39 +722,6 @@
                     console.error('Đã xảy ra lỗi:', error.message);
                 });
         }
-
-        // Tìm phần tử span
-        const idSpan = document.getElementById('id');
-
-        // Tạo phần tử input mới
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.value = idSpan.textContent;
-        input.style.cssText = `
-    border: none; 
-    border-bottom: 1px solid #ccc;
-    font-weight: bold;
-    width: 200px;
-    padding: 2px 5px;
-`;
-
-        // Ẩn input khi in
-        input.classList.add('no-print');
-
-        // Tạo span chỉ hiển thị khi in
-        const printSpan = document.createElement('span');
-        printSpan.classList.add('print-only');
-        printSpan.textContent = idSpan.textContent;
-
-        // Thay thế span gốc bằng cả hai phần tử
-        idSpan.innerHTML = ''; // Xóa nội dung span gốc
-        idSpan.appendChild(input);
-        idSpan.appendChild(printSpan);
-
-        // Cập nhật span in khi input thay đổi
-        input.addEventListener('input', function () {
-            printSpan.textContent = this.value;
-        });
 
         function updateUI() {
             // Tìm phần tử input và print span trong span id
@@ -765,326 +747,340 @@
         function updateProductTable() {
             const tableBody = document.getElementById('orderDetailsBody');
             tableBody.innerHTML = CT_BANGIAO.map((item, index) => `
-        <tr>
-            <td class="center">${index + 1}</td>
-            <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
-            <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
-            <td>${item['DVT'] || ''}</td>
-            <td class="center">${item['So_luong'] || ''}</td>
-            <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
-            <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
-                <span class="print-only"></span>
-            </td>
-            <td>
-                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
-                <span class="print-only"></span>
-            </td>
-             <td class="center">
-            <label class="checkbox-container no-print">
-                <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
-                <span class="checkmark"></span>
-            </label>
-            <span class="print-only ket-qua-text">${item['Ket_qua_nghiem_thu'] || ''}</span>
-        </td>
-        </tr>
-    `).join('');
+                <tr>
+                    <td class="center">${index + 1}</td>
+                    <td>${item['Ten_hang_hoa/dich_vu'] || ''}</td>
+                    <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || ''}</td>
+                    <td>${item['DVT'] || ''}</td>
+                    <td class="center">${item['So_luong'] || ''}</td>
+                    <td class="preserve-format">${item['Link_bangiao'] || ''}</td>
+                    <td>
+                        <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
+                        <span class="print-only"></span>
+                    </td>
+                    <td>
+                        <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="${item['Nguoi_tiep_nhan'] || ''}">
+                        <span class="print-only"></span>
+                    </td>
+                    <td class="center">
+                        <label class="checkbox-container no-print">
+                            <input type="checkbox" class="form-control ket-quanghiemthu" ${item['Ket_qua_nghiem_thu'] === 'Đạt' ? 'checked' : ''}>
+                            <span class="checkmark"></span>
+                        </label>
+                        <span class="print-only ket-qua-text">${item['Ket_qua_nghiem_thu'] || ''}</span>
+                    </td>
+                </tr>
+            `).join('');
 
             addInputListeners();
         }
-
-
-        document.getElementById('orderDetailsBody').addEventListener('input', function (event) {
-            if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
-                const printSpan = event.target.nextElementSibling;
-                printSpan.textContent = event.target.value;
-            }
-        });
-
-
-        const observer = new MutationObserver(function (mutations) {
-            mutations.forEach(function (mutation) {
-                if (mutation.type === 'childList') {
-                    addInputListeners();
-                }
-            });
-        });
-
-        observer.observe(document.getElementById('orderDetailsBody'), { childList: true, subtree: true });
-
-
 
         function addInputListeners() {
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                const printSpan = input.nextElementSibling;
-                printSpan.textContent = input.value; // Cập nhật ngay lập tức
+           const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+           inputs.forEach(input => {
+               const printSpan = input.nextElementSibling;
+               if (printSpan) {
+                   printSpan.textContent = input.value; // Cập nhật ngay lập tức
 
-                input.addEventListener('input', function () {
-                    printSpan.textContent = this.value;
-                });
-            });
+                   input.addEventListener('input', function () {
+                       printSpan.textContent = this.value;
+                   });
+               }
+           });
 
-            const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
-            checkboxes.forEach(checkbox => {
-                const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
-                printSpan.textContent = checkbox.checked ? 'Đạt' : 'Không đạt';
+           const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+           checkboxes.forEach(checkbox => {
+               const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
+               if (printSpan) {
+                   printSpan.textContent = checkbox.checked ? 'Đạt' : 'Không đạt';
 
-                checkbox.addEventListener('change', function () {
-                    printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
-                });
-            });
+                   checkbox.addEventListener('change', function () {
+                       printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
+                   });
+               }
+           });
 
-        }
-        // Gọi hàm này sau khi tạo bảng hoặc khi trang đã load xong
-        document.addEventListener('DOMContentLoaded', addInputListeners);
+           // Thêm listeners cho các input ngày tháng
+           const dateInputs = document.querySelectorAll('.date-input');
+           dateInputs.forEach(input => {
+               const printSpan = input.nextElementSibling;
+               if (printSpan && printSpan.classList.contains('print-only')) {
+                   printSpan.textContent = input.value;
 
+                   input.addEventListener('input', function () {
+                       printSpan.textContent = this.value;
+                   });
+               }
+           });
+       }
 
+       function updatePODetail() {
+           const rows = document.querySelectorAll('#orderDetailsBody tr');
+           rows.forEach((row, index) => {
+               const nguoiTiepNhanInput = row.querySelector('.nguoi-tiepnhan');
+               const ketQuaInput = row.querySelector('.ket-quanghiemthu');
+               
+               if (nguoiTiepNhanInput && CT_BANGIAO[index]) {
+                   CT_BANGIAO[index]['Nguoi_tiep_nhan'] = nguoiTiepNhanInput.value;
+               }
+               
+               if (ketQuaInput && CT_BANGIAO[index]) {
+                   CT_BANGIAO[index]['Ket_qua_nghiem_thu'] = ketQuaInput.checked ? 'Đạt' : 'Không đạt';
+               }
+           });
+       }
 
-        function updatePODetail() {
-            const rows = document.querySelectorAll('#orderDetailsBody tr');
-            rows.forEach((row, index) => {
-                CT_BANGIAO[index]['Nguoi_tiep_nhan'] = row.querySelector('.nguoi-tiepnhan').value;
-                CT_BANGIAO[index]['Ket_qua_nghiem_thu'] = row.querySelector('.ket-quanghiemthu').checked ? 'Đạt' : 'Không đạt';
-            });
-        }
+       function prepareForPrinting() {
+           updatePODetail();
+           
+           const rows = document.querySelectorAll('.participant-row');
+           rows.forEach(row => {
+               const inputs = row.querySelectorAll('input[type="text"]');
+               const isEmpty = Array.from(inputs).every(input => !input.value.trim());
+               if (isEmpty) {
+                   row.classList.add('empty');
+               } else {
+                   row.classList.remove('empty');
+               }
+           });
+       }
 
+       function updateFooter() {
+           const footerInfo = document.getElementById('footerInfo');
+           let footerHTML = `
+               <table style="width: 100%; text-align: center;">
+                   <tbody>
+                       <tr>
+                           <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                           <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+                       </tr>
+                       <tr>
+                           <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                           <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
+                       </tr>
+                       <tr>
+                           <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                           <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" 
+                                      style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                               <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                           </td>
+                           <td>
+                               <input type="text" class="bold signature-input no-print" 
+                                      value="${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}" 
+                                      style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc; text-transform: uppercase;">
+                               <p style="text-transform: uppercase;" class="bold print-only signature-text">
+                                   ${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}
+                               </p>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td>
+                               <i class="">Ngày ký: .............................</i>
+                           </td>
+                           <td>
+                               <i class="">Ngày ký: .............................</i>
+                           </td>
+                       </tr>
+                   </tbody>
+               </table>
+           `;
 
-        function prepareForPrinting() {
-            updatePODetail();
-            const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-            inputs.forEach(input => {
-                input.style.display = 'none';
-            });
+           footerInfo.innerHTML = footerHTML;
 
-            const rows = document.querySelectorAll('.participant-row');
-            rows.forEach(row => {
-                const inputs = row.querySelectorAll('input[type="text"]');
-                const isEmpty = Array.from(inputs).every(input => !input.value.trim());
-                if (isEmpty) {
-                    row.classList.add('empty');
-                } else {
-                    row.classList.remove('empty');
-                }
-            });
-        }
+           // Thêm event listeners cho các input chữ ký
+           const signatureInputs = document.querySelectorAll('.signature-input');
+           signatureInputs.forEach(input => {
+               const signatureText = input.nextElementSibling;
+               if (signatureText) {
+                   input.addEventListener('input', function () {
+                       signatureText.textContent = this.value;
+                   });
+               }
+           });
+       }
 
+       function formatDate(dateString) {
+           if (!dateString) return '';
+           const date = new Date(dateString);
+           if (isNaN(date.getTime())) return dateString;
+           const day = String(date.getDate()).padStart(2, '0');
+           const month = String(date.getMonth() + 1).padStart(2, '0');
+           const year = String(date.getFullYear());
+           return `${day}/${month}/${year}`;
+       }
 
+       function formatCurrency(value) {
+           if (!value) return '';
+           return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
+       }
 
-        function updateFooter() {
-            const footerInfo = document.getElementById('footerInfo');
-            let footerHTML = `
-    <table style="width: 100%; text-align: center;">
-        <tbody>
-            <tr>
-                <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-            </tr>
-            <tr>
-                <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                <td style="width: 50%;"><span class="bold" id="benb1">${KHTN['TÊN CÔNG TY'] || 'CÔNG TY TNHH MỘT THÀNH VIÊN ADL PAPERPACKAGING'}</span></td>
-            </tr>
-            <tr>
-                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-                <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br> <br> <br> <br> </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" 
-                           style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                    <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
-                </td>
-                <td>
-                    <input type="text" class="bold signature-input no-print" 
-                           value="${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}" 
-                           style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc; text-transform: uppercase;">
-                    <p style="text-transform: uppercase;" class="bold print-only signature-text">
-                        ${KHTN['NGƯỜI LIÊN HỆ'] || 'Ông Bà'}
-                    </p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <i class="">Ngày ký: .............................</i>
-                </td>
-                <td>
-                    <i class="">Ngày ký: .............................</i>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    `;
+       function print() {
+           prepareForPrinting();
+           $('#content').printThis({
+               debug: false,
+               importCSS: true,
+               importStyle: true,
+               printContainer: true,
+               pageTitle: "",
+               removeInline: false,
+               removeInlineSelector: "*",
+               printDelay: 333,
+               header: null,
+               footer: null,
+               base: false,
+               formValues: true,
+               canvas: false,
+               removeScripts: false,
+               copyTagClasses: false,
+               beforePrintEvent: null,
+               beforePrint: null,
+               afterPrint: function () {
+                   // Hiển thị lại tất cả các input sau khi in
+                   const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+                   inputs.forEach(input => {
+                       input.style.display = 'inline-block';
+                   });
+               }
+           });
+       }
 
-            footerInfo.innerHTML = footerHTML;
+       // Khởi tạo khi trang được tải
+       document.addEventListener('DOMContentLoaded', function () {
+           // Lấy ngày hôm nay
+           var today = new Date();
+           var day = today.getDate();
+           var month = today.getMonth() + 1;
+           var year = today.getFullYear();
 
-            // Thêm event listeners cho các input
-            const signatureInputs = document.querySelectorAll('.signature-input');
-            signatureInputs.forEach(input => {
-                const signatureText = input.nextElementSibling;
-                input.addEventListener('input', function () {
-                    signatureText.textContent = this.value;
-                });
-            });
-        }
+           // Điền ngày hôm nay vào các ô input
+           const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
+           dateFields.forEach(fieldId => {
+               const field = document.getElementById(fieldId);
+               if (field) {
+                   if (fieldId.includes('day')) {
+                       field.value = day;
+                   } else if (fieldId.includes('month')) {
+                       field.value = month;
+                   } else if (fieldId.includes('year')) {
+                       field.value = year;
+                   }
+               }
+           });
 
-        // (Giữ nguyên các hàm hỗ trợ như formatCurrency, formatDate, numberToWords)
+           // Tạo và cập nhật ID cho hợp đồng
+           const idSpan = document.getElementById('id');
+           if (idSpan) {
+               const container = document.createElement('div');
+               container.style.cssText = `
+                   display: inline-block;
+                   vertical-align: bottom;
+                   margin: 0;
+                   padding: 0;
+               `;
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const soBG = urlParams.get('SOBG');
-            if (soBG) {
-                searchContract(soBG);
-            } else {
-                console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOBG=HD001)');
-            }
+               const input = document.createElement('input');
+               input.type = 'text';
+               input.value = idSpan.textContent;
+               input.style.cssText = `
+                   border: none;
+                   border-bottom: 1px solid #ccc;
+                   font-weight: bold;
+                   width: 200px;
+                   padding: 2px 5px;
+                   margin: 0;
+                   display: inline-block;
+                   vertical-align: bottom;
+               `;
+               input.classList.add('no-print');
 
+               const printSpan = document.createElement('span');
+               printSpan.style.cssText = `
+                   display: none;
+                   font-weight: bold;
+                   margin: 0;
+                   padding: 0;
+                   vertical-align: bottom;
+               `;
+               printSpan.classList.add('print-only');
+               printSpan.textContent = idSpan.textContent;
 
-            updateProductTable();
-            addInputListeners();
-        });
+               container.appendChild(input);
+               container.appendChild(printSpan);
+               idSpan.innerHTML = '';
+               idSpan.appendChild(container);
 
-        function formatDate(dateString) {
-            if (!dateString) return '';
-            const date = new Date(dateString);
-            if (isNaN(date.getTime())) return dateString;
-            const day = String(date.getDate()).padStart(2, '0');
-            const month = String(date.getMonth() + 1).padStart(2, '0');
-            const year = String(date.getFullYear());
-            return `${day}/${month}/${year}`;
-        }
-        function formatCurrency(value) {
-            if (!value) return '';
-            return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(value);
-        }
+               input.addEventListener('input', function () {
+                   printSpan.textContent = this.value;
+               });
+           }
 
-        function print() {
-            prepareForPrinting();
-            $('#content').printThis({
-                debug: false,
-                importCSS: true,
-                importStyle: true,
-                printContainer: true,
-                pageTitle: "",
-                removeInline: false,
-                removeInlineSelector: "*",
-                printDelay: 333,
-                header: null,
-                footer: null,
-                base: false,
-                formValues: true,
-                canvas: false,
-                removeScripts: false,
-                copyTagClasses: false,
-                beforePrintEvent: null,
-                beforePrint: null,
-                afterPrint: function () {
-                    // Hiển thị lại tất cả các input sau khi in
-                    const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-                    inputs.forEach(input => {
-                        input.style.display = 'inline-block';
-                    });
-                }
-            });
-        }
+           // Cập nhật ngày và tháng hiện tại
+           var currentDateSpan = document.getElementById('currentDate');
+           if (currentDateSpan) {
+               var dayStr = String(day).padStart(2, '0');
+               var monthStr = String(month).padStart(2, '0');
+               currentDateSpan.textContent = dayStr + '.' + monthStr;
+           }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lấy ngày hôm nay
-            var today = new Date();
-            var day = today.getDate();
-            var month = today.getMonth() + 1; // Tháng bắt đầu từ 0
-            var year = today.getFullYear();
+           // Xử lý số thứ tự
+           var sequenceInput = document.getElementById('sequenceNumber');
+           var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
+           if (sequenceInput && sequenceDisplay) {
+               sequenceInput.addEventListener('input', function () {
+                   var value = this.value.padStart(3, '0');
+                   sequenceDisplay.textContent = value;
+               });
+           }
 
-            // Điền ngày hôm nay vào các ô input
-            document.getElementById('day').value = day;
-            document.getElementById('month').value = month;
-            document.getElementById('year').value = year;
+           // Khởi tạo listeners
+           addInputListeners();
 
-            // Tạo và cập nhật các span
-            var inputs = document.querySelectorAll('.date-input');
-            inputs.forEach(function (input) {
-                var span = document.createElement('span');
-                span.textContent = input.value;
-                input.parentNode.insertBefore(span, input.nextSibling);
+           // Tìm kiếm hợp đồng từ URL
+           const urlParams = new URLSearchParams(window.location.search);
+           const soBG = urlParams.get('SOBG');
+           if (soBG) {
+               searchContract(soBG);
+           } else {
+               console.error('Vui lòng cung cấp số hợp đồng trong URL (ví dụ: ?SOBG=HD001)');
+           }
+       });
 
-                input.addEventListener('input', function () {
-                    span.textContent = this.value;
-                });
-            });
-        });
+       // Observer để theo dõi thay đổi trong bảng
+       const observer = new MutationObserver(function (mutations) {
+           mutations.forEach(function (mutation) {
+               if (mutation.type === 'childList') {
+                   addInputListeners();
+               }
+           });
+       });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const idSpan = document.getElementById('id');
+       const orderDetailsBody = document.getElementById('orderDetailsBody');
+       if (orderDetailsBody) {
+           observer.observe(orderDetailsBody, { childList: true, subtree: true });
+       }
 
-            // Tạo một div container để giữ cả input và span
-            const container = document.createElement('div');
-            container.style.cssText = `
-        display: inline-block;
-        vertical-align: bottom;
-        margin: 0;
-        padding: 0;
-    `;
+       // Event listener cho bảng sản phẩm
+       document.addEventListener('input', function (event) {
+           if (event.target.classList.contains('link-bangiao') || event.target.classList.contains('nguoi-tiepnhan')) {
+               const printSpan = event.target.nextElementSibling;
+               if (printSpan) {
+                   printSpan.textContent = event.target.value;
+               }
+           }
+       });
 
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.value = idSpan.textContent;
-            input.style.cssText = `
-        border: none;
-        border-bottom: 1px solid #ccc;
-        font-weight: bold;
-        width: 200px;
-        padding: 2px 5px;
-        margin: 0;
-        display: inline-block;
-        vertical-align: bottom;
-    `;
-            input.classList.add('no-print');
-
-            const printSpan = document.createElement('span');
-            printSpan.style.cssText = `
-        display: none;
-        font-weight: bold;
-        margin: 0;
-        padding: 0;
-        vertical-align: bottom;
-    `;
-            printSpan.classList.add('print-only');
-            printSpan.textContent = idSpan.textContent;
-
-            // Đưa tất cả vào container
-            container.appendChild(input);
-            container.appendChild(printSpan);
-            idSpan.innerHTML = '';
-            idSpan.appendChild(container);
-
-            input.addEventListener('input', function () {
-                printSpan.textContent = this.value;
-            });
-        });
-
-        document.addEventListener('DOMContentLoaded', function () {
-            // Lấy ngày hiện tại
-            var today = new Date();
-            var day = String(today.getDate()).padStart(2, '0');
-            var month = String(today.getMonth() + 1).padStart(2, '0'); // Tháng bắt đầu từ 0
-
-            // Điền ngày và tháng vào span
-            var currentDateSpan = document.getElementById('currentDate');
-            currentDateSpan.textContent = day + '.' + month;
-
-            // Xử lý số thứ tự
-            var sequenceInput = document.getElementById('sequenceNumber');
-            var sequenceDisplay = document.getElementById('sequenceNumberDisplay');
-
-            sequenceInput.addEventListener('input', function () {
-                var value = this.value.padStart(3, '0');
-                sequenceDisplay.textContent = value;
-            });
-        });
-
-
-
-
-    </script>
+       document.addEventListener('change', function (event) {
+           if (event.target.classList.contains('ket-quanghiemthu')) {
+               const printSpan = event.target.closest('td').querySelector('.ket-qua-text');
+               if (printSpan) {
+                   printSpan.textContent = event.target.checked ? 'Đạt' : 'Không đạt';
+               }
+           }
+       });
+   </script>
 </body>
-
 </html>
