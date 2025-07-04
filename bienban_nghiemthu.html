@@ -97,136 +97,126 @@
 
         @media print {
 
-            /* Reset margin và padding */
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-            }
-
-            /* Cấu hình trang in */
-            @page {
-                size: A4 landscape;
-                margin: 1cm;
-            }
-
-            body {
-                font-size: 12px !important;
-                line-height: 1.2;
-                color: black !important;
-                background: white !important;
-            }
-
-            /* Đảm bảo nội dung vừa trang */
+            /* Thêm dòng này vào phần @media print hiện tại */
             #content {
-                width: 100% !important;
-                max-width: none !important;
-                margin: 0 !important;
-                padding: 10px !important;
-                font-size: 12px !important;
-                transform: scale(0.85);
-                /* Thu nhỏ nội dung để vừa trang */
-                transform-origin: top left;
+                zoom: 0.85 !important;
+                /* Thu nhỏ toàn bộ nội dung */
             }
+        }
 
-            /* Tối ưu bảng */
-            .table {
-                width: 100% !important;
-                table-layout: fixed !important;
-                border-collapse: collapse !important;
-                font-size: 10px !important;
-                page-break-inside: avoid;
-            }
+        @media print {
 
             .table th,
             .table td {
-                padding: 3px !important;
-                font-size: 10px !important;
-                border: 1px solid #000 !important;
-                word-wrap: break-word !important;
-                overflow: hidden !important;
-                text-overflow: ellipsis !important;
-                vertical-align: top !important;
+                overflow: visible;
+                white-space: normal;
+                word-wrap: break-word;
             }
 
-            /* Đảm bảo các cột có kích thước phù hợp */
-            .col-stt {
-                width: 4% !important;
-            }
-
-            .col-ten-sp {
-                width: 12% !important;
-            }
-
-            .col-quy-cach {
-                width: 35% !important;
-            }
-
-            .col-dvt {
-                width: 6% !important;
-            }
-
-            .col-so-luong {
-                width: 6% !important;
-            }
-
-            .col-link {
-                width: 12% !important;
-            }
-
-            .col-thoi-gian {
-                width: 15% !important;
-            }
-
-            .col-nghiem-thu {
-                width: 10% !important;
-            }
-
-            /* Ẩn các element không cần thiết khi in */
-            .no-print,
-            .date-input,
             .link-bangiao,
-            .nguoi-tiepnhan,
-            .fixed-button,
-            .checkbox-container {
+            .nguoi-tiepnhan {
+                display: none;
+            }
+
+            .print-only {
+                display: inline;
+            }
+
+            body,
+            #content {
+                margin: 0;
+                box-shadow: 0;
+                font-size: 18px !important;
+            }
+
+            h5 {
+                font-size: 24px
+            }
+
+            .date-input {
+                display: none;
+            }
+
+            .no-print {
                 display: none !important;
             }
 
-            /* Hiển thị nội dung print-only */
+            .big-title {
+                font-size: 18px !important;
+            }
+
+            .total-pay {
+                font-size: 15px !important;
+            }
+
+            @page {
+                size: auto;
+            }
+
+            #content-split {
+                margin-top: 40px;
+                position: absolute;
+                top: 50%;
+                width: 920px;
+            }
+
+            .height_hr {
+                border-top: 3px dashed black;
+                width: 100%;
+                position: absolute;
+                top: 49%;
+            }
+
+            #content-split .div-logo {
+                position: relative;
+                top: -10px;
+                left: 10px;
+            }
+
+            #sequenceNumber {
+                display: none;
+            }
+
+            .participant-row.empty {
+                display: none !important;
+            }
+
+            .participant-table input[type="text"] {
+                border: none;
+                border-bottom: none !important;
+                text-align: left;
+                padding-left: 0;
+                background: transparent;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            .participant-table td {
+                text-align: left;
+            }
+
+            .company-header {
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .print-align-left {
+                text-align: left !important;
+            }
+
+            .participant-table input[type="text"]:focus {
+                outline: none;
+                border: none;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            .signature-input {
+                display: none !important;
+            }
+
             .print-only {
-                display: inline !important;
-            }
-
-            /* Tối ưu tiêu đề */
-            h2,
-            h4 {
-                font-size: 14px !important;
-                margin: 5px 0 !important;
-            }
-
-            /* Tối ưu header table */
-            table:first-child {
-                margin-bottom: 10px !important;
-            }
-
-            /* Tránh page break */
-            .table thead {
-                display: table-header-group;
-            }
-
-            .table tbody tr {
-                page-break-inside: avoid;
-            }
-
-            /* Signature section */
-            #footerInfo table {
-                width: 100% !important;
-                margin-top: 20px !important;
-            }
-
-            #footerInfo td {
-                padding: 5px !important;
-                font-size: 11px !important;
+                display: block !important;
             }
         }
 
