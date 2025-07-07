@@ -102,6 +102,25 @@
             }
         }
 
+        /* Đảm bảo bảng chữ ký luôn ở cuối trang */
+        .signature-table {
+            page-break-before: auto;
+            margin-top: auto;
+            position: relative;
+        }
+
+        /* Nếu muốn bảng chữ ký luôn ở trang mới */
+        .signature-section {
+            page-break-before: always;
+            margin-top: 0;
+        }
+
+        /* Hoặc đẩy bảng chữ ký xuống cuối trang hiện tại */
+        .push-to-bottom {
+            margin-top: auto;
+            page-break-inside: avoid;
+        }
+
         #content-split {
             margin-top: 40px;
             position: absolute;
@@ -647,38 +666,36 @@
             <br>
             <br>
 
-
-            <table style="width: 100%; text-align: center;">
-                <tr>
-                    <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS
-                        </span></td>
-                    <td style="width: 50%;"><span class="bold" id="benb1"></span></td>
-                </tr>
-                <tr>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
-                    <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
-                </tr>
-
-                <tr>
-                    <td>
-                        <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
-                    </td>
-                    <td>
-                        <p style="text-transform: uppercase;" class="bold"><span id="daidien1">0</span></p>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                    <td>
-                        <i class="">Ngày ký: .............................</i>
-                    </td>
-                </tr>
-            </table>
-
-
-
+            <!-- Thêm class để điều khiển vị trí bảng chữ ký -->
+            <div class="signature-section"> <!-- Dùng class này nếu muốn bảng chữ ký ở trang mới -->
+                <!-- Hoặc dùng <div class="push-to-bottom"> nếu muốn đẩy xuống cuối trang hiện tại -->
+                <table style="width: 100%; text-align: center;" class="signature-table">
+                    <tr>
+                        <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                        <td style="width: 50%;"><span class="bold" id="benb1"></span></td>
+                    </tr>
+                    <tr>
+                        <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
+                        <td>(Ký, đóng dấu và ghi rõ họ tên) <br> <br> <br><br> <br> <br></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="bold">BÀ ĐỖ THỊ KIM THỦY</p>
+                        </td>
+                        <td>
+                            <p style="text-transform: uppercase;" class="bold"><span id="daidien1">0</span></p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <i class="">Ngày ký: .............................</i>
+                        </td>
+                        <td>
+                            <i class="">Ngày ký: .............................</i>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
         </div>
     </page>
