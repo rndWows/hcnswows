@@ -66,34 +66,6 @@
     }
 
     @media print {
-        .page-footer {
-            display: block !important;
-        }
-    }
-
-    @media print {
-
-        /* Thêm số trang đơn giản */
-        body {
-            counter-reset: page;
-        }
-
-        .page-footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 2cm;
-            text-align: center;
-            line-height: 2cm;
-            font-size: 12px;
-            border-top: 1px solid #ccc;
-            background: white;
-        }
-
-        .page-footer::after {
-            content: "Trang " counter(page);
-        }
 
         body,
         #content {
@@ -120,6 +92,14 @@
 
         @page {
             size: auto;
+            margin-bottom: 30px;
+
+            @bottom-center {
+                content: "Trang " counter(page) " / " counter(pages);
+                font-size: 12px;
+                font-family: "Times New Roman", Times, serif;
+                color: #666;
+            }
         }
 
         #content-split {
@@ -701,9 +681,6 @@
 
         </div>
         </div>
-
-        <!-- Thêm vào cuối page, trước thẻ đóng </page> -->
-        <div class="page-footer" style="display: none;"></div>
     </page>
 
 
