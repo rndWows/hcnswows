@@ -808,10 +808,32 @@
             });
         });
 
+        // Thêm vào cuối script hiện tại
+        function addPageNumbers() {
+            const style = document.createElement('style');
+            style.textContent = `
+        @media print {
+            .page-break {
+                page-break-before: always;
+            }
+            
+            .page-number {
+                position: fixed;
+                bottom: 1cm;
+                right: 1cm;
+                font-size: 12px;
+                font-family: "Times New Roman", Times, serif;
+            }
+            
+            .page-number::after {
+                content: counter(page);
+            }
+        }
+    `;
+            document.head.appendChild(style);
+        }
 
-
-
-
-
+        // Gọi function khi trang được load
+        document.addEventListener('DOMContentLoaded', addPageNumbers);
     </script>
 </body>
