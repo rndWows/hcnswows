@@ -97,6 +97,7 @@
 
         /* Cải thiện CSS cho print */
         @media print {
+
             .table th,
             .table td {
                 overflow: visible;
@@ -117,6 +118,7 @@
             #content {
                 margin: 0;
                 box-shadow: 0;
+                padding: 0 !important;
                 font-size: 18px !important;
                 line-height: 1.4;
             }
@@ -141,8 +143,9 @@
                 font-size: 15px !important;
             }
 
+            /* Cho phép người dùng tự chỉnh khổ trang */
             @page {
-                size: A4 landscape;
+                size: auto;
                 margin: 1cm;
             }
 
@@ -171,6 +174,7 @@
                 display: none;
             }
 
+            /* Ẩn các hàng trống khi in */
             .participant-row.empty {
                 display: none !important;
             }
@@ -441,11 +445,11 @@
             border-radius: 3px;
         }
 
-        .checkbox-container:hover input ~ .checkmark {
+        .checkbox-container:hover input~.checkmark {
             background-color: #ccc;
         }
 
-        .checkbox-container input:checked ~ .checkmark {
+        .checkbox-container input:checked~.checkmark {
             background-color: #2196F3;
         }
 
@@ -455,7 +459,7 @@
             display: none;
         }
 
-        .checkbox-container input:checked ~ .checkmark:after {
+        .checkbox-container input:checked~.checkmark:after {
             display: block;
         }
 
@@ -488,6 +492,30 @@
             text-align: center;
             font-weight: bold;
         }
+
+        @media print {
+
+            #id,
+            #id input,
+            #id .print-only {
+                white-space: nowrap !important;
+            }
+
+            /* Nếu cần cho cả dòng */
+            .no-break-print {
+                white-space: nowrap !important;
+            }
+        }
+
+        .no-break-print,
+        .no-break-print * {
+            white-space: nowrap !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: inline-block;
+            vertical-align: middle;
+            max-width: 100%;
+        }
     </style>
 </head>
 
@@ -500,8 +528,9 @@
                 <!-- Sửa lại header table để tránh lỗi xuống dòng -->
                 <table class="header-table">
                     <tr>
-                        <td rowspan="4" style="width: 15%;"> 
-                            <img src="https://rndwows.github.io/hcnswows/logowows.jpg" style="width: 100px; margin: -30px">
+                        <td rowspan="4" style="width: 15%;">
+                            <img src="https://rndwows.github.io/hcnswows/logowows.jpg"
+                                style="width: 100px; margin: -30px">
                         </td>
                         <td class="header-center" rowspan="4" style="width: 55%;">
                             <h4 class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</h4>
@@ -520,8 +549,8 @@
                     <tr>
                         <td class="header-right">Số:</td>
                         <td class="header-right">
-                            BNT-<span id="Tvt"></span>-<span id="dynamicDate"></span>-<input
-                                type="text" id="sequenceNumber" class="no-print"
+                            BNT-<span id="Tvt"></span>-<span id="dynamicDate"></span>-<input type="text"
+                                id="sequenceNumber" class="no-print"
                                 style="width: 40px; border: none; border-bottom: 1px solid black;">
                             <span class="print-only" id="sequenceNumberDisplay"></span>
                         </td>
@@ -597,66 +626,64 @@
                 <br>
                 <div class="bold">2. Hội đồng nghiệm thu bao gồm:</div>
                 <div style="display: flex; justify-content: space-between;">
-
-                    <div class="participants-container">
-                        <div class="column">
-                            <table class="participant-table">
-                                <tr>
-                                    <th colspan="6">Đại diện chủ đầu tư:</th>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">1. Ông/Bà: <input type="text" id="companyA-person1"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position1"
-                                            class="participant-input"></td>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyA-person2"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position2"
-                                            class="participant-input"></td>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyA-person3"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyA-position3"
-                                            class="participant-input"></td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div style="width: 48%;">
+                        <table class="participant-table">
+                            <tr>
+                                <th colspan="4"><strong>Đại diện chủ đầu tư: </strong><span id="companyName1"></span>
+                                </th>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>1. Ông/Bà: <input type="text" id="companyA-person1" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position1" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>2. Ông/Bà: <input type="text" id="companyA-person2" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position2" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>3. Ông/Bà: <input type="text" id="companyA-person3" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyA-position3" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                        </table>
                     </div>
 
-                    <div class="participants-container">
-                        <div class="column">
-                            <table class="participant-table">
-                                <tr>
-                                    <th colspan="6">Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</th>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">1. Ông/Bà: <input type="text" id="companyB-person1"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position1"
-                                            class="participant-input"></td>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">2. Ông/Bà: <input type="text" id="companyB-person2"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position2"
-                                            class="participant-input"></td>
-                                </tr>
-                                <tr class="participant-row">
-                                    <td colspan="2">3. Ông/Bà: <input type="text" id="companyB-person3"
-                                            class="participant-input"></td>
-                                    <td colspan="2">Chức vụ: <input type="text" id="companyB-position3"
-                                            class="participant-input"></td>
-                                </tr>
-                            </table>
-                        </div>
+                    <div style="width: 48%;">
+                        <table class="participant-table">
+                            <tr>
+                                <th colspan="4"><strong>Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</strong>
+                                </th>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>1. Ông/Bà: <input type="text" id="companyB-person1" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position1" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>2. Ông/Bà: <input type="text" id="companyB-person2" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position2" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                            <tr class="participant-row">
+                                <td>3. Ông/Bà: <input type="text" id="companyB-person3" class="participant-input"
+                                        style="width: 60%;"></td>
+                                <td>Chức vụ: <input type="text" id="companyB-position3" class="participant-input"
+                                        style="width: 60%;"></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
                 <div class="bold">3. Hội đồng nghiệm thu đã tiến hành:</div>
                 <div>Xem xét hồ sơ tài liệu sau:</div>
-                <div>Báo giá/hợp đồng số: <span id="id" class="bold"></span></div>
+                <div class="no-break-print" style="width:100%;"><span>Báo giá/hợp đồng số:</span> <span id="id"
+                        class="bold"></span></div>
                 <p class="bold">Kiểm tra thực tế thông tin tính năng của sản phẩm dịch vụ theo danh mục:</p>
 
                 <table class="table table-bordered">
@@ -666,7 +693,7 @@
                             <th class="col-ten-sp" rowspan="2">Tên sản phẩm</th>
                             <th class="col-quy-cach" rowspan="2">Mô tả sản phẩm</th>
                             <th class="col-dvt" rowspan="2">Đơn vị tính</th>
-                            <th class="col-so-luong" rowspan="2">Số lượng</th>
+                            <th class="col-so-luong" rowspan="2">Slg</th>
                             <th class="col-link" rowspan="2">Link bàn giao (Nếu có)</th>
                             <th class="col-thoi-gian" colspan="2">Thời gian thử</th>
                             <th class="col-nghiem-thu" rowspan="2">Kết quả nghiệm thu</th>
@@ -718,409 +745,470 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzbbhvgeKfcvQpwmbZtDwW2pbBtX0uX9HJ-ALRPH9YnpacpBjIMMwE5R3NMO6I6yy_GuQ/exec';
 
-    // Biến toàn cục để lưu trữ dữ liệu
-    var BAN_GIAO = {};
-    var CT_BANGIAO = [];
-    var KHTN = {};
-    var DKTT = [];
+        // Biến toàn cục để lưu trữ dữ liệu
+        var BAN_GIAO = {};
+        var CT_BANGIAO = [];
+        var KHTN = {};
+        var DKTT = [];
 
-    // Function để cập nhật dynamic date
-    function updateDynamicDate() {
-        const day1 = document.getElementById('day1').value.padStart(2, '0');
-        const month1 = document.getElementById('month1').value.padStart(2, '0');
-        const dynamicDateEl = document.getElementById('dynamicDate');
-        
-        if (day1 && month1 && dynamicDateEl) {
-            dynamicDateEl.textContent = `${day1}.${month1}`;
+        // Function để cập nhật dynamic date
+        function updateDynamicDate() {
+            const day1 = document.getElementById('day1').value.padStart(2, '0');
+            const month1 = document.getElementById('month1').value.padStart(2, '0');
+            const dynamicDateEl = document.getElementById('dynamicDate');
+
+            if (day1 && month1 && dynamicDateEl) {
+                dynamicDateEl.textContent = `${day1}.${month1}`;
+            }
         }
-    }
 
-    // Function để thêm event listeners cho date inputs
-    function setupDateInputs() {
-        const dateInputs = document.querySelectorAll('.date-input');
-        dateInputs.forEach(input => {
-            const printSpan = document.getElementById(input.id + '-print');
-            if (printSpan) {
-                // Cập nhật giá trị print khi input thay đổi
-                input.addEventListener('input', function() {
-                    printSpan.textContent = this.value;
-                    
-                    // Cập nhật dynamic date nếu là day1 hoặc month1
-                    if (input.id === 'day1' || input.id === 'month1') {
-                        updateDynamicDate();
+        // Function để thêm event listeners cho date inputs
+        function setupDateInputs() {
+            const dateInputs = document.querySelectorAll('.date-input');
+            dateInputs.forEach(input => {
+                const printSpan = document.getElementById(input.id + '-print');
+                if (printSpan) {
+                    // Cập nhật giá trị print khi input thay đổi
+                    input.addEventListener('input', function () {
+                        printSpan.textContent = this.value;
+
+                        // Cập nhật dynamic date nếu là day1 hoặc month1
+                        if (input.id === 'day1' || input.id === 'month1') {
+                            updateDynamicDate();
+                        }
+                    });
+
+                    // Cập nhật giá trị print ban đầu
+                    if (input.value) {
+                        printSpan.textContent = input.value;
+                    }
+                }
+            });
+        }
+
+        // Function để thêm event listeners cho các input khác
+        function setupOtherInputs() {
+            const otherInputs = ['ghichu', 'kiennghi', 'ketluan', 'sequenceNumber'];
+            otherInputs.forEach(inputId => {
+                const input = document.getElementById(inputId);
+                const printSpan = document.getElementById(inputId === 'sequenceNumber' ? 'sequenceNumberDisplay' : inputId + '-print');
+
+                if (input && printSpan) {
+                    input.addEventListener('input', function () {
+                        printSpan.textContent = this.value;
+                    });
+
+                    // Cập nhật giá trị print ban đầu
+                    if (input.value) {
+                        printSpan.textContent = input.value;
+                    }
+                }
+            });
+        }
+
+        // Function để kiểm tra và ẩn hàng trống
+        function hideEmptyRows() {
+            const participantRows = document.querySelectorAll('.participant-row');
+
+            participantRows.forEach(row => {
+                const inputs = row.querySelectorAll('input');
+                let isEmpty = true;
+
+                inputs.forEach(input => {
+                    if (input.value.trim() !== '') {
+                        isEmpty = false;
                     }
                 });
-                
-                // Cập nhật giá trị print ban đầu
-                if (input.value) {
-                    printSpan.textContent = input.value;
-                }
-            }
-        });
-    }
 
-    // Function để thêm event listeners cho các input khác
-    function setupOtherInputs() {
-        const otherInputs = ['ghichu', 'kiennghi', 'ketluan', 'sequenceNumber'];
-        otherInputs.forEach(inputId => {
-            const input = document.getElementById(inputId);
-            const printSpan = document.getElementById(inputId === 'sequenceNumber' ? 'sequenceNumberDisplay' : inputId + '-print');
-            
-            if (input && printSpan) {
-                input.addEventListener('input', function() {
-                    printSpan.textContent = this.value;
+                if (isEmpty) {
+                    row.classList.add('empty');
+                } else {
+                    row.classList.remove('empty');
+                }
+            });
+        }
+
+        // Function để thiết lập event listeners cho participant inputs
+        function setupParticipantInputs() {
+            const participantInputs = document.querySelectorAll('.participant-input');
+
+            participantInputs.forEach(input => {
+                input.addEventListener('input', function () {
+                    // Cập nhật trạng thái empty cho hàng này
+                    const row = this.closest('.participant-row');
+                    const inputs = row.querySelectorAll('input');
+                    let isEmpty = true;
+
+                    inputs.forEach(inp => {
+                        if (inp.value.trim() !== '') {
+                            isEmpty = false;
+                        }
+                    });
+
+                    if (isEmpty) {
+                        row.classList.add('empty');
+                    } else {
+                        row.classList.remove('empty');
+                    }
                 });
-                
-                // Cập nhật giá trị print ban đầu
-                if (input.value) {
-                    printSpan.textContent = input.value;
+            });
+        }
+
+        function searchContract(soBG) {
+            console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
+
+            if (!soBG) {
+                console.error('❌ Số hợp đồng không được để trống');
+                return;
+            }
+
+            console.log('📡 Đang gọi API...');
+
+            fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
+                .then(response => {
+                    console.log('📥 Response nhận được:', response.status);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('✅ Data nhận được:', data);
+
+                    if (data.success) {
+                        BAN_GIAO = data.ban_giao || {};
+                        CT_BANGIAO = data.chitiet_bangiao || [];
+                        KHTN = data.khtn || {};
+                        DKTT = data.hd || []; // Sửa từ dktt thành hd
+
+                        console.log('📊 Dữ liệu đã parse:');
+                        console.log('- BAN_GIAO:', BAN_GIAO);
+                        console.log('- CT_BANGIAO:', CT_BANGIAO);
+                        console.log('- KHTN:', KHTN);
+
+                        updateUI();
+                    } else {
+                        console.error('❌ API trả về lỗi:', data.message);
+                        alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
+                    }
+                })
+                .catch(error => {
+                    console.error('❌ Lỗi khi gọi API:', error);
+                    alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
+                });
+        }
+
+        function updateUI() {
+            console.log('🔄 Bắt đầu cập nhật UI...');
+
+            try {
+                // Cập nhật số hợp đồng
+                const idContainer = document.getElementById('id');
+                if (idContainer) {
+                    const input = idContainer.querySelector('input');
+                    const printSpan = idContainer.querySelector('.print-only');
+
+                    const soHD = BAN_GIAO['Số HĐ'] || '';
+                    console.log('📄 Số HĐ:', soHD);
+
+                    if (input) input.value = soHD;
+                    if (printSpan) printSpan.textContent = soHD;
                 }
+
+                // Cập nhật thông tin công ty
+                const companyName = KHTN['TÊN CÔNG TY'] || '';
+                const companyAddress = KHTN['ĐỊA CHỈ'] || '';
+                const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
+                const companyName1 = KHTN['TÊN CÔNG TY'] || '';
+
+                console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
+
+                const companyNameEl = document.getElementById('companyName');
+                const companyAddressEl = document.getElementById('companyAddress');
+                const tvtEl = document.getElementById('Tvt');
+                const companyNameEl1 = document.getElementById('companyName1');
+
+                if (companyNameEl) companyNameEl.textContent = companyName;
+                if (companyAddressEl) companyAddressEl.textContent = companyAddress;
+                if (tvtEl) tvtEl.textContent = tenVietTat;
+                if (companyNameEl1) companyNameEl1.textContent = companyName1;
+
+                console.log('📋 Cập nhật bảng sản phẩm...');
+                updateProductTable();
+
+                console.log('🔗 Thêm event listeners...');
+                addInputListeners();
+
+                console.log('📝 Cập nhật footer...');
+                updateFooter();
+
+                console.log('✅ Hoàn thành cập nhật UI');
+
+            } catch (error) {
+                console.error('❌ Lỗi trong updateUI:', error);
+                alert('Lỗi khi cập nhật giao diện: ' + error.message);
+            }
+        }
+
+        function updateProductTable() {
+            console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
+
+            const tableBody = document.getElementById('orderDetailsBody');
+            if (!tableBody) {
+                console.error('❌ Không tìm thấy element orderDetailsBody');
+                return;
+            }
+
+            if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
+                console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
+                tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
+                return;
+            }
+
+            try {
+                const htmlContent = CT_BANGIAO.map((item, index) => {
+                    console.log(`📦 Xử lý item ${index}:`, item);
+
+                    return `
+                  <tr>
+                      <td class="center">${index + 1}</td>
+                      <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
+                      <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
+                      <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
+                      <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
+                      <td class="preserve-format">
+                          <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
+                          <span class="print-only">${item['Link_bangiao'] || ''}</span>
+                      </td>
+                      <td>
+                          <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
+                          <span class="print-only"></span>
+                      </td>
+                      <td>
+                          <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
+                          <span class="print-only"></span>
+                      </td>
+                      <td class="center">
+                          <label class="checkbox-container no-print">
+                              <input type="checkbox" class="form-control ket-quanghiemthu">
+                              <span class="checkmark"></span>
+                          </label>
+                          <span class="print-only ket-qua-text">Chưa kiểm tra</span>
+                      </td>
+                  </tr>
+              `;
+                }).join('');
+
+                tableBody.innerHTML = htmlContent;
+                console.log('✅ Đã cập nhật bảng thành công');
+
+            } catch (error) {
+                console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
+                tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
+            }
+        }
+
+        // Đơn giản hóa addInputListeners để tránh vòng lặp
+        function addInputListeners() {
+            console.log('🔗 Đang thêm event listeners...');
+
+            try {
+                // Chỉ thêm listener cho các element mới, tránh duplicate
+                const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
+                console.log('📝 Tìm thấy', inputs.length, 'inputs');
+
+                inputs.forEach((input, index) => {
+                    // Kiểm tra xem đã có listener chưa
+                    if (!input.hasAttribute('data-listener-added')) {
+                        const printSpan = input.nextElementSibling;
+                        if (printSpan && printSpan.classList.contains('print-only')) {
+                            printSpan.textContent = input.value;
+
+                            input.addEventListener('input', function () {
+                                printSpan.textContent = this.value;
+                            });
+
+                            input.setAttribute('data-listener-added', 'true');
+                        }
+                    }
+                });
+
+                // Xử lý checkbox
+                const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
+                console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
+
+                checkboxes.forEach(checkbox => {
+                    if (!checkbox.hasAttribute('data-listener-added')) {
+                        const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
+                        if (printSpan) {
+                            checkbox.addEventListener('change', function () {
+                                printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
+                            });
+
+                            checkbox.setAttribute('data-listener-added', 'true');
+                        }
+                    }
+                });
+
+                console.log('✅ Hoàn thành thêm listeners');
+
+            } catch (error) {
+                console.error('❌ Lỗi khi thêm listeners:', error);
+            }
+        }
+
+        // Các function khác giữ nguyên nhưng thêm try-catch
+        function updateFooter() {
+            try {
+                const footerInfo = document.getElementById('footerInfo');
+                if (!footerInfo) return;
+
+                let footerHTML = `
+              <table style="width: 100%; text-align: center;">
+                  <tbody>
+                      <tr>
+                          <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                          <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+                      </tr>
+                      <tr>
+                          <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                          <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
+                      </tr>
+                      <tr>
+                          <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                          <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                              <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                          </td>
+                          <td>
+                              <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                              <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td><i>Ngày ký: ..............................</i></td>
+                          <td><i>Ngày ký: ..............................</i></td>
+                      </tr>
+                  </tbody>
+              </table>
+          `;
+
+                footerInfo.innerHTML = footerHTML;
+
+            } catch (error) {
+                console.error('❌ Lỗi trong updateFooter:', error);
+            }
+        }
+
+        function print() {
+            // Kiểm tra và ẩn hàng trống trước khi in
+            hideEmptyRows();
+
+            $('#content').printThis({
+                debug: false,
+                importCSS: true,
+                importStyle: true,
+                printContainer: true,
+                pageTitle: "",
+                removeInline: false,
+                removeInlineSelector: "*",
+                printDelay: 333,
+                header: null,
+                footer: null,
+                base: false,
+                formValues: true,
+                canvas: false,
+                removeScripts: false,
+                copyTagClasses: false
+            });
+        }
+
+        // DOMContentLoaded event
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🚀 DOM đã load, khởi tạo...');
+
+            try {
+                // Thiết lập ngày tháng
+                var today = new Date();
+                var day = today.getDate();
+                var month = today.getMonth() + 1;
+                var year = today.getFullYear();
+
+                // Điền ngày hôm nay
+                const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
+                dateFields.forEach(fieldId => {
+                    const field = document.getElementById(fieldId);
+                    if (field) {
+                        if (fieldId.includes('day')) {
+                            field.value = day;
+                        } else if (fieldId.includes('month')) {
+                            field.value = month;
+                        } else if (fieldId.includes('year')) {
+                            field.value = year;
+                        }
+                    }
+                });
+
+                // Thiết lập input cho số hợp đồng
+                const idSpan = document.getElementById('id');
+                if (idSpan && !idSpan.querySelector('input')) {
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
+                    input.classList.add('no-print');
+
+                    const printSpan = document.createElement('span');
+                    printSpan.classList.add('print-only');
+                    printSpan.style.cssText = 'display: none; font-weight: bold;';
+
+                    input.addEventListener('input', function () {
+                        printSpan.textContent = this.value;
+                    });
+
+                    idSpan.appendChild(input);
+                    idSpan.appendChild(printSpan);
+                }
+
+                // Thiết lập event listeners cho date inputs
+                setupDateInputs();
+
+                // Thiết lập event listeners cho các input khác
+                setupOtherInputs();
+
+                // Thiết lập event listeners cho participant inputs
+                setupParticipantInputs();
+
+                // Cập nhật dynamic date ban đầu
+                updateDynamicDate();
+
+                // Kiểm tra hàng trống ban đầu
+                hideEmptyRows();
+
+                // Tìm kiếm hợp đồng từ URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const soBG = urlParams.get('SOBG');
+
+                console.log('🔍 SOBG từ URL:', soBG);
+
+                if (soBG) {
+                    // Delay một chút để đảm bảo trang đã render xong
+                    setTimeout(() => {
+                        searchContract(soBG);
+                    }, 100);
+                } else {
+                    console.warn('⚠️ Không có SOBG trong URL');
+                }
+
+            } catch (error) {
+                console.error('❌ Lỗi trong DOMContentLoaded:', error);
             }
         });
-    }
-
-    function searchContract(soBG) {
-   console.log('🔍 Bắt đầu tìm kiếm với SOBG:', soBG);
-   
-   if (!soBG) {
-       console.error('❌ Số hợp đồng không được để trống');
-       return;
-   }
-   
-   console.log('📡 Đang gọi API...');
-   
-   fetch(`${API_URL}?SOBG=${encodeURIComponent(soBG)}`)
-       .then(response => {
-           console.log('📥 Response nhận được:', response.status);
-           if (!response.ok) {
-               throw new Error(`HTTP error! status: ${response.status}`);
-           }
-           return response.json();
-       })
-       .then(data => {
-           console.log('✅ Data nhận được:', data);
-           
-           if (data.success) {
-               BAN_GIAO = data.ban_giao || {};
-               CT_BANGIAO = data.chitiet_bangiao || [];
-               KHTN = data.khtn || {};
-               DKTT = data.hd || []; // Sửa từ dktt thành hd
-               
-               console.log('📊 Dữ liệu đã parse:');
-               console.log('- BAN_GIAO:', BAN_GIAO);
-               console.log('- CT_BANGIAO:', CT_BANGIAO);
-               console.log('- KHTN:', KHTN);
-               
-               updateUI();
-           } else {
-               console.error('❌ API trả về lỗi:', data.message);
-               alert('Lỗi từ server: ' + (data.message || 'Không xác định'));
-           }
-       })
-       .catch(error => {
-           console.error('❌ Lỗi khi gọi API:', error);
-           alert('Đã xảy ra lỗi khi tải dữ liệu: ' + error.message);
-       });
-}
-
-function updateUI() {
-   console.log('🔄 Bắt đầu cập nhật UI...');
-   
-   try {
-       // Cập nhật số hợp đồng
-       const idContainer = document.getElementById('id');
-       if (idContainer) {
-           const input = idContainer.querySelector('input');
-           const printSpan = idContainer.querySelector('.print-only');
-           
-           const soHD = BAN_GIAO['Số HĐ'] || '';
-           console.log('📄 Số HĐ:', soHD);
-           
-           if (input) input.value = soHD;
-           if (printSpan) printSpan.textContent = soHD;
-       }
-
-       // Cập nhật thông tin công ty
-       const companyName = KHTN['TÊN CÔNG TY'] || '';
-       const companyAddress = KHTN['ĐỊA CHỈ'] || '';
-       const tenVietTat = KHTN['TÊN VIẾT TẮT'] || '';
-       
-       console.log('🏢 Thông tin công ty:', { companyName, companyAddress, tenVietTat });
-       
-       const companyNameEl = document.getElementById('companyName');
-       const companyAddressEl = document.getElementById('companyAddress');
-       const tvtEl = document.getElementById('Tvt');
-       
-       if (companyNameEl) companyNameEl.textContent = companyName;
-       if (companyAddressEl) companyAddressEl.textContent = companyAddress;
-       if (tvtEl) tvtEl.textContent = tenVietTat;
-
-       console.log('📋 Cập nhật bảng sản phẩm...');
-       updateProductTable();
-       
-       console.log('🔗 Thêm event listeners...');
-       addInputListeners();
-       
-       console.log('📝 Cập nhật footer...');
-       updateFooter();
-       
-       console.log('✅ Hoàn thành cập nhật UI');
-       
-   } catch (error) {
-       console.error('❌ Lỗi trong updateUI:', error);
-       alert('Lỗi khi cập nhật giao diện: ' + error.message);
-   }
-}
-
-function updateProductTable() {
-   console.log('📊 Cập nhật bảng với dữ liệu:', CT_BANGIAO);
-   
-   const tableBody = document.getElementById('orderDetailsBody');
-   if (!tableBody) {
-       console.error('❌ Không tìm thấy element orderDetailsBody');
-       return;
-   }
-   
-   if (!CT_BANGIAO || CT_BANGIAO.length === 0) {
-       console.log('⚠️ Không có dữ liệu chi tiết bàn giao');
-       tableBody.innerHTML = '<tr><td colspan="9" class="center">Không có dữ liệu sản phẩm</td></tr>';
-       return;
-   }
-
-   try {
-       const htmlContent = CT_BANGIAO.map((item, index) => {
-           console.log(`📦 Xử lý item ${index}:`, item);
-           
-           return `
-               <tr>
-                   <td class="center">${index + 1}</td>
-                   <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
-                   <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
-                   <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
-                   <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
-                   <td class="preserve-format">
-                       <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
-                       <span class="print-only">${item['Link_bangiao'] || ''}</span>
-                   </td>
-                   <td>
-                       <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
-                       <span class="print-only"></span>
-                   </td>
-                   <td>
-                       <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
-                       <span class="print-only"></span>
-                   </td>
-                   <td class="center">
-                       <label class="checkbox-container no-print">
-                           <input type="checkbox" class="form-control ket-quanghiemthu">
-                           <span class="checkmark"></span>
-                       </label>
-                       <span class="print-only ket-qua-text">Chưa kiểm tra</span>
-                   </td>
-               </tr>
-           `;
-       }).join('');
-       
-       tableBody.innerHTML = htmlContent;
-       console.log('✅ Đã cập nhật bảng thành công');
-       
-   } catch (error) {
-       console.error('❌ Lỗi khi tạo HTML cho bảng:', error);
-       tableBody.innerHTML = '<tr><td colspan="9" class="center">Lỗi khi hiển thị dữ liệu</td></tr>';
-   }
-}
-
-// Đơn giản hóa addInputListeners để tránh vòng lặp
-function addInputListeners() {
-   console.log('🔗 Đang thêm event listeners...');
-   
-   try {
-       // Chỉ thêm listener cho các element mới, tránh duplicate
-       const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
-       console.log('📝 Tìm thấy', inputs.length, 'inputs');
-       
-       inputs.forEach((input, index) => {
-           // Kiểm tra xem đã có listener chưa
-           if (!input.hasAttribute('data-listener-added')) {
-               const printSpan = input.nextElementSibling;
-               if (printSpan && printSpan.classList.contains('print-only')) {
-                   printSpan.textContent = input.value;
-                   
-                   input.addEventListener('input', function () {
-                       printSpan.textContent = this.value;
-                   });
-                   
-                   input.setAttribute('data-listener-added', 'true');
-               }
-           }
-       });
-       
-       // Xử lý checkbox
-       const checkboxes = document.querySelectorAll('.ket-quanghiemthu');
-       console.log('☑️ Tìm thấy', checkboxes.length, 'checkboxes');
-       
-       checkboxes.forEach(checkbox => {
-           if (!checkbox.hasAttribute('data-listener-added')) {
-               const printSpan = checkbox.closest('td').querySelector('.ket-qua-text');
-               if (printSpan) {
-                   checkbox.addEventListener('change', function () {
-                       printSpan.textContent = this.checked ? 'Đạt' : 'Không đạt';
-                   });
-                   
-                   checkbox.setAttribute('data-listener-added', 'true');
-               }
-           }
-       });
-       
-       console.log('✅ Hoàn thành thêm listeners');
-       
-   } catch (error) {
-       console.error('❌ Lỗi khi thêm listeners:', error);
-   }
-}
-
-// Các function khác giữ nguyên nhưng thêm try-catch
-function updateFooter() {
-   try {
-       const footerInfo = document.getElementById('footerInfo');
-       if (!footerInfo) return;
-       
-       let footerHTML = `
-           <table style="width: 100%; text-align: center;">
-               <tbody>
-                   <tr>
-                       <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                       <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-                   </tr>
-                   <tr>
-                       <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                       <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
-                   </tr>
-                   <tr>
-                       <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                       <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                   </tr>
-                   <tr>
-                       <td>
-                           <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                           <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
-                       </td>
-                       <td>
-                           <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                           <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
-                       </td>
-                   </tr>
-                   <tr>
-                       <td><i>Ngày ký: ..............................</i></td>
-                       <td><i>Ngày ký: ..............................</i></td>
-                   </tr>
-               </tbody>
-           </table>
-       `;
-       
-       footerInfo.innerHTML = footerHTML;
-       
-   } catch (error) {
-       console.error('❌ Lỗi trong updateFooter:', error);
-   }
-}
-
-function print() {
-   $('#content').printThis({
-       debug: false,
-       importCSS: true,
-       importStyle: true,
-       printContainer: true,
-       pageTitle: "",
-       removeInline: false,
-       removeInlineSelector: "*",
-       printDelay: 333,
-       header: null,
-       footer: null,
-       base: false,
-       formValues: true,
-       canvas: false,
-       removeScripts: false,
-       copyTagClasses: false
-   });
-}
-
-// DOMContentLoaded event
-document.addEventListener('DOMContentLoaded', function () {
-   console.log('🚀 DOM đã load, khởi tạo...');
-   
-   try {
-       // Thiết lập ngày tháng
-       var today = new Date();
-       var day = today.getDate();
-       var month = today.getMonth() + 1;
-       var year = today.getFullYear();
-
-       // Điền ngày hôm nay
-       const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
-       dateFields.forEach(fieldId => {
-           const field = document.getElementById(fieldId);
-           if (field) {
-               if (fieldId.includes('day')) {
-                   field.value = day;
-               } else if (fieldId.includes('month')) {
-                   field.value = month;
-               } else if (fieldId.includes('year')) {
-                   field.value = year;
-               }
-           }
-       });
-
-       // Thiết lập input cho số hợp đồng
-       const idSpan = document.getElementById('id');
-       if (idSpan && !idSpan.querySelector('input')) {
-           const input = document.createElement('input');
-           input.type = 'text';
-           input.style.cssText = 'border: none; border-bottom: 1px solid #ccc; font-weight: bold; width: 200px; padding: 2px 5px;';
-           input.classList.add('no-print');
-
-           const printSpan = document.createElement('span');
-           printSpan.classList.add('print-only');
-           printSpan.style.cssText = 'display: none; font-weight: bold;';
-
-           input.addEventListener('input', function () {
-               printSpan.textContent = this.value;
-           });
-
-           idSpan.appendChild(input);
-           idSpan.appendChild(printSpan);
-       }
-
-       // Thiết lập event listeners cho date inputs
-       setupDateInputs();
-       
-       // Thiết lập event listeners cho các input khác
-       setupOtherInputs();
-       
-       // Cập nhật dynamic date ban đầu
-       updateDynamicDate();
-
-       // Tìm kiếm hợp đồng từ URL
-       const urlParams = new URLSearchParams(window.location.search);
-       const soBG = urlParams.get('SOBG');
-       
-       console.log('🔍 SOBG từ URL:', soBG);
-       
-       if (soBG) {
-           // Delay một chút để đảm bảo trang đã render xong
-           setTimeout(() => {
-               searchContract(soBG);
-           }, 100);
-       } else {
-           console.warn('⚠️ Không có SOBG trong URL');
-       }
-       
-   } catch (error) {
-       console.error('❌ Lỗi trong DOMContentLoaded:', error);
-   }
-});
-</script>
+    </script>
 </body>
+
 </html>
