@@ -95,134 +95,6 @@
             border-top: 1px solid #dee2e6;
         }
 
-        /* Cải thiện CSS cho print */
-        @media print {
-
-            .table th,
-            .table td {
-                overflow: visible;
-                white-space: normal;
-                word-wrap: break-word;
-            }
-
-            .link-bangiao,
-            .nguoi-tiepnhan {
-                display: none;
-            }
-
-            .print-only {
-                display: inline !important;
-            }
-
-            body,
-            #content {
-                margin: 0;
-                box-shadow: 0;
-                padding: 0 !important;
-                font-size: 18px !important;
-                line-height: 1.4;
-            }
-
-            h5 {
-                font-size: 24px
-            }
-
-            .date-input {
-                display: none !important;
-            }
-
-            .no-print {
-                display: none !important;
-            }
-
-            .big-title {
-                font-size: 18px !important;
-            }
-
-            .total-pay {
-                font-size: 15px !important;
-            }
-
-            /* Cho phép người dùng tự chỉnh khổ trang */
-            @page {
-                size: auto;
-                margin: 1cm;
-            }
-
-            /* Sửa lỗi xuống dòng trong header */
-            .header-table {
-                width: 100%;
-                border-collapse: collapse;
-            }
-
-            .header-table td {
-                padding: 2px 5px;
-                vertical-align: middle;
-                white-space: nowrap;
-            }
-
-            .header-right {
-                font-size: 12px;
-            }
-
-            .header-center {
-                text-align: center;
-                font-weight: bold;
-            }
-
-            #sequenceNumber {
-                display: none;
-            }
-
-            /* Ẩn các hàng trống khi in */
-            .participant-row.empty {
-                display: none !important;
-            }
-
-            .participant-table input[type="text"] {
-                border: none;
-                border-bottom: none !important;
-                text-align: left;
-                padding-left: 0;
-                background: transparent;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }
-
-            .participant-table td {
-                text-align: left;
-            }
-
-            .company-header {
-                text-align: left;
-                font-weight: bold;
-            }
-
-            .print-align-left {
-                text-align: left !important;
-            }
-
-            .participant-table input[type="text"]:focus {
-                outline: none;
-                border: none;
-                -webkit-box-shadow: none;
-                box-shadow: none;
-            }
-
-            .signature-input {
-                display: none !important;
-            }
-
-            .print-only {
-                display: block !important;
-            }
-
-            /* Sửa lỗi hiển thị date trong print */
-            .date-print-inline {
-                display: inline !important;
-            }
-        }
-
         #content {
             font-size: 13.5px;
             padding: 40px 40px;
@@ -339,16 +211,6 @@
             padding: 0.4rem;
         }
 
-        @media screen {
-            .print-only {
-                display: none;
-            }
-
-            .signature-input {
-                display: block;
-            }
-        }
-
         .signature-input {
             font-weight: bold;
             padding: 5px;
@@ -361,26 +223,27 @@
             border-bottom: 2px solid #555;
         }
 
-        @media only screen and (max-width: 1024px) {
-            #fixed-panel {
-                display: none !important;
-            }
-
-            #list_option_print {
-                display: none !important;
-            }
+        /* CSS cho header table */
+        .header-table {
+            width: 100%;
+            border-collapse: collapse;
         }
 
-        @media screen and (max-width: 600px) {
-            .table-responsive {
-                overflow-x: auto;
-            }
+        .header-table td {
+            padding: 2px 5px;
+            vertical-align: middle;
         }
 
-        .participants-container {
-            display: flex;
+        .header-right {
+            font-size: 12px;
         }
 
+        .header-center {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        /* CSS cho bảng đại diện */
         .participant-table {
             width: 100%;
             border-collapse: collapse;
@@ -388,13 +251,38 @@
 
         .participant-table th,
         .participant-table td {
-            padding: 5px;
+            padding: 8px 5px;
             border: none;
+            vertical-align: middle;
+            text-align: left;
         }
 
-        .company-header {
-            font-weight: bold;
-            text-align: left;
+        .representative-header {
+            height: 30px !important;
+            text-align: left !important;
+            font-weight: bold !important;
+            padding: 5px !important;
+            vertical-align: middle !important;
+            border-bottom: none !important;
+        }
+
+        .company-name-header {
+            height: 30px !important;
+            text-align: left !important;
+            font-weight: bold !important;
+            padding: 5px !important;
+            vertical-align: middle !important;
+        }
+
+        .participant-row {
+            height: 35px;
+            transition: opacity 0.3s ease;
+        }
+
+        .participant-row td {
+            height: 35px;
+            line-height: 35px;
+            vertical-align: middle;
         }
 
         .participant-table input[type="text"] {
@@ -407,14 +295,6 @@
 
         .participant-table input[type="text"]:focus {
             border-bottom: 2px solid #555;
-        }
-
-        .participant-row {
-            transition: opacity 0.3s ease;
-        }
-
-        .participant-row[style*="display: none"] {
-            opacity: 0;
         }
 
         /* Checkbox styling */
@@ -473,40 +353,6 @@
             transform: rotate(45deg);
         }
 
-        /* Thêm CSS cho header table */
-        .header-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .header-table td {
-            padding: 2px 5px;
-            vertical-align: middle;
-        }
-
-        .header-right {
-            font-size: 12px;
-        }
-
-        .header-center {
-            text-align: center;
-            font-weight: bold;
-        }
-
-        @media print {
-
-            #id,
-            #id input,
-            #id .print-only {
-                white-space: nowrap !important;
-            }
-
-            /* Nếu cần cho cả dòng */
-            .no-break-print {
-                white-space: nowrap !important;
-            }
-        }
-
         .no-break-print,
         .no-break-print * {
             white-space: nowrap !important;
@@ -515,6 +361,203 @@
             display: inline-block;
             vertical-align: middle;
             max-width: 100%;
+        }
+
+        /* CSS cho màn hình */
+        @media screen {
+            .print-only {
+                display: none;
+            }
+
+            .signature-input {
+                display: block;
+            }
+        }
+
+        @media only screen and (max-width: 1024px) {
+            #fixed-panel {
+                display: none !important;
+            }
+
+            #list_option_print {
+                display: none !important;
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        /* CSS cho print */
+        @media print {
+
+            .table th,
+            .table td {
+                overflow: visible;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+            .link-bangiao,
+            .nguoi-tiepnhan {
+                display: none;
+            }
+
+            .print-only {
+                display: inline !important;
+            }
+
+            body,
+            #content {
+                margin: 0;
+                box-shadow: 0;
+                padding: 0 !important;
+                font-size: 18px !important;
+                line-height: 1.4;
+            }
+
+            h5 {
+                font-size: 24px
+            }
+
+            .date-input {
+                display: none !important;
+            }
+
+            .no-print {
+                display: none !important;
+            }
+
+            .big-title {
+                font-size: 18px !important;
+            }
+
+            .total-pay {
+                font-size: 15px !important;
+            }
+
+            @page {
+                size: auto;
+                margin: 1cm;
+            }
+
+            /* Header table cho print */
+            .header-table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .header-table td {
+                padding: 2px 5px;
+                vertical-align: middle;
+                white-space: nowrap !important;
+            }
+
+            .header-table tr:last-child td {
+                white-space: nowrap !important;
+                overflow: visible !important;
+            }
+
+            .header-table tr:last-child td * {
+                display: inline !important;
+                white-space: nowrap !important;
+                border: none !important;
+                border-bottom: none !important;
+                background: transparent !important;
+            }
+
+            .header-table input {
+                display: none !important;
+            }
+
+            .header-table .print-only {
+                display: inline !important;
+            }
+
+            .header-right {
+                font-size: 12px;
+            }
+
+            .header-center {
+                text-align: center;
+                font-weight: bold;
+            }
+
+            #sequenceNumber {
+                display: none !important;
+            }
+
+            #sequenceNumberDisplay {
+                display: inline !important;
+            }
+
+            /* Bảng đại diện cho print */
+            .representative-header,
+            .company-name-header {
+                height: 30px !important;
+                text-align: left !important;
+                padding: 5px !important;
+                vertical-align: middle !important;
+            }
+
+            .participant-row {
+                height: 35px !important;
+            }
+
+            .participant-row td {
+                height: 35px !important;
+                line-height: 35px !important;
+                vertical-align: middle !important;
+            }
+
+            .participant-row.empty {
+                display: none !important;
+            }
+
+            .participant-table input[type="text"] {
+                border: none !important;
+                border-bottom: none !important;
+                text-align: left;
+                padding-left: 0;
+                background: transparent;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            .participant-table td {
+                text-align: left;
+            }
+
+            .participant-table input[type="text"]:focus {
+                outline: none;
+                border: none;
+                -webkit-box-shadow: none;
+                box-shadow: none;
+            }
+
+            .signature-input {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            .date-print-inline {
+                display: inline !important;
+            }
+
+            #id,
+            #id input,
+            #id .print-only {
+                white-space: nowrap !important;
+            }
+
+            .no-break-print {
+                white-space: nowrap !important;
+            }
         }
     </style>
 </head>
@@ -525,7 +568,7 @@
     <page size="A4" id="page" layout="landscape">
         <div id="content">
             <div class="content_page1">
-                <!-- Sửa lại header table để tránh lỗi xuống dòng -->
+                <!-- Header table -->
                 <table class="header-table">
                     <tr>
                         <td rowspan="4" style="width: 15%;">
@@ -551,7 +594,7 @@
                         <td class="header-right">
                             BNT-<span id="Tvt"></span>-<span id="dynamicDate"></span>-<input type="text"
                                 id="sequenceNumber" class="no-print"
-                                style="width: 40px; border: none; border-bottom: 1px solid black;">
+                                style="width: 30px; border: none; border-bottom: 1px solid black;">
                             <span class="print-only" id="sequenceNumberDisplay"></span>
                         </td>
                     </tr>
@@ -629,7 +672,13 @@
                     <div style="width: 48%;">
                         <table class="participant-table">
                             <tr>
-                                <th colspan="4"><strong>Đại diện chủ đầu tư: </strong><span id="companyName1"></span>
+                                <th colspan="2" class="representative-header">
+                                    <strong>Đại diện chủ đầu tư:</strong>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="company-name-header">
+                                    <span id="companyName1"></span>
                                 </th>
                             </tr>
                             <tr class="participant-row">
@@ -656,7 +705,13 @@
                     <div style="width: 48%;">
                         <table class="participant-table">
                             <tr>
-                                <th colspan="4"><strong>Đại diện đơn vị cung cấp: Công ty Cổ Phần Tập đoàn WOWS</strong>
+                                <th colspan="2" class="representative-header">
+                                    <strong>Đại diện đơn vị cung cấp:</strong>
+                                </th>
+                            </tr>
+                            <tr>
+                                <th colspan="2" class="company-name-header">
+                                    <strong>Công ty Cổ Phần Tập đoàn WOWS</strong>
                                 </th>
                             </tr>
                             <tr class="participant-row">
@@ -881,7 +936,7 @@
                         BAN_GIAO = data.ban_giao || {};
                         CT_BANGIAO = data.chitiet_bangiao || [];
                         KHTN = data.khtn || {};
-                        DKTT = data.hd || []; // Sửa từ dktt thành hd
+                        DKTT = data.hd || [];
 
                         console.log('📊 Dữ liệu đã parse:');
                         console.log('- BAN_GIAO:', BAN_GIAO);
@@ -972,33 +1027,33 @@
                     console.log(`📦 Xử lý item ${index}:`, item);
 
                     return `
-                  <tr>
-                      <td class="center">${index + 1}</td>
-                      <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
-                      <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
-                      <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
-                      <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
-                      <td class="preserve-format">
-                          <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
-                          <span class="print-only">${item['Link_bangiao'] || ''}</span>
-                      </td>
-                      <td>
-                          <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
-                          <span class="print-only"></span>
-                      </td>
-                      <td>
-                          <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
-                          <span class="print-only"></span>
-                      </td>
-                      <td class="center">
-                          <label class="checkbox-container no-print">
-                              <input type="checkbox" class="form-control ket-quanghiemthu">
-                              <span class="checkmark"></span>
-                          </label>
-                          <span class="print-only ket-qua-text">Chưa kiểm tra</span>
-                      </td>
-                  </tr>
-              `;
+                     <tr>
+                         <td class="center">${index + 1}</td>
+                         <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
+                         <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
+                         <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
+                         <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
+                         <td class="preserve-format">
+                             <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
+                             <span class="print-only">${item['Link_bangiao'] || ''}</span>
+                         </td>
+                         <td>
+                             <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
+                             <span class="print-only"></span>
+                         </td>
+                         <td>
+                             <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
+                             <span class="print-only"></span>
+                         </td>
+                         <td class="center">
+                             <label class="checkbox-container no-print">
+                                 <input type="checkbox" class="form-control ket-quanghiemthu">
+                                 <span class="checkmark"></span>
+                             </label>
+                             <span class="print-only ket-qua-text">Chưa kiểm tra</span>
+                         </td>
+                     </tr>
+                 `;
                 }).join('');
 
                 tableBody.innerHTML = htmlContent;
@@ -1010,7 +1065,6 @@
             }
         }
 
-        // Đơn giản hóa addInputListeners để tránh vòng lặp
         function addInputListeners() {
             console.log('🔗 Đang thêm event listeners...');
 
@@ -1059,44 +1113,43 @@
             }
         }
 
-        // Các function khác giữ nguyên nhưng thêm try-catch
         function updateFooter() {
             try {
                 const footerInfo = document.getElementById('footerInfo');
                 if (!footerInfo) return;
 
                 let footerHTML = `
-              <table style="width: 100%; text-align: center;">
-                  <tbody>
-                      <tr>
-                          <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                          <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-                      </tr>
-                      <tr>
-                          <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                          <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
-                      </tr>
-                      <tr>
-                          <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                          <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                              <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
-                          </td>
-                          <td>
-                              <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                              <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td><i>Ngày ký: ..............................</i></td>
-                          <td><i>Ngày ký: ..............................</i></td>
-                      </tr>
-                  </tbody>
-              </table>
-          `;
+                 <table style="width: 100%; text-align: center;">
+                     <tbody>
+                         <tr>
+                             <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                             <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+                         </tr>
+                         <tr>
+                             <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                             <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
+                         </tr>
+                         <tr>
+                             <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                             <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                         </tr>
+                         <tr>
+                             <td>
+                                 <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                 <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                             </td>
+                             <td>
+                                 <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                 <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td><i>Ngày ký: ..............................</i></td>
+                             <td><i>Ngày ký: ..............................</i></td>
+                         </tr>
+                     </tbody>
+                 </table>
+             `;
 
                 footerInfo.innerHTML = footerHTML;
 
