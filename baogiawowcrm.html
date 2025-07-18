@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -227,6 +226,22 @@
             word-wrap: break-word;
         }
 
+        /* Thêm vào phần <style> */
+        .table td:last-child {
+            width: auto;
+            min-width: 60px;
+            max-width: 180px;
+            word-wrap: break-word;
+            white-space: pre-wrap;
+            vertical-align: top;
+            padding: 5px;
+        }
+
+        /* Khi có nội dung dài */
+        .table td:last-child:not(:empty) {
+            width: 180px;
+        }
+
 
         @media only screen and (max-width: 1024px) {
             #fixed-panel {
@@ -306,35 +321,35 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
-                            <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>VAT:</strong></td>
-                            <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC:</strong></td>
-                            <td colspan="3" class="text-center"><span id="chiphikhac"></span></td>
-                        </tr>
-                        <tr>
-                            <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
-                            <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
-                        </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>TỔNG GIÁ TRỊ:</strong></td>
+                        <td colspan="3" class="text-center"><span id="tongGiaTri"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>% ƯU ĐÃI:</strong></td>
+                        <td colspan="3" class="text-center"><span id="phanTramUuDai"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>TỔNG TIỀN ƯU ĐÃI:</strong></td>
+                        <td colspan="3" class="text-center"><span id="tongTienUuDai"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>THÀNH TIỀN:</strong></td>
+                        <td colspan="3" class="text-center"><span id="thanhTien"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>VAT:</strong></td>
+                        <td colspan="3" class="text-center"><span id="vat"></span> (<span id="tongTienVAT"></span>)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>CHI PHÍ KHÁC:</strong></td>
+                        <td colspan="3" class="text-center"><span id="chiphikhac"></span></td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" class="text-center"><strong>TỔNG THANH TOÁN:</strong></td>
+                        <td colspan="3" class="text-center"><span id="tongThanhToan"></span></td>
+                    </tr>
                 </table>
                 <div class="mt-3">
                     <span style="font-style: italic;">TỔNG THANH TOÁN BẰNG CHỮ: </span>
@@ -449,13 +464,15 @@
             } else {
                 console.error('Không tìm thấy phần tử có id "orderDetailsBody"');
             }
+
+            // Thay thế phần code cập nhật các giá trị trong hàm updateUI()
             document.getElementById('tongGiaTri').textContent = formatCurrency(PO['Tong_tien_truoc_UD'] || 0);
             document.getElementById('phanTramUuDai').textContent = PO['Uu_dai'] ? (PO['Uu_dai'] * 100).toFixed(2) + ' %' : '0%';
-
             document.getElementById('tongTienUuDai').textContent = formatCurrency(PO['Tong_tien_UD'] || 0);
             document.getElementById('thanhTien').textContent = formatCurrency(PO['Tong_tien_sau_UD'] || 0);
             document.getElementById('vat').textContent = PO['%VAT'] ? PO['%VAT'] * 100 + ' %' : '0%';
             document.getElementById('tongTienVAT').textContent = formatCurrency(PO['Tong_tien_VAT'] || 0);
+
             const tienApp = PO_DETAIL.reduce((sum, item) => item.DVT === 'Module' ? sum + parseFloat(item.Thanh_tien_chi_tiet || 0) : sum, 0);
             const phantramduytri = PO['Chi phí'];
             const chiPhiDuyTri = PO['Phí duy trì'];
@@ -463,6 +480,21 @@
             document.getElementById('chiphikhac').textContent = formatCurrency(chiPhiDuyTri + phipulic || 0);
             document.getElementById('tongThanhToan').textContent = formatCurrency(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0);
             document.getElementById('tongThanhToanBangChu').textContent = `${numberToWords(PO['Tong_tien_sau_VAT'] + chiPhiDuyTri + phipulic || 0)} đồng`;
+
+            // Ẩn các dòng có giá trị 0
+            const rowsToHide = [
+                { value: PO['Tong_tien_truoc_UD'] || 0, selector: 'tr:contains("TỔNG GIÁ TRỊ")' },
+                { value: PO['Uu_dai'] || 0, selector: 'tr:contains("% ƯU ĐÃI")' },
+                { value: PO['Tong_tien_UD'] || 0, selector: 'tr:contains("TỔNG TIỀN ƯU ĐÃI")' },
+                { value: PO['Tong_tien_VAT'] || 0, selector: 'tr:contains("VAT")' },
+                { value: chiPhiDuyTri + phipulic || 0, selector: 'tr:contains("CHI PHÍ KHÁC")' }
+            ];
+
+            rowsToHide.forEach(row => {
+                if (parseFloat(row.value) === 0) {
+                    $(`table tr:contains("${row.selector.replace('tr:contains("', '').replace('")', '')}")`).hide();
+                }
+            });
 
             const ghiChuList = document.getElementById('ghiChu');
 
