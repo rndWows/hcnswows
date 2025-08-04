@@ -392,7 +392,7 @@
 
             // Kiểm tra xem có VAT hay không
             const hasVAT = HOP_DONG['%VAT'] !== undefined && HOP_DONG['%VAT'] !== null && HOP_DONG['%VAT'] !== '';
-            const vatText = hasVAT ? ' (đã bao gồm VAT)' : '';
+            const vatText = hasVAT ? ' (đã bao gồm VAT)' : ' (không có VAT)';
 
             // Cập nhật thông tin thời gian thực hiện với bố cục mới
             const thoiGianHTML = `
@@ -423,12 +423,15 @@
             const thanhToanInfo = document.getElementById('thanhToanInfo');
             const account = bankAccounts[currentAccountIndex];
 
+            // Kiểm tra VAT
+            const hasVAT = HOP_DONG['%VAT'] !== undefined && HOP_DONG['%VAT'] !== null && HOP_DONG['%VAT'] !== '';
+
             let thanhToanHTML = `
-                <div class="section-title">Điều khoản thanh toán:</div>
-                <div class="indent-1">
-                    Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm tạm ứng cho hợp đồng theo các đợt như sau:
-                </div>
-            `;
+        <div class="section-title">Điều khoản thanh toán:</div>
+        <div class="indent-1">
+            Bên B Tức <span class="bold" id="benb">${KHTN['TÊN CÔNG TY'] || ''}</span> có trách nhiệm tạm ứng cho hợp đồng theo các đợt như sau:
+        </div>
+    `;
 
             for (let i = 1; i <= 4; i++) {
                 const dkttItem = DKTT.find(item => item['Lần thanh toán'] == i);
@@ -437,57 +440,60 @@
                     let soTienThanhToan = HOP_DONG['Tổng toàn bộ tiền'] * phanTramThanhToan;
 
                     thanhToanHTML += `
-                        <div class="payment-item">
-                            <div class="bold">Tạm ứng lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</div>
-                            <div class="payment-detail">
-                                Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ 
-                                <div><i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></div>
-                            </div>
-                            <div class="payment-detail">
-                                ${dkttItem['Nội dung yêu cầu'] || ''}
-                            </div>
-                        </div>
-                    `;
+                <div class="payment-item">
+                    <div class="bold">Tạm ứng lần ${i}: ${(phanTramThanhToan * 100).toFixed(0)}%</div>
+                    <div class="payment-detail">
+                        Số tiền: ${formatCurrency(soTienThanhToan)} VNĐ 
+                        <div><i>(Bằng chữ: ${numberToWords(Math.round(soTienThanhToan))} đồng)</i></div>
+                    </div>
+                    <div class="payment-detail">
+                        ${dkttItem['Nội dung yêu cầu'] || ''}
+                    </div>
+                </div>
+            `;
                 }
             }
 
             thanhToanHTML += `
-                <div class="payment-item1">
-                    <div class="payment-detail">
-                        Các đợt tạm ứng là để đảm bảo thực hiện hợp đồng cung cấp các dịch vụ
-                    </div>
-                    <div class="payment-detail">
-                        Sau khi hoàn thành dịch vụ, hai Bên không phát sinh chi phí ngoài hợp đồng thì Bên A phát hành hóa đơn tài chính gửi Bên B
-                    </div>
-                </div>
-                
-                <div class="payment-item1">
-                    <div class="bold">Thanh lý hợp đồng:</div>
-                    <div class="payment-detail">
-                        Sau khi 2 Bên xác nhận hoàn thành dịch vụ thì Bên A sẽ hoàn tất chứng từ và gửi hồ sơ thanh toán cho Bên B như sau:
-                    </div>
-                    <div class="payment-detail">
-                        <ul class="bullet-list">
-                            <li>Hóa đơn GTGT theo quy định của Nhà nước.</li>
-                            <li>Biên bản nghiệm thu, bàn giao đã hoàn thành có xác nhận đại diện 2 Bên.</li>
-                            <li>Thanh lý hợp đồng.</li>
-                        </ul>
-                    </div>
-                    <div class="payment-detail">
-                        Sau khi nhận đủ hồ sơ thanh toán như trên, Bên B sẽ kiểm tra nhận hồ sơ thanh toán. Trường hợp sau 03 ngày làm việc mà Bên A không nhận được thông tin phản hồi về hồ sơ thanh toán thì hồ sơ đó được xem là hợp lệ.
-                    </div>
-                </div>
+        <div class="payment-item1">
+            <div class="payment-detail">
+                Các đợt tạm ứng là để đảm bảo thực hiện hợp đồng cung cấp các dịch vụ
+            </div>
+            ${hasVAT ? `
+            <div class="payment-detail">
+                Sau khi hoàn thành dịch vụ, hai Bên không phát sinh chi phí ngoài hợp đồng thì Bên A phát hành hóa đơn tài chính gửi Bên B
+            </div>
+            ` : ''}
+        </div>
+        
+        <div class="payment-item1">
+            <div class="bold">Thanh lý hợp đồng:</div>
+            <div class="payment-detail">
+                Sau khi 2 Bên xác nhận hoàn thành dịch vụ thì Bên A sẽ hoàn tất chứng từ và gửi hồ sơ thanh toán cho Bên B như sau:
+            </div>
+            <div class="payment-detail">
+                <ul class="bullet-list">
+                    ${hasVAT ? `<li>Hóa đơn GTGT theo quy định của Nhà nước.</li>` : ''}
+                    <li>Biên bản nghiệm thu, bàn giao đã hoàn thành có xác nhận đại diện 2 Bên.</li>
+                    <li>Thanh lý hợp đồng.</li>
+                    <li>Biên bản thanh lý hợp đồng.</li>
+                </ul>
+            </div>
+            <div class="payment-detail">
+                Sau khi nhận đủ hồ sơ thanh toán như trên, Bên B sẽ kiểm tra nhận hồ sơ thanh toán. Trường hợp sau 03 ngày làm việc mà Bên A không nhận được thông tin phản hồi về hồ sơ thanh toán thì hồ sơ đó được xem là hợp lệ.
+            </div>
+        </div>
 
-                <div class="payment-item1">
-                    <div class="bold">Phương thức thanh toán: Chuyển khoản</div>
-                    <div class="payment-detail">
-                        <div>Số tài khoản: <span class="bold">${account.accountNumber}</span></div>
-                        <div>Tên chủ tài khoản: ${account.accountHolder}</div>
-                        <div>Ngân hàng thụ hưởng: ${account.bank}</div>
-                        <div>Chi nhánh NH thụ hưởng: ${account.branch}</div>
-                    </div>
-                </div>
-            `;
+        <div class="payment-item1">
+            <div class="bold">Phương thức thanh toán: Chuyển khoản</div>
+            <div class="payment-detail">
+                <div>Số tài khoản: <span class="bold">${account.accountNumber}</span></div>
+                <div>Tên chủ tài khoản: ${account.accountHolder}</div>
+                <div>Ngân hàng thụ hưởng: ${account.bank}</div>
+                <div>Chi nhánh NH thụ hưởng: ${account.branch}</div>
+            </div>
+        </div>
+    `;
 
             thanhToanInfo.innerHTML = thanhToanHTML;
         }
