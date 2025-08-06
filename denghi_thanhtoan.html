@@ -554,8 +554,12 @@
             // Convert amount to text
             var ttt = getUrlParameter('ttt');
             if (ttt) {
-                var amount = Number(ttt.replace(/\./g, ''));
-                document.getElementById('tttbc').textContent = convertNumberToVietnamese(amount);
+                // Loại bỏ tất cả ký tự không phải số
+                var cleanNumber = ttt.replace(/[^\d]/g, '');
+                var amount = Number(cleanNumber);
+                if (!isNaN(amount)) {
+                    document.getElementById('tttbc').textContent = convertNumberToVietnamese(amount);
+                }
             }
 
             // Lấy ngày hôm nay
