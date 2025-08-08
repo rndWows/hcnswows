@@ -54,6 +54,7 @@
     }
 
     @media print {
+
         body,
         #content {
             margin: 0;
@@ -76,6 +77,7 @@
         @page {
             size: auto;
             margin-bottom: 30px;
+
             @bottom-center {
                 content: "Trang " counter(page) " / " counter(pages);
                 font-size: 12px;
@@ -278,8 +280,8 @@
                         </tr>
                         <tr>
                             <th style="width: 30%; vertical-align: top;">Địa chỉ</th>
-                            <td style="width: 70%;">Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội
-                                Nghĩa, Thành Phố Tân Uyên, Tỉnh Bình Dương</td>
+                            <td style="width: 70%;">Thửa đất số 131, Tờ bản đồ số 7, Đường ĐT 747, Khu phố 3, Phường
+                                Bình Cơ, Thành phố Hồ Chí Minh</td>
                         </tr>
                         <tr>
                             <th style="width: 30%;">Đại diện theo pháp luật</th>
@@ -361,7 +363,8 @@
                             cần có văn bản thỏa thuận được đồng thuận từ hai phía.
                             <br> - Với những vị trí tuyển dụng đã thỏa thuận trong quá trình triển khai mà Bên B hủy bỏ:
 
-                            <br>&emsp;+ Nếu vị trí đó đã bàn giao ứng viên (lần đầu) thì Bên B thanh toán 50% phí dịch vụ.
+                            <br>&emsp;+ Nếu vị trí đó đã bàn giao ứng viên (lần đầu) thì Bên B thanh toán 50% phí dịch
+                            vụ.
 
                             <br> &emsp;+ Trường hợp khác, hai bên sẽ cùng thỏa thuận lại.
 
@@ -428,8 +431,9 @@
                         <p>
                             - Hợp đồng có thể chấm dứt khi hai bên thỏa thuận hoặc khi một bên vi phạm nghĩa vụ hợp
                             đồng.
-                            
-                            <br>- Hợp đồng tự động được thanh lý khi hai bên hoàn thành nghĩa vụ và trách nhiệm theo thỏa thuận.
+
+                            <br>- Hợp đồng tự động được thanh lý khi hai bên hoàn thành nghĩa vụ và trách nhiệm theo
+                            thỏa thuận.
 
                         </p>
 
@@ -557,7 +561,7 @@
             var value = getUrlParameter(param);
             setTextContentById(param, value);
         });
-        
+
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

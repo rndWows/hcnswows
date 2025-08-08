@@ -282,12 +282,12 @@
                     <p>- Căn cứ vào thỏa thuận giữa hai bên.</p>
                     <p>- Căn cứ HĐ số <span id="id1"></span>.</p>
                     <p><i>Hôm nay, ngày
-                        <input type="text" id="day1" class="date-input" style="width: 21px; border: none;">
-                        tháng
-                        <input type="text" id="month1" class="date-input" style="width: 21px; border: none;">
-                        năm
-                        <input type="text" id="year1" class="date-input" style="width: 40px; border: none;">
-                    </i>tại trụ sở <span id="companyName1"></span>, chúng tôi gồm có:
+                            <input type="text" id="day1" class="date-input" style="width: 21px; border: none;">
+                            tháng
+                            <input type="text" id="month1" class="date-input" style="width: 21px; border: none;">
+                            năm
+                            <input type="text" id="year1" class="date-input" style="width: 40px; border: none;">
+                        </i>tại trụ sở <span id="companyName1"></span>, chúng tôi gồm có:
                     </p>
                 </div>
 
@@ -298,8 +298,8 @@
                             <td colspan="2"><strong>Bên A: CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</strong></td>
                         </tr>
                         <tr>
-                            <td colspan="2">Địa chỉ: Thửa đất số 131, tờ bản đồ số 7, đường ĐT 747, Tổ 3, Phường Hội
-                                Nghĩa, Thành Phố Tân Uyên, Tỉnh Bình Dương</td>
+                            <td colspan="2">Địa chỉ: Thửa đất số 131, Tờ bản đồ số 7, Đường ĐT 747, Khu phố 3, Phường
+                                Bình Cơ, Thành phố Hồ Chí Minh</td>
                         </tr>
                         <tr>
                             <td>Điện thoại: 02749999899</td>
@@ -354,27 +354,28 @@
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
-                    
+
                 </table>
-                <p colspan="9"><strong>TỔNG THANH TOÁN: <span id="tongThanhToan"></span></strong> 
-                            <span id="tongThanhToanBangChu" style="font-style: italic;"></span>
+                <p colspan="9"><strong>TỔNG THANH TOÁN: <span id="tongThanhToan"></span></strong>
+                    <span id="tongThanhToanBangChu" style="font-style: italic;"></span>
                 </p>
 
-                
-                <div id="orderDetailsBody1"> 
+
+                <div id="orderDetailsBody1">
 
                 </div>
-                        
+
                 <div class="content">
-                    <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong> (bằng chữ:<span id="tongtiendaThanhToanBangChu" style="font-style: italic;"></span>)</p>
+                    <p>Số tiền bên B đã thanh toán: <strong><span id="tongtiendaThanhToan"></span></strong> (bằng
+                        chữ:<span id="tongtiendaThanhToanBangChu" style="font-style: italic;"></span>)</p>
                     <p>Kết luận: Tính đến <i>ngày
-                        <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
-                        tháng
-                        <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
-                        năm
-                        <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
-                    </i>bên B còn nợ bên A số tiền là: <strong><span id="tongtienno"></span></strong> 
-                                    (bằng chữ:<span id="tongtiennoBangChu" style="font-style: italic;"></span>)</p>
+                            <input type="text" id="day" class="date-input" style="width: 21px; border: none;">
+                            tháng
+                            <input type="text" id="month" class="date-input" style="width: 21px; border: none;">
+                            năm
+                            <input type="text" id="year" class="date-input" style="width: 40px; border: none;">
+                        </i>bên B còn nợ bên A số tiền là: <strong><span id="tongtienno"></span></strong>
+                        (bằng chữ:<span id="tongtiennoBangChu" style="font-style: italic;"></span>)</p>
                     <p>Biên bản này được lập thành 02 bản có giá trị như nhau. Mỗi bên giữ 01 bản làm cơ sở cho việc
                         thanh toán sau này giữa hai bên.
                     </p>
@@ -457,15 +458,15 @@
             `).join('');
         }
         function updateProductTable1() {
-    const detailsContainer = document.getElementById('orderDetailsBody1');
-    detailsContainer.innerHTML = LSTT.map((item, index) => `
+            const detailsContainer = document.getElementById('orderDetailsBody1');
+            detailsContainer.innerHTML = LSTT.map((item, index) => `
         <p>
             Lần thanh toán ${index + 1}:
             Ngày ${formatDate(item['Ngày thanh toán']) || 'Chưa có thông tin'}, 
             Số tiền: ${formatCurrency(item['Số tiền thanh toán'])}
         </p>
     `).join('');
-}
+        }
 
         function updateTotals() {
             document.getElementById('tongThanhToan').textContent = formatCurrency(HOP_DONG['Tong_tien_sau_VAT'] || 0);
