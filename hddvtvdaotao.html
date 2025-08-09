@@ -225,43 +225,76 @@
     }
 
     @media only screen and (max-width: 1024px) {
+
+        /* Bỏ nền xám, làm nền trắng */
+        body {
+            background: white !important;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Bỏ viền và shadow của page */
+        page {
+            box-shadow: none !important;
+            margin: 0 !important;
+            width: 100% !important;
+            padding: 0;
+        }
+
+        /* Điều chỉnh content */
+        #content {
+            padding: 15px !important;
+            margin: 0;
+        }
+
+        /* Làm nút to hơn và rõ ràng hơn */
         .fixed-button {
             display: flex !important;
             position: fixed;
-            bottom: 20px;
-            /* Tăng khoảng cách từ dưới lên */
-            right: 10px;
+            bottom: 15px;
             left: 10px;
-            /* Thêm left để căn giữa */
+            right: 10px;
             width: auto;
-            /* Thay đổi width */
             max-width: none;
-            z-index: 9999;
-            gap: 8px;
-            margin: 0 auto;
-            /* Căn giữa */
+            z-index: 10000;
+            gap: 10px;
+            padding: 0;
         }
 
         .btn-fixed {
             flex: 1;
-            padding: 12px 8px;
-            font-size: 13px;
-            white-space: nowrap;
-            /* Không cho text xuống dòng */
+            padding: 15px 10px !important;
+            /* Tăng padding để nút to hơn */
+            font-size: 16px !important;
+            /* Tăng font size */
+            font-weight: bold;
+            border-radius: 8px;
+            min-height: 50px;
+            /* Đảm bảo chiều cao tối thiểu */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            /* Thêm shadow cho nút */
         }
 
-        /* Đảm bảo page content không bị che khuất */
-        page {
-            margin-bottom: 80px;
-            /* Thêm margin bottom để tránh bị che */
-        }
-
+        /* Ẩn các element không cần thiết */
         #fixed-panel {
             display: none !important;
         }
 
         #list_option_print {
             display: none !important;
+        }
+
+        /* Điều chỉnh table để responsive hơn */
+        table {
+            font-size: 14px !important;
+        }
+
+        /* Tăng line-height cho dễ đọc */
+        #content {
+            line-height: 1.4 !important;
         }
     }
 </style>
