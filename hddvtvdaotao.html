@@ -46,21 +46,12 @@
         max-width: 200px;
         display: flex;
         gap: 10px;
+        z-index: 9999;
+        /* Thêm z-index cao để nút luôn hiển thị trên cùng */
     }
 
     .btn-fixed {
         flex: 1;
-    }
-
-    .fixed-button {
-        position: fixed;
-        bottom: 20px;
-        /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
-        right: 20px;
-        /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
-        width: 100%;
-        max-width: 200px;
-        /* Điều chỉnh chiều rộng tối đa của button */
     }
 
     @media print {
@@ -221,7 +212,50 @@
         margin-bottom: 5px !important
     }
 
+    .fixed-button {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 100%;
+        max-width: 200px;
+        display: flex;
+        gap: 10px;
+        z-index: 9999;
+        /* Thêm z-index cao để nút luôn hiển thị trên cùng */
+    }
+
     @media only screen and (max-width: 1024px) {
+        .fixed-button {
+            display: flex !important;
+            position: fixed;
+            bottom: 20px;
+            /* Tăng khoảng cách từ dưới lên */
+            right: 10px;
+            left: 10px;
+            /* Thêm left để căn giữa */
+            width: auto;
+            /* Thay đổi width */
+            max-width: none;
+            z-index: 9999;
+            gap: 8px;
+            margin: 0 auto;
+            /* Căn giữa */
+        }
+
+        .btn-fixed {
+            flex: 1;
+            padding: 12px 8px;
+            font-size: 13px;
+            white-space: nowrap;
+            /* Không cho text xuống dòng */
+        }
+
+        /* Đảm bảo page content không bị che khuất */
+        page {
+            margin-bottom: 80px;
+            /* Thêm margin bottom để tránh bị che */
+        }
+
         #fixed-panel {
             display: none !important;
         }
