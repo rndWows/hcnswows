@@ -245,37 +245,46 @@
         #content {
             padding: 15px !important;
             margin: 0;
+            padding-bottom: 100px !important;
+            /* Tăng bottom để không bị che nút */
         }
 
-        /* Làm nút to hơn và rõ ràng hơn */
+        /* Làm nút TO HƠN */
         .fixed-button {
             display: flex !important;
             position: fixed;
             bottom: 15px;
-            left: 10px;
-            right: 10px;
+            left: 15px;
+            right: 15px;
             width: auto;
             max-width: none;
             z-index: 10000;
-            gap: 10px;
+            gap: 15px;
             padding: 0;
         }
 
         .btn-fixed {
             flex: 1;
-            padding: 15px 10px !important;
-            /* Tăng padding để nút to hơn */
-            font-size: 16px !important;
-            /* Tăng font size */
+            padding: 20px 15px !important;
+            /* Tăng padding lên 20px */
+            font-size: 18px !important;
+            /* Tăng font size lên 18px */
             font-weight: bold;
-            border-radius: 8px;
-            min-height: 50px;
-            /* Đảm bảo chiều cao tối thiểu */
+            border-radius: 10px;
+            min-height: 60px !important;
+            /* Tăng chiều cao lên 60px */
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-            /* Thêm shadow cho nút */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        /* Làm icon to hơn */
+        .btn-fixed i {
+            font-size: 20px !important;
+            margin-right: 8px;
         }
 
         /* Ẩn các element không cần thiết */
@@ -285,16 +294,6 @@
 
         #list_option_print {
             display: none !important;
-        }
-
-        /* Điều chỉnh table để responsive hơn */
-        table {
-            font-size: 14px !important;
-        }
-
-        /* Tăng line-height cho dễ đọc */
-        #content {
-            line-height: 1.4 !important;
         }
     }
 </style>
