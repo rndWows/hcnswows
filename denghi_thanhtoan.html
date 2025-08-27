@@ -376,46 +376,36 @@
     <script src="https://cdn.centeronline.edu.vn/js/customer.js" type="text/javascript"></script>
 
     <script>
-        // New function to convert numbers to Vietnamese text
         function convertNumberToVietnamese(number) {
             if (number === 0) return "Không đồng";
 
             const units = ["", "một", "hai", "ba", "bốn", "năm", "sáu", "bảy", "tám", "chín"];
-            const teens = ["", "mười một", "mười hai", "mười ba", "mười bốn", "mười lăm", "mười sáu", "mười bảy", "mười tám", "mười chín"];
             const tens = ["", "mười", "hai mươi", "ba mươi", "bốn mươi", "năm mươi", "sáu mươi", "bảy mươi", "tám mươi", "chín mươi"];
-            const scales = ["", "nghìn", "triệu", "tỷ", "nghìn tỷ", "triệu tỷ"];
+            const scales = ["", "nghìn", "triệu", "tỷ"];
 
             function readGroup(triplet) {
                 let result = "";
 
-                // Read hundreds
+                // Đọc hàng trăm
                 if (triplet[0] !== 0) {
                     result += units[triplet[0]] + " trăm ";
-                    if (triplet[1] === 0 && triplet[2] !== 0) {
-                        result += "lẻ ";
-                    }
                 }
 
-                // Read tens and units
+                // Đọc hàng chục và đơn vị
                 if (triplet[1] !== 0) {
                     if (triplet[1] === 1) {
-                        if (triplet[2] === 0) {
-                            result += "mười ";
-                        } else {
-                            result += "mười " + (triplet[2] === 5 ? "lăm " : units[triplet[2]] + " ");
+                        result += "mười ";
+                        if (triplet[2] !== 0) {
+                            result += triplet[2] === 5 ? "lăm " : units[triplet[2]] + " ";
                         }
                     } else {
                         result += tens[triplet[1]] + " ";
-                        if (triplet[2] === 1) {
-                            result += "mốt ";
-                        } else if (triplet[2] === 5) {
-                            result += "lăm ";
-                        } else if (triplet[2] !== 0) {
-                            result += units[triplet[2]] + " ";
+                        if (triplet[2] !== 0) {
+                            result += triplet[2] === 1 ? "mốt " : triplet[2] === 5 ? "lăm " : units[triplet[2]] + " ";
                         }
                     }
                 } else if (triplet[2] !== 0) {
-                    result += "lẻ " + units[triplet[2]] + " ";
+                    result += units[triplet[2]] + " ";
                 }
 
                 return result;
@@ -424,28 +414,23 @@
             let result = "";
             let numStr = Math.floor(number).toString();
 
-            // Pad with zeros to make length multiple of 3
+            // Thêm số 0 để đảm bảo độ dài là bội số của 3
             while (numStr.length % 3 !== 0) {
                 numStr = "0" + numStr;
             }
 
-            // Process each group of 3 digits
             const groups = numStr.match(/.{3}/g);
 
             for (let i = 0; i < groups.length; i++) {
                 const group = groups[i];
                 const triplet = [parseInt(group[0]), parseInt(group[1]), parseInt(group[2])];
 
-                // Skip empty groups
-                if (triplet[0] === 0 && triplet[1] === 0 && triplet[2] === 0) {
-                    continue;
-                }
+                if (triplet[0] === 0 && triplet[1] === 0 && triplet[2] === 0) continue;
 
                 result += readGroup(triplet) + scales[groups.length - i - 1] + " ";
             }
 
             result = result.trim();
-            // Capitalize first letter
             result = result.charAt(0).toUpperCase() + result.slice(1);
 
             return result + " đồng";
