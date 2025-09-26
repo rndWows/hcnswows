@@ -29,13 +29,34 @@
 
         .fixed-button {
             position: fixed;
-            bottom: 20px;
-            /* Điều chỉnh vị trí từ dưới lên, bạn có thể thay đổi giá trị này */
+            top: 20px;
+            /* Thay đổi từ bottom thành top */
             right: 20px;
-            /* Điều chỉnh vị trí từ phải sang, bạn có thể thay đổi giá trị này */
             width: 100%;
             max-width: 200px;
-            /* Điều chỉnh chiều rộng tối đa của button */
+            padding: 10px 15px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white;
+            background-color: #17a2b8;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            /* Đảm bảo nút luôn nằm trên các phần tử khác */
+        }
+
+        .fixed-button:hover {
+            background-color: #138496;
+            transform: translateY(3px);
+            /* Thay đổi hướng hiệu ứng hover */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .fixed-button:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
         }
 
         page {
