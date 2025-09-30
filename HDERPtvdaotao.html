@@ -104,17 +104,18 @@
             }
         }
 
-        /* Đảm bảo bảng chữ ký luôn ở cuối trang */
-        .signature-table {
-            page-break-before: auto;
-            margin-top: auto;
-            position: relative;
+        /* Thay vào đó, sử dụng CSS này để giữ chữ ký ở cuối trang hiện tại */
+        .signature-section {
+            margin-top: 40px;
+            page-break-inside: avoid;
+            /* Tránh chia cắt bảng chữ ký */
         }
 
-        /* Nếu muốn bảng chữ ký luôn ở trang mới */
-        .signature-section {
-            page-break-before: always;
-            margin-top: 0;
+        /* Đảm bảo bảng chữ ký không bị ngắt */
+        .signature-table {
+            page-break-inside: avoid;
+            page-break-before: auto;
+            /* Chỉ chuyển trang nếu thực sự cần */
         }
 
         /* Hoặc đẩy bảng chữ ký xuống cuối trang hiện tại */
@@ -669,8 +670,7 @@
             <br>
 
             <!-- Thêm class để điều khiển vị trí bảng chữ ký -->
-            <div class="signature-section"> <!-- Dùng class này nếu muốn bảng chữ ký ở trang mới -->
-                <!-- Hoặc dùng <div class="push-to-bottom"> nếu muốn đẩy xuống cuối trang hiện tại -->
+            <div class="signature-section">
                 <table style="width: 100%; text-align: center;" class="signature-table">
                     <tr>
                         <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
