@@ -75,9 +75,18 @@
         font-weight: bold;
     }
 
+    .contract-copies-display {
+        display: none;
+        font-weight: bold;
+    }
+
     @media print {
         .contract-copies-input {
-            border: none !important;
+            display: none !important;
+        }
+
+        .contract-copies-display {
+            display: inline !important;
         }
     }
 
@@ -680,6 +689,7 @@
             <br>
             <i>Hợp Đồng này được lập thành
                 <input type="number" id="contractCopies" class="contract-copies-input" value="02" min="1" max="99">
+                <span id="contractCopiesDisplay" class="contract-copies-display">02</span>
                 (<span id="contractCopiesText">hai</span>) bản với giá trị như nhau.
                 Được thực hiện và có hiệu lực kể từ ngày ký.
             </i>
@@ -885,10 +895,12 @@
         document.addEventListener('DOMContentLoaded', function () {
             const contractCopiesInput = document.getElementById('contractCopies');
             const contractCopiesText = document.getElementById('contractCopiesText');
+            const contractCopiesDisplay = document.getElementById('contractCopiesDisplay');
 
-            if (contractCopiesInput && contractCopiesText) {
+            if (contractCopiesInput && contractCopiesText && contractCopiesDisplay) {
                 // Khởi tạo giá trị ban đầu
                 contractCopiesText.textContent = numberToVietnamese(parseInt(contractCopiesInput.value));
+                contractCopiesDisplay.textContent = contractCopiesInput.value;
 
                 // Lắng nghe sự kiện thay đổi
                 contractCopiesInput.addEventListener('input', function () {
@@ -899,10 +911,12 @@
                     if (value > 99) value = 99;
 
                     // Đảm bảo hiển thị 2 chữ số
-                    this.value = value < 10 ? '0' + value : value;
+                    const displayValue = value < 10 ? '0' + value : value.toString();
+                    this.value = displayValue;
 
-                    // Cập nhật chữ
+                    // Cập nhật chữ và số hiển thị khi in
                     contractCopiesText.textContent = numberToVietnamese(value);
+                    contractCopiesDisplay.textContent = displayValue;
                 });
 
                 // Xử lý khi blur (rời khỏi input)
@@ -911,9 +925,11 @@
                     if (isNaN(value) || value < 1) {
                         this.value = '02';
                         contractCopiesText.textContent = 'hai';
+                        contractCopiesDisplay.textContent = '02';
                     }
                 });
             }
         });
+
     </script>
 </body>
