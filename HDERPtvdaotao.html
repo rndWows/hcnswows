@@ -67,6 +67,20 @@
         /* Điều chỉnh chiều rộng tối đa của button */
     }
 
+    .contract-copies-input {
+        width: 40px;
+        border: none;
+        border-bottom: 1px solid #333;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    @media print {
+        .contract-copies-input {
+            border: none !important;
+        }
+    }
+
     @media print {
 
         body,
@@ -664,8 +678,11 @@
 
             </div>
             <br>
-            <i>Hợp Đồng này được lập thành 02 (hai) bản với giá trị như nhau. Được thực hiện và có hiệu lực kể từ
-                ngày ký.</i>
+            <i>Hợp Đồng này được lập thành
+                <input type="number" id="contractCopies" class="contract-copies-input" value="02" min="1" max="99">
+                (<span id="contractCopiesText">hai</span>) bản với giá trị như nhau.
+                Được thực hiện và có hiệu lực kể từ ngày ký.
+            </i>
             <br>
             <br>
 
@@ -835,10 +852,68 @@
             });
         });
 
+        // Hàm chuyển đổi số sang chữ tiếng Việt
+        function numberToVietnamese(num) {
+            const ones = ['', 'một', 'hai', 'ba', 'bốn', 'năm', 'sáu', 'bảy', 'tám', 'chín'];
+            const tens = ['', 'mười', 'hai mươi', 'ba mươi', 'bốn mươi', 'năm mươi', 'sáu mươi', 'bảy mươi', 'tám mươi', 'chín mươi'];
 
+            if (num < 1 || num > 99) return '';
 
+            if (num < 10) {
+                return ones[num];
+            } else if (num < 20) {
+                if (num === 10) return 'mười';
+                if (num === 15) return 'mười lăm';
+                return 'mười ' + ones[num % 10];
+            } else {
+                const ten = Math.floor(num / 10);
+                const one = num % 10;
 
+                if (one === 0) {
+                    return tens[ten];
+                } else if (one === 1) {
+                    return tens[ten] + ' mốt';
+                } else if (one === 5 && ten > 1) {
+                    return tens[ten] + ' lăm';
+                } else {
+                    return tens[ten] + ' ' + ones[one];
+                }
+            }
+        }
 
+        // Cập nhật số lượng bản hợp đồng
+        document.addEventListener('DOMContentLoaded', function () {
+            const contractCopiesInput = document.getElementById('contractCopies');
+            const contractCopiesText = document.getElementById('contractCopiesText');
 
+            if (contractCopiesInput && contractCopiesText) {
+                // Khởi tạo giá trị ban đầu
+                contractCopiesText.textContent = numberToVietnamese(parseInt(contractCopiesInput.value));
+
+                // Lắng nghe sự kiện thay đổi
+                contractCopiesInput.addEventListener('input', function () {
+                    let value = parseInt(this.value);
+
+                    // Giới hạn giá trị từ 1 đến 99
+                    if (value < 1) value = 1;
+                    if (value > 99) value = 99;
+
+                    // Đảm bảo hiển thị 2 chữ số
+                    this.value = value < 10 ? '0' + value : value;
+
+                    // Cập nhật chữ
+                    contractCopiesText.textContent = numberToVietnamese(value);
+                });
+
+                // Xử lý khi blur (rời khỏi input)
+                contractCopiesInput.addEventListener('blur', function () {
+                    let value = parseInt(this.value);
+                    if (isNaN(value) || value < 1) {
+                        this.value = '02';
+                        contractCopiesText.textContent = 'hai';
+                    }
+                });
+            }
+        });
     </script>
 </body>
