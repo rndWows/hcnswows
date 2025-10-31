@@ -34,7 +34,7 @@
             const account = bankAccounts[currentAccountIndex];
             const paymentInfo = document.querySelector('.payment-info');
             const paragraphs = paymentInfo.querySelectorAll('p');
-            
+
             paragraphs[0].innerText = `- Số tài khoản: ${account.accountNumber}`;
             paragraphs[1].innerText = `- Ngân hàng: ${account.bank}`;
             paragraphs[2].innerText = `- Chủ tài khoản: ${account.accountHolder}`;
@@ -173,7 +173,7 @@
 
             // Update signing date
             document.getElementById('contractDate').innerText =
-                `Căn cứ hợp đồng ${params.soHD} ký ngày ${params.ngayKy}`;
+                `Trước tiên, chúng tôi chân thành cảm ơn Quý công ty đã tin tưởng và lựa chọn WOWS là đơn vị đồng hành trong công tác chuyển đổi số các hoạt động của DN, căn cứ theo hợp đồng ${params.soHD} ký ngày ${params.ngayKy}`;
 
             // Update payment deadline
             document.getElementById('paymentDeadline').innerText =
@@ -415,7 +415,9 @@
             <b id="recipientCompany">Kính gửi: CÔNG TY.....</b>
         </div>
 
-        <p id="contractDate" class="indent">Căn cứ hợp đồng..... ký ngày......</p>
+        <p id="contractDate" class="indent">Trước tiên, chúng tôi chân thành cảm ơn Quý công ty đã tin tưởng và lựa chọn
+            WOWS là đơn vị đồng hành trong công tác chuyển đổi số các hoạt động của DN, căn cứ theo hợp đồng ..... ký
+            ngày......</p>
 
         <p class="indent">Nay, chúng tôi đề nghị quý công ty <span id="companyName" class="bold-text"></span> thanh toán
             phí duy trì phần mềm:
