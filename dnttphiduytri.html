@@ -143,12 +143,12 @@
                 const dateParts = params.ngayDeNghi.split('/');
                 if (dateParts.length === 3) {
                     document.querySelector('.date').innerText =
-                        `Bình Dương, ngày ${dateParts[0]} tháng ${dateParts[1]} năm ${dateParts[2]}`;
+                        `Thành phố Hồ Chí Minh, ngày ${dateParts[0]} tháng ${dateParts[1]} năm ${dateParts[2]}`;
                 }
             } else {
                 const today = new Date();
                 document.querySelector('.date').innerText =
-                    `Bình Dương, ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
+                    `Thành phố Hồ Chí Minh, ngày ${today.getDate()} tháng ${today.getMonth() + 1} năm ${today.getFullYear()}`;
             }
 
             // Update contract number
@@ -401,7 +401,7 @@
         <div class="right-header">
             <div class="republic">CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM</div>
             <div class="independence">Độc lập - Tự do - Hạnh phúc</div>
-            <div class="date">Bình Dương, ngày ... tháng ... năm ...</div>
+            <div class="date">Thành phố Hồ Chí Minh, ngày ... tháng ... năm ...</div>
         </div>
     </div>
 
