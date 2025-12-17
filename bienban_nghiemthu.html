@@ -482,7 +482,6 @@
 
             .header-center {
                 text-align: center;
-                font-weight: bold;
             }
 
             #sequenceNumber {
@@ -742,22 +741,20 @@
                 <p class="bold">Kiểm tra thực tế thông tin tính năng của sản phẩm dịch vụ theo danh mục:</p>
 
                 <table class="table table-bordered">
-                    <thead class="center-content">
-                        <tr>
-                            <th class="center col-stt" rowspan="2">STT</th>
-                            <th class="col-ten-sp" rowspan="2">Tên sản phẩm</th>
-                            <th class="col-quy-cach" rowspan="2">Mô tả sản phẩm</th>
-                            <th class="col-dvt" rowspan="2">Đơn vị tính</th>
-                            <th class="col-so-luong" rowspan="2">Slg</th>
-                            <th class="col-link" rowspan="2">Link bàn giao (Nếu có)</th>
-                            <th class="col-thoi-gian" colspan="2">Thời gian thử</th>
-                            <th class="col-nghiem-thu" rowspan="2">Kết quả nghiệm thu</th>
-                        </tr>
-                        <tr>
-                            <th>Bắt đầu</th>
-                            <th>Hoàn thành</th>
-                        </tr>
-                    </thead>
+                    <tr>
+                        <th class="center col-stt" rowspan="2">STT</th>
+                        <th class="col-ten-sp" rowspan="2">Tên sản phẩm</th>
+                        <th class="col-quy-cach" rowspan="2">Mô tả sản phẩm</th>
+                        <th class="col-dvt" rowspan="2">Đơn vị tính</th>
+                        <th class="col-so-luong" rowspan="2">Slg</th>
+                        <th class="col-link" rowspan="2">Link bàn giao (Nếu có)</th>
+                        <th class="col-thoi-gian" colspan="2">Thời gian thử</th>
+                        <th class="col-nghiem-thu" rowspan="2">Kết quả nghiệm thu</th>
+                    </tr>
+                    <tr>
+                        <th>Bắt đầu</th>
+                        <th>Hoàn thành</th>
+                    </tr>
                     <tbody id="orderDetailsBody">
                         <!-- Dữ liệu sẽ được điền vào đây bằng JavaScript -->
                     </tbody>
@@ -808,10 +805,187 @@
         var KHTN = {};
         var DKTT = [];
 
+        // KEY lưu localStorage
+        const STORAGE_KEY = 'bien_ban_nghiem_thu_data';
+
+        // ====== Hàm localStorage ======
+
+        // Thu thập dữ liệu từ form để lưu
+        function collectFormData() {
+            const data = {};
+
+            // 1. Toàn bộ .date-input
+            document.querySelectorAll('.date-input').forEach(input => {
+                if (input.id) {
+                    data[input.id] = input.value || '';
+                }
+            });
+
+            // 2. sequenceNumber, participant-input, link-bangiao, nguoi-tiepnhan
+            document.querySelectorAll('#sequenceNumber, .participant-input, .link-bangiao, .nguoi-tiepnhan').forEach(input => {
+                let key = '';
+                if (input.id) {
+                    key = input.id;
+                } else {
+                    // tạo key theo class chính + index
+                    const cls = input.classList[0];
+                    const list = document.querySelectorAll('.' + cls);
+                    const idx = Array.from(list).indexOf(input);
+                    key = cls + '_' + idx;
+                }
+                data[key] = input.value || '';
+            });
+
+            // 3. Checkbox kết quả nghiệm thu
+            const checkboxStates = [];
+            document.querySelectorAll('.ket-quanghiemthu').forEach((cb, index) => {
+                checkboxStates[index] = cb.checked;
+            });
+            data['ket_qua_checkbox'] = checkboxStates;
+
+            // 4. Chữ ký footer
+            const signatureInputs = document.querySelectorAll('.signature-input.no-print');
+            signatureInputs.forEach((input, index) => {
+                data['signature_' + index] = input.value || '';
+            });
+
+            // 5. Số hợp đồng (input trong span #id nếu có)
+            const idSpan = document.getElementById('id');
+            if (idSpan) {
+                const idInput = idSpan.querySelector('input');
+                if (idInput) {
+                    data['so_hop_dong'] = idInput.value || '';
+                }
+            }
+
+            return data;
+        }
+
+        // Đổ dữ liệu từ localStorage vào form
+        function fillFormData(data) {
+            if (!data) return;
+
+            // 1. date-input
+            document.querySelectorAll('.date-input').forEach(input => {
+                if (input.id && data.hasOwnProperty(input.id)) {
+                    input.value = data[input.id];
+                    const printSpan = document.getElementById(input.id + '-print');
+                    if (printSpan) {
+                        printSpan.textContent = input.value;
+                    }
+                }
+            });
+
+            // Cập nhật dynamicDate sau khi có day1 / month1
+            updateDynamicDate();
+
+            // 2. sequenceNumber, participant-input, link-bangiao, nguoi-tiepnhan
+            document.querySelectorAll('#sequenceNumber, .participant-input, .link-bangiao, .nguoi-tiepnhan').forEach(input => {
+                let key = '';
+                if (input.id) {
+                    key = input.id;
+                } else {
+                    const cls = input.classList[0];
+                    const list = document.querySelectorAll('.' + cls);
+                    const idx = Array.from(list).indexOf(input);
+                    key = cls + '_' + idx;
+                }
+
+                if (data.hasOwnProperty(key)) {
+                    input.value = data[key];
+                    const printSpan = input.nextElementSibling;
+                    if (printSpan && printSpan.classList.contains('print-only')) {
+                        printSpan.textContent = input.value;
+                    }
+                }
+            });
+
+            // 3. Checkbox kết quả nghiệm thu
+            if (Array.isArray(data['ket_qua_checkbox'])) {
+                document.querySelectorAll('.ket-quanghiemthu').forEach((cb, index) => {
+                    const state = data['ket_qua_checkbox'][index];
+                    if (typeof state === 'boolean') {
+                        cb.checked = state;
+                        const printSpan = cb.closest('td').querySelector('.ket-qua-text');
+                        if (printSpan) {
+                            printSpan.textContent = state ? 'Đạt' : 'Không đạt';
+                        }
+                    }
+                });
+            }
+
+            // 4. Chữ ký footer
+            const signatureInputs = document.querySelectorAll('.signature-input.no-print');
+            signatureInputs.forEach((input, index) => {
+                const key = 'signature_' + index;
+                if (data.hasOwnProperty(key)) {
+                    input.value = data[key];
+                    const printP = input.parentElement.querySelector('.print-only.signature-text');
+                    if (printP) {
+                        printP.textContent = input.value;
+                    }
+                }
+            });
+
+            // 5. Số hợp đồng
+            const idSpan = document.getElementById('id');
+            if (idSpan && data.hasOwnProperty('so_hop_dong')) {
+                const idInput = idSpan.querySelector('input');
+                const printSpan = idSpan.querySelector('.print-only');
+                if (idInput) {
+                    idInput.value = data['so_hop_dong'];
+                    if (printSpan) {
+                        printSpan.textContent = idInput.value;
+                    }
+                }
+            }
+
+            // 6. Cập nhật ẩn/hiện dòng trống
+            hideEmptyRows();
+        }
+
+        function saveToLocalStorage() {
+            try {
+                const data = collectFormData();
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                console.log('💾 Đã lưu dữ liệu biên bản vào localStorage');
+            } catch (e) {
+                console.error('❌ Lỗi khi lưu localStorage:', e);
+            }
+        }
+
+        function restoreFromLocalStorage() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) {
+                    console.log('ℹ️ Chưa có dữ liệu lưu trong localStorage');
+                    return;
+                }
+                const data = JSON.parse(raw);
+                fillFormData(data);
+                console.log('📥 Đã khôi phục dữ liệu từ localStorage');
+            } catch (e) {
+                console.error('❌ Lỗi khi đọc localStorage:', e);
+            }
+        }
+
+        function attachAutoSave() {
+            const selectors = '.date-input, #sequenceNumber, .participant-input, .link-bangiao, .nguoi-tiepnhan, .ket-quanghiemthu, .signature-input.no-print';
+            document.querySelectorAll(selectors).forEach(el => {
+                if (!el.hasAttribute('data-save-listener')) {
+                    const eventName = (el.type === 'checkbox') ? 'change' : 'input';
+                    el.addEventListener(eventName, saveToLocalStorage);
+                    el.setAttribute('data-save-listener', 'true');
+                }
+            });
+        }
+
+        // ====== Các hàm cũ ======
+
         // Function để cập nhật dynamic date
         function updateDynamicDate() {
-            const day1 = document.getElementById('day1').value.padStart(2, '0');
-            const month1 = document.getElementById('month1').value.padStart(2, '0');
+            const day1 = (document.getElementById('day1')?.value || '').toString().padStart(2, '0');
+            const month1 = (document.getElementById('month1')?.value || '').toString().padStart(2, '0');
             const dynamicDateEl = document.getElementById('dynamicDate');
 
             if (day1 && month1 && dynamicDateEl) {
@@ -825,17 +999,13 @@
             dateInputs.forEach(input => {
                 const printSpan = document.getElementById(input.id + '-print');
                 if (printSpan) {
-                    // Cập nhật giá trị print khi input thay đổi
                     input.addEventListener('input', function () {
                         printSpan.textContent = this.value;
-
-                        // Cập nhật dynamic date nếu là day1 hoặc month1
                         if (input.id === 'day1' || input.id === 'month1') {
                             updateDynamicDate();
                         }
                     });
 
-                    // Cập nhật giá trị print ban đầu
                     if (input.value) {
                         printSpan.textContent = input.value;
                     }
@@ -855,7 +1025,6 @@
                         printSpan.textContent = this.value;
                     });
 
-                    // Cập nhật giá trị print ban đầu
                     if (input.value) {
                         printSpan.textContent = input.value;
                     }
@@ -891,7 +1060,6 @@
 
             participantInputs.forEach(input => {
                 input.addEventListener('input', function () {
-                    // Cập nhật trạng thái empty cho hàng này
                     const row = this.closest('.participant-row');
                     const inputs = row.querySelectorAll('input');
                     let isEmpty = true;
@@ -996,6 +1164,9 @@
                 console.log('🔗 Thêm event listeners...');
                 addInputListeners();
 
+                // gắn auto-save cho các input mới
+                attachAutoSave();
+
                 console.log('📝 Cập nhật footer...');
                 updateFooter();
 
@@ -1027,33 +1198,33 @@
                     console.log(`📦 Xử lý item ${index}:`, item);
 
                     return `
-                     <tr>
-                         <td class="center">${index + 1}</td>
-                         <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
-                         <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
-                         <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
-                         <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
-                         <td class="preserve-format">
-                             <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
-                             <span class="print-only">${item['Link_bangiao'] || ''}</span>
-                         </td>
-                         <td>
-                             <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
-                             <span class="print-only"></span>
-                         </td>
-                         <td>
-                             <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
-                             <span class="print-only"></span>
-                         </td>
-                         <td class="center">
-                             <label class="checkbox-container no-print">
-                                 <input type="checkbox" class="form-control ket-quanghiemthu">
-                                 <span class="checkmark"></span>
-                             </label>
-                             <span class="print-only ket-qua-text">Chưa kiểm tra</span>
-                         </td>
-                     </tr>
-                 `;
+                        <tr>
+                            <td class="center">${index + 1}</td>
+                            <td>${item['Ten_hang_hoa/dich_vu'] || item['Tên sản phẩm'] || ''}</td>
+                            <td class="preserve-format">${item['Chi_tiet_hang_hoa'] || item['Mô tả'] || ''}</td>
+                            <td>${item['DVT'] || item['Đơn vị tính'] || ''}</td>
+                            <td class="center">${item['So_luong'] || item['Số lượng'] || ''}</td>
+                            <td class="preserve-format">
+                                <input type="text" class="form-control link-bangiao" value="${item['Link_bangiao'] || ''}" placeholder="Link bàn giao">
+                                <span class="print-only">${item['Link_bangiao'] || ''}</span>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Từ ngày" value="">
+                                <span class="print-only"></span>
+                            </td>
+                            <td>
+                                <input type="text" class="form-control nguoi-tiepnhan" placeholder="Đến ngày" value="">
+                                <span class="print-only"></span>
+                            </td>
+                            <td class="center">
+                                <label class="checkbox-container no-print">
+                                    <input type="checkbox" class="form-control ket-quanghiemthu">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <span class="print-only ket-qua-text">Chưa kiểm tra</span>
+                            </td>
+                        </tr>
+                    `;
                 }).join('');
 
                 tableBody.innerHTML = htmlContent;
@@ -1069,12 +1240,10 @@
             console.log('🔗 Đang thêm event listeners...');
 
             try {
-                // Chỉ thêm listener cho các element mới, tránh duplicate
                 const inputs = document.querySelectorAll('.link-bangiao, .nguoi-tiepnhan');
                 console.log('📝 Tìm thấy', inputs.length, 'inputs');
 
                 inputs.forEach((input, index) => {
-                    // Kiểm tra xem đã có listener chưa
                     if (!input.hasAttribute('data-listener-added')) {
                         const printSpan = input.nextElementSibling;
                         if (printSpan && printSpan.classList.contains('print-only')) {
@@ -1119,37 +1288,37 @@
                 if (!footerInfo) return;
 
                 let footerHTML = `
-                 <table style="width: 100%; text-align: center;">
-                     <tbody>
-                         <tr>
-                             <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
-                             <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
-                         </tr>
-                         <tr>
-                             <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
-                             <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
-                         </tr>
-                         <tr>
-                             <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                             <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
-                         </tr>
-                         <tr>
-                             <td>
-                                 <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                                 <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
-                             </td>
-                             <td>
-                                 <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
-                                 <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td><i>Ngày ký: ..............................</i></td>
-                             <td><i>Ngày ký: ..............................</i></td>
-                         </tr>
-                     </tbody>
-                 </table>
-             `;
+                    <table style="width: 100%; text-align: center;">
+                        <tbody>
+                            <tr>
+                                <td style="width: 50%;"><span class="bold">Đại diện đơn vị cung cấp</span></td>
+                                <td style="width: 50%;"><span class="bold">Đại diện chủ đầu tư</span></td>
+                            </tr>
+                            <tr>
+                                <td style="width: 50%;"><span class="bold">CÔNG TY CỔ PHẦN TẬP ĐOÀN WOWS</span></td>
+                                <td style="width: 50%;"><span class="bold">${KHTN['TÊN CÔNG TY'] || 'TÊN CÔNG TY'}</span></td>
+                            </tr>
+                            <tr>
+                                <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                                <td>(Ký, đóng dấu và ghi rõ họ tên) <br><br><br><br><br><br></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <input type="text" class="bold signature-input no-print" value="BÀ ĐỖ THỊ KIM THỦY" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                    <p class="bold print-only signature-text">BÀ ĐỖ THỊ KIM THỦY</p>
+                                </td>
+                                <td>
+                                    <input type="text" class="bold signature-input no-print" value="${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}" style="text-align: center; width: 100%; border: none; border-bottom: 1px solid #ccc;">
+                                    <p class="bold print-only signature-text">${KHTN['NGƯỜI LIÊN HỆ'] || 'NGƯỜI LIÊN HỆ'}</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><i>Ngày ký: ..............................</i></td>
+                                <td><i>Ngày ký: ..............................</i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                `;
 
                 footerInfo.innerHTML = footerHTML;
 
@@ -1192,7 +1361,6 @@
                 var month = today.getMonth() + 1;
                 var year = today.getFullYear();
 
-                // Điền ngày hôm nay
                 const dateFields = ['day1', 'month1', 'year1', 'day2', 'month2', 'year2', 'day3', 'month3', 'year3'];
                 dateFields.forEach(fieldId => {
                     const field = document.getElementById(fieldId);
@@ -1242,6 +1410,12 @@
                 // Kiểm tra hàng trống ban đầu
                 hideEmptyRows();
 
+                // Khôi phục dữ liệu đã lưu (nếu có)
+                restoreFromLocalStorage();
+
+                // Gắn auto-save cho các input có sẵn
+                attachAutoSave();
+
                 // Tìm kiếm hợp đồng từ URL
                 const urlParams = new URLSearchParams(window.location.search);
                 const soBG = urlParams.get('SOBG');
@@ -1249,7 +1423,6 @@
                 console.log('🔍 SOBG từ URL:', soBG);
 
                 if (soBG) {
-                    // Delay một chút để đảm bảo trang đã render xong
                     setTimeout(() => {
                         searchContract(soBG);
                     }, 100);
